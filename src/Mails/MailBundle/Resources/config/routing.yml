@@ -1,0 +1,79 @@
+mails_mail_mailsent_detail:
+    path:      /mailsent/{id}
+    defaults: { _controller: MailsMailBundle:Mail:viewMailsent }
+    requirements:
+        id: \d+
+        
+mails_mail_mailreceived_detail:
+    path:      /mailreceived/{id}
+    defaults: { _controller: MailsMailBundle:Mail:viewMailreceived }
+    requirements:
+        page: \d+
+
+mails_mail_mailsent:
+    path:     /sent/{page}
+    defaults: { _controller: MailsMailBundle:Mail:indexMailsent, page: 1 }
+    requirements:
+        page: \d*
+        
+mails_mail_mailreceived:
+    path:     /received/{page}
+    defaults: { _controller: MailsMailBundle:Mail:indexMailreceived, page: 1 }
+    requirements:
+        page: \d*
+
+mails_mail_mailreceived_add:
+    path:     /mailreceived/add/
+    defaults: { _controller: MailsMailBundle:Mail:addMailreceived }
+ 
+mails_mail_mailreceived_delete:
+    path:     /mailreceived/delete/{id}
+    defaults: { _controller: MailsMailBundle:Mail:deleteMailreceived }
+    requirements:
+        id: \d+
+  
+mails_mail_mailsent_add:
+    path:     /mailsent/add/
+    defaults: { _controller: MailsMailBundle:Mail:addMailsent }  
+       
+mails_mail_mailsent_delete:
+    path:     /mailsent/delete/{id}
+    defaults: { _controller: MailsMailBundle:Mail:deleteMailsent }  
+    requirements:
+        id: \d+
+    
+mails_mail_actor_add:
+    path:     /actor/add
+    defaults: { _controller: MailsMailBundle:Mail:addActor }
+        
+mails_mail_actor:
+    path:     /mails/actor/{id}
+    defaults: { _controller: MailsMailBundle:Mail:mailActor }
+    requirements:
+        id: \d+
+    
+mails_mail_user:
+    path:     /mails/user/{id}
+    defaults: { _controller: MailsMailBundle:Mail:mailUser }
+    requirements:
+        id: \d+
+        
+mails_admin_mailsent_registration:
+    path:      /register/mailsent/{id}
+    defaults: { _controller: MailsMailBundle:Mail:registerMailsent }
+    requirements:
+        id: \d+
+        
+mails_admin_mailreceived_registration:
+    path:      /register/mailreceived/{id}
+    defaults: { _controller: MailsMailBundle:Mail:registerMailreceived }
+    requirements:
+        id: \d+ 
+        
+
+
+    
+
+    
+
+        

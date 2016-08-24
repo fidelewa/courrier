@@ -1,0 +1,121 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}{{ mail.objet }}{% endblock %}
+
+{% block body %}
+
+    <h2>{{ mail.objet }}</h2>
+
+    <div class="table-responsive">
+            <table cellspacing=4 cellpadding=4 width=60%  class="table-view">
+                <thead align="center" valign="middle" bgcolor="#A9A9A9">
+                    <tr> 
+                        <th colspan="2">Informations concernant le courrier envoyé</th>
+                    </tr>
+                </thead>
+                
+                <tr align="right" valign="middle" bgcolor="#C0C0C0">
+                    <td colspan="2">
+                      {% if app.user and is_granted('ROLE_ADMIN') %}
+                      {% if mail.registred == true %}
+                        <a href="{{ path('mails_admin_mailsent_validation', {'id': mail.id}) }}">
+                            <u>Valider le courrier</u>
+                        </a>
+                        &nbsp;<b>|</b>&nbsp;
+                      {% endif %}
+                        <a href="{{ path('mails_mail_mailsent_add') }}"><u>Ajouter</u></a> 
+                        &nbsp;<b>|</b>&nbsp;
+                        <a href="{{ path('mails_admin_mailsent_edit', {'id': mail.id}) }}">
+                          <u>
+                          Modifier
+                          </u>
+                        </a> 
+                        &nbsp;<b>|</b>&nbsp;
+                        <a href="{{ path('mails_mail_mailsent_delete', { 'id': mail.id }) }}">
+                        <u>
+                        Supprimer
+                        </u>
+                      </a>
+                      &nbsp;<b>|</b>&nbsp;
+                      {% endif %}
+                      {% if app.user and is_granted('ROLE_SECRETAIRE') %}
+                      <a href="{{ path('mails_admin_mailsent_registration', {'id': mail.id}) }}">
+                        <u>Enregistrer le courrier</u>
+                      </a>
+                      &nbsp;<b>|</b>&nbsp;
+                      {% endif %}
+                      <a href="{{ path('mails_mail_mailsent') }}">
+                        <u>
+                        Retour
+                        </u>
+                      </a>
+                      &nbsp;<b>|</b>&nbsp;
+                      <a href="{{ path('mails_core_home') }}">
+                        <u>
+                        Accueil
+                        </u>
+                      </a>
+                      &nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Référence</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.reference }}</td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Objet</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.objet }}</td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Date d'enregistrement</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>
+                    {% if mail.dateEdition is not null %}    
+                        &nbsp;&nbsp;{{ mail.dateEdition|date('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Date d'envoi</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>
+                    {% if mail.mailsent.dateEnvoi is not null %}
+                        &nbsp;&nbsp;{{ mail.mailsent.dateEnvoi|date('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Nombre de pièces jointes</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.nombrePiecesJointes }}</td>
+                </tr>
+                 <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Accusé de reception</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{% if mail.received == true %}OUI{% else %}NON{% endif %}</td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Expéditeur</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>
+                      {% if app.user and is_granted('ROLE_ADMIN') %}
+                      &nbsp;&nbsp;
+                       <a href="{{ path('mails_mail_user', {'id': mail.mailsent.user.id}) }}"><u>{{ mail.mailsent.user.username }}</u></a>
+                      {% else %}
+                      &nbsp;&nbsp;
+                      {{ mail.mailsent.user.username }}
+                      {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Destinataire</font>&nbsp;&nbsp;</td>
+                    <td align="left" bgcolor="#EBEBEB" width=60%>
+                      {% if app.user and is_granted('ROLE_ADMIN') %}
+                      &nbsp;&nbsp;
+                       <a href="{{ path('mails_mail_actor', {'id': mail.mailsent.actor.id}) }}"><u>{{ mail.mailsent.actor.name }}</u></a>
+                      {% else %}
+                      &nbsp;&nbsp;
+                      {{ mail.mailsent.actor.name }}
+                      {% endif %}
+                    </td>
+                </tr>
+   
+            </table>
+        </div>  
+
+{% endblock %}

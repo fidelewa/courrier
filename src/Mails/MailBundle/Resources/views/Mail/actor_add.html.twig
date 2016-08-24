@@ -1,0 +1,43 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+<h2 class="text-center">{{ block('title') }}</h2>
+
+<div class="well">
+    {{ form_start(actorForm, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(actorForm.name, "Nom de l'interlocuteur * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(actorForm.name) }}
+            {{ form_widget(actorForm.name, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+    </div>
+    {{ form_end(actorForm) }}
+</div>
+
+{% if app.user and is_granted('ROLE_ADMIN') %}
+         <a href="{{ path('mails_admin_actor') }}">
+            <u>
+                Retour à la liste des interlocuteurs
+            </u> 
+         </a> 
+{% endif %}
+&nbsp;<b>|</b>&nbsp;
+<a href="{{ path('mails_core_home') }}">
+      <u>
+      Accueil
+      </u>
+  </a>
+
+{% endblock %}

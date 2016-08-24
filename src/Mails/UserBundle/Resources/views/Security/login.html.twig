@@ -1,0 +1,59 @@
+
+{% extends "MailsUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}Authentification de l'utilisateur{% endblock %}
+
+{% block fos_user_content %}
+
+  <h2 class="text-center">{{ block('title') }}</h2>
+
+  {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+  {% if error %}
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+  {% endif %}
+
+  {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+  <div class="well">
+      
+    <form class="form-signin form-horizontal" role="form" action="{{ path('fos_user_security_check') }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        
+        <div class="form-group">
+           <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                <label for="username">{{ 'security.login.username'|trans }}</label>
+            </div>
+            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <input type="text" name="_username" value="{{ last_username }}" class="form-control" placeholder="Entrer votre nom d'utilisateur" required autofocus>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                <label for="password">{{ 'security.login.password'|trans }}</label>
+            </div>
+            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                <input type="password" name="_password" class="form-control" placeholder="Entrer votre mot de passe" required>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+ {% endblock fos_user_content %}
+
+
+

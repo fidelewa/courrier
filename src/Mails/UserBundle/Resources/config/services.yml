@@ -1,0 +1,4 @@
+services:
+#    mails_user.example:
+#        class: Mails\UserBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

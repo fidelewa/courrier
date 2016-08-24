@@ -1,0 +1,43 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}
+  Resultat de la recherche - liste des courriers envoyés
+{% endblock %}
+
+{% block mailsmail_body %}
+ 
+<h2 class="text-center">Rappel critères de filtrage</h2>
+<div class="well">
+    <ul>
+        <li>Nom de l'expéditeur : {{ app.user.username }} </li>
+        <li>Nom du destinataire : {{ mail.mailsent.actor.name }} </li>
+        <li>Nombre de jours d'ancienneté : {{ mail.nbDaysBefore }} jour(s) ou plus</li>
+        <li>Réception : {% if mail.received == true %}OUI{% else %}NON{% endif %}</li>
+    </ul>
+</div>
+ 
+  <h2 class="text-center">Resultat de la recherche - liste des courriers envoyés</h2>
+
+    {% if allMailsentFilter %}
+    <div class="alert alert-success">La liste ci-dessous correspond au résultat de la recherche !</div>
+        {% for mail in allMailsentFilter %}
+            <article>
+                <h2><a class="mailObjet" href="{{ path('mails_mail_mailsent_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
+                <p>Date d'envoi : <em>le {{ mail.mailsent.dateEnvoi|date('d/m/Y à H:i:s') }}</em></p>
+            </article>
+         {% endfor %}   
+     {% else %}
+        <div class="alert alert-warning">Aucune donnée ne correspond à cette recherche !</div>
+     {% endif %}
+
+   <ul class="pagination">
+    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+    {% for p in range(1, nbPages) %}
+      <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('mails_mail_mailsent', {'page': p}) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
+

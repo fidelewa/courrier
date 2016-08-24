@@ -1,0 +1,142 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}
+  Modifier un courrier reçu 
+{% endblock %}
+
+{% block mailsmail_body %}
+
+<h2 class="text-center">Synthèse interlocuteur : Expéditeur</h2>
+<div class="well">
+    <ul>
+        <li>Nom : {{mail.mailreceived.actor.name}}</li>
+    </ul>
+</div>
+
+<h2 class="text-center">Synthèse utilisateur : Destinataire</h2>
+<div class="well">
+    <ul>
+        <li>Nom : {{mail.mailreceived.user.username}}</li>
+        <li>Adresse e-mail : {{mail.mailreceived.user.email}}</li>
+    </ul>
+</div>
+
+ <h2 class="text-center">{{ block('title') }}</h2>
+
+ <div class="well">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(form) }}
+    
+    <div class="form-group">
+        {{ form_label(form.mailreceived.actor, "Nom de l'expéditeur * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.mailreceived.actor) }}
+            {{ form_widget(form.mailreceived.actor, {'attr': {'class': 'form-control', 'placeholder' : "Entrer le nom de la sécrétaire qui doit enregistrer le courrier"}}
+            ) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.reference, "Référence * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.reference) }}
+            {{ form_widget(form.reference, {'attr': {'class': 'form-control','placeholder':'Entrer la référence du courrier envoyé, par exemple : CDEP0001, CDEP0002 etc...'}}
+            ) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.objet, "Objet * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.objet) }}
+            {{ form_widget(form.objet, { 'attr':  {'class': 'form-control','placeholder':'Entrer l\'objet du courrier envoyé'}}) }}
+        </div>
+    </div>
+    
+    {% if form.mailreceived.dateReception is defined %}
+    <div class="form-group">
+        {{ form_label(form.mailreceived.dateReception, "Date de reception * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.mailreceived.dateReception) }}
+            {{ form_widget(form.mailreceived.dateReception, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="form-group">
+        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.nombrePiecesJointes) }}
+            {{ form_widget(form.nombrePiecesJointes, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    {% if form.received is defined %}
+    <div class="form-group">
+        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.received) }}
+            {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if form.treated is defined %}
+    <div class="form-group">
+        {{ form_label(form.treated, "Traitement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.treated) }}
+            {{ form_widget(form.treated, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    
+    {# Fermeture de la balise <form> du formulaire HTML #}
+    {{ form_end(form) }}
+</div>
+ 
+  <p class="text-center">
+    Vous éditez un courrier reçu déjà existant, merci de ne pas changer
+    l'esprit générale du courrier déjà publié.
+  </p>
+
+  <p>
+  {% if app.user and is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('mails_admin_mailreceived') }}">
+      <u>
+      Retour à la liste des courriers reçus
+      </u>
+    </a>
+    &nbsp;<b>|</b>&nbsp;
+    {% else %}
+    <a href="{{ path('mails_mail_mailreceived_detail', {'id': mail.id}) }}">
+      <u>
+      Retour au détail
+      </u>
+    </a>
+    &nbsp;<b>|</b>&nbsp;
+    {% endif %}
+    <a href="{{ path('mails_core_home') }}">
+        <u>
+      Accueil
+      </u>
+  </a>
+  </p>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+# app/config/security.yml
+security:
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+    encoders:
+        #Symfony\Component\Security\Core\User\User: sha512
+        Mails\UserBundle\Entity\User: plaintext
+
+    role_hierarchy:
+        ROLE_SECRETAIRE:     ROLE_USER
+        ROLE_ADMINISTRATEUR: [ROLE_ADMIN, ROLE_EXPEDITEUR, ROLE_DESTINATAIRE]    
+        ROLE_SUPER_ADMIN:    [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]    
+        
+    providers:
+        main:
+            id: fos_user.user_provider.username
+            #entity:
+             #   class:    Mails\UserBundle\Entity\User
+              #  property: username
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+            
+        main:
+            pattern:        ^/
+            anonymous:      true
+            provider:       main
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+            logout:
+                path:       fos_user_security_logout
+                target:     /
+            remember_me:
+                key:        %secret% # %secret% est un paramètre de parameters.yml
+
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

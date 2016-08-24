@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ app.request.basepath }}/css/mymails.css" rel="stylesheet">
+    <title>Mails - {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('mails_core_home') }}">Mails</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-target">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ path('mails_core_contact') }}">Nous contacter</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Liste des courriers<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('mails_mail_mailsent') }}">Envoyés</a></li>
+                                    <li><a href="{{ path('mails_mail_mailreceived') }}">Reçus</a></li>
+                                </ul>
+                        </li>
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <li class="dropdown">
+                           <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> Créer un courrier<b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="{{ path('mails_mail_mailsent_add') }}">Envoyé</a></li>
+                                  <li><a href="{{ path('mails_mail_mailreceived_add') }}">Reçu</a></li>
+                               </ul>
+                         </li>
+                        <li class="dropdown">
+                           <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Administration<b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="{{ path('mails_admin_mailsent') }}">Courriers envoyés</a></li>
+                                  <li><a href="{{ path('mails_admin_mailreceived') }}">Courriers reçus</a></li>
+                                  <li><a href="{{ path('mails_admin_actor') }}">Interlocuteurs</a></li>
+                                  <li><a href="{{ path('mails_admin_user') }}">Utilisateurs</a></li>
+                               </ul>
+                         </li>
+                        {% endif %}
+                        
+                        {% if app.user is not null %}
+                            {% for role in app.user.roles %}
+                                {% if loop.length > 1 and role == 'ROLE_SECRETAIRE' %}
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Espace utilisateur<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('fos_user_profile_show') }}">Voir le profil</a></li>
+                                            <li><a href="{{ path('fos_user_profile_edit') }}">Modifier le profil</a></li>
+                                            <li><a href="{{ path('fos_user_change_password') }}">Modifier le mot de passe</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        
+                        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> Welcome, {{ app.user.username }} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('fos_user_security_logout') }}">Log out</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> Not connected <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('fos_user_security_login') }}">Log in</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div><!-- /.container -->
+        </nav>
+        <div id="content">
+            {% block body %}{% endblock %}
+        </div>
+        <footer class="footer">
+            <strong>Mails</strong> est construit avec PHP, Symfony, Twig, Doctrine et Bootstrap.
+        </footer>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
+    <!-- JavaScript Boostrap plugin -->
+    <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

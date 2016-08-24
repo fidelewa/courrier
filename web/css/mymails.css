@@ -1,0 +1,30 @@
+body { 
+    padding-top: 50px; 
+}
+
+.footer {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.mailObjet:hover, .mailObjet:focus {
+    text-decoration: none;
+}
+
+.adminTable {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+a:visited /* Quand le visiteur a déjà vu la page concernée */
+{
+    color: red; /* Appliquer une couleur grise */
+    
+}
+
+.table-view td{
+    border:2px white solid;
+}
+
+

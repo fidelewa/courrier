@@ -1,0 +1,64 @@
+{% extends "MailsAdminBundle::layout.html.twig" %}
+
+{% block title %}
+  Critères de filtrage - Courriers recus par l'utilisateur "{{user.username}}"
+{% endblock %}
+
+{% block mailsadmin_body %}
+<h2 class="text-center">Synthèse utilisateur</h2>
+<div class="well">
+    <ul>
+        <li>Nom utilisateur : {{user.username}}</li>
+        <li>Adresse e-mail : {{user.email}}</li>
+    </ul>
+</div>
+
+<h2 class="text-center">{{ block('title') }}</h2>
+
+<div class="well">
+    
+    {{ form_start(form, {'method': 'post', 'action': path('mails_admin_user_mailreceived_filter', {'id': user.id}), 'attr': {'class': 'form-horizontal'}}) }}
+      
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+    
+    <div class="form-group">
+        {{ form_label(form.nbDaysBefore, "Nombre de jours d\'ancienneté * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.nbDaysBefore) }}
+            {{ form_widget(form.nbDaysBefore, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nombre de jours d\'ancienneté recherché'}}
+            ) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.received) }}
+            {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.treated, "Traitement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.treated) }}
+            {{ form_widget(form.treated, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+    
+    {{ form_end(form) }}
+    
+</div>
+{% endblock %}

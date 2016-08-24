@@ -1,0 +1,119 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}
+  Créer un nouveau courrier reçu
+{% endblock %}
+
+{% block mailsmail_body %}
+
+<h2 class="text-center">{{ block('title') }}</h2>
+  
+<div class="well">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(form) }}
+    
+    <div class="form-group">
+        {{ form_label(form.mailreceived.actor, "Nom de l'expéditeur * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.mailreceived.actor) }}
+            {{ form_widget(form.mailreceived.actor, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nom du destinataire recherché'}}
+            ) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.mailreceived.user, "Nom de la sécrétaire * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.mailreceived.user) }}
+            {{ form_widget(form.mailreceived.user, {'attr': {'class': 'form-control', 'placeholder' : "Entrer le nom de l'expéditeur recherché"}}
+            ) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.reference, "Référence * :", { 'label_attr':  {'class': 'col-sm-4 control-label'
+        }}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.reference) }}
+            {{ form_widget(form.reference, {'attr': {'class': 'form-control','placeholder':'Entrer la référence du courrier reçu, par exemple : CARR0001, CARR0002 etc...'}}
+            ) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.objet, "Objet * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.objet) }}
+            {{ form_widget(form.objet, { 'attr':  {'class': 'form-control','placeholder':'Entrer l\'objet du courrier reçu'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.mailreceived.dateReception, "Date de réception * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.mailreceived.dateReception) }}
+            {{ form_widget(form.mailreceived.dateReception, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.nombrePiecesJointes) }}
+            {{ form_widget(form.nombrePiecesJointes, { 'attr':  {'class': 'form-control','placeholder':'Entrer le nombre de pièces jointes au courrier reçu'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.received) }}
+            {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.treated, "Traitement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.treated) }}
+            {{ form_widget(form.treated, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    </div>
+    {# Génération automatique des champs pas encore écrits.
+     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+     et tous les champs cachés (type « hidden »). #}
+    {{ form_rest(form) }}
+    
+    {# Fermeture de la balise <form> du formulaire HTML #}
+    {{ form_end(form) }}
+</div>
+ 
+<a href="{{ path('mails_core_home') }}">
+      <u>
+      Accueil
+      </u>
+  </a>
+
+  <p class="text-center">
+    Attention : ce courrier sera ajoutée directement
+    sur la page d'accueil après validation du formulaire.
+  </p>
+
+{% endblock %}

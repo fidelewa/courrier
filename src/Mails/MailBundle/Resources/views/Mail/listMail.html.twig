@@ -1,0 +1,36 @@
+  <h3>Courriers envoyés</h3>
+
+    {% if mailsSent %}
+    <ul class="nav nav-pills nav-stacked">
+        {% for mailsent in mailsSent %}
+            <li>
+                <a href="{{ path('mails_mail_mailsent_detail', {'id': mailsent.id}) }}">
+                    <u>{{ mailsent.objet }}</u>
+                </a>
+            </li>
+         {% endfor %}  
+         <a href="{{ path('mails_mail_mailsent') }}"><u>Voir plus</u></a>
+     </ul>   
+     {% else %}
+        <div class="alert alert-warning">Pas (encore !) de courrier envoyé</div>
+     {% endif %}
+  
+  <h3>Courriers reçus</h3>
+
+     {% if mailsReceived %}
+     <ul class="nav nav-pills nav-stacked">
+        {% for mailreceived in mailsReceived %}
+            <li>
+                <a href="{{ path('mails_mail_mailreceived_detail', {'id': mailreceived.id}) }}">
+                    <u>{{ mailreceived.objet }}</u>
+                </a>
+            </li>
+        {% endfor %}
+        <a href="{{ path('mails_mail_mailreceived') }}"><u>Voir plus</u></a>
+     </ul>   
+     {% else %}
+        <div class="alert alert-warning">Pas (encore !) de courrier reçus</div>
+     {% endif %}
+
+     
+   

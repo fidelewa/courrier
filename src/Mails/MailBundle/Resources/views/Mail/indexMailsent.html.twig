@@ -1,0 +1,56 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block mailsmail_body %}
+
+{% if app.user and is_granted('ROLE_ADMIN') %}
+  {#{% if nbPages > 4 %}#}
+<div class="navbar-right">
+<a href="{{ path('mails_admin_all_mailsent_filter') }}">
+<u>Filtrer la liste</u>
+</a>
+</div>
+ {#{% endif %}#}
+{% endif %}
+ 
+ {% if app.user and is_granted('ROLE_SECRETAIRE') %}
+ <h2>Liste des courriers envoyés à enregistrer par "{{app.user.username}}"</h2>
+ {% elseif app.user and is_granted('ROLE_ADMIN') %}
+ <h2>Liste des courriers envoyés et enregistrés à valider par "{{app.user.username}}"</h2>
+ {% else %}
+ <h2>Liste de tous les courriers envoyés et enregistrés</h2>
+ {% endif %}
+
+    {% if mails %}
+        {% for mail in mails %}
+            <article>
+                <h2><a href="{{ path('mails_mail_mailsent_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
+                <p>Date d'envoi : <em>le {{ mail.mailsent.dateEnvoi|date('d/m/Y à H:i:s') }}</em></p>
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                <span style="background:#FFFF00"><a href="{{ path('mails_admin_mailsent_validation', {'id': mail.id}) }}"><u>Valider le courrier</u></a></span>
+                {% endif %}
+                {% if app.user and is_granted('ROLE_SECRETAIRE') %}
+                <span style="background:#FFFF00">
+                  <a href="{{ path('mails_admin_mailsent_registration', {'id': mail.id}) }}">
+                    <u>Enregistrer le courrier</u></a></span>
+                {% endif %}
+            </article>
+         {% endfor %}   
+     {% else %}
+        <div class="alert alert-warning">Vous n'avez aucun courrier envoyé à enregistrer</div>
+     {% endif %}
+
+     <ul class="pagination">
+    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+    {% for p in range(1, nbPages) %}
+      <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('mails_mail_mailsent', {'page': p}) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
+

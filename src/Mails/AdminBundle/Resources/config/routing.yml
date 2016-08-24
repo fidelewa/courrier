@@ -1,0 +1,133 @@
+mails_admin_mailsent:
+    path:     /mailsent/{page}
+    defaults: { _controller: MailsAdminBundle:Admin:adminMailsent, page: 1 }
+    requirements:
+        page: \d*
+    
+mails_admin_mailreceived:
+    path:     /mailreceived/{page}
+    defaults: { _controller: MailsAdminBundle:Admin:adminMailreceived, page: 1 }
+    requirements:
+        page: \d*
+    
+mails_admin_actor:
+    path:     /actors
+    defaults: { _controller: MailsAdminBundle:Admin:adminActor }
+    
+mails_admin_user:
+    path:     /users
+    defaults: { _controller: MailsAdminBundle:Admin:adminUser }
+    
+mails_admin_mailsent_edit:
+    path:     /mailsent/edit/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:editMailsent }
+    requirements:
+        id: \d+
+        
+mails_admin_mailsent_delete:
+    path:     /mailsent/delete/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:deleteMailsent }
+    requirements:
+        id: \d+
+        
+mails_admin_mailreceived_edit:
+    path:     /mailreceived/edit/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:editMailreceived }
+    requirements:
+        id: \d+
+        
+mails_admin_mailreceived_delete:
+    path:     /mailreceived/delete/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:deleteMailreceived }
+    requirements:
+        id: \d+
+    
+mails_admin_actor_edit:
+    path:     /actor/edit/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:editActor }
+    requirements:
+        id: \d+
+        
+mails_admin_actor_delete:
+    path:     /actor/delete/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:deleteActor }
+    requirements:
+        id: \d+
+       
+mails_admin_user_add:
+    path:     /user/add
+    defaults: { _controller: MailsAdminBundle:Admin:addUser }
+    
+mails_admin_user_edit:
+    path:     /user/edit/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:editUser }
+    requirements:
+        id: \d+
+        
+mails_admin_user_delete:
+    path:     /delete/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:deleteUser }
+    requirements:
+        id: \d+
+        
+mails_admin_mailsent_filter:
+    path:     /mailsent/filter
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailsent }
+    
+mails_admin_mailreceived_filter:
+    path:     /mailreceived/filter
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceived }
+    
+mails_admin_user_filter:
+    path:     /user/filter
+    defaults: { _controller: MailsAdminBundle:Admin:filterUser }  
+    
+mails_admin_user_mailsent_filter:
+    path:     /mailsent/filter/user/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentUser }
+    requirements:
+        id: \d+
+    
+mails_admin_user_mailreceived_filter:
+    path:     /mailreceived/filter/user/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedUser }
+    requirements:
+        id: \d+
+
+mails_admin_actor_mailsent_filter:
+    path:     /mailsent/filter/actor/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentActor }
+    requirements:
+        id: \d+
+    
+mails_admin_actor_mailreceived_filter:
+    path:     /mailreceived/filter/actor/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedActor }
+    requirements:
+        id: \d+
+
+mails_admin_all_mailsent_filter:
+    path:     /all/mailsent/filter/{page}
+    defaults: { _controller: MailsAdminBundle:Admin:filterAllMailsent, page: 1 }
+    requirements:
+        page: \d*
+    
+mails_admin_all_mailreceived_filter:
+    path:     /all/mailreceived/filter/{page}
+    defaults: { _controller: MailsAdminBundle:Admin:filterAllMailreceived, page: 1 }
+    requirements:
+        page: \d*
+    
+mails_admin_mailsent_validation:
+    path:      /validate/mailsent/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:validateMailsent }
+    requirements:
+        id: \d+
+        
+mails_admin_mailreceived_validation:
+    path:      /validate/mailreceived/{id}
+    defaults: { _controller: MailsAdminBundle:Admin:validateMailreceived }
+    requirements:
+        id: \d+ 
+
+    

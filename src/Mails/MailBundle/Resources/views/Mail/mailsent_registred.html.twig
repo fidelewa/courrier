@@ -1,0 +1,64 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}
+  Enregistrement du courrier envoyé 
+{% endblock %}
+
+{% block mailsmail_body %}
+
+<h2 class="text-center">{{ block('title') }}</h2>
+  
+<div class="well">
+    
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.dateEdition, "Date d'enregistrement * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.dateEdition) }}
+            {{ form_widget(form.dateEdition, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    {% if form.received is defined %}
+    <div class="form-group">
+        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.received) }}
+            {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    </div>
+    {# Génération automatique des champs pas encore écrits.
+     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+     et tous les champs cachés (type « hidden »). #}
+    {{ form_rest(form) }}
+    
+    {{ form_end(form) }}
+    
+</div>
+
+<a href="{{ path('mails_core_home') }}">
+      <u>
+      Accueil
+      </u>
+  </a>
+
+  <p class="text-center">
+    <b>Attention : ce courrier sera directement enregistré 
+    après validation du formulaire.</b>
+  </p>
+
+
+{% endblock %}
