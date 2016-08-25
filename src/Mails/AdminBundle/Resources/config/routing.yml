@@ -1,22 +1,22 @@
 mails_admin_mailsent:
     path:     /mailsent/{page}
-    defaults: { _controller: MailsAdminBundle:Admin:adminMailsent, page: 1 }
+    defaults: { _controller: MailsAdminBundle:Admin:showAllMailsentByUser, page: 1 }
     requirements:
         page: \d*
     
 mails_admin_mailreceived:
     path:     /mailreceived/{page}
-    defaults: { _controller: MailsAdminBundle:Admin:adminMailreceived, page: 1 }
+    defaults: { _controller: MailsAdminBundle:Admin:showAllMailreceivedByUser, page: 1 }
     requirements:
         page: \d*
     
 mails_admin_actor:
     path:     /actors
-    defaults: { _controller: MailsAdminBundle:Admin:adminActor }
+    defaults: { _controller: MailsAdminBundle:Admin:showAllInterlocutor }
     
 mails_admin_user:
     path:     /users
-    defaults: { _controller: MailsAdminBundle:Admin:adminUser }
+    defaults: { _controller: MailsAdminBundle:Admin:showAllUser }
     
 mails_admin_mailsent_edit:
     path:     /mailsent/edit/{id}
@@ -44,13 +44,13 @@ mails_admin_mailreceived_delete:
     
 mails_admin_actor_edit:
     path:     /actor/edit/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:editActor }
+    defaults: { _controller: MailsAdminBundle:Admin:editInterlocutor }
     requirements:
         id: \d+
         
 mails_admin_actor_delete:
     path:     /actor/delete/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:deleteActor }
+    defaults: { _controller: MailsAdminBundle:Admin:deleteInterlocutor }
     requirements:
         id: \d+
        
@@ -84,25 +84,25 @@ mails_admin_user_filter:
     
 mails_admin_user_mailsent_filter:
     path:     /mailsent/filter/user/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentUser }
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentByUser }
     requirements:
         id: \d+
     
 mails_admin_user_mailreceived_filter:
     path:     /mailreceived/filter/user/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedUser }
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedByUser }
     requirements:
         id: \d+
 
 mails_admin_actor_mailsent_filter:
     path:     /mailsent/filter/actor/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentActor }
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentByInterlocutor }
     requirements:
         id: \d+
     
 mails_admin_actor_mailreceived_filter:
     path:     /mailreceived/filter/actor/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedActor }
+    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedByInterlocutor }
     requirements:
         id: \d+
 
