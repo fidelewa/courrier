@@ -21,9 +21,9 @@ use Mails\MailBundle\Form\MailMailreceivedSecretaryType;
 class MailController extends Controller
 {
     /**
-     * Home page mail sent controller.
+     * Displays the list of index of mails sent by user profil
      *
-     * @param Integer $page index mail sent page
+     * @param Integer $page page number
      */
     public function indexMailsentAction($page)
     {
@@ -129,9 +129,9 @@ class MailController extends Controller
     }
     
     /**
-     * Home page mail received controller .
+     * Displays the list of index of mails received by user profil
      *
-     * @param Integer $page index mail received page
+     * @param Integer $page page number
      */
     public function indexMailreceivedAction($page)
     {
