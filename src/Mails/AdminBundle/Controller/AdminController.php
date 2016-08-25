@@ -20,79 +20,9 @@ use Mails\MailBundle\Form\MailReceivedFilterType;
 
 class AdminController extends Controller
 {   
-    
+       
     /**
-     * Admin mail sent home page controller.
-     */
-    public function adminMailsentAction($page) 
-    {
-        if ($page < 1) {
-        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
-        }
-        
-        //On récupère l'administrateur courant
-        $admin = $this->getUser();
-
-        // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
-
-        // On récupère la liste de tous les courriers envoyés par l'administrateur courant
-        $listMailsSent = $lister->listAdminMailsent($page, $lister::NUM_ITEMS, $admin);
-                
-        // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-        $nombreTotalMailsSent = $listMailsSent->count();
-        $nombreMailsentPage = $lister::NUM_ITEMS;
-        $nombreTotalPages = ceil($nombreTotalMailsSent/$nombreMailsentPage); 
-                
-        if($page > $nombreTotalPages){
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-            //return $this->redirect($this->generateUrl('mails_core_home'));
-        }
-
-        return $this->render('MailsAdminBundle:Admin:admin_mailsent.html.twig', array(
-            'mailsSentByActor' => $listMailsSent,
-            'nbPages' => $nombreTotalPages,
-            'page' => $page,
-            ));
-    }
-    
-    /**
-     * Admin mail received home page controller.
-     */
-    public function adminMailreceivedAction($page) 
-    {
-        if ($page < 1) {
-        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
-        }
-        
-        //On récupère l'administrateur courant
-        $admin = $this->getUser();
-
-        // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
-
-        // On récupère la liste de tous les courriers reçus par l'administrateur courant
-        $listMailsReceived = $lister->listAdminMailreceived($page, $lister::NUM_ITEMS, $admin);
-                
-        // On calcule le nombre total de pages grâce au count($listMailsReceived) qui retourne le nombre total de courriers reçus
-        $nombreTotalMailsReceived = $listMailsReceived->count();
-        $nombreMailreceivedPage = $lister::NUM_ITEMS;
-        $nombreTotalPages = ceil($nombreTotalMailsReceived/$nombreMailreceivedPage); 
-                
-        if($page > $nombreTotalPages){
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-            //return $this->redirect($this->generateUrl('mails_core_home'));
-        } 
-
-        return $this->render('MailsAdminBundle:Admin:admin_mailreceived.html.twig', array(
-            'mailsReceivedByActor' => $listMailsReceived,
-            'nbPages' => $nombreTotalPages,
-            'page' => $page,
-            ));
-    }
-    //--------------------------------------------------------------------------    
-    /**
-     * Edit mail sent controller.
+     * Edit a mail sent.
      *
      * @param integer $id Mail sent id
      * @param Request $request Incoming request
@@ -149,7 +79,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Delete mail sent controller.
+     * Delete a mail sent.
      *
      * @param integer $id mail sent id
      * @param Request $request Incoming request
@@ -182,7 +112,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Edit mail received controller.
+     * Edit a mail received.
      *
      * @param integer $id Mail received id
      * @param Request $request Incoming request
@@ -220,7 +150,7 @@ class AdminController extends Controller
     }
     
     /**
-     * Delete mail received controller.
+     * Delete a mail received.
      *
      * @param integer $id mail received id
      * @param Request $request Incoming request
@@ -253,9 +183,9 @@ class AdminController extends Controller
     }
     //------------------------------------------------------------------------------------   
     /**
-     * Admin actors home page controller.
+     * Displays a list of all contacts.
      */
-    public function adminActorAction() 
+    public function showAllInterlocutorAction() 
     {
         // On récupère notre service lister
         $lister = $this->get('mails_admin.mail_lister');
@@ -270,12 +200,12 @@ class AdminController extends Controller
     }
 
     /**
-     * Edit actor controller.
+     * Edit a contact.
      *
      * @param integer $id Actor id
      * @param Request $request Incoming request
      */
-     public function editActorAction($id, Request $request)
+     public function editInterlocutorAction($id, Request $request)
      {
         $em = $this->getDoctrine()->getManager();
 
@@ -306,12 +236,12 @@ class AdminController extends Controller
      }
      
      /**
-     * Delete actor controller.
+     * Delete a contact.
      *
      * @param integer $id Actor id
      * @param Request $request Incoming request
      */
-    public function deleteActorAction($id, Request $request)
+    public function deleteInterlocutorAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -395,9 +325,9 @@ class AdminController extends Controller
     }
     //----------------------------------------------------------------------------------------   
     /**
-     * Admin users home page controller.
+     * Displays a list of all users
      */
-    public function adminUserAction() 
+    public function showAllUserAction() 
     {
         // On récupère notre service lister
         $lister = $this->get('mails_admin.mail_lister');
@@ -409,9 +339,81 @@ class AdminController extends Controller
             'users' => $listUser
             ));
     }
+
+    /**
+     * Displays a list of all mail sent by the responsible power
+     * @param interger $page page number
+     */
+    public function showAllMailsentByUserAction($page) 
+    {
+        if ($page < 1) {
+        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+        
+        //On récupère l'administrateur courant
+        $admin = $this->getUser();
+
+        // On récupère notre service lister
+        $lister = $this->get('mails_admin.mail_lister');
+
+        // On récupère la liste de tous les courriers envoyés par l'administrateur courant
+        $listMailsSent = $lister->listAdminMailsent($page, $lister::NUM_ITEMS, $admin);
+                
+        // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
+        $nombreTotalMailsSent = $listMailsSent->count();
+        $nombreMailsentPage = $lister::NUM_ITEMS;
+        $nombreTotalPages = ceil($nombreTotalMailsSent/$nombreMailsentPage); 
+                
+        if($page > $nombreTotalPages){
+            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+            //return $this->redirect($this->generateUrl('mails_core_home'));
+        }
+
+        return $this->render('MailsAdminBundle:Admin:admin_mailsent.html.twig', array(
+            'mailsSentByActor' => $listMailsSent,
+            'nbPages' => $nombreTotalPages,
+            'page' => $page,
+            ));
+    }
+
+    /**
+     * Displays a list of all mail received by the responsible power
+     * @param interger $page page number
+     */
+    public function showAllMailreceivedByUserAction($page) 
+    {
+        if ($page < 1) {
+        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+        
+        //On récupère l'administrateur courant
+        $admin = $this->getUser();
+
+        // On récupère notre service lister
+        $lister = $this->get('mails_admin.mail_lister');
+
+        // On récupère la liste de tous les courriers reçus par l'administrateur courant
+        $listMailsReceived = $lister->listAdminMailreceived($page, $lister::NUM_ITEMS, $admin);
+                
+        // On calcule le nombre total de pages grâce au count($listMailsReceived) qui retourne le nombre total de courriers reçus
+        $nombreTotalMailsReceived = $listMailsReceived->count();
+        $nombreMailreceivedPage = $lister::NUM_ITEMS;
+        $nombreTotalPages = ceil($nombreTotalMailsReceived/$nombreMailreceivedPage); 
+                
+        if($page > $nombreTotalPages){
+            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+            //return $this->redirect($this->generateUrl('mails_core_home'));
+        } 
+
+        return $this->render('MailsAdminBundle:Admin:admin_mailreceived.html.twig', array(
+            'mailsReceivedByActor' => $listMailsReceived,
+            'nbPages' => $nombreTotalPages,
+            'page' => $page,
+            ));
+    }
      
     /**
-     * Delete user controller.
+     * Delete an user.
      *
      * @param integer $id User id
      * @param Request $request Incoming request
@@ -502,6 +504,11 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('mails_admin_user'));
     }
      //------------------------------------------------------------
+     /**
+     * Filter mails sent.
+     *
+     * @param Request $request Incoming request
+     */
      public function filterMailsentAction(Request $request)
      {
         //On crée le mail
@@ -541,7 +548,13 @@ class AdminController extends Controller
          
      }
 
-     public function filterMailsentUserAction($id, Request $request)
+     /**
+     * filter mails sent according to the specified user
+     *
+     * @param integer $id User id
+     * @param Request $request Incoming request
+     */
+     public function filterMailsentByUserAction($id, Request $request)
      {
         //On récupère notre Entity Manager 
         $em = $this->getDoctrine()->getManager();
@@ -592,7 +605,13 @@ class AdminController extends Controller
          
      }
 
-     public function filterMailsentActorAction($id, Request $request)
+     /**
+     * filter mails sent according to the specified interlocutor
+     *
+     * @param integer $id Interlocutor id
+     * @param Request $request Incoming request
+     */
+     public function filterMailsentByInterlocutorAction($id, Request $request)
      {
         //On récupère notre Entity Manager 
         $em = $this->getDoctrine()->getManager();
@@ -644,6 +663,12 @@ class AdminController extends Controller
          
      }
 
+     /**
+     * filter all mails sent.
+     *
+     * @param integer $page page number
+     * @param Request $request Incoming request
+     */
      public function filterAllMailsentAction(Request $request, $page)
      {
          if ($page < 1) {
@@ -697,6 +722,12 @@ class AdminController extends Controller
          
      }
 
+     /**
+     * validate a mail sent.
+     *
+     * @param integer $id Mail sent id
+     * @param Request $request Incoming request
+     */
      public function validateMailsentAction($id, Request $request)
      {
         //On récupère notre Entity Manager 
@@ -723,6 +754,11 @@ class AdminController extends Controller
      }
 
      //-------------------------------------------------------------------------------------
+     /**
+     * Filter mails received.
+     *
+     * @param Request $request Incoming request
+     */
      public function filterMailreceivedAction(Request $request)
      {
         //On crée le mail
@@ -763,7 +799,13 @@ class AdminController extends Controller
          
      }
      
-     public function filterMailreceivedUserAction($id, Request $request)
+     /**
+     * filter mails received according to the specified user
+     *
+     * @param integer $id User id
+     * @param Request $request Incoming request
+     */
+     public function filterMailreceivedByUserAction($id, Request $request)
      {
         //On récupère notre Entity Manager 
         $em = $this->getDoctrine()->getManager();
@@ -815,7 +857,13 @@ class AdminController extends Controller
          
      }
      
-     public function filterMailreceivedActorAction($id, Request $request)
+     /**
+     * filter mails received according to the specified interlocutor
+     *
+     * @param integer $id Interlocutor id
+     * @param Request $request Incoming request
+     */
+     public function filterMailreceivedByInterlocutorAction($id, Request $request)
      {
         //On récupère notre Entity Manager 
         $em = $this->getDoctrine()->getManager();
@@ -867,6 +915,12 @@ class AdminController extends Controller
          
      }
 
+     /**
+     * filter all mails received.
+     *
+     * @param integer $page page number
+     * @param Request $request Incoming request
+     */
      public function filterAllMailreceivedAction(Request $request, $page)
      {
          if ($page < 1) {
@@ -921,6 +975,12 @@ class AdminController extends Controller
          
      }
 
+     /**
+     * validate a mail received.
+     *
+     * @param integer $id Mail received id
+     * @param Request $request Incoming request
+     */
      public function validateMailreceivedAction($id, Request $request)
      {
         //On récupère notre Entity Manager 
