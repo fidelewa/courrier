@@ -20,38 +20,6 @@ use Mails\MailBundle\Form\MailReceivedFilterType;
 
 class AdminController extends Controller
 {   
-    /**
-     * Admin actors home page controller.
-     */
-    public function adminActorAction() 
-    {
-        // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
-
-        // On affiche la liste de tous les interlocuteurs
-        $listActor = $lister->listAdminActor();
-
-        return $this->render('MailsAdminBundle:Admin:admin_actor.html.twig', array(
-            'actors' => $listActor
-            ));
-
-    }
-    
-    /**
-     * Admin users home page controller.
-     */
-    public function adminUserAction() 
-    {
-        // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
-
-        // On affiche la liste de tous les utilisateurs
-        $listUser = $lister->listAdminUser();
-
-        return $this->render('MailsAdminBundle:Admin:admin_user.html.twig', array(
-            'users' => $listUser
-            ));
-    }
     
     /**
      * Admin mail sent home page controller.
@@ -285,6 +253,23 @@ class AdminController extends Controller
     }
     //------------------------------------------------------------------------------------   
     /**
+     * Admin actors home page controller.
+     */
+    public function adminActorAction() 
+    {
+        // On récupère notre service lister
+        $lister = $this->get('mails_admin.mail_lister');
+
+        // On affiche la liste de tous les interlocuteurs
+        $listActor = $lister->listAdminActor();
+
+        return $this->render('MailsAdminBundle:Admin:admin_actor.html.twig', array(
+            'actors' => $listActor
+            ));
+
+    }
+
+    /**
      * Edit actor controller.
      *
      * @param integer $id Actor id
@@ -408,7 +393,23 @@ class AdminController extends Controller
         // Puis on redirige vers l'accueil
         return $this->redirect($this->generateUrl('mails_admin_actor'));
     }
-    //----------------------------------------------------------------------------------------    
+    //----------------------------------------------------------------------------------------   
+    /**
+     * Admin users home page controller.
+     */
+    public function adminUserAction() 
+    {
+        // On récupère notre service lister
+        $lister = $this->get('mails_admin.mail_lister');
+
+        // On affiche la liste de tous les utilisateurs
+        $listUser = $lister->listAdminUser();
+
+        return $this->render('MailsAdminBundle:Admin:admin_user.html.twig', array(
+            'users' => $listUser
+            ));
+    }
+     
     /**
      * Delete user controller.
      *
