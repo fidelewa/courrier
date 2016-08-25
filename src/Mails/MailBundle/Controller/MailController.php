@@ -235,9 +235,11 @@ class MailController extends Controller
     }
     
     /**
-     * list of lastest mails controller.
+     * Displays the list of lastest mails on home page.
+     *
+     * @param Integer $limit limit number
      */
-    public function listMailAction($limit)
+    public function showLatestMailAction($limit)
     {
         // On récupère notre service indexor
         $indexor = $this->get('mails_mail.mail_indexor');
@@ -254,9 +256,11 @@ class MailController extends Controller
     }
     
     /**
-     * list of mails registred by secretary controller.
+     * Display the list of latest unregistered mails attributed to Secretary
+     *
+     * @param Integer $limit limit number
      */
-    public function listMailSecretaryAction($limit)
+    public function showMailUnregistredAction($limit)
     {
         //On récupère l'id de la sécrétaire
         $idSecretaire = $this->getUser()->getId();
@@ -276,7 +280,8 @@ class MailController extends Controller
     }
     
     /**
-     * list of mails registred and not validated controller.
+     * Display the list of latest not validated mails by user.
+     * @param Integer $limit limit number
      */
     public function listMailNotValidatedAction($limit)
     {
@@ -297,9 +302,11 @@ class MailController extends Controller
         ));
     }
     
-    
+    //---------------------------------------------
     /**
-     * view mail sent controller.
+     * view the features of the mail sent
+     *
+     * @param Integer $id Mailsent id
      */
     public function viewMailsentAction($id)
     {
@@ -322,7 +329,9 @@ class MailController extends Controller
     }
     
     /**
-     * view mail received controller.
+     * view the features of the mail received
+     *
+     * @param Integer $id Mailreceived id
      */
     public function viewMailreceivedAction($id)
     {
@@ -343,14 +352,14 @@ class MailController extends Controller
         'mail' => $mail
         ));
     }
-    
+    //--------------------------------------------------------  
     /**
-     * Add actor controller.
+     * Add an actor.
      *
      * @param Request $request Incoming request
      * @Security("has_role('ROLE_ADMIN')")
      */
-     public function addActorAction(Request $request) 
+     public function addInterlocutorAction(Request $request) 
      {
         // Création d'un nouvel interlocuteur
         $actor = new Actor();
@@ -378,10 +387,74 @@ class MailController extends Controller
         ));
         
      }
-     
-     
+
      /**
-      * Add mail sent action.
+     * Displays all the mails of the specified contact.
+     *
+     * @param integer $id Interlocutor id
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function showAllMailInterlocutorAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        // On récupère l'interlocuteur par son id
+        $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
+
+        // On récupère tous les courriers envoyés par l'interlocuteur
+        $allMailsentByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByActorReverse($id);
+        
+        // On récupère tous les courriers reçus par l'interlocuteur
+        $allMailreceivedByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByActorReverse($id);
+
+        if (null === $actor) {
+        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
+        }
+
+        return $this->render('MailsMailBundle:Mail:mails_actor.html.twig', array(
+        'actor' => $actor,
+        'allMailsentByActor' => $allMailsentByActor,
+        'allMailreceivedByActor' => $allMailreceivedByActor,
+        ));
+    }
+
+    //------------------------------------------------------
+    
+    /**
+     * Displays all the mails of the specified user.
+     *
+     * @param integer $id User id
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function showAllMailUserAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        // On récupère l'user par son id
+        $user = $em->getRepository('MailsUserBundle:User')->find($id);
+
+        // On récupère tous les courriers envoyés par l'user
+        $allMailsentByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByUser($id);
+        
+        // On récupère tous les courriers reçus par l'user
+        $allMailreceivedByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByUser($id);
+
+        if (null === $user) {
+        throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
+        }
+        
+        return $this->render('MailsMailBundle:Mail:mails_user.html.twig', array(
+        'user' => $user,
+        'allMailsentByUser' => $allMailsentByUser,
+        'allMailreceivedByUser' => $allMailreceivedByUser,
+        ));
+       
+    }
+     
+    //------------------------------------------------------
+
+     /**
+      * Add or create a mail sent action.
       *
       * @param Request $request Incoming request
       * @Security("has_role('ROLE_ADMIN')")
@@ -452,9 +525,8 @@ class MailController extends Controller
          
      }
      
-     
      /**
-      * Add mail received action.
+      * Add or create a mail received action.
       *
       * @param Request $request Incoming request
       * @Security("has_role('ROLE_ADMIN')")
@@ -518,69 +590,8 @@ class MailController extends Controller
          
      }
     
-    /**
-     * all mails of actor controller
-     *
-     * @param integer $id Actor id
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-    public function mailActorAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        
-        // On récupère l'interlocuteur par son id
-        $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
-
-        // On récupère tous les courriers envoyés par l'interlocuteur
-        $allMailsentByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByActorReverse($id);
-        
-        // On récupère tous les courriers reçus par l'interlocuteur
-        $allMailreceivedByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByActorReverse($id);
-
-        if (null === $actor) {
-        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
-        }
-
-        return $this->render('MailsMailBundle:Mail:mails_actor.html.twig', array(
-        'actor' => $actor,
-        'allMailsentByActor' => $allMailsentByActor,
-        'allMailreceivedByActor' => $allMailreceivedByActor,
-        ));
-    }
-    
-    /**
-     * all mails of user controller.
-     *
-     * @param integer $id User id
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-    public function mailUserAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        
-        // On récupère l'user par son id
-        $user = $em->getRepository('MailsUserBundle:User')->find($id);
-
-        // On récupère tous les courriers envoyés par l'user
-        $allMailsentByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByUser($id);
-        
-        // On récupère tous les courriers reçus par l'user
-        $allMailreceivedByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByUser($id);
-
-        if (null === $user) {
-        throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
-        }
-        
-        return $this->render('MailsMailBundle:Mail:mails_user.html.twig', array(
-        'user' => $user,
-        'allMailsentByUser' => $allMailsentByUser,
-        'allMailreceivedByUser' => $allMailreceivedByUser,
-        ));
-       
-    }
-    
      /**
-      * Register mail sent action.
+      * Register a mail sent.
       *
       * @param Request $request Incoming request
       * @param Integer $id mail sent id
@@ -628,7 +639,7 @@ class MailController extends Controller
      }
      
      /**
-      * Register mail received action.
+      * Register a mail received action.
       *
       * @param Request $request Incoming request
       * @param Integer $id mail received id
