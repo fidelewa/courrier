@@ -1,0 +1,3 @@
+mails_contact_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MailsContactBundle:Default:index }
