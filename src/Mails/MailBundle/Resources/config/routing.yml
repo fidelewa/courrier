@@ -44,17 +44,17 @@ mails_mail_mailsent_delete:
     
 mails_mail_actor_add:
     path:     /actor/add
-    defaults: { _controller: MailsMailBundle:Mail:addActor }
+    defaults: { _controller: MailsMailBundle:Mail:addInterlocutor }
         
 mails_mail_actor:
     path:     /mails/actor/{id}
-    defaults: { _controller: MailsMailBundle:Mail:mailActor }
+    defaults: { _controller: MailsMailBundle:Mail:showAllMailInterlocutor }
     requirements:
         id: \d+
     
 mails_mail_user:
     path:     /mails/user/{id}
-    defaults: { _controller: MailsMailBundle:Mail:mailUser }
+    defaults: { _controller: MailsMailBundle:Mail:showAllMailUser }
     requirements:
         id: \d+
         
