@@ -1,0 +1,27 @@
+mails_user_show_all:
+    path:     /showall
+    defaults: { _controller: MailsUserBundle:User:showAllUser }
+
+mails_user_mailsent:
+    path:     /mailsent/{page}
+    defaults: { _controller: MailsUserBundle:User:showAllMailsentByUser, page: 1 }
+    requirements:
+        page: \d*
+
+mails_user_mailreceived:
+    path:     /mailreceived/{page}
+    defaults: { _controller: MailsUserBundle:User:showAllMailreceivedByUser, page: 1 }
+    requirements:
+        page: \d*
+
+mails_user_delete:
+    path:     /delete/{id}
+    defaults: { _controller: MailsUserBundle:User:deleteUser }
+    requirements:
+        id: \d+
+
+mails_user_all_mails:
+    path:     /all/mails/{id}
+    defaults: { _controller: MailsUserBundle:User:showAllMailUser }
+    requirements:
+        id: \d+
