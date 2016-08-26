@@ -5,8 +5,6 @@ namespace Mails\ContactBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Mails\MailBundle\Entity\Mail;
-use Mails\MailBundle\Entity\MailSent;
 use Mails\MailBundle\Entity\Actor;
 use Mails\MailBundle\Form\ActorType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
