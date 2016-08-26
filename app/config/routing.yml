@@ -8,6 +8,10 @@ mails_admin:
 mails_mail:
     resource: "@MailsMailBundle/Resources/config/routing.yml"
     prefix:   /mail
+
+mails_contact:
+    resource: "@MailsContactBundle/Resources/config/routing.yml"
+    prefix:   /contact
     
 #login:
     #pattern:   /login
