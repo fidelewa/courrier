@@ -1,3 +1,25 @@
-mails_contact_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MailsContactBundle:Default:index }
+mails_contact_show_all:
+    path:     /showall
+    defaults: { _controller: MailsContactBundle:Contact:showAllInterlocutor }
+
+mails_contact_edit:
+    path:     /edit/{id}
+    defaults: { _controller: MailsContactBundle:Contact:editInterlocutor }
+    requirements:
+        id: \d+
+
+mails_contact_delete:
+    path:     /delete/{id}
+    defaults: { _controller: MailsContactBundle:Contact:deleteInterlocutor }
+    requirements:
+        id: \d+
+
+mails_contact_add:
+    path:     /add
+    defaults: { _controller: MailsContactBundle:Contact:addInterlocutor }
+
+mails_contact_all_mail:
+    path:     /showAllMail/{id}
+    defaults: { _controller: MailsContactBundle:Contact:showAllMailInterlocutor }
+    requirements:
+        id: \d+
