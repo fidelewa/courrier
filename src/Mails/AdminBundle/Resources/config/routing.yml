@@ -1,21 +1,3 @@
-mails_admin_mailsent:
-    path:     /mailsent/{page}
-    defaults: { _controller: MailsAdminBundle:Admin:showAllMailsentByUser, page: 1 }
-    requirements:
-        page: \d*
-    
-mails_admin_mailreceived:
-    path:     /mailreceived/{page}
-    defaults: { _controller: MailsAdminBundle:Admin:showAllMailreceivedByUser, page: 1 }
-    requirements:
-        page: \d*
-    
-
-    
-mails_admin_user:
-    path:     /users
-    defaults: { _controller: MailsAdminBundle:Admin:showAllUser }
-    
 mails_admin_mailsent_edit:
     path:     /mailsent/edit/{id}
     defaults: { _controller: MailsAdminBundle:Admin:editMailsent }
@@ -37,23 +19,6 @@ mails_admin_mailreceived_edit:
 mails_admin_mailreceived_delete:
     path:     /mailreceived/delete/{id}
     defaults: { _controller: MailsAdminBundle:Admin:deleteMailreceived }
-    requirements:
-        id: \d+
-    
-       
-mails_admin_user_add:
-    path:     /user/add
-    defaults: { _controller: MailsAdminBundle:Admin:addUser }
-    
-mails_admin_user_edit:
-    path:     /user/edit/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:editUser }
-    requirements:
-        id: \d+
-        
-mails_admin_user_delete:
-    path:     /delete/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:deleteUser }
     requirements:
         id: \d+
         
