@@ -352,45 +352,6 @@ class MailController extends Controller
         'mail' => $mail
         ));
     }
-    //--------------------------------------------------------  
-    
-
-     
-
-    //------------------------------------------------------
-    
-    /**
-     * Displays all the mails of the specified user.
-     *
-     * @param integer $id User id
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-    public function showAllMailUserAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        
-        // On récupère l'user par son id
-        $user = $em->getRepository('MailsUserBundle:User')->find($id);
-
-        // On récupère tous les courriers envoyés par l'user
-        $allMailsentByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByUser($id);
-        
-        // On récupère tous les courriers reçus par l'user
-        $allMailreceivedByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByUser($id);
-
-        if (null === $user) {
-        throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
-        }
-        
-        return $this->render('MailsMailBundle:Mail:mails_user.html.twig', array(
-        'user' => $user,
-        'allMailsentByUser' => $allMailsentByUser,
-        'allMailreceivedByUser' => $allMailreceivedByUser,
-        ));
-       
-    }
-     
-    //------------------------------------------------------
 
      /**
       * Add or create a mail sent action.
