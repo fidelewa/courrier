@@ -12,6 +12,10 @@ mails_mail:
 mails_contact:
     resource: "@MailsContactBundle/Resources/config/routing.yml"
     prefix:   /contact
+
+mails_user:
+    resource: "@MailsUserBundle/Resources/config/routing.yml"
+    prefix:   /user
     
 #login:
     #pattern:   /login
