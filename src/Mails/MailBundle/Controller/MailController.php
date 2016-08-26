@@ -353,70 +353,9 @@ class MailController extends Controller
         ));
     }
     //--------------------------------------------------------  
-    /**
-     * Add an actor.
-     *
-     * @param Request $request Incoming request
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-     public function addInterlocutorAction(Request $request) 
-     {
-        // Création d'un nouvel interlocuteur
-        $actor = new Actor();
-        
-        // Création du formulaire
-        $form = $this->createForm(new ActorType(), $actor);
+    
 
-        // Si la requête est en POST
-        if($form->handleRequest($request)->isValid()) 
-        {
-        
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($actor);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('success', 'L\'interlocuteur "'.$actor->getName().'" à bien été enregistré.');
-
-            return $this->redirect($this->generateUrl('mails_admin_actor'));
-        }
-        
-        // Si la requête est en GET
-        return $this->render('MailsMailBundle:Mail:actor_add.html.twig', array(
-        'actorForm' => $form->createView(),
-        'title' => 'Ajouter un nouvel interlocuteur'
-        ));
-        
-     }
-
-     /**
-     * Displays all the mails of the specified contact.
-     *
-     * @param integer $id Interlocutor id
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-    public function showAllMailInterlocutorAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        
-        // On récupère l'interlocuteur par son id
-        $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
-
-        // On récupère tous les courriers envoyés par l'interlocuteur
-        $allMailsentByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByActorReverse($id);
-        
-        // On récupère tous les courriers reçus par l'interlocuteur
-        $allMailreceivedByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByActorReverse($id);
-
-        if (null === $actor) {
-        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
-        }
-
-        return $this->render('MailsMailBundle:Mail:mails_actor.html.twig', array(
-        'actor' => $actor,
-        'allMailsentByActor' => $allMailsentByActor,
-        'allMailreceivedByActor' => $allMailreceivedByActor,
-        ));
-    }
+     
 
     //------------------------------------------------------
     
