@@ -41,12 +41,6 @@ mails_mail_mailsent_delete:
     defaults: { _controller: MailsMailBundle:Mail:deleteMailsent }  
     requirements:
         id: \d+
-    
-mails_mail_user:
-    path:     /mails/user/{id}
-    defaults: { _controller: MailsMailBundle:Mail:showAllMailUser }
-    requirements:
-        id: \d+
         
 mails_admin_mailsent_registration:
     path:      /register/mailsent/{id}
