@@ -21,7 +21,7 @@ class UserController extends Controller
         // On affiche la liste de tous les utilisateurs
         $listUser = $lister->listAdminUser();
 
-        return $this->render('MailsAdminBundle:Admin:admin_user.html.twig', array(
+        return $this->render('MailsUserBundle:User:user.html.twig', array(
             'users' => $listUser
             ));
     }
@@ -30,7 +30,7 @@ class UserController extends Controller
      * Displays a list of all mail sent by the responsible power
      * @param interger $page page number
      */
-    public function showAllMailsentByUserAction($page) 
+    public function showAllMailsentCurrentUserAction($page) 
     {
         if ($page < 1) {
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
@@ -55,7 +55,7 @@ class UserController extends Controller
             //return $this->redirect($this->generateUrl('mails_core_home'));
         }
 
-        return $this->render('MailsAdminBundle:Admin:admin_mailsent.html.twig', array(
+        return $this->render('MailsUserBundle:User:user_mailsent.html.twig', array(
             'mailsSentByActor' => $listMailsSent,
             'nbPages' => $nombreTotalPages,
             'page' => $page,
@@ -66,7 +66,7 @@ class UserController extends Controller
      * Displays a list of all mail received by the responsible power
      * @param interger $page page number
      */
-    public function showAllMailreceivedByUserAction($page) 
+    public function showAllMailreceivedCurrentUserAction($page) 
     {
         if ($page < 1) {
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
@@ -91,7 +91,7 @@ class UserController extends Controller
             //return $this->redirect($this->generateUrl('mails_core_home'));
         } 
 
-        return $this->render('MailsAdminBundle:Admin:admin_mailreceived.html.twig', array(
+        return $this->render('MailsUserBundle:User:user_mailreceived.html.twig', array(
             'mailsReceivedByActor' => $listMailsReceived,
             'nbPages' => $nombreTotalPages,
             'page' => $page,
@@ -196,7 +196,7 @@ class UserController extends Controller
      * @param integer $id User id
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function showAllMailUserAction($id)
+    public function showAllMailOfUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -213,7 +213,7 @@ class UserController extends Controller
         throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
         
-        return $this->render('MailsMailBundle:Mail:mails_user.html.twig', array(
+        return $this->render('MailsUserBundle:User:user_mails.html.twig', array(
         'user' => $user,
         'allMailsentByUser' => $allMailsentByUser,
         'allMailreceivedByUser' => $allMailreceivedByUser,
