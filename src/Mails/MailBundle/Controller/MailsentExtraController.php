@@ -50,7 +50,7 @@ class MailsentExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:mailsent_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:mailsent_filter.html.twig', array(
         'form' => $form->createView()
         ));
          
@@ -106,7 +106,7 @@ class MailsentExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:user_mailsent_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:mailsent_user_filter.html.twig', array(
         'user' => $user,    
         'form' => $form->createView()
         ));
@@ -164,7 +164,7 @@ class MailsentExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:actor_mailsent_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:mailsent_actor_filter.html.twig', array(
         'actor' => $actor,    
         'form' => $form->createView()
         ));
@@ -224,7 +224,7 @@ class MailsentExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:all_mailsent_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:all_mailsent_filter.html.twig', array(
         'form' => $form->createView()
         ));
          
