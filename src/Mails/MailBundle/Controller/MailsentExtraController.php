@@ -12,7 +12,6 @@ use Mails\MailBundle\Form\MailSentFilterType;
 
 class MailsentExtraController extends Controller
 {
-
      /**
      * Filter mails sent.
      *

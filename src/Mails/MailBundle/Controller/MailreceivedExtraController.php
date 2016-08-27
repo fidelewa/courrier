@@ -12,7 +12,7 @@ use Mails\MailBundle\Form\MailReceivedFilterType;
 
 class MailreceivedExtraController extends Controller
 {
-        /**
+     /**
      * Filter mails received.
      *
      * @param Request $request Incoming request
@@ -51,7 +51,7 @@ class MailreceivedExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:mailreceived_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:mailreceived_filter.html.twig', array(
         'form' => $form->createView()
         ));
          
@@ -108,7 +108,7 @@ class MailreceivedExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:user_mailreceived_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:mailreceived_user_filter.html.twig', array(
         'user' => $user,    
         'form' => $form->createView()
         ));
@@ -166,7 +166,7 @@ class MailreceivedExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:actor_mailreceived_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:mailreceived_actor_filter.html.twig', array(
         'actor' => $actor,    
         'form' => $form->createView()
         ));
@@ -227,7 +227,7 @@ class MailreceivedExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsAdminBundle:Admin:all_mailreceived_filter.html.twig', array(
+        return $this->render('MailsMailBundle:Mail:all_mailreceived_filter.html.twig', array(
         'form' => $form->createView()
         ));
          
