@@ -1,0 +1,64 @@
+{% extends "MailsAdminBundle::layout.html.twig" %}
+
+{% block title %}
+  Critères de recherche - Liste des courriers envoyés
+{% endblock %}
+
+{% block mailsadmin_body %}
+
+<h2 class="text-center">{{ block('title') }}</h2>
+
+<div class="well">
+    
+    {{ form_start(form, {'method': 'post', 'action': path('mails_admin_all_mailsent_filter'), 'attr': {'class': 'form-horizontal'}}) }}
+      
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+    
+    <div class="form-group">
+        {{ form_label(form.mailsent.actor, "Choix du nom du destinataire * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.mailsent.actor) }}
+            {{ form_widget(form.mailsent.actor, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nom du destinataire recherché'}}
+            ) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.nbDaysBefore, "Nombre de jours d'ancienneté * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-6">
+            {{ form_errors(form.nbDaysBefore) }}
+            {{ form_widget(form.nbDaysBefore, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nombre de jours d\'ancienneté recherché'}}
+            ) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+      
+        <div class="col-sm-1">
+            {{ form_errors(form.received) }}
+            {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            {{ form_widget(form.rechercher, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    </div>
+
+    {# Génération automatique des champs pas encore écrits.
+     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+     et tous les champs cachés (type « hidden »). #}
+    {{ form_rest(form) }}
+    
+    {{ form_end(form) }}
+    
+</div>
+{% if app.user and is_granted('ROLE_ADMIN') %}
+<a href="{{ path('mails_mail_mailsent_add') }}"><u> Enregistrer un nouveau courrier envoyé</u></a> 
+{% endif %}
+{% endblock %}
