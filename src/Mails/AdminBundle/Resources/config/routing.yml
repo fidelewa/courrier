@@ -21,65 +21,10 @@ mails_admin_mailreceived_delete:
     defaults: { _controller: MailsAdminBundle:Admin:deleteMailreceived }
     requirements:
         id: \d+
-        
-mails_admin_mailsent_filter:
-    path:     /mailsent/filter
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailsent }
-    
-mails_admin_mailreceived_filter:
-    path:     /mailreceived/filter
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceived }
-    
+
 mails_admin_user_filter:
     path:     /user/filter
-    defaults: { _controller: MailsAdminBundle:Admin:filterUser }  
-    
-mails_admin_user_mailsent_filter:
-    path:     /mailsent/filter/user/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentByUser }
-    requirements:
-        id: \d+
-    
-mails_admin_user_mailreceived_filter:
-    path:     /mailreceived/filter/user/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedByUser }
-    requirements:
-        id: \d+
-
-mails_admin_actor_mailsent_filter:
-    path:     /mailsent/filter/actor/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailsentByInterlocutor }
-    requirements:
-        id: \d+
-    
-mails_admin_actor_mailreceived_filter:
-    path:     /mailreceived/filter/actor/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:filterMailreceivedByInterlocutor }
-    requirements:
-        id: \d+
-
-mails_admin_all_mailsent_filter:
-    path:     /all/mailsent/filter/{page}
-    defaults: { _controller: MailsAdminBundle:Admin:filterAllMailsent, page: 1 }
-    requirements:
-        page: \d*
-    
-mails_admin_all_mailreceived_filter:
-    path:     /all/mailreceived/filter/{page}
-    defaults: { _controller: MailsAdminBundle:Admin:filterAllMailreceived, page: 1 }
-    requirements:
-        page: \d*
-    
-mails_admin_mailsent_validation:
-    path:      /validate/mailsent/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:validateMailsent }
-    requirements:
-        id: \d+
+    defaults: { _controller: MailsAdminBundle:Admin:filterUser } 
         
-mails_admin_mailreceived_validation:
-    path:      /validate/mailreceived/{id}
-    defaults: { _controller: MailsAdminBundle:Admin:validateMailreceived }
-    requirements:
-        id: \d+ 
 
     
