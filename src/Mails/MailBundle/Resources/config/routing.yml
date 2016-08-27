@@ -53,6 +53,68 @@ mails_admin_mailreceived_registration:
     defaults: { _controller: MailsMailBundle:Mail:registerMailreceived }
     requirements:
         id: \d+ 
+#----------------------------------------------------------------------------- 
+mails_mailreceived_filter:
+    path:     /mailreceived/filter
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceived }
+
+mails_mailreceived_filter_user:
+    path:     /mailreceived/filter/user/{id}
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByUser }
+    requirements:
+        id: \d+
+
+mails_mailreceived_filter_actor:
+    path:     /mailreceived/filter/contact/{id}
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByInterlocutor }
+    requirements:
+        id: \d+
+
+mails_all_mailreceived_filter:
+    path:     /all/mailreceived/filter/{page}
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceived, page: 1 }
+    requirements:
+        page: \d*
+
+mails_mailreceived_validation:
+    path:      /validate/mailreceived/{id}
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:validateMailreceived }
+    requirements:
+        id: \d+ 
+#-------------------------------------------------------------------------------
+mails_mailsent_filter:
+    path:     /mailsent/filter
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsent }
+
+mails_mailsent_filter_user:
+    path:     /mailsent/filter/user/{id}
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByUser }
+    requirements:
+        id: \d+
+
+mails_mailsent_filter_actor:
+    path:     /mailsent/filter/contact/{id}
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByInterlocutor }
+    requirements:
+        id: \d+
+
+mails_all_mailsent_filter:
+    path:     /all/mailsent/filter/{page}
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterAllMailsent, page: 1 }
+    requirements:
+        page: \d*
+
+mails_mailsent_validation:
+    path:      /validate/mailsent/{id}
+    defaults: { _controller: MailsMailBundle:MailsentExtra:validateMailsent }
+    requirements:
+        id: \d+
+    
+ 
+    
+
+    
+
         
 
 
