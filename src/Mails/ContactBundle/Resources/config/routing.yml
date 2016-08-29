@@ -19,7 +19,7 @@ mails_contact_add:
     defaults: { _controller: MailsContactBundle:Contact:addInterlocutor }
 
 mails_contact_all_mail:
-    path:     /showAllMail/{id}
+    path:     /all/mail/{id}
     defaults: { _controller: MailsContactBundle:Contact:showAllMailInterlocutor }
     requirements:
         id: \d+
