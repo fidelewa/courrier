@@ -13,3 +13,6 @@ services:
         class: Mails\MailBundle\Indexor\MailsIndexor
         arguments: [@doctrine.orm.entity_manager]
 
+    mails_mail.nbpage_calculator:
+        class: Mails\MailBundle\Calculator\NbPageCalculator
+
