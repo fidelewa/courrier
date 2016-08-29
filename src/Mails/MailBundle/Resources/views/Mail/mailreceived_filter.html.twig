@@ -10,7 +10,7 @@
 
 <div class="well">
     
-    {{ form_start(form, {'method': 'post', 'action': path('mails_admin_mailreceived_filter'), 'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, {'method': 'post', 'action': path('mails_mailreceived_filter'), 'attr': {'class': 'form-horizontal'}}) }}
       
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
@@ -55,6 +55,6 @@
     
 </div>
 {% if app.user and is_granted('ROLE_ADMIN') %}
-<a href="{{ path('mails_mail_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
+<a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
 {% endif %}
 {% endblock %}
