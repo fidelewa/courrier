@@ -11,11 +11,11 @@
     <ul class="nav nav-pills nav-stacked">
         {% for mailsentNotValidated in listMailsentNotValidated %}
             <p>
-                <a href="{{ path('mails_mail_mailsent_detail', {'id': mailsentNotValidated.id}) }}">
+                <a href="{{ path('mails_mailsent_detail', {'id': mailsentNotValidated.id}) }}">
                     <u>{{ mailsentNotValidated.objet }}</u>
                 </a>
                 <span style="background:#FFFF00">
-                  <a href="{{ path('mails_admin_mailsent_validation', {'id': mailsentNotValidated.id}) }}">
+                  <a href="{{ path('mails_mailsent_validation', {'id': mailsentNotValidated.id}) }}">
                     <u>Valider le courrier</u>
                  </a></span>
             </p>
@@ -35,11 +35,11 @@
      <ul class="nav nav-pills nav-stacked">
         {% for mailreceivedNotValidated in listMailreceivedNotValidated %}
             <p>
-                <a href="{{ path('mails_mail_mailreceived_detail', {'id': mailreceivedNotValidated.id}) }}">
+                <a href="{{ path('mails_mailreceived_detail', {'id': mailreceivedNotValidated.id}) }}">
                     <u>{{ mailreceivedNotValidated.objet }}</u>
                 </a>
                 <span style="background:#FFFF00">
-                    <a href="{{ path('mails_admin_mailreceived_validation', {'id': mailreceivedNotValidated.id}) }}">
+                    <a href="{{ path('mails_mailreceived_validation', {'id': mailreceivedNotValidated.id}) }}">
                        <u>Valider le courrier</u>
                     </a>
                 </span>

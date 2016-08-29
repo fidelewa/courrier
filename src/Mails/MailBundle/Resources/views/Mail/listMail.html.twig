@@ -4,7 +4,7 @@
     <ul class="nav nav-pills nav-stacked">
         {% for mailsent in mailsSent %}
             <li>
-                <a href="{{ path('mails_mail_mailsent_detail', {'id': mailsent.id}) }}">
+                <a href="{{ path('mails_mailsent_detail', {'id': mailsent.id}) }}">
                     <u>{{ mailsent.objet }}</u>
                 </a>
             </li>
@@ -21,7 +21,7 @@
      <ul class="nav nav-pills nav-stacked">
         {% for mailreceived in mailsReceived %}
             <li>
-                <a href="{{ path('mails_mail_mailreceived_detail', {'id': mailreceived.id}) }}">
+                <a href="{{ path('mails_mailreceived_detail', {'id': mailreceived.id}) }}">
                     <u>{{ mailreceived.objet }}</u>
                 </a>
             </li>
