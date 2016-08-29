@@ -31,93 +31,48 @@ class MailController extends Controller
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
         
+        // On récupère notre service paginator
+        $paginator = $this->get('mails_mail.mail_paginator');
+
+        // On récupère notre service calculator
+        $nbPageCalculator = $this->get('mails_mail.nbpage_calculator');
+
         //Utilisateur authentifié ou non
         if($this->getUser() !== null)
         {
             //On récupère les roles de l'user
             $userRoles = $this->getUser()->getRoles();
-            
+
             //En fonction du profil on fait la pagination de l'index des courriers envoyés
             if(in_array("ROLE_SECRETAIRE", $userRoles)) 
             {
                 // On récupère l'id de la sécrétaire courante
                 $idSecretaire = $this->getUser()->getId();
-                
-                // On récupère notre service paginator
-                $paginator = $this->get('mails_mail.mail_paginator');
 
                 // On récupère notre objet Paginator en fonction des critères spécifiés
                 $listMailsSent = $paginator->pageIndexMailsentBySecretary($page, $paginator::NUM_ITEMS, $idSecretaire);
-                
-                // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-                $nombreTotalMailsSent = $listMailsSent->count();
-                $nombreMailsentPage = $paginator::NUM_ITEMS;
-                $nombreTotalPages = ceil($nombreTotalMailsSent/$nombreMailsentPage); 
-                
-                if($page > $nombreTotalPages){
-                throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-                }
                    
             }
-            if(in_array("ROLE_ADMINISTRATEUR", $userRoles)) 
+            if(in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_SUPER_ADMIN", $userRoles)) 
             {
                 // On récupère l'admin courant
                 $admin = $this->getUser();
 
-                // On récupère notre service paginator
-                $paginator = $this->get('mails_mail.mail_paginator');
-
                 // On récupère notre objet Paginator en fonction des critères spécifiés
                 $listMailsSent = $paginator->pageIndexMailsentNotValidated($page, $paginator::NUM_ITEMS, $admin);
-                
-                // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-                $nombreTotalMailsSent = $listMailsSent->count();
-                $nombreMailsentPage = $paginator::NUM_ITEMS;
-                $nombreTotalPages = ceil($nombreTotalMailsSent/$nombreMailsentPage); 
-                
-                if($page > $nombreTotalPages){
-                throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-                }
-                   
             }
-            if(in_array("ROLE_SUPER_ADMIN", $userRoles)) 
-            {
-                //On récupère l'admin courant
-                $admin = $this->getUser();
-
-                // On récupère notre service paginator
-                $paginator = $this->get('mails_mail.mail_paginator');
-
-                // On récupère notre objet Paginator en fonction des critères spécifiés
-                $listMailsSent = $paginator->pageIndexMailsentNotValidated($page, $paginator::NUM_ITEMS, $admin);
                 
-                // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-                $nombreTotalMailsSent = $listMailsSent->count();
-                $nombreMailsentPage = $paginator::NUM_ITEMS;
-                $nombreTotalPages = ceil($nombreTotalMailsSent/$nombreMailsentPage); 
-                
-                if($page > $nombreTotalPages){
-                throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-                }
-                   
-            }
+            // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
+            $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
+
         }
         else
         {
-            // On récupère notre service paginator
-            $paginator = $this->get('mails_mail.mail_paginator');
-
             // On récupère notre objet Paginator en fonction des critères spécifiés
             $listMailsSent = $paginator->pageIndexMailsent($page, $paginator::NUM_ITEMS);
 
             // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-            $nombreTotalMailsSent = $listMailsSent->count();
-            $nombreMailsentPage = $paginator::NUM_ITEMS;
-            $nombreTotalPages = ceil($nombreTotalMailsSent/$nombreMailsentPage); 
-            
-            if($page > $nombreTotalPages){
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-            }
+            $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
         }
 
         return $this->render('MailsMailBundle:Mail:indexMailsent.html.twig', array(
