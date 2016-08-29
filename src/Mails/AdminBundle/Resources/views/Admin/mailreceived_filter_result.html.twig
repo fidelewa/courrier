@@ -39,7 +39,7 @@
                 {% set fond = '#EFEFEF' %}
                 {% for mailreceivedByFilter in allmailreceivedByFilter %}
                 <tr bgcolor={{fond}} valign='top'>
-                    <td><u><a href="{{ path('mails_mail_mailreceived_detail', {'id': mailreceivedByFilter.id}) }}">[{{ mailreceivedByFilter.reference}}]</a></u></td>
+                    <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailreceivedByFilter.id}) }}">[{{ mailreceivedByFilter.reference}}]</a></u></td>
                     <td>{{ mailreceivedByFilter.objet }}</td>
                     <td>{{ mailreceivedByFilter.dateEdition.format('d/m/Y à H:i:s') }}</td>
                     <td>{{ mailreceivedByFilter.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</td>
@@ -49,8 +49,8 @@
                     <td>{{ mailreceivedByFilter.mailreceived.actor.name}}</td>
                     <td>{{ mailreceivedByFilter.mailreceived.user.username}}</td>
                     <td>
-                        <a href="{{ path('mails_mail_mailreceived_detail', {'id': mailreceivedByFilter.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_admin_mailreceived_edit', {'id': mailreceivedByFilter.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ path('mails_mailreceived_detail', {'id': mailreceivedByFilter.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        <a href="{{ path('mails_mailreceived_edit', {'id': mailreceivedByFilter.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                         <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailreceivedByFilterDialog{{ mailreceivedByFilter.id }}"><span class="glyphicon glyphicon-remove"></span>
                         </button>
                         <div class="modal fade" id="mailreceivedByFilterDialog{{ mailreceivedByFilter.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('mails_admin_mailreceived_delete', { 'id': mailreceivedByFilter.id }) }}" class="btn btn-danger">Confirm</a>
+                                        <a href="{{ path('mails_mailreceived_delete', { 'id': mailreceivedByFilter.id }) }}" class="btn btn-danger">Confirm</a>
                                     </div>
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
@@ -81,7 +81,7 @@
         {% endif %}
        
         {% if app.user and is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('mails_mail_mailreceived_add') }}"><u>Enregistrer un nouveau courrier recu</u></a> 
+        <a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier recu</u></a> 
         {% endif %}
     </div>
 </div>
