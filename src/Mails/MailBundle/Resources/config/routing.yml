@@ -1,59 +1,72 @@
-mails_mail_mailsent_detail:
-    path:      /mailsent/{id}
-    defaults: { _controller: MailsMailBundle:Mail:viewMailsent }
-    requirements:
-        id: \d+
-        
-mails_mail_mailreceived_detail:
-    path:      /mailreceived/{id}
-    defaults: { _controller: MailsMailBundle:Mail:viewMailreceived }
-    requirements:
-        page: \d+
-
+#MailController---------------------------------------------------------------------- 
 mails_mail_mailsent:
     path:     /sent/{page}
-    defaults: { _controller: MailsMailBundle:Mail:indexMailsent, page: 1 }
-    requirements:
-        page: \d*
-        
-mails_mail_mailreceived:
-    path:     /received/{page}
-    defaults: { _controller: MailsMailBundle:Mail:indexMailreceived, page: 1 }
+    defaults: { _controller: MailsMailBundle:Mail:showIndexMailsentByUser, page: 1 }
     requirements:
         page: \d*
 
-mails_mail_mailreceived_add:
+mails_mail_mailreceived:
+    path:     /received/{page}
+    defaults: { _controller: MailsMailBundle:Mail:showIndexMailreceivedByUser, page: 1 }
+    requirements:
+        page: \d*
+#MailreceivedController----------------------------------------------------------------
+mails_mailreceived_add:
     path:     /mailreceived/add/
-    defaults: { _controller: MailsMailBundle:Mail:addMailreceived }
- 
-mails_mail_mailreceived_delete:
+    defaults: { _controller: MailsMailBundle:Mailreceived:addMailreceived }
+
+mails_mailreceived_edit:
+    path:     /mailreceived/edit/{id}
+    defaults: { _controller: MailsMailBundle:Mailreceived:editMailreceived }
+    requirements:
+        id: \d+
+        
+mails_mailreceived_delete:
     path:     /mailreceived/delete/{id}
-    defaults: { _controller: MailsMailBundle:Mail:deleteMailreceived }
+    defaults: { _controller: MailsMailBundle:Mailreceived:deleteMailreceived }
     requirements:
         id: \d+
-  
-mails_mail_mailsent_add:
-    path:     /mailsent/add/
-    defaults: { _controller: MailsMailBundle:Mail:addMailsent }  
-       
-mails_mail_mailsent_delete:
-    path:     /mailsent/delete/{id}
-    defaults: { _controller: MailsMailBundle:Mail:deleteMailsent }  
-    requirements:
-        id: \d+
-        
-mails_admin_mailsent_registration:
-    path:      /register/mailsent/{id}
-    defaults: { _controller: MailsMailBundle:Mail:registerMailsent }
-    requirements:
-        id: \d+
-        
-mails_admin_mailreceived_registration:
+
+mails_mailreceived_registration:
     path:      /register/mailreceived/{id}
-    defaults: { _controller: MailsMailBundle:Mail:registerMailreceived }
+    defaults: { _controller: MailsMailBundle:Mailreceived:registerMailreceived }
     requirements:
         id: \d+ 
-#----------------------------------------------------------------------------- 
+
+mails_mailreceived_detail:
+    path:      /mailreceived/{id}
+    defaults: { _controller: MailsMailBundle:Mailreceived:viewMailreceived }
+    requirements:
+        id: \d+
+#MailsentController--------------------------------------------------------------------
+mails_mailsent_add:
+    path:     /mailsent/add/
+    defaults: { _controller: MailsMailBundle:Mailsent:addMailsent } 
+
+mails_mailsent_edit:
+    path:     /mailsent/edit/{id}
+    defaults: { _controller: MailsMailBundle:Mailsent:editMailsent }
+    requirements:
+        id: \d+ 
+       
+mails_mailsent_delete:
+    path:     /mailsent/delete/{id}
+    defaults: { _controller: MailsMailBundle:Mailsent:deleteMailsent }  
+    requirements:
+        id: \d+
+        
+mails_mailsent_registration:
+    path:      /register/mailsent/{id}
+    defaults: { _controller: MailsMailBundle:Mailsent:registerMailsent }
+    requirements:
+        id: \d+
+
+mails_mailsent_detail:
+    path:      /mailsent/{id}
+    defaults: { _controller: MailsMailBundle:Mailsent:viewMailsent }
+    requirements:
+        id: \d+
+#MailreceivedExtraController---------------------------------------------------------------         
 mails_mailreceived_filter:
     path:     /mailreceived/filter
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceived }
@@ -81,7 +94,7 @@ mails_mailreceived_validation:
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:validateMailreceived }
     requirements:
         id: \d+ 
-#-------------------------------------------------------------------------------
+#MailsentExtraController----------------------------------------------------------------
 mails_mailsent_filter:
     path:     /mailsent/filter
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsent }
