@@ -33,7 +33,7 @@
 
     	{% if allMailsentByActor %}
         
-        <a href="{{ path('mails_mailsent_filter_actor', {'id': actor.id}) }}">
+        <a href="{{ path('mails_mailreceived_filter_actor', {'id': actor.id}) }}">
         <u>Filtrer les courriers envoyés par "{{actor.name}}"</u>
         </a>
         
@@ -63,7 +63,7 @@
                     <td>{% if mailSentByActor.received == true %}OUI{% else %}NON{% endif %}</td>
                     <td>
                         <a href="{{ path('mails_mailreceived_detail', {'id': mailSentByActor.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_mailsent_edit', {'id': mailSentByActor.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ path('mails_mailreceived_edit', {'id': mailSentByActor.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                         <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailSentByActorDialog{{ mailSentByActor.id }}"><span class="glyphicon glyphicon-remove"></span>
                         </button>
                         <div class="modal fade" id="mailSentByActorDialog{{ mailSentByActor.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -100,7 +100,7 @@
        
          {% if allMailreceivedByActor %}
          
-         <a href="{{ path('mails_mailreceived_filter_actor', {'id': actor.id}) }}">
+         <a href="{{ path('mails_mailsent_filter_actor', {'id': actor.id}) }}">
          <u>Filtrer les courriers reçus par "{{actor.name}}"</u>
          </a>
          
@@ -138,7 +138,7 @@
                     <td>{% if mailReceivedByActor.treated == true %}OUI{% else %}NON{% endif %}</td>
                     <td>
                         <a href="{{ path('mails_mailsent_detail', {'id': mailReceivedByActor.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_mailreceived_edit', {'id': mailReceivedByActor.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ path('mails_mailsent_edit', {'id': mailReceivedByActor.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                         <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailReceivedByActorDialog{{ mailReceivedByActor.id }}"><span class="glyphicon glyphicon-remove"></span>
                         </button>
                         <div class="modal fade" id="mailReceivedByActorDialog{{ mailReceivedByActor.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
