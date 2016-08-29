@@ -33,7 +33,7 @@
 
     	{% if allMailsentByUser %}
         
-        <a href="{{ path('mails_admin_user_mailsent_filter', {'id': user.id}) }}">
+        <a href="{{ path('mails_mailsent_filter_user', {'id': user.id}) }}">
         <u>Filtrer les courriers envoyés par "{{user.username}}"</u>
         </a>
             
@@ -53,7 +53,7 @@
                 {% set fond = '#EFEFEF' %}
                 {% for mailSentByUser in allMailsentByUser %}
                 <tr bgcolor={{fond}} valign='top'>
-                    <td></u><a href="{{ path('mails_mail_mailsent_detail', {'id': mailSentByUser.id}) }}">[{{ mailSentByUser.reference}}]</a></u></td>
+                    <td></u><a href="{{ path('mails_mailsent_detail', {'id': mailSentByUser.id}) }}">[{{ mailSentByUser.reference}}]</a></u></td>
                     <td>{{ mailSentByUser.objet }}</td>
                     <td>
                         {% if mailSentByUser.dateEdition is not null %}
@@ -64,8 +64,8 @@
                     <td>{{ mailSentByUser.nombrePiecesJointes}}</td>
                     <td>{% if mailSentByUser.received == true %}OUI{% else %}NON{% endif %}</td>
                     <td>
-                        <a href="{{ path('mails_mail_mailsent_detail', {'id': mailSentByUser.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_admin_mailsent_edit', {'id': mailSentByUser.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ path('mails_mailsent_detail', {'id': mailSentByUser.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        <a href="{{ path('mails_mailsent_edit', {'id': mailSentByUser.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                         <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailSentByUserDialog{{ mailSentByUser.id }}"><span class="glyphicon glyphicon-remove"></span>
                         </button>
                         <div class="modal fade" id="mailSentByUserDialog{{ mailSentByUser.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('mails_admin_mailsent_delete', { 'id': mailSentByUser.id }) }}" class="btn btn-danger">Confirm</a>
+                                        <a href="{{ path('mails_mailsent_delete', { 'id': mailSentByUser.id }) }}" class="btn btn-danger">Confirm</a>
                                     </div>
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
@@ -95,13 +95,13 @@
         <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet utilisateur.</div>
         {% endif %}
         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-<a href="{{ path('mails_mail_mailsent_add') }}"><u>Enregistrer un nouveau courrier envoyé</u></a>
+<a href="{{ path('mails_mailsent_add') }}"><u>Enregistrer un nouveau courrier envoyé</u></a>
 {% endif %}
     </div> 
    <div class="tab-pane fade adminTable" id="allMailreceivedByUser">
          {% if allMailreceivedByUser %}
          
-        <a href="{{ path('mails_admin_user_mailreceived_filter', {'id': user.id}) }}">
+        <a href="{{ path('mails_mailreceived_filter_user', {'id': user.id}) }}">
         <u>Filtrer les courriers reçus par "{{user.username}}"</u>
         </a>
          
@@ -122,7 +122,7 @@
                 {% set fond = '#EFEFEF' %}
                 {% for mailReceivedByUser in allMailreceivedByUser %}
                 <tr bgcolor={{fond}} valign='top'>
-                    <td><u><a href="{{ path('mails_mail_mailreceived_detail', {'id': mailReceivedByUser.id}) }}">[{{ mailReceivedByUser.reference}}]</a></u></td>
+                    <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByUser.id}) }}">[{{ mailReceivedByUser.reference}}]</a></u></td>
                     <td>{{ mailReceivedByUser.objet }}</td>
                     <td>
                         {% if mailReceivedByUser.dateEdition is not null %}
@@ -134,8 +134,8 @@
                     <td>{% if mailReceivedByUser.treated == true %}OUI{% else %}NON{% endif %}</td>
                     <td>{% if mailReceivedByUser.received == true %}OUI{% else %}NON{% endif %}</td>
                     <td>
-                        <a href="{{ path('mails_mail_mailreceived_detail', {'id': mailReceivedByUser.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_admin_mailreceived_edit', {'id': mailReceivedByUser.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByUser.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        <a href="{{ path('mails_mailreceived_edit', {'id': mailReceivedByUser.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
                         <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailReceivedByUserDialog{{ mailReceivedByUser.id }}"><span class="glyphicon glyphicon-remove"></span>
                         </button>
                         <div class="modal fade" id="mailReceivedByUserDialog{{ mailReceivedByUser.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -150,7 +150,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('mails_admin_mailreceived_delete', { 'id': mailReceivedByUser.id }) }}" class="btn btn-danger">Confirm</a>
+                                        <a href="{{ path('mails_mailreceived_delete', { 'id': mailReceivedByUser.id }) }}" class="btn btn-danger">Confirm</a>
                                     </div>
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
@@ -165,7 +165,7 @@
         <div class="alert alert-warning">Aucun courrier n'a été reçu par cet utilisateur.</div>
         {% endif %} 
         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-<a href="{{ path('mails_mail_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
+<a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
 {% endif %}
     </div>   
 </div>
