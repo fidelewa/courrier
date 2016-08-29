@@ -23,7 +23,7 @@
     <div class="alert alert-success">La liste ci-dessous correspond au résultat de la recherche !</div>
         {% for mail in allMailreceivedFilter %}
             <article>
-                <h2><a class="mailObjet" href="{{ path('mails_mail_mailreceived_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
+                <h2><a class="mailObjet" href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
                 <p>Date de reception : <em>le {{ mail.mailreceived.dateReception|date('d/m/Y à H:i:s') }}</em></p>
             </article>
          {% endfor %}   
