@@ -16,7 +16,7 @@
 
 <div class="well">
     
-    {{ form_start(form, {'method': 'post', 'action': path('mails_admin_actor_mailsent_filter', {'id': actor.id}), 'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, {'method': 'post', 'action': path('mails_mailsent_filter_actor', {'id': actor.id}), 'attr': {'class': 'form-horizontal'}}) }}
       
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
