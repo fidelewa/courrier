@@ -153,6 +153,7 @@ class MailController extends Controller
      * Display the list of latest unregistered mails attributed to Secretary
      *
      * @param Integer $limit limit number
+     * @Security("has_role('ROLE_SECRETAIRE')")
      */
     public function showLatestUnregistredMailToSecretaryAction($limit)
     {
@@ -176,6 +177,7 @@ class MailController extends Controller
     /**
      * Display the list of latest not validated mails by user.
      * @param Integer $limit limit number
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showLatestNotValidatedMailByUserAction($limit)
     {
