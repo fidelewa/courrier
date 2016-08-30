@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
+  /**
+   * @Security("has_role('ROLE_ADMIN')")
+   */
 class UserController extends Controller
 {
     /**
@@ -117,7 +119,7 @@ class UserController extends Controller
         // On récupère notre service eraser
         $eraser = $this->get('mails_mail.eraser');
 
-        //SUPRESSION
+        //supression de l'utilisateur
         $eraser->deleteUserAndAllHisMails($user, $allMailsentByUser, $allMailreceivedByUser);
         
         $request->getSession()->getFlashBag()->add('success', 'L\'utilisateur "'.$tempUserName.'" ainsi que tous ses courriers ont bien été supprimés.');
@@ -133,7 +135,6 @@ class UserController extends Controller
      * Displays all the mails of the specified user.
      *
      * @param integer $id User id
-     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAllMailOfUserAction($id)
     {
