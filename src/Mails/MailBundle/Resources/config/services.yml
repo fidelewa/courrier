@@ -16,3 +16,7 @@ services:
     mails_mail.nbpage_calculator:
         class: Mails\MailBundle\Calculator\NbPageCalculator
 
+    mails_mail.eraser:
+        class: Mails\MailBundle\Eraser\Eraser
+        arguments: [@doctrine.orm.entity_manager]
+
