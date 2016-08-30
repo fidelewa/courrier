@@ -24,17 +24,17 @@ class MailreceivedController extends Controller
      {
         //On récupère l'EntityManager
         $em = $this->getDoctrine()->getManager();
-        
-        //On crée le mail
-        $mail = new Mail();
             
-        //On crée le mail received
+        //On crée le courrier reçu
         $mailreceived = new MailReceived();
         
         //On défini la date de reception du courrier reçu à la date courante
         $mailreceived->setdateReception(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
+
+        //On crée le courrier
+        $mail = new Mail();
         
-        //On défini le mail received
+        //On défini le courrier reçu
         $mail->setMailreceived($mailreceived);
 
         //On crée notre formulaire
@@ -67,8 +67,10 @@ class MailreceivedController extends Controller
             $em->persist($mail);
             $em->flush();
 
+            //Message flash
             $request->getSession()->getFlashBag()->add('info', 'Le courrier reçu de référence "'.$mail->getReference().'" à bien été crée.');
             
+            //Redirection vers les détail du courrier
             return $this->redirect($this->generateUrl('mails_mailreceived_detail', array('id' => $mail->getId())));
         }
         
