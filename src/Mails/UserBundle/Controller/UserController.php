@@ -35,25 +35,18 @@ class UserController extends Controller
         if ($page < 1) {
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
-        
-        //On récupère l'administrateur courant
-        $admin = $this->getUser();
-
+    
         // On récupère notre service lister
         $lister = $this->get('mails_admin.mail_lister');
 
+        // On récupère notre service calculator
+        $nbPageCalculator = $this->get('mails_mail.nbpage_calculator');
+
         // On récupère la liste de tous les courriers envoyés par l'administrateur courant
-        $listMailsSent = $lister->listAdminMailsent($page, $lister::NUM_ITEMS, $admin);
-                
+        $listMailsSent = $lister->listAdminMailsent($page, $lister::NUM_ITEMS, $this->getUser());
+
         // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-        $nombreTotalMailsSent = $listMailsSent->count();
-        $nombreMailsentPage = $lister::NUM_ITEMS;
-        $nombreTotalPages = ceil($nombreTotalMailsSent/$nombreMailsentPage); 
-                
-        if($page > $nombreTotalPages){
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-            //return $this->redirect($this->generateUrl('mails_core_home'));
-        }
+        $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
 
         return $this->render('MailsUserBundle:User:user_mailsent.html.twig', array(
             'mailsSentByActor' => $listMailsSent,
@@ -72,16 +65,12 @@ class UserController extends Controller
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
         
-        //On récupère l'administrateur courant
-        $admin = $this->getUser();
-
         // On récupère notre service lister
         $lister = $this->get('mails_admin.mail_lister');
 
         // On récupère la liste de tous les courriers reçus par l'administrateur courant
-        $listMailsReceived = $lister->listAdminMailreceived($page, $lister::NUM_ITEMS, $admin);
-                
-        // On calcule le nombre total de pages grâce au count($listMailsReceived) qui retourne le nombre total de courriers reçus
+        $listMailsReceived = $lister->listAdminMailreceived($page, $lister::NUM_ITEMS, $this->getUser());
+
         $nombreTotalMailsReceived = $listMailsReceived->count();
         $nombreMailreceivedPage = $lister::NUM_ITEMS;
         $nombreTotalPages = ceil($nombreTotalMailsReceived/$nombreMailreceivedPage); 
@@ -124,62 +113,12 @@ class UserController extends Controller
         
         // On stocke le nom de l'utilisateur dans une variable tampon
         $tempUserName = $user->getUsername();
-        
-        if((empty($allMailsentByUser)) && (!empty($allMailreceivedByUser)))
-        {
-            foreach($allMailreceivedByUser as $mailreceivedByUser)
-            {
-                // On supprime tous les courriers reçus par l'user spécifié 
-                $em->remove($mailreceivedByUser);
-            }
-            
-            //On supprime l'user spécifié
-            $em->remove($user);
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
-        elseif((!empty($allMailsentByUser)) && (empty($allMailreceivedByUser)))
-        {
-            foreach($allMailsentByUser as $mailsentByUser)
-            {
-                // On supprime tous les courriers envoyés par l'user spécifié 
-                $em->remove($mailsentByUser);
-            }
 
-            //On supprime l'user spécifié
-            $em->remove($user);
+        // On récupère notre service eraser
+        $eraser = $this->get('mails_mail.eraser');
 
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
-        elseif((empty($allMailsentByUser)) && (empty($allMailreceivedByUser)))
-        {
-            //On supprime l'user spécifié
-            $em->remove($user);
-
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
-        else
-        {
-            foreach($allMailsentByUser as $mailsentByUser)
-            {
-                // On supprime tous les courriers envoyés par l'user spécifié 
-                $em->remove($mailsentByUser);
-            }
-            
-            foreach($allMailreceivedByUser as $mailreceivedByUser)
-            {
-                // On supprime tous les courriers reçus par l'user spécifié 
-                $em->remove($mailreceivedByUser);
-            }
-            
-            //On supprime l'user spécifié
-            $em->remove($user);
-        
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
+        //SUPRESSION
+        $eraser->deleteUserAndAllHisMails($user, $allMailsentByUser, $allMailreceivedByUser);
         
         $request->getSession()->getFlashBag()->add('success', 'L\'utilisateur "'.$tempUserName.'" ainsi que tous ses courriers ont bien été supprimés.');
 
@@ -187,7 +126,7 @@ class UserController extends Controller
         unset($tempUserName);
 
         // Puis on redirige vers l'accueil
-        return $this->redirect($this->generateUrl('mails_user_show_all'));
+        return $this->redirect($this->generateUrl('mails_core_home'));
     }
 
     /**
