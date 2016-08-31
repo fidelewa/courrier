@@ -2,7 +2,7 @@
 
 {% block title %}
   Critères de recherche - Liste des courriers reçus
-{% endblock %}
+    {% endblock %}
 
 {% block mailsadmin_body %}
 
@@ -10,7 +10,7 @@
 
 <div class="well">
     
-    {{ form_start(form, {'method': 'post', 'action': path('mails_mailreceived_filter'), 'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, {'method': 'post', 'action': path('mails_all_mailreceived_filter'), 'attr': {'class': 'form-horizontal'}}) }}
       
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
