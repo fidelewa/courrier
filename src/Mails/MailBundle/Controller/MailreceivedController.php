@@ -173,11 +173,11 @@ class MailreceivedController extends Controller
             $mailReceived->setRegistred(true);
         
             //On enregistre le courrier reçu dans la BDD
-            $em->persist($mail);
+            $em->persist($mailReceived);
             $em->flush();
 
             //On redirige vers la page d'accueil
-            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mail->getReference().'" a bien été enregistré.');
+            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mailReceived->getReference().'" a bien été enregistré.');
 
             return $this->redirect($this->generateUrl('mails_core_home'));
         }
@@ -209,5 +209,4 @@ class MailreceivedController extends Controller
         'mail' => $mail
         ));
      }
-
 }
