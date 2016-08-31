@@ -3,6 +3,8 @@ namespace Mails\MailBundle\Eraser;
 
 class Eraser 
 {
+    private $em;
+
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
     {
         $this->em = $entityManager;
