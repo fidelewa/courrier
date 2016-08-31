@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mails\MailBundle\Form\MailMailsentAdminType;
 use Mails\MailBundle\Form\MailMailsentSecretaryType;
 use Mails\MailBundle\Form\MailMailsentEditType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class MailsentController extends Controller
 {
@@ -19,71 +20,38 @@ class MailsentController extends Controller
 			*
 			* @param Request $request Incoming request
 			* @Security("has_role('ROLE_ADMIN')")
+			* @Template("MailsMailBundle:Mail:mailsent_add.html.twig")
 			*/     
 			public function addMailsentAction(Request $request)
 			{
-					//On récupère l'EntityManager
-					$em = $this->getDoctrine()->getManager();
-					
-					//On crée le mail
-					$mail = new Mail();
-							
-					//On crée le mail sent
+				  // On récupère notre service mail creator
+          $mailCreator = $this->get('mails_mail.mail_creator');	
+	
+					//On crée le courrier envoyé
 					$mailsent = new MailSent();
 					
 					//On défini la date d'envoi du courrier envoyé à la date courante
 					$mailsent->setdateEnvoi(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
+
+					//On crée le courrier
+					$courier = new Mail();
 					
-					//On défini le mail sent
-					$mail->setMailsent($mailsent);
+					//On défini le courrier envoyé
+					$courier->setMailsent($mailsent);
 
 					//On crée notre formulaire
-					$form = $this->createForm(new MailMailsentAdminType(), $mail);
+					$form = $this->createForm(new MailMailsentAdminType(), $courier);
 					
 					// Si la requête est en POST
 					if($form->handleRequest($request)->isValid()) 
 					{
-							//On récupère l'id de la sécrétaire
-							$mail = $form->getData();
-							$idSecretary = $mail->getMailsent()->getUser()->getId();
-							
-							//On récupère l'interlocuteur
-							$actor = $mail->getMailsent()->getActor();
-							
-							//On défini l'interlocuteur
-							$mailsent->setActor($actor);
-							
-							//On défini le visa de la sécrétaire
-							$mail->setVisaSecretaire($idSecretary);
-							
-							//On défini l'administrateur
-							$admin = $this->getUser();
-							$mailsent->setUser($admin);
-							
-							//On défini le mail sent
-							$mail->setMailsent($mailsent);
-							
-							//On enregiste le courrier en BDD
-							$em->persist($mail);
-							$em->flush();
-
-							$request->getSession()->getFlashBag()->add('info', 'Le courrier envoyé de référence "'.$mail->getReference().'" à bien été crée.');
+							// On renvoi le conrrier envoyé crée
+              $mail = $mailCreator->processCreateMailSent($form, $mailsent, $this->getUser());
 							
 							return $this->redirect($this->generateUrl('mails_mailsent_detail', array('id' => $mail->getId())));
 					}
-					
-					// On récupère notre service
-					$checker = $this->get('mails_mail.mail_checker');
-
-					//On récupère un courrier par sa référence
-					$findOneMailByReference = $checker->checkReference('CDEP0001');
-					
 					// Si la requête est en GET
-					return $this->render('MailsMailBundle:Mail:mailsent_add.html.twig', array(
-					'form' => $form->createView(),
-					'findOneMailByReference' => $findOneMailByReference,
-					));
-					
+					return array('form' => $form->createView());	
 			}
 
 			/**
