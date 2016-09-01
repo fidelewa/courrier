@@ -8,8 +8,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Mails\MailBundle\Entity\Mail;
 use Mails\MailBundle\Form\MailMailreceivedFilterType;
 use Mails\MailBundle\Form\MailReceivedFilterType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
+ /**
+  * @Security("has_role('ROLE_ADMIN')")
+  */
 class MailreceivedExtraController extends Controller
 {
      /**
@@ -19,42 +23,33 @@ class MailreceivedExtraController extends Controller
      */
      public function filterMailreceivedAction(Request $request)
      {
-        //On crée le mail
-        $mail = new Mail();
-        
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), $mail);
+        $form = $this->createForm(new MailMailreceivedFilterType(), new Mail());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère notre administrateur courant.
-            $admin = $this->getUser();
-
             // On récupère le nombre de jours, la reception et le traitement du courrier reçu
             $mail = $form->getData();
             $days = $mail->getNbDaysBefore();
             $reception = $mail->getReceived();
             $traitement = $mail->getTreated();
             
-            // On récupère notre service
+            // On récupère notre service filter
             $filter = $this->get('mails_admin.mail_filter');
 
-            //On récupère tous les courriers reçus, filtrés par date, par reception, par traitement et par admin courant
-            $allmailreceivedByFilter = $filter->filtreMailreceived($days, $reception, $traitement, $admin);
+            //On récupère tous les courriers reçus, filtrés par date, par reception, par traitement et par user courant
+            $allmailreceivedByFilter = $filter->filtreMailreceived($days, $reception, $traitement, $this->getUser());
 
             return $this->render('MailsAdminBundle:Admin:mailreceived_filter_result.html.twig', array(
             'allmailreceivedByFilter' => $allmailreceivedByFilter,
             'mail' => $mail
             ));
-
         }
-        
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('MailsMailBundle:Mail:mailreceived_filter.html.twig', array(
         'form' => $form->createView()
-        ));
-         
+        ));  
      }
      
      /**
@@ -62,57 +57,43 @@ class MailreceivedExtraController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
+     * @Template("MailsMailBundle:Mail:mailreceived_user_filter.html.twig")
      */
      public function filterMailreceivedByUserAction($id, Request $request)
      {
-        //On récupère notre Entity Manager 
-        $em = $this->getDoctrine()->getManager();
-        
         // On récupère l'user par son id
-        $user = $em->getRepository('MailsUserBundle:User')->find($id);
+        $user = $this->getDoctrine()->getRepository('MailsUserBundle:User')->find($id);
 
         if (null === $user) {
         throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
-         
-        //On crée le mail
-        $mail = new Mail();
-        
+
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), $mail);
+        $form = $this->createForm(new MailMailreceivedFilterType(), new Mail());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère l'id de l'utilisateur spécifié
-            $userId = $user->getId();
-
             // On récupère les données du courrier
             $mail = $form->getData();
             $days = $mail->getNbDaysBefore();
             $reception = $mail->getReceived();
             $traitement = $mail->getTreated();
             
-            // On récupère notre service
+            // On récupère notre service filter
             $filter = $this->get('mails_admin.mail_filter');
 
             //On récupère tous les courriers reçus, filtrés par date, par reception, par user et par traitement
-            $allMailreceivedFilterByUser = $filter->filtreMailreceivedByUser($days, $reception, $userId, $traitement);
+            $allMailreceivedFilterByUser = $filter->filtreMailreceivedByUser($days, $reception, $user->getId(), $traitement);
 
             return $this->render('MailsAdminBundle:Admin:user_mailreceived_filter_result.html.twig', array(
             'allMailreceivedFilterByUser' => $allMailreceivedFilterByUser,
             'mail' => $mail,
             'user' => $user
             ));
-
         }
-        
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:mailreceived_user_filter.html.twig', array(
-        'user' => $user,    
-        'form' => $form->createView()
-        ));
-         
+        return array('user' => $user, 'form' => $form->createView()); 
      }
      
      /**
@@ -123,28 +104,19 @@ class MailreceivedExtraController extends Controller
      */
      public function filterMailreceivedByInterlocutorAction($id, Request $request)
      {
-        //On récupère notre Entity Manager 
-        $em = $this->getDoctrine()->getManager();
-        
         // On récupère l'interlocuteur par son id
-        $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
+        $actor = $this->getDoctrine()->getRepository('MailsMailBundle:Actor')->find($id);
 
         if (null === $actor) {
         throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
         }
-         
-        //On crée le mail
-        $mail = new Mail();
-        
+
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), $mail);
+        $form = $this->createForm(new MailMailreceivedFilterType(), new Mail());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère l'id de l'interlocuteur spécifié
-            $actorId = $actor->getId();
-
             // On récupère les données du courrier
             $mail = $form->getData();
             $days = $mail->getNbDaysBefore();
@@ -155,14 +127,13 @@ class MailreceivedExtraController extends Controller
             $filter = $this->get('mails_admin.mail_filter');
 
             //On récupère tous les courriers reçus, filtrés par date, par reception, par interlocuteur et par traitement
-            $allMailreceivedFilterByActor = $filter->filtreMailreceivedByActor($days, $reception, $actorId, $traitement);
+            $allMailreceivedFilterByActor = $filter->filtreMailreceivedByActor($days, $reception, $actor->getId(), $traitement);
 
             return $this->render('MailsAdminBundle:Admin:actor_mailreceived_filter_result.html.twig', array(
             'allMailreceivedFilterByActor' => $allMailreceivedFilterByActor,
             'mail' => $mail,
             'actor' => $actor
             ));
-
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
@@ -178,6 +149,7 @@ class MailreceivedExtraController extends Controller
      *
      * @param integer $page page number
      * @param Request $request Incoming request
+     * @Template("MailsAdminBundle:Admin:all_mailreceived_filter_result.html.twig")
      */
      public function filterAllMailreceivedAction(Request $request, $page)
      {
@@ -185,11 +157,8 @@ class MailreceivedExtraController extends Controller
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
          
-        //On crée le mail
-        $mail = new Mail();
-        
         //On crée notre formulaire
-        $form = $this->createForm(new MailReceivedFilterType(), $mail);
+        $form = $this->createForm(new MailReceivedFilterType(), new Mail());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
@@ -202,35 +171,24 @@ class MailreceivedExtraController extends Controller
             $expediteur = $mail->getMailreceived()->getActor()->getName();
             $destinataire = $this->getUser()->getUsername();
             
-            // On récupère notre service
+            // On récupère notre service filter
             $filter = $this->get('mails_admin.mail_filter');
+
+            // On récupère notre service calculator
+            $nbCalculator = $this->get('mails_mail.nbpage_calculator');
 
             //On récupère tous les courriers envoyés, filtrés par date et par reception
             $allMailreceivedFilter = $filter->filtreAllMailreceived($days, $reception, $expediteur, $destinataire, $traitement, $page, $filter::NUM_ITEMS);
 
-            // On calcule le nombre total de pages grâce au count($listMailsReceived) qui retourne le nombre total de courriers reçus
-            $nombreTotalMailsReceived = $allMailreceivedFilter->count();
-            $nombreMailreceivedPage = $filter::NUM_ITEMS;
-            $nombreTotalPages = ceil($nombreTotalMailsReceived/$nombreMailreceivedPage); 
-        
-            if($page > $nombreTotalPages){
-            throw $this->createNotFoundException("Aucune données ne correspond a cette recherche !");
-            }
+            // On calcule le nombre total de pages pour la recherche
+            $nombreTotalPagesByFilter = $nbCalculator->calculateTotalNumberPageByFilter($allMailreceivedFilter, $page, $filter::NUM_ITEMS);
 
-            return $this->render('MailsAdminBundle:Admin:all_mailreceived_filter_result.html.twig', array(
-            'allMailreceivedFilter' => $allMailreceivedFilter,
-            'mail' => $mail,
-            'nombreTotalPages' => $nombreTotalPages,
-            'page' => $page,
-            ));
-
+            return array('allMailreceivedFilter' => $allMailreceivedFilter, 'mail' => $mail, 'nombreTotalPages' => $nombreTotalPagesByFilter,'page' => $page);
         }
-        
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('MailsMailBundle:Mail:all_mailreceived_filter.html.twig', array(
         'form' => $form->createView()
-        ));
-         
+        )); 
      }
 
      /**
@@ -260,8 +218,6 @@ class MailreceivedExtraController extends Controller
         //On redirige vers la page d'accueil
         $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mailreceived->getReference().'" a bien été validé.');
         
-        return $this->redirect($this->generateUrl('mails_core_home'));
-                
+        return $this->redirect($this->generateUrl('mails_core_home'));        
      }
-    
 }
