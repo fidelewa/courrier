@@ -1,0 +1,45 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+
+{% block title %}
+  Resultat de la recherche - liste des courriers reçus
+{% endblock %}
+
+{% block mailsmail_body %}
+ 
+<h2 class="text-center">Rappel critères de filtrage</h2>
+<div class="well">
+    <ul>
+        <li>Nom de l'expéditeur : {{ mail.mailreceived.actor.name }} </li>
+        <li>Nom du destinataire : {{ app.user.username }} </li>
+        <li>Nombre de jours d'ancienneté : {{ mail.nbDaysBefore }} jour(s) et plus</li>
+        <li>Réception : {% if mail.received == true %}OUI{% else %}NON{% endif %}</li>
+        <li>Traitement : {% if mail.treated == true %}OUI{% else %}NON{% endif %}</li>
+    </ul>
+</div>
+ 
+  <h2 class="text-center">Resultat de la recherche - liste des courriers reçus</h2>
+
+    {% if allMailreceivedFilter %}
+    <div class="alert alert-success">La liste ci-dessous correspond au résultat de la recherche !</div>
+        {% for mail in allMailreceivedFilter %}
+            <article>
+                <h2><a class="mailObjet" href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
+                <p>Date de reception : <em>le {{ mail.mailreceived.dateReception|date('d/m/Y à H:i:s') }}</em></p>
+            </article>
+         {% endfor %}   
+     {% else %}
+        <div class="alert alert-warning">Aucune donnée ne correspond à cette recherche !</div>
+     {% endif %}
+
+   <ul class="pagination">
+      {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+      {% for p in range(1, nombreTotalPages) %}
+        <li{% if p == page %} class="active"{% endif %}>
+          <a href="{{ path('mails_mail_mailreceived', {'page': p}) }}">{{ p }}</a>
+        </li>
+      {% endfor %}
+     </ul>
+
+
+{% endblock %}
+
