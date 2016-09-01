@@ -1,6 +1,6 @@
 {
-    "name": "fiderlet/courrier",
-    "license": "proprietary",
+    "name": "willy/courrier",
+    "description": "The composer.json file of my mail project",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -20,13 +20,12 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "friendsofsymfony/user-bundle": "2.0.0-alpha3"
-        
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
         "symfony/phpunit-bridge": "~2.7"
     },
-    "scripts": {
+     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
@@ -47,7 +46,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.9"
+            "php": "5.5.12"
         }
     },
     "extra": {
@@ -57,5 +56,13 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    }
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "fidelewa",
+            "email": "fiderlet07@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha"
 }
