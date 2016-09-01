@@ -21,7 +21,7 @@ class ContactController extends Controller
     public function showAllInterlocutorAction() 
     {
         // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
+        $lister = $this->get('mails_mail.mail_lister');
 
         // On affiche la liste de tous les interlocuteurs
         $listActor = $lister->listAdminActor();
@@ -29,7 +29,6 @@ class ContactController extends Controller
         return $this->render('MailsContactBundle:Contact:show_all_contact.html.twig', array(
             'actors' => $listActor
             ));
-
     }
 
     /**
