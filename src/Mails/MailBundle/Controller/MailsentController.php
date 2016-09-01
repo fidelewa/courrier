@@ -65,30 +65,12 @@ class MailsentController extends Controller
 			{
 					$em = $this->getDoctrine()->getManager();
 
-					// On récupère le mail sent d'id $id
+					// On récupère le mail sent d'id $id en BDD
 					$mail = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id);
 
 					if (null === $mail) {
 					throw new NotFoundHttpException("Le courrier envoyé d'id ".$id." n'existe pas.");
 					}
-					
-					//On récupère les attributs du mailsent existant en BDD
-					$id = $mail->getMailsent()->getId(); 
-					$actor = $mail->getMailsent()->getActor(); 
-					$user = $mail->getMailsent()->getUser(); 
-					$dateEnvoi = $mail->getMailsent()->getDateEnvoi();
-					
-					//On instancie un nouveau mail sent 
-					$mailsent = new MailSent();
-					
-					//On met a jour ses attributs
-					$mailsent->setId($id);
-					$mailsent->setActor($actor);
-					$mailsent->setUser($user);
-					$mailsent->setDateEnvoi($dateEnvoi);
-
-					//On défini le mail sent
-					$mail->setMailsent($mailsent);
 
 					//On crée le formulaire
 					$form = $this->createForm(new MailMailsentEditType(), $mail);
@@ -102,7 +84,6 @@ class MailsentController extends Controller
 							$request->getSession()->getFlashBag()->add('success', 'Le courrier envoyé de référence "'.$mail->getReference().'" a bien été modifiée.');
 
 							return $this->redirect($this->generateUrl('mails_user_mailsent'));
-			
 					}
 
 					//Si la requête est en GET
@@ -118,6 +99,7 @@ class MailsentController extends Controller
 			* @param integer $id mail sent id
 			* @param Request $request Incoming request
 			* @Security("has_role('ROLE_ADMIN')")
+			* @Template("MailsMailBundle:Mail:delete_mailsent.html.twig")
 			*/
 			public function deleteMailsentAction($id, Request $request)
 			{
@@ -134,31 +116,26 @@ class MailsentController extends Controller
 					// Cela permet de protéger la suppression d'annonce contre cette faille
 					$form = $this->createFormBuilder()->getForm();
 					
-					if($form->handleRequest($request)->isValid()){
 					// Si la requête est en POST, l'annonce sera supprimée
-					
-					//On stocke la référence du courrier envoyé dans une varable tampon
-					$tempMailsentRef = $mail->getReference();
-				
-					// On supprime notre objet $mail dans la base de données
-					$em->remove($mail);
-					$em->flush();
+					if($form->handleRequest($request)->isValid())
+					{
+							//On stocke la référence du courrier envoyé dans une varable tampon
+							$tempMailsentRef = $mail->getReference();
+						
+							// On supprime notre objet $mail dans la base de données
+							$em->remove($mail);
+							$em->flush();
 
-					$request->getSession()->getFlashBag()->add('success', 'Le courrier envoyé de référence "'.$tempMailsentRef.'" a bien été supprimé.');
-					
-					//On détruit la variable tampon.
-					unset($tempMailsentRef);
+							$request->getSession()->getFlashBag()->add('success', 'Le courrier envoyé de référence "'.$tempMailsentRef.'" a bien été supprimé.');
+							
+							//On détruit la variable tampon.
+							unset($tempMailsentRef);
 
-					// Puis on redirige vers l'accueil
-					return $this->redirect($this->generateUrl('mails_core_home'));
+							// Puis on redirige vers l'accueil
+							return $this->redirect($this->generateUrl('mails_core_home'));
 					}
-
 					// Si la requête est en GET, on affiche une page de confirmation avant de supprimer
-					return $this->render('MailsMailBundle:Mail:delete_mailsent.html.twig', array(
-					'mail' => $mail,
-					'form'   => $form->createView()
-					));
-	
+					return array('mail' => $mail, 'form' => $form->createView());
 			}
 
 			/**
@@ -167,6 +144,7 @@ class MailsentController extends Controller
 			* @param Request $request Incoming request
 			* @param Integer $id mail sent id
 			* @Security("has_role('ROLE_SECRETAIRE')")
+			* @Template("MailsMailBundle:Mail:mailsent_registred.html.twig")
 			*/
 			public function registerMailsentAction($id, Request $request)
 			{
@@ -174,39 +152,35 @@ class MailsentController extends Controller
 					$em = $this->getDoctrine()->getManager();
 
 					// On récupère l'$id du mail sent 
-					$mail = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id);
+					$mailSent = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id);
 
-					if (null === $mail) {
+					if (null === $mailSent) {
 					throw new NotFoundHttpException("Le courrier envoyé d'id ".$id." n'existe pas.");
 					}
 					
 					//On défini la date d'enregistrement du courrier envoyé selon la date courante
-					$mail->setdateEdition(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
+					$mailSent->setdateEdition(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
 					
 					//On crée le formulaire
-					$form = $this->createForm(new MailMailsentSecretaryType, $mail);
+					$form = $this->createForm(new MailMailsentSecretaryType, $mailSent);
 					
 					//Si la réquête est en POST
 					if($form->handleRequest($request)->isValid()) 
 					{
 							//On enregistre le mail sent
-							$mail->setRegistred(true);
+							$mailSent->setRegistred(true);
 
 							//On enregistre le mail sent dans la BDD
-							$em->persist($mail);
+							$em->persist($mailSent);
 							$em->flush();
 
 							//On redirige vers la page d'accueil
-							$request->getSession()->getFlashBag()->add('success', 'Le courrier envoyé de référence "'.$mail->getReference().'" a bien été enregistré.');
+							$request->getSession()->getFlashBag()->add('success', 'Le courrier envoyé de référence "'.$mailSent->getReference().'" a bien été enregistré.');
 
 							return $this->redirect($this->generateUrl('mails_core_home'));
 					}
-					
 					//Si la réquête est en GET
-					return $this->render('MailsMailBundle:Mail:mailsent_registred.html.twig', array(
-					'form' => $form->createView(),
-					));
-						
+					return array('form' => $form->createView());
 			}
 
 			/**
@@ -233,6 +207,4 @@ class MailsentController extends Controller
 					'mail' => $mail
 					));
 			}
-
-
 }
