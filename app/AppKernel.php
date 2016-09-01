@@ -20,7 +20,6 @@ class AppKernel extends Kernel
             new Mails\MailBundle\MailsMailBundle(),
             new Mails\UserBundle\MailsUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Mails\AdminBundle\MailsAdminBundle(),
             new Mails\ContactBundle\MailsContactBundle(),
         );
 
