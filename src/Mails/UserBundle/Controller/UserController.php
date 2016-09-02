@@ -18,7 +18,7 @@ class UserController extends Controller
     public function showAllUserAction() 
     {
         // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
+        $lister = $this->get('mails_mail.mail_lister');
 
         // On affiche la liste de tous les utilisateurs
         $listUser = $lister->listAdminUser();
@@ -39,7 +39,7 @@ class UserController extends Controller
         }
     
         // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
+        $lister = $this->get('mails_mail.mail_lister');
 
         // On récupère notre service calculator
         $nbPageCalculator = $this->get('mails_mail.nbpage_calculator');
@@ -68,7 +68,7 @@ class UserController extends Controller
         }
         
         // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
+        $lister = $this->get('mails_mail.mail_lister');
 
         // On récupère la liste de tous les courriers reçus par l'administrateur courant
         $listMailsReceived = $lister->listAdminMailreceived($page, $lister::NUM_ITEMS, $this->getUser());
