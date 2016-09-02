@@ -4,18 +4,10 @@ namespace Mails\MailBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Request;
-use Mails\MailBundle\Entity\Actor;
-use Mails\MailBundle\Form\ActorType;
 use Mails\MailBundle\Entity\MailSent;
 use Mails\MailBundle\Entity\MailReceived;
 use Mails\MailBundle\Entity\Mail;
-use Mails\MailBundle\Form\MailReceivedType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mails\MailBundle\Form\MailMailsentAdminType;
-use Mails\MailBundle\Form\MailMailreceivedAdminType;
-use Mails\MailBundle\Form\MailMailsentSecretaryType;
-use Mails\MailBundle\Form\MailMailreceivedSecretaryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
