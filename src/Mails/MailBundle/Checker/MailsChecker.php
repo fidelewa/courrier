@@ -31,7 +31,6 @@ class MailsChecker extends \Twig_Extension
           return "2";
         }
         
-        //return $findOneMailByReference;
     }
 
     // Twig va exécuter cette méthode pour savoir quelle(s) fonction(s) ajoute notre service

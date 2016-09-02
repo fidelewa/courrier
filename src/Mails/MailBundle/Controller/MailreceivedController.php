@@ -84,7 +84,6 @@ class MailreceivedController extends Controller
             $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mail->getReference().'" a bien été modifiée.');
 
             return $this->redirect($this->generateUrl('mails_user_mailreceived'));
-            //return $this->redirect($this->generateUrl('mails_mailreceived_detail', array('id' => $mail->getId())));
         }
 
         //Si la requête est en GET

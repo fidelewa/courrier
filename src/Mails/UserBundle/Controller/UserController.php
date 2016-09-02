@@ -79,7 +79,6 @@ class UserController extends Controller
                 
         if($page > $nombreTotalPages){
             throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-            //return $this->redirect($this->generateUrl('mails_core_home'));
         } 
 
         return $this->render('MailsUserBundle:User:user_mailreceived.html.twig', array(
