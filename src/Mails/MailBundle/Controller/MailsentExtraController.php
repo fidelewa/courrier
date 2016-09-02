@@ -35,12 +35,12 @@ class MailsentExtraController extends Controller
             $reception = $mail->getReceived();
             
             // On récupère notre service filter
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             //On récupère tous les courriers envoyés, filtrés par date, par reception et par admin courant
             $allMailsentByFilter = $filter->filtreMailsent($days, $reception, $this->getUser());
 
-            return $this->render('MailsAdminBundle:Admin:mailsent_filter_result.html.twig', array(
+            return $this->render('MailsMailBundle:Mail:mailsent_filter_result.html.twig', array(
             'allMailsentByFilter' => $allMailsentByFilter,
             'mail' => $mail
             ));
@@ -57,7 +57,7 @@ class MailsentExtraController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
-     * @Template("MailsAdminBundle:Admin:user_mailsent_filter_result.html.twig")
+     * @Template("MailsMailBundle:Mail:user_mailsent_filter_result.html.twig")
      */
      public function filterMailsentByUserAction($id, Request $request)
      {
@@ -80,7 +80,7 @@ class MailsentExtraController extends Controller
             $reception = $mail->getReceived();
             
             // On récupère notre service filter
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             //On récupère tous les courriers envoyés, filtrés par date, par reception et par user
             $allMailsentFilterByUser = $filter->filtreMailsentByUser($days, $reception, $user->getId());
@@ -99,7 +99,7 @@ class MailsentExtraController extends Controller
      *
      * @param integer $id Interlocutor id
      * @param Request $request Incoming request
-     * @Template("MailsAdminBundle:Admin:actor_mailsent_filter_result.html.twig")
+     * @Template("MailsMailBundle:Mail:actor_mailsent_filter_result.html.twig")
      */
      public function filterMailsentByInterlocutorAction($id, Request $request)
      {
@@ -122,7 +122,7 @@ class MailsentExtraController extends Controller
             $reception = $mail->getReceived();
             
             // On récupère notre service
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             //On récupère tous les courriers envoyés, filtrés par date, par reception et par interlocuteur
             $allMailsentFilterByActor = $filter->filtreMailsentByActor($days, $reception, $actor->getId());
@@ -141,7 +141,7 @@ class MailsentExtraController extends Controller
      *
      * @param integer $page page number
      * @param Request $request Incoming request
-     * @Template("MailsAdminBundle:Admin:all_mailsent_filter_result.html.twig")
+     * @Template("MailsMailBundle:Mail:all_mailsent_filter_result.html.twig")
      */
      public function filterAllMailsentAction(Request $request, $page)
      {
@@ -163,7 +163,7 @@ class MailsentExtraController extends Controller
             $expediteur = $this->getUser()->getUsername();
             
             // On récupère notre service
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             // On récupère notre service calculator
             $nbCalculator = $this->get('mails_mail.nbpage_calculator');

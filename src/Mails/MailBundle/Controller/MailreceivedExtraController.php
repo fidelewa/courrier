@@ -36,12 +36,12 @@ class MailreceivedExtraController extends Controller
             $traitement = $mail->getTreated();
             
             // On récupère notre service filter
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             //On récupère tous les courriers reçus, filtrés par date, par reception, par traitement et par user courant
             $allmailreceivedByFilter = $filter->filtreMailreceived($days, $reception, $traitement, $this->getUser());
 
-            return $this->render('MailsAdminBundle:Admin:mailreceived_filter_result.html.twig', array(
+            return $this->render('MailsMailBundle:Mail:mailreceived_filter_result.html.twig', array(
             'allmailreceivedByFilter' => $allmailreceivedByFilter,
             'mail' => $mail
             ));
@@ -81,12 +81,12 @@ class MailreceivedExtraController extends Controller
             $traitement = $mail->getTreated();
             
             // On récupère notre service filter
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             //On récupère tous les courriers reçus, filtrés par date, par reception, par user et par traitement
             $allMailreceivedFilterByUser = $filter->filtreMailreceivedByUser($days, $reception, $user->getId(), $traitement);
 
-            return $this->render('MailsAdminBundle:Admin:user_mailreceived_filter_result.html.twig', array(
+            return $this->render('MailsMailBundle:Mail:user_mailreceived_filter_result.html.twig', array(
             'allMailreceivedFilterByUser' => $allMailreceivedFilterByUser,
             'mail' => $mail,
             'user' => $user
@@ -124,12 +124,12 @@ class MailreceivedExtraController extends Controller
             $traitement = $mail->getTreated();
             
             // On récupère notre service
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             //On récupère tous les courriers reçus, filtrés par date, par reception, par interlocuteur et par traitement
             $allMailreceivedFilterByActor = $filter->filtreMailreceivedByActor($days, $reception, $actor->getId(), $traitement);
 
-            return $this->render('MailsAdminBundle:Admin:actor_mailreceived_filter_result.html.twig', array(
+            return $this->render('MailsMailBundle:Mail:actor_mailreceived_filter_result.html.twig', array(
             'allMailreceivedFilterByActor' => $allMailreceivedFilterByActor,
             'mail' => $mail,
             'actor' => $actor
@@ -149,7 +149,7 @@ class MailreceivedExtraController extends Controller
      *
      * @param integer $page page number
      * @param Request $request Incoming request
-     * @Template("MailsAdminBundle:Admin:all_mailreceived_filter_result.html.twig")
+     * @Template("MailsMailBundle:Mail:all_mailreceived_filter_result.html.twig")
      */
      public function filterAllMailreceivedAction(Request $request, $page)
      {
@@ -172,7 +172,7 @@ class MailreceivedExtraController extends Controller
             $destinataire = $this->getUser()->getUsername();
             
             // On récupère notre service filter
-            $filter = $this->get('mails_admin.mail_filter');
+            $filter = $this->get('mails_mail.mail_filter');
 
             // On récupère notre service calculator
             $nbCalculator = $this->get('mails_mail.nbpage_calculator');
