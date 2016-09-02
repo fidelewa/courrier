@@ -1,6 +1,18 @@
+pre_composer_script: |
+    #!/bin/bash
+
+    # Do what you need to setup your project
+    cp app/config/parameters.yml.dist app/config/parameters.yml
+    sed -i -e "s/database_user:.*/database_user: root/" app/config/parameters.yml
+    sed -i -e "s/database_password:.*/database_password: /" app/config/parameters.yml
+
 post_composer_script: |
     #!/bin/bash
-    sed 's/"%database_driver%"/"%database_driver%"\n        server_version: 5.6/g' -i app/config/config.yml
+
+    # Do what you need to configure your project
+    ./app/console doctrine:database:create --no-interaction
+    ./app/console doctrine:schema:create --no-interaction
+    ./app/console doctrine:fixtures:load --no-interaction
 
 global_exclude_dirs:
     - vendor
