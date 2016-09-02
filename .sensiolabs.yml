@@ -14,4 +14,4 @@ exclude_patterns:
 
 rules:
     symfony.application_not_bootable:
-    enabled: true
+        enabled: true
