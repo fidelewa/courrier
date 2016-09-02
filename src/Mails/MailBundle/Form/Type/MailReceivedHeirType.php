@@ -4,7 +4,6 @@ namespace Mails\MailBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mails\UserBundle\Form\UserType;
 
 class MailReceivedHeirType extends AbstractType
 {

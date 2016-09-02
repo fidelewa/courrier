@@ -4,9 +4,6 @@ namespace Mails\MailBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Mails\MailBundle\Entity\MailSent;
-use Mails\MailBundle\Entity\MailReceived;
-use Mails\MailBundle\Entity\Mail;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
