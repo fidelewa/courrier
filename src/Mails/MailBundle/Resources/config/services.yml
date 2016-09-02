@@ -27,4 +27,13 @@ services:
         class: Mails\MailBundle\Creator\MailsCreator
         arguments: [@doctrine.orm.entity_manager, @mails_mail.mail.model.class]
 
+    mails_mail.mail_filter:
+        class: Mails\MailBundle\Filter\MailsFilter
+        arguments: [@doctrine.orm.entity_manager]
+        
+    mails_mail.mail_lister:
+        class: Mails\MailBundle\Lister\MailsLister
+        arguments: [@doctrine.orm.entity_manager]
+
+
 
