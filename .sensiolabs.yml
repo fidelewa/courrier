@@ -4,7 +4,7 @@ pre_composer_script: |
     # Do what you need to setup your project
     cp app/config/parameters.yml.dist app/config/parameters.yml
     sed -i -e "s/database_user:.*/database_user: root/" app/config/parameters.yml
-    sed -i -e "s/database_password:.*/database_password: /" app/config/parameters.yml
+    sed -i -e "s/database_password:.*/database_password: %database_password%/" app/config/parameters.yml
 
 post_composer_script: |
     #!/bin/bash
