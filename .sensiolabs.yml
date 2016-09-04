@@ -5,7 +5,6 @@ pre_composer_script: |
     cp app/config/parameters.yml.dist app/config/parameters.yml
     sed -i -e "s/database_user:.*/database_user: fiderlet/" app/config/parameters.yml
     sed -i -e "s/database_password:.*/database_password: kingston/" app/config/parameters.yml  
-    sed -i -e "s/database_driver:.*/database_driver: pdo_mysql/"\n   server_version: 5.6/g' -i app/config/config.yml
 
 global_exclude_dirs:
     - vendor
