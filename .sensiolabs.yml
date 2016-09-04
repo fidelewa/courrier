@@ -10,9 +10,8 @@ post_composer_script: |
     #!/bin/bash
 
     # Do what you need to configure your project
-    ./app/console doctrine:database:create --no-interaction
-    ./app/console doctrine:schema:create --no-interaction
-    ./app/console doctrine:fixtures:load --no-interaction
+    php app/console doctrine:database:create --no-interaction
+    php app/console doctrine:schema:create --no-interaction
 
 global_exclude_dirs:
     - vendor
@@ -29,5 +28,25 @@ exclude_patterns:
     - web/app_*.php
 
 rules:
+    composer.apc_class_loader_should_be_enabled:
+        enabled: true
+    composer.dependencies_not_installable:
+        enabled: true
+    composer.invalid_file:
+        enabled: true
+    composer.outdated_lock_file:
+        enabled: true
+    composer.security_issue_in_composer:
+        enabled: true
+    composer.unfixed_dependency_version:
+        enabled: true
+    composer.warning:
+        enabled: true
+    doctrine.database_query_contains_string_and_variable_concatenation:
+        enabled: true
+    doctrine.invalid_schema:
+        enabled: true
+    doctrine.use_flush_in_loop:
+        enabled: true
     symfony.application_not_bootable:
         enabled: true
