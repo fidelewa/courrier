@@ -11,8 +11,8 @@ post_composer_script: |
 
     # Do what you need to configure your project
     sed -i -e "s/database_driver:.*/database_driver: pdo_mysql/"\n   server_version: 5.6/g' -i app/config/config.yml
-    app/console doctrine:database:create --no-interaction
-    app/console doctrine:schema:create --no-interaction
+    php app/console doctrine:database:create --no-interaction
+    php app/console doctrine:schema:create --no-interaction
 
 global_exclude_dirs:
     - vendor
