@@ -98,8 +98,8 @@
         {% else %}
         <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet utilisateur.</div>
         {% endif %}
-        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-<a href="{{ path('mails_mailsent_add') }}"><u>Enregistrer un nouveau courrier envoyé</u></a>
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+<a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a>
 {% endif %}
     </div> 
    <div class="tab-pane fade adminTable" id="allMailreceivedByUser">
@@ -172,8 +172,8 @@
         {% else %}
         <div class="alert alert-warning">Aucun courrier n'a été reçu par cet utilisateur.</div>
         {% endif %} 
-        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-<a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+<a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a>
 {% endif %}
     </div>   
 </div>

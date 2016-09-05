@@ -57,6 +57,6 @@
         {% else %}
         <div class="alert alert-warning">Aucun courrier n'a été reçu par cet interlocuteur.</div>
         {% endif %} 
-        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a>
         {% endif %}
