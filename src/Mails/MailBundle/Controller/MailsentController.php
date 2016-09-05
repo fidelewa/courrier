@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Mails\MailBundle\Entity\MailSent;
 use Mails\MailBundle\Entity\Mail;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mails\MailBundle\Form\MailMailsentAdminType;
-use Mails\MailBundle\Form\MailMailsentSecretaryType;
-use Mails\MailBundle\Form\MailMailsentEditType;
+use Mails\MailBundle\Form\Type\MailMailsentAdminType;
+use Mails\MailBundle\Form\Type\MailMailsentSecretaryType;
+use Mails\MailBundle\Form\Type\MailMailsentEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class MailsentController extends Controller

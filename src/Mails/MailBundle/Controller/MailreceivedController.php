@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Mails\MailBundle\Entity\MailReceived;
 use Mails\MailBundle\Entity\Mail;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mails\MailBundle\Form\MailMailreceivedAdminType;
-use Mails\MailBundle\Form\MailMailreceivedSecretaryType;
-use Mails\MailBundle\Form\MailMailreceivedEditType;
+use Mails\MailBundle\Form\Type\MailMailreceivedAdminType;
+use Mails\MailBundle\Form\Type\MailMailreceivedSecretaryType;
+use Mails\MailBundle\Form\Type\MailMailreceivedEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 

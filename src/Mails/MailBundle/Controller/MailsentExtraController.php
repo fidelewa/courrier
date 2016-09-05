@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Mails\MailBundle\Entity\Mail;
-use Mails\MailBundle\Form\MailMailsentFilterType;
-use Mails\MailBundle\Form\MailSentFilterType;
+use Mails\MailBundle\Form\Type\MailMailsentFilterType;
+use Mails\MailBundle\Form\Type\MailSentFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
