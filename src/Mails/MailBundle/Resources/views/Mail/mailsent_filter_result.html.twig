@@ -44,7 +44,11 @@
                         {{ mailsentByFilter.dateEdition.format('d/m/Y à H:i:s') }}
                         {% endif %}
                     </td>
-                    <td>{{ mailsentByFilter.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}</td>
+                    <td>
+                    {% if mailsentByFilter.mailsent.dateEnvoi is defined %}
+                        {{ mailsentByFilter.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
                     <td>{{ mailsentByFilter.nombrePiecesJointes}}</td>
                     <td>{% if mailsentByFilter.received == true %}OUI{% else %}NON{% endif %}</td>
                     <td>{{ mailsentByFilter.mailsent.user.username}}</td>

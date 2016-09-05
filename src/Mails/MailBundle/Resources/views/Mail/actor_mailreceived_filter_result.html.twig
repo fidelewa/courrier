@@ -24,6 +24,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="allMailreceivedFilterByActor">
+    
         {% if allMailreceivedFilterByActor %}
         <div class="alert alert-success">La liste ci-dessous correspond au résultat de la recherche !</div>
         
@@ -46,8 +47,16 @@
                 <tr bgcolor={{fond}} valign='top'>
                     <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailreceivedFilterByActor.id}) }}">[{{ mailreceivedFilterByActor.reference}}]</a></u></td>
                     <td>{{ mailreceivedFilterByActor.objet }}</td>
-                    <td>{{ mailreceivedFilterByActor.dateEdition.format('d/m/Y à H:i:s') }}</td>
-                    <td>{{ mailreceivedFilterByActor.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</td>
+                    <td>
+                    {% if mailreceivedFilterByActor.dateEdition is not null %}
+                        {{ mailreceivedFilterByActor.dateEdition.format('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
+                    <td>{{ mailreceivedFilterByActor.mailreceived.dateReception.format('d/m/Y à H:i:s') }}
+                    {% if mailreceivedFilterByActor.mailreceived.dateEnvoi is defined %}
+                        {{ mailreceivedFilterByActor.mailreceived.dateEnvoi.format('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
                     <td>{{ mailreceivedFilterByActor.nombrePiecesJointes}}</td>
                     <td>{% if mailreceivedFilterByActor.received == true %}OUI{% else %}NON{% endif %}</td>
                     <td>{% if mailreceivedFilterByActor.treated == true %}OUI{% else %}NON{% endif %}</td>

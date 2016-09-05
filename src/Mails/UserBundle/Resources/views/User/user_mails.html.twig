@@ -60,7 +60,11 @@
                             {{ mailSentByUser.dateEdition.format('d/m/Y à H:i:s') }}
                         {% endif %}
                     </td>
-                    <td>{{ mailSentByUser.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}</td>
+                    <td>
+                    {% if mailReceivedByUser.mailreceived.dateReception is defined %}
+                    {{ mailReceivedByUser.mailreceived.dateReception.format('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
                     <td>{{ mailSentByUser.nombrePiecesJointes}}</td>
                     <td>{% if mailSentByUser.received == true %}OUI{% else %}NON{% endif %}</td>
                     <td>
@@ -129,7 +133,11 @@
                             {{ mailReceivedByUser.dateEdition.format('d/m/Y à H:i:s') }}
                         {% endif %}
                     </td>
-                    <td>{{ mailReceivedByUser.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</td>
+                    <td>
+                    {% if mailReceivedByUser.mailreceived.dateReception is defined %}
+                    {{ mailReceivedByUser.mailreceived.dateReception.format('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
                     <td>{{ mailReceivedByUser.nombrePiecesJointes}}</td>
                     <td>{% if mailReceivedByUser.treated == true %}OUI{% else %}NON{% endif %}</td>
                     <td>{% if mailReceivedByUser.received == true %}OUI{% else %}NON{% endif %}</td>

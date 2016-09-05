@@ -45,8 +45,16 @@
                 <tr bgcolor={{fond}} valign='top'>
                     <td><u><a href="{{ path('mails_mailsent_detail', {'id': mailsentFilterByUser.id}) }}">[{{ mailsentFilterByUser.reference}}]</a></u></td>
                     <td>{{ mailsentFilterByUser.objet }}</td>
-                    <td>{{ mailsentFilterByUser.dateEdition.format('d/m/Y à H:i:s') }}</td>
-                    <td>{{ mailsentFilterByUser.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}</td>
+                    <td>
+                    {% if mailsentFilterByUser.dateEdition is not null %}
+                        {{ mailsentFilterByUser.dateEdition.format('d/m/Y à H:i:s') }}
+                    {% endif %} 
+                    </td>
+                    <td>
+                    {% if mailsentFilterByUser.mailsent.dateEnvoi is defined %}
+                        {{ mailsentFilterByUser.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}
+                    {% endif %}
+                    </td>
                     <td>{{ mailsentFilterByUser.nombrePiecesJointes}}</td>
                     <td>{% if mailsentFilterByUser.received == true %}OUI{% else %}NON{% endif %}</td>
                     <td>
