@@ -1,7 +1,5 @@
 {% extends "MailsCoreBundle::layout.html.twig" %}
-
 {% block title %}Accueil{% endblock %}
-
 {% block body %}
         <div class="navbar-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -10,40 +8,29 @@
                     <u><a href="{{ path('fos_user_security_login') }}">Connexion</a></u>
                 {% endif %}
         </div>
-        
     {# On affiche tous les messages flash dont le nom est « info » #}
-    {% for message in app.session.flashbag.get('info') %}
-        <div class="alert alert-info">Message flash : {{ message }}</div>
-    {% endfor %}
-
+{% for message in app.session.flashbag.get('info') %}<div class="alert alert-info">Message flash : {{ message }}</div>{% endfor %}
 {% if app.user != null %}
-
     {% if app.user and is_granted("ROLE_SECRETAIRE") %}
         <h1>Page d'accueil des sécrétaires</h1>
         <h2>Liste des courriers à enregistrer par "{{ app.user.username }}"</h2>
         <hr>
         {{ render(controller("MailsMailBundle:Mail:showLatestUnregistredMailToSecretary", {'limit': 3})) }}
     {% endif %}   
-
     {% if app.user and is_granted("ROLE_ADMIN") %}
-
         {% if app.user and is_granted("ROLE_ADMINISTRATEUR") %}
             <h1>Page d'accueil des administrateurs</h1>
         {% endif %}  
         {% if app.user and is_granted("ROLE_SUPER_ADMIN") %}
             <h1>Page d'accueil des modérateurs</h1>
         {% endif %}  
-
         <h2>Liste des courriers à valider par "{{ app.user.username }}"</h2>
         <hr>
         {{ render(controller("MailsMailBundle:Mail:showLatestNotValidatedMailByUser", {'limit': 3})) }}
-        
-     {% endif %}    
-        
+     {% endif %}      
 {% else %}
     <h1>Page d'accueil de l'application</h1>
     <h2>Liste des derniers courriers crées</h2>
         {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'limit': 3})) }}
 {% endif %}
-
 {% endblock %}
