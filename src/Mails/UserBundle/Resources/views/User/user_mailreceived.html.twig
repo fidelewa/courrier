@@ -1,77 +1,18 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
-
 {% block title %}Courriers reçus{% endblock %}
-
 {% block mailsadmin_body %}
+
 <h2 class="text-center">{{ block('title') }}</h2>
 {% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">
-   Message flash : {{ flashMessage }}
-</div>
+<div class="alert alert-success">Message flash : {{ flashMessage }}</div>
 {% endfor %}
 
-<a href="{{ path('mails_mailreceived_filter') }}">
-<u> Filtrer les courriers reçus</u>
-</a> 
+<a href="{{ path('mails_mailreceived_filter') }}"><u>Filtrer les courriers reçus</u></a> 
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="mailsReceivedByActor">
 
-        {% if mailsReceivedByActor %}
-        
-        {% set couleur = 'red' %}
-                {% for mailReceivedByActor in mailsReceivedByActor %}
-                    <article>
-                        <b>[</b><a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByActor.id}) }}"><font color={{couleur}}><u>{{ mailReceivedByActor.reference}}</u></font></a><b>]</b>
-                        <b><u><a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByActor.id}) }}">{{ mailReceivedByActor.objet }}</a></u></b>
-                        {% if mailReceivedByActor.mailreceived.dateEdition is defined %}
-                        ,<font size="2px"> Date édition :</font> <font size="3px">{{ mailReceivedByActor.dateEdition.format('d/m/Y à H:i:s') }}</font>
-                        {% endif %}
-                        <p>
-                            {% if mailReceivedByActor.mailreceived.dateReception is not null %}
-                            <font size="2px"> Date de reception :</font> <font size="3px">{{ mailReceivedByActor.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</font>
-                            {% endif %}
-                            ,<font size="2px"> Nombre de pièces jointes :</font> <font size="3px">{{ mailReceivedByActor.nombrePiecesJointes}}</font>
-                            ,<font size="2px"> Accusé de reception :</font> <font size="3px">{% if mailReceivedByActor.received == true %}OUI{% else %}NON{% endif %}</font>
-                            ,<font size="2px"> Traitement :</font> <font size="3px">{% if mailReceivedByActor.treated == true %}OUI{% else %}NON{% endif %}</font>
-                        <br/><font size="2px"> Destinataire :</font> <font size="3px"><i><b>{{ mailReceivedByActor.mailreceived.user.username}}</b></i></font>
-                            ,<font size="2px"> Expéditeur :</font> <font size="3px"><i><b>{{ mailReceivedByActor.mailreceived.actor.name}}</b></i></font>
-                            ,<font size="2px"> Enregistrement :</font> <font size="3px">{% if mailReceivedByActor.registred == true %}OUI{% else %}NON{% endif %}</font>
-                            ,<font size="2px"> Validation :</font> <font size="3px">{% if mailReceivedByActor.validated == true %}OUI{% else %}NON{% endif %}</font>
-                            ,<font size="2px"> Visa secretaire:</font> <font size="3px"><i><b>{{ mailReceivedByActor.visaSecretaire}}</b></i></font>
-                        
-                        <p>
-                        <a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByActor.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_mailreceived_edit', {'id': mailReceivedByActor.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailReceivedByActorDialog{{ mailReceivedByActor.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="mailReceivedByActorDialog{{ mailReceivedByActor.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Do you really want to delete this mail received ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('mails_mailreceived_delete', { 'id': mailReceivedByActor.id }) }}" class="btn btn-danger">Confirm</a>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                        </p>
-                        ........................................................................................................
-                        </p>
-                    </article>
-                {% if couleur == 'red' %}{% set couleur = 'blue' %}{% else %}{% set couleur = 'orange' %}{% endif %}   
-                {% endfor %}
-        
-        {% else %}
-        <div class="alert alert-warning">No mail received found.</div>
-        {% endif %}
+        {{ include("MailsUserBundle:User:bl_user_mailreceived.html.twig") }}
      
      {% if app.user and is_granted('ROLE_ADMIN') %}
        <a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a> 
@@ -87,5 +28,4 @@
       </li>
     {% endfor %}
   </ul>
-
 {% endblock %}
