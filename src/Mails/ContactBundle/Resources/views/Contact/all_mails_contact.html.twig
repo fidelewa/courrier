@@ -10,11 +10,8 @@
 </div>
 <h2 class="text-center">{{ block('title') }}</h2>
 {% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">
-    {{ flashMessage }}
-</div>
+<div class="alert alert-success">{{ flashMessage }}</div>
 {% endfor %}
-
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <ul class="nav nav-tabs nav-justified">
@@ -28,7 +25,7 @@
         {{ include("MailsContactBundle:Contact:mailsent_contact.html.twig") }}
     </div>
     <div class="tab-pane fade adminTable" id="allMailreceivedByActor">
-       {{ include("MailsContactBundle:Contact:mailreceived_contact.html.twig") }}  
+        {{ include("MailsContactBundle:Contact:mailreceived_contact.html.twig") }}  
     </div>   
 </div>
 {% endblock %}
