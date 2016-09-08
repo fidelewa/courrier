@@ -1,0 +1,41 @@
+{#Un utilisateur peut faire toutes les actions sur lui même#}
+{% if user == app.user %}
+<a href="{{ path('fos_user_profile_edit') }}" class="btn btn-info btn-xs" title="Modifier profile"><span class="glyphicon glyphicon-edit"></span></a>
+<a href="{{ path('fos_user_change_password') }}" class="btn btn-info btn-xs" title="Modifier mot de passe"><span class="glyphicon glyphicon-edit"></span></a>
+<button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span></button>
+{% endif %}
+{#Si L'un des utilisateurs est une sécrétaire, l'administrateur ne peut uniquement que la supprimer#}
+{% for role in user.roles %}
+    {% if role == 'ROLE_SECRETAIRE' %}
+        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span></button>
+    {% endif %}
+{% endfor %}
+{#Si L'utilisateur courant est un modérateur, il peut uniquement que supprimer les administrateurs, 
+mais un administrateur, ne peut pas supprimer un modérateur.#}
+{% for role in app.user.roles %}
+    {% if role == 'ROLE_SUPER_ADMIN' %}
+     {% for role in user.roles %}
+        {% if role == 'ROLE_ADMINISTRATEUR' %}
+        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span></button>
+        {% endif %}
+     {% endfor %}
+    {% endif %}
+{% endfor %}
+{#Le reste des actions#}
+<div class="modal fade" id="userDialog{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
+            </div>
+            <div class="modal-body">
+                Do you really want to delete this user ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="{{ path('mails_user_delete', { 'id': user.id }) }}" class="btn btn-danger">Confirm</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
