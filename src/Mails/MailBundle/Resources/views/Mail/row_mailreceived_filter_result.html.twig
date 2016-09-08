@@ -1,0 +1,17 @@
+<tr bgcolor={{fond}} valign='top'>
+  <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailreceivedByFilter.id}) }}">[{{ mailreceivedByFilter.reference}}]</a></u></td>
+  <td>{{ mailreceivedByFilter.objet }}</td>
+  <td>{% if mailreceivedByFilter.dateEdition is not null %}{{ mailreceivedByFilter.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
+  <td>{% if mailreceivedByFilter.mailreceived.dateReception is defined %}{{ mailreceivedByFilter.mailreceived.dateReception.format('d/m/Y à H:i:s') }}{% endif %}
+  </td>
+  <td>{{ mailreceivedByFilter.nombrePiecesJointes}}</td>
+  <td>{% if mailreceivedByFilter.received == true %}OUI{% else %}NON{% endif %}</td>
+  <td>{% if mailreceivedByFilter.treated == true %}OUI{% else %}NON{% endif %}</td>
+  <td>{{ mailreceivedByFilter.mailreceived.actor.name}}</td>
+  <td>{{ mailreceivedByFilter.mailreceived.user.username}}</td>
+  <td>
+      {{ render(controller("MailsCoreBundle:Home:manageMails",{'editRoute': 'mails_mailreceived_edit','detailRoute': 'mails_mailreceived_detail',
+      'deleteRoute': 'mails_mailreceived_delete','id': mailreceivedByFilter.id,'var': mailreceivedByFilter,'type': 'mail received',
+      }))}}
+  </td>
+</tr>
