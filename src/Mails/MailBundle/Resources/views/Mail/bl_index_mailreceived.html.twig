@@ -1,21 +1,23 @@
 {% if mails %}
     {% for mail in mails %}
-       <h2><a href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
-       <p>Date de reception : <em>le {{ mail.mailreceived.dateReception|date('d/m/Y à H:i:s') }}</em></p>
-        {% if app.user and is_granted('ROLE_ADMIN') %}
-          <span style="background:#FFFF00">
-            <a href="{{ path('mails_mailreceived_validation', {'id': mail.id}) }}">
-                <u>Valider le courrier</u>
-            </a>
-          </span>
-         {% endif %}
-         {% if app.user and is_granted('ROLE_SECRETAIRE') %}
-            <span style="background:#FFFF00">
-               <a href="{{ path('mails_mailreceived_registration', {'id': mail.id}) }}">
-                    <u>Enregistrer le courrier</u>
-               </a>
-            </span>
-         {% endif %}
+      <article>
+            <h2><a href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
+            <p>Date de reception : <em>le {{ mail.mailreceived.dateReception|date('d/m/Y à H:i:s') }}</em></p>
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                <span style="background:#FFFF00">
+                    <a href="{{ path('mails_mailreceived_validation', {'id': mail.id}) }}">
+                        <u>Valider le courrier</u>
+                    </a>
+                </span>
+                {% endif %}
+                {% if app.user and is_granted('ROLE_SECRETAIRE') %}
+                    <span style="background:#FFFF00">
+                    <a href="{{ path('mails_mailreceived_registration', {'id': mail.id}) }}">
+                            <u>Enregistrer le courrier</u>
+                    </a>
+                    </span>
+                {% endif %}
+        </article>
       {% endfor %}   
 {% else %}
     <div class="alert alert-warning">Vous n'avez aucun courrier reçu à enregistrer</div>
