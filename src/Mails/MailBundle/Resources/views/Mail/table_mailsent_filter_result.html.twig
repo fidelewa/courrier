@@ -7,21 +7,9 @@
     </thead>
 {% set fond = '#EFEFEF' %}
 {% for mailsentByFilter in allMailsentByFilter %}
-    <tr bgcolor={{fond}} valign='top'>
-        <td><u><a href="{{ path('mails_mailsent_detail', {'id': mailsentByFilter.id}) }}">[{{ mailsentByFilter.reference}}]</a></u></td>
-        <td>{{ mailsentByFilter.objet }}</td>
-        <td>{% if mailsentByFilter.dateEdition is not null %}{{ mailsentByFilter.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
-        <td>{% if mailsentByFilter.mailsent.dateEnvoi is defined %}{{ mailsentByFilter.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}{% endif %}</td>
-        <td>{{ mailsentByFilter.nombrePiecesJointes}}</td>
-        <td>{% if mailsentByFilter.received == true %}OUI{% else %}NON{% endif %}</td>
-        <td>{{ mailsentByFilter.mailsent.user.username}}</td>
-        <td>{{ mailsentByFilter.mailsent.actor.name}}</td>
-        <td>
-            {{ render(controller("MailsCoreBundle:Home:manageMails",{'editRoute': 'mails_mailsent_edit','detailRoute': 'mails_mailsent_detail',
-            'deleteRoute': 'mails_mailsent_delete','id': mailsentByFilter.id,'var': mailsentByFilter,'type': 'mail sent',
-            }))}}
-        </td>
-    </tr>
+    
+    {{ include("MailsMailBundle:Mail:row_mailsent_filter_result.html.twig") }}
+
 {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
 {% endfor %}
 </table>

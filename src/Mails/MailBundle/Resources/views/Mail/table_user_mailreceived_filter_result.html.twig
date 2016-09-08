@@ -7,24 +7,9 @@
     </thead>
 {% set fond = '#EFEFEF' %}
 {% for mailreceivedFilterByUser in allMailreceivedFilterByUser %}
-    <tr bgcolor={{fond}} valign='top'>
-        <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailreceivedFilterByUser.id}) }}">[{{ mailreceivedFilterByUser.reference}}]</a></u></td>
-        <td>{{ mailreceivedFilterByUser.objet }}</td>
-        <td>{% if mailreceivedFilterByUser.dateEdition is not null %}{{ mailreceivedFilterByUser.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
-        <td>
-            {% if mailreceivedFilterByUser.mailreceived.dateReception is defined %}
-            {{ mailreceivedFilterByUser.mailreceived.dateReception.format('d/m/Y à H:i:s') }}
-            {% endif %}
-        </td>
-        <td>{{ mailreceivedFilterByUser.nombrePiecesJointes}}</td>
-        <td>{% if mailreceivedFilterByUser.received == true %}OUI{% else %}NON{% endif %}</td>
-        <td>{% if mailreceivedFilterByUser.treated == true %}OUI{% else %}NON{% endif %}</td>
-        <td>
-            {{ render(controller("MailsCoreBundle:Home:manageMails",{'editRoute': 'mails_mailreceived_edit','detailRoute': 'mails_mailreceived_detail',
-            'deleteRoute': 'mails_mailreceived_delete','id': mailreceivedFilterByUser.id,'var': mailreceivedFilterByUser,'type': 'mail received',
-            }))}}
-        </td>
-    </tr>
+
+    {{ include("MailsMailBundle:Mail:row_user_mailreceived_filter_result.html.twig") }}
+
 {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
 {% endfor %}
 </table>

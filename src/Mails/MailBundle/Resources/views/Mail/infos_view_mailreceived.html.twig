@@ -26,23 +26,5 @@
    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Traitement</font>&nbsp;&nbsp;</td>
    <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{% if mail.treated == true %}OUI{% else %}NON{% endif %}</td>
 </tr>
-<tr>
-   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Expéditeur</font>&nbsp;&nbsp;</td>
-   <td align="left" bgcolor="#EBEBEB" width=60%>
-   {% if app.user and is_granted('ROLE_ADMIN') %}
-   &nbsp;&nbsp;<a href="{{ path('mails_contact_all_mail', {'id': mail.mailreceived.actor.id}) }}"><u>{{ mail.mailreceived.actor.name }}</u></a>
-   {% else %}
-   &nbsp;&nbsp;{{ mail.mailreceived.actor.name }}
-   {% endif %}
-   </td>
-</tr>
-<tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Destinataire</font>&nbsp;&nbsp;</td>
-  <td align="left" bgcolor="#EBEBEB" width=60%>
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-    &nbsp;&nbsp;<a href="{{ path('mails_user_all_mails', {'id': mail.mailreceived.user.id}) }}"><u>{{ mail.mailreceived.user.username }}</u></a>
-    {% else %}
-    &nbsp;&nbsp;{{ mail.mailreceived.user.username }}
-    {% endif %}
-  </td>
-</tr>
+
+{{ include("MailsMailBundle:Mail:info2_view_mailreceived.html.twig") }}
