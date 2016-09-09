@@ -10,14 +10,6 @@
 {% endfor %}
 {#Si L'utilisateur courant est un modérateur, il peut uniquement que supprimer les administrateurs, 
 mais un administrateur, ne peut pas supprimer un modérateur.#}
-{% for role in app.user.roles %}
-    {% if role == 'ROLE_SUPER_ADMIN' %}
-     {% for role in user.roles %}
-        {% if role == 'ROLE_ADMINISTRATEUR' %}
-            <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span></button>
-        {% endif %}
-     {% endfor %}
-    {% endif %}
-{% endfor %}
-{#Le reste des actions#}
 {{ include("MailsUserBundle:User:action2_user.html.twig") }}
+{#Le reste des actions#}
+{{ include("MailsUserBundle:User:action3_user.html.twig") }}
