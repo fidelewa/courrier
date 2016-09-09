@@ -1,10 +1,6 @@
 {% if mailsReceivedByActor %}
 {% set couleur = 'red' %}
-    {% for mailReceivedByActor in mailsReceivedByActor %}
-        <p>{{ include("MailsUserBundle:User:infos_user_mailreceived.html.twig") }}</p>  
-        <p>{{ include("MailsUserBundle:User:actions_user_mailreceived.html.twig") }}</p>  
-    {% if couleur == 'red' %}{% set couleur = 'blue' %}{% else %}{% set couleur = 'orange' %}{% endif %}   
-    {% endfor %}
+    {{ include("MailsUserBundle:User:bl_small_user_mailreceived.html.twig") }}
 {% else %}
-<div class="alert alert-warning">No mail received found.</div>
+    <div class="alert alert-warning">No mail received found.</div>
 {% endif %}

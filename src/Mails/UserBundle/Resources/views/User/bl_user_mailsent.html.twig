@@ -1,10 +1,6 @@
 {% if mailsSentByActor %}
 {% set couleur = 'red' %}
-    {% for mailSentByActor in mailsSentByActor %}
-        <p>{{ include("MailsUserBundle:User:infos_user_mailsent.html.twig") }}</p>
-        <p>{{ include("MailsUserBundle:User:actions_user_mailsent.html.twig") }}</p> 
-        {% if couleur == 'red' %}{% set couleur = 'blue' %}{% else %}{% set couleur = 'orange' %}{% endif %}   
-    {% endfor %}
+    {{ include("MailsUserBundle:User:bl_small_user_mailsent.html.twig") }}
 {% else %}
     <div class="alert alert-warning">No mail sent found.</div>
 {% endif %}
