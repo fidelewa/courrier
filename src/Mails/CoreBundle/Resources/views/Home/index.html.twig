@@ -16,22 +16,22 @@
     
     {% if app.user and is_granted("ROLE_SECRETAIRE") %}
         <h1>Page d'accueil des sécrétaires</h1>
-        <h2>Liste des courriers envoyés et reçus à enregistrer par "{{ app.user.username }}"</h2>
+        <h2>Liste des courriers à enregistrer par "{{ app.user.username }}"</h2>
         <hr>
-        {{ render(controller("MailsMailBundle:Mail:listMailSecretary", {'limit': 3})) }}
+        {{ render(controller("MailsMailBundle:Mail:showLatestUnregistredMailToSecretary", {'limit': 3})) }}
     {% elseif app.user and is_granted("ROLE_ADMINISTRATEUR") %}
         <h1>Page d'accueil des administrateurs</h1>
-        <h2>Liste des courriers envoyés et reçus à valider par "{{ app.user.username }}"</h2>
+        <h2>Liste des courriers à valider par "{{ app.user.username }}"</h2>
         <hr>
-        {{ render(controller("MailsMailBundle:Mail:listMailNotValidated", {'limit': 3})) }}
+        {{ render(controller("MailsMailBundle:Mail:showLatestNotValidatedMailByUser", {'limit': 3})) }}
     {% elseif app.user and is_granted("ROLE_SUPER_ADMIN") %}
         <h1>Page d'accueil des modérateurs</h1>
-        <h2>Liste des courriers envoyés et reçus à valider par "{{ app.user.username }}"</h2>
+        <h2>Liste des courriers à valider par "{{ app.user.username }}"</h2>
         <hr>
-        {{ render(controller("MailsMailBundle:Mail:listMailNotValidated", {'limit': 3})) }}
+        {{ render(controller("MailsMailBundle:Mail:showLatestNotValidatedMailByUser", {'limit': 3})) }}
     {% else %}
     <h1>Page d'accueil de l'application</h1>
-    <h2>Liste des derniers courriers enregistrés</h2>
-        {{ render(controller("MailsMailBundle:Mail:listMail", {'limit': 3})) }}
+    <h2>Liste des derniers courriers crées</h2>
+        {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'limit': 3})) }}
     {% endif %}
 {% endblock %}
