@@ -2,12 +2,7 @@
 {% set couleur = 'red' %}
     {% for mailReceivedByActor in mailsReceivedByActor %}
         <p>{{ include("MailsUserBundle:User:infos_user_mailreceived.html.twig") }}</p>  
-        <p>
-            {{ render(controller("MailsCoreBundle:Home:manageMails",{'editRoute': 'mails_mailreceived_edit','detailRoute': 'mails_mailreceived_detail',
-            'deleteRoute': 'mails_mailreceived_delete','id': mailReceivedByActor.id,'var': mailReceivedByActor,'type': 'mail received',
-            }))}}
-            ........................................................................................................
-        </p>  
+        <p>{{ include("MailsUserBundle:User:actions_user_mailreceived.html.twig") }}</p>  
     {% if couleur == 'red' %}{% set couleur = 'blue' %}{% else %}{% set couleur = 'orange' %}{% endif %}   
     {% endfor %}
 {% else %}
