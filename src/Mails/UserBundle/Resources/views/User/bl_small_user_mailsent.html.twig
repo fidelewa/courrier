@@ -1,0 +1,5 @@
+{% for mailSentByActor in mailsSentByActor %}
+        <p>{{ include("MailsUserBundle:User:infos_user_mailsent.html.twig") }}</p>
+        <p>{{ include("MailsUserBundle:User:actions_user_mailsent.html.twig") }}</p> 
+        {% if couleur == 'red' %}{% set couleur = 'blue' %}{% else %}{% set couleur = 'orange' %}{% endif %}   
+{% endfor %}
