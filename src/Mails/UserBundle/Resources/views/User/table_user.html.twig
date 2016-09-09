@@ -6,13 +6,7 @@
    {% for user in users %}
     <tr bgcolor={{fond}} valign='top'>
       <td>{{ user.username }}</td>
-      <td>
-        {% for role in user.roles %}
-          {% if role == 'ROLE_SECRETAIRE' %}{{ 'Sécrétaire' }}{% endif %}
-          {% if role == 'ROLE_ADMINISTRATEUR' %}{{ 'Administrateur' }}{% endif %}
-          {% if role == 'ROLE_SUPER_ADMIN' %}{{ 'Modérateur' }}{% endif %}
-        {% endfor %}
-      </td>
+      <td>{{ include("MailsUserBundle:User:roles_user.html.twig") }}</td>
       <td>{{ include("MailsUserBundle:User:actions_user.html.twig") }}</td>
     </tr>
     {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
