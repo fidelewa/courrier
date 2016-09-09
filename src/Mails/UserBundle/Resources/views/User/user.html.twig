@@ -10,32 +10,7 @@
 <div class="tab-pane fade in active adminTable" id="users">
     {% if users %}
         <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead align="center" valign="middle" bgcolor="#A9A9A9">
-                    <tr>
-                        <th>Name</th>
-                        <th>Profil</th>
-                        <th></th>  
-                    </tr>
-                </thead>
-            {% set fond = '#EFEFEF' %}
-              {% for user in users %}
-                <tr bgcolor={{fond}} valign='top'>
-                    <td>{{ user.username }}</td>
-                    <td>
-                        {% for role in user.roles %}
-                            {% if role == 'ROLE_SECRETAIRE' %}{{ 'Sécrétaire' }}{% endif %}
-                            {% if role == 'ROLE_ADMINISTRATEUR' %}{{ 'Administrateur' }}{% endif %}
-                            {% if role == 'ROLE_SUPER_ADMIN' %}{{ 'Modérateur' }}{% endif %}
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {{ include("MailsUserBundle:User:actions_user.html.twig") }}
-                    </td>
-                </tr>
-                {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
-              {% endfor %}
-            </table>
+            {{ include("MailsUserBundle:User:table_user.html.twig") }}
         </div>
         {% else %}
         <div class="alert alert-warning">No users found.</div>

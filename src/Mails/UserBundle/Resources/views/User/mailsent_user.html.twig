@@ -1,31 +1,9 @@
 {% if allMailsentByUser %}
     <a href="{{ path('mails_mailsent_filter_user', {'id': user.id}) }}"><u>Filtrer les courriers envoyés par "{{user.username}}"</u></a>
        <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead align="center" valign="middle" bgcolor="#A9A9A9">
-                  <tr><th>Reference</th><th>Objet</th><th>Date d'enregistrement</th><th>Date envoi</th><th>Nbre pièces j.</th><th>Acc. reception</th><th></th></tr>
-                </thead>
-                {% set fond = '#EFEFEF' %}
-                {% for mailSentByUser in allMailsentByUser %}
-                <tr bgcolor={{fond}} valign='top'>
-                    <td></u><a href="{{ path('mails_mailsent_detail', {'id': mailSentByUser.id}) }}">[{{ mailSentByUser.reference}}]</a></u></td>
-                    <td>{{ mailSentByUser.objet }}</td>
-                    <td>{% if mailSentByUser.dateEdition is not null %}{{ mailSentByUser.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
-                    <td>
-                    {% if mailReceivedByUser.mailreceived.dateReception is defined %}
-                    {{ mailReceivedByUser.mailreceived.dateReception.format('d/m/Y à H:i:s') }}
-                    {% endif %}
-                    </td>
-                    <td>{{ mailSentByUser.nombrePiecesJointes}}</td>
-                    <td>{% if mailSentByUser.received == true %}OUI{% else %}NON{% endif %}</td>
-                    <td>
-                    {{ render(controller("MailsCoreBundle:Home:manageMails", {'editRoute': 'mails_mailsent_edit','detailRoute': 'mails_mailsent_detail',
-                        'deleteRoute': 'mails_mailsent_delete','id': mailSentByUser.id,'var': mailSentByUser,'type': 'mail sent',}))}}
-                    </td>
-                </tr>
-                {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
-                {% endfor %}
-            </table>
+
+            {{ include("MailsUserBundle:User:table_mailsent_user.html.twig") }}
+            
         </div>
 {% else %}
     <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet utilisateur.</div>

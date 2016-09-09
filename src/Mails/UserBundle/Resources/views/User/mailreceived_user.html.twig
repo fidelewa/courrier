@@ -1,34 +1,7 @@
 {% if allMailreceivedByUser %}
    <a href="{{ path('mails_mailreceived_filter_user', {'id': user.id}) }}"><u>Filtrer les courriers reçus par "{{user.username}}"</u></a>
         <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-               <thead align="center" valign="middle" bgcolor="#A9A9A9">
-                    <tr><th>Reference</th><th>Objet</th><th>Date d'enregistrement</th><th>Date reception</th><th>Nbre pièces j.</th><th>Traitement</th>
-                        <th>Acc. reception</th><th></th>
-                    </tr>
-                </thead>
-                {% set fond = '#EFEFEF' %}
-                {% for mailReceivedByUser in allMailreceivedByUser %}
-                <tr bgcolor={{fond}} valign='top'>
-                    <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByUser.id}) }}">[{{ mailReceivedByUser.reference}}]</a></u></td>
-                    <td>{{ mailReceivedByUser.objet }}</td>
-                    <td>{% if mailReceivedByUser.dateEdition is not null %}{{ mailReceivedByUser.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
-                    <td>
-                    {% if mailReceivedByUser.mailreceived.dateReception is defined %}
-                    {{ mailReceivedByUser.mailreceived.dateReception.format('d/m/Y à H:i:s') }}
-                    {% endif %}
-                    </td>
-                    <td>{{ mailReceivedByUser.nombrePiecesJointes}}</td>
-                    <td>{% if mailReceivedByUser.treated == true %}OUI{% else %}NON{% endif %}</td>
-                    <td>{% if mailReceivedByUser.received == true %}OUI{% else %}NON{% endif %}</td>
-                    <td>
-                    {{ render(controller("MailsCoreBundle:Home:manageMails",{'editRoute': 'mails_mailreceived_edit','detailRoute': 'mails_mailreceived_detail',
-                        'deleteRoute': 'mails_mailreceived_delete','id': mailReceivedByUser.id,'var': mailReceivedByUser,'type': 'mail received',}))}}
-                    </td>
-                </tr>
-                {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
-                {% endfor %}
-            </table>
+            {{ include("MailsUserBundle:User:table_mailreceived_user.html.twig") }}
         </div>
 {% else %}
   <div class="alert alert-warning">Aucun courrier n'a été reçu par cet utilisateur.</div>
