@@ -1,0 +1,11 @@
+<tr bgcolor={{fond}} valign='top'>
+  <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailSentByActor.id}) }}">[{{ mailSentByActor.reference}}]</a></u></td>
+  <td>{{ mailSentByActor.objet }}</td>
+  <td>{% if mailSentByActor.dateEdition is not null %}{{ mailSentByActor.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
+  <td>{{ mailSentByActor.nombrePiecesJointes}}</td>
+  <td>{% if mailSentByActor.received == true %}OUI{% else %}NON{% endif %}</td>
+  <td>
+  {{ render(controller("MailsCoreBundle:Home:manageMails", {'editRoute': 'mails_mailreceived_edit','detailRoute': 'mails_mailreceived_detail',
+      'deleteRoute': 'mails_mailreceived_delete','id': mailSentByActor.id,'var': mailSentByActor,'type': 'mail sent',}))}}
+  </td>
+</tr>
