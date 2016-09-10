@@ -1,0 +1,9 @@
+{% if actors %}
+   <div class="table-responsive">
+
+      {{ include("MailsContactBundle:Contact:table_all_contact.html.twig") }}
+
+   </div>
+{% else %}
+  <div class="alert alert-warning">No actors found.</div>
+{% endif %}
