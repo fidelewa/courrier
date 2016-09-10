@@ -1,0 +1,12 @@
+<table class="table table-hover table-condensed">
+  <thead align="center" valign="middle" bgcolor="#A9A9A9">
+       <tr><th>Reference</th><th>Objet</th><th>Date d'enregistrement</th><th>Date reception</th><th>Nbre pièces j.</th><th>Acc. reception</th>
+           <th>Traitement</th><th></th>
+       </tr>
+   </thead>
+   {% set fond = '#EFEFEF' %}
+   {% for mailReceivedByActor in allMailreceivedByActor %}
+     {{ include("MailsContactBundle:Contact:row_mailreceived_contact.html.twig") }}
+   {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
+   {% endfor %}
+</table>
