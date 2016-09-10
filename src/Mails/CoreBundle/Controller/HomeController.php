@@ -20,5 +20,23 @@ class HomeController extends Controller
 
          return $this->redirect($this->generateUrl('mails_core_home'));
     }
+
+    /**
+     * Manage all mails
+     * @param String $editRoute the name of the edition route
+     * @param String $detailRoute the name of the detail route
+     * @param Integer $id id number
+     */
+    public function manageMailsAction($editRoute, $detailRoute, $deleteRoute, $id, $var, $type)
+    {
+        return $this->render('MailsCoreBundle:Home:manage_mails.html.twig', array(
+            'editRoute' => $editRoute,
+            'detailRoute' => $detailRoute,
+            'deleteRoute' => $deleteRoute,
+            'id' => $id,
+            'var' => $var,
+            'type' => $type,
+        ));
+    }
     
 }

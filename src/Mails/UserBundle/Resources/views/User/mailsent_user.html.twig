@@ -1,0 +1,11 @@
+{% if allMailsentByUser %}
+    <a href="{{ path('mails_mailsent_filter_user', {'id': user.id}) }}"><u>Filtrer les courriers envoyés par "{{user.username}}"</u></a>
+       <div class="table-responsive">
+
+            {{ include("MailsUserBundle:User:table_mailsent_user.html.twig") }}
+            
+        </div>
+{% else %}
+    <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet utilisateur.</div>
+{% endif %}
+{% if app.user and is_granted('ROLE_ADMIN') %}<a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a>{% endif %}

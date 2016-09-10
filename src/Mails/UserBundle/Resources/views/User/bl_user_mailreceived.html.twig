@@ -1,0 +1,6 @@
+{% if mailsReceivedByActor %}
+{% set couleur = 'red' %}
+    {{ include("MailsUserBundle:User:bl_small_user_mailreceived.html.twig") }}
+{% else %}
+    <div class="alert alert-warning">No mail received found.</div>
+{% endif %}

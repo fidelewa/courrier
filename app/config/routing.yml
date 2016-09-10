@@ -1,9 +1,5 @@
 mails_core:
     resource: "@MailsCoreBundle/Resources/config/routing.yml"
-    
-mails_admin:
-     resource: "@MailsAdminBundle/Resources/config/routing.yml"
-     prefix:   /admin
   
 mails_mail:
     resource: "@MailsMailBundle/Resources/config/routing.yml"

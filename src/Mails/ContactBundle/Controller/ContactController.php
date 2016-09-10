@@ -9,7 +9,9 @@ use Mails\MailBundle\Entity\Actor;
 use Mails\MailBundle\Form\ActorType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
+/**
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class ContactController extends Controller
 {
 
@@ -19,7 +21,7 @@ class ContactController extends Controller
     public function showAllInterlocutorAction() 
     {
         // On récupère notre service lister
-        $lister = $this->get('mails_admin.mail_lister');
+        $lister = $this->get('mails_mail.mail_lister');
 
         // On affiche la liste de tous les interlocuteurs
         $listActor = $lister->listAdminActor();
@@ -27,7 +29,6 @@ class ContactController extends Controller
         return $this->render('MailsContactBundle:Contact:show_all_contact.html.twig', array(
             'actors' => $listActor
             ));
-
     }
 
     /**
@@ -92,60 +93,13 @@ class ContactController extends Controller
         //On stocke le nom de l'interlocuteur dans une variable tampon
         $tempActorName = $actor->getName();
         
-        if((empty($allMailsentByActor)) && (!empty($allMailreceivedByActor)))
-        {
-            foreach($allMailreceivedByActor as $mailreceivedByActor)
-            {
-                // On supprime tous les courriers reçus par l'user spécifié 
-                $em->remove($mailreceivedByActor);
-            }
-            
-            //On supprime l'interlocuteur spécifié
-            $em->remove($actor);
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
-        elseif((!empty($allMailsentByActor)) && (empty($allMailreceivedByActor)))
-        {
-            foreach($allMailsentByActor as $mailsentByActor)
-            {
-                // On supprime tous les courriers envoyés par l'user spécifié 
-                $em->remove($mailsentByActor);
-            }
-            
-            //On supprime l'interlocuteur spécifié
-            $em->remove($actor);
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
-        elseif((empty($allMailsentByActor)) && (empty($allMailreceivedByActor))) 
-        {
-            //On supprime l'interlocuteur spécifié
-            $em->remove($actor);
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
-        else
-        {
-            foreach($allMailreceivedByActor as $mailreceivedByActor)
-            {
-                // On supprime tous les courriers reçus par l'interlocuteur spécifié 
-                $em->remove($mailreceivedByActor);
-            }
-            
-            foreach($allMailsentByActor as $mailsentByActor)
-            {
-                // On supprime tous les courriers envoyé par l'interlocuteur spécifié 
-                $em->remove($mailsentByActor);
-            }
+        // On récupère notre service eraser
+        $eraser = $this->get('mails_mail.eraser');
+
+        //supression de l'interlocuteur
+        $eraser->deleteContactAndAllHisMails($actor, $allMailsentByActor, $allMailreceivedByActor);
         
-            //On supprime l'interlocuteur spécifié
-            $em->remove($actor);
-        
-            //On exécute ces opérations de suppression
-            $em->flush();
-        }
-        
+        //On affiche le message flash
         $request->getSession()->getFlashBag()->add('success', 'L\'interlocuteur "'.$tempActorName.'" ainsi que tous ses courriers ont bien été supprimés.');
 
         // On détruit la variable tampon
@@ -159,7 +113,6 @@ class ContactController extends Controller
      * Add an actor.
      *
      * @param Request $request Incoming request
-     * @Security("has_role('ROLE_ADMIN')")
      */
      public function addInterlocutorAction(Request $request) 
      {
@@ -172,7 +125,6 @@ class ContactController extends Controller
         // Si la requête est en POST
         if($form->handleRequest($request)->isValid()) 
         {
-        
             $em = $this->getDoctrine()->getManager();
             $em->persist($actor);
             $em->flush();
@@ -194,7 +146,6 @@ class ContactController extends Controller
      * Displays all the mails of the specified contact.
      *
      * @param integer $id Interlocutor id
-     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAllMailInterlocutorAction($id)
     {

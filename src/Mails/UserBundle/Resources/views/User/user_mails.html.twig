@@ -1,7 +1,5 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
-
 {% block title %}Liste des courriers de l'utilisateur "{{user.username}}" {% endblock %}
-
 {% block mailsmail_body %}
 
 <h2 class="text-center">Synthèse utilisateur</h2>
@@ -11,14 +9,10 @@
         <li>Adresse e-mail : {{user.email}}</li>
     </ul>
 </div>
-
 <h2 class="text-center">{{ block('title') }}</h2>
 {% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">
-    {{ flashMessage }}
-</div>
+<div class="alert alert-success">{{ flashMessage }}</div>
 {% endfor %}
-
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <ul class="nav nav-tabs nav-justified">
@@ -27,146 +21,12 @@
         </ul>
     </div>
 </div>
-
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="allMailsentByUser">
-
-    	{% if allMailsentByUser %}
-        
-        <a href="{{ path('mails_mailsent_filter_user', {'id': user.id}) }}">
-        <u>Filtrer les courriers envoyés par "{{user.username}}"</u>
-        </a>
-            
-		 <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead align="center" valign="middle" bgcolor="#A9A9A9">
-                    <tr>
-                        <th>Reference</th>
-                        <th>Objet</th>
-                        <th>Date d'enregistrement</th>
-                        <th>Date envoi</th>
-                        <th>Nbre pièces j.</th>
-                        <th>Acc. reception</th>
-                        <th></th> 
-                    </tr>
-                </thead>
-                {% set fond = '#EFEFEF' %}
-                {% for mailSentByUser in allMailsentByUser %}
-                <tr bgcolor={{fond}} valign='top'>
-                    <td></u><a href="{{ path('mails_mailsent_detail', {'id': mailSentByUser.id}) }}">[{{ mailSentByUser.reference}}]</a></u></td>
-                    <td>{{ mailSentByUser.objet }}</td>
-                    <td>
-                        {% if mailSentByUser.dateEdition is not null %}
-                            {{ mailSentByUser.dateEdition.format('d/m/Y à H:i:s') }}
-                        {% endif %}
-                    </td>
-                    <td>{{ mailSentByUser.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}</td>
-                    <td>{{ mailSentByUser.nombrePiecesJointes}}</td>
-                    <td>{% if mailSentByUser.received == true %}OUI{% else %}NON{% endif %}</td>
-                    <td>
-                        <a href="{{ path('mails_mailsent_detail', {'id': mailSentByUser.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_mailsent_edit', {'id': mailSentByUser.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailSentByUserDialog{{ mailSentByUser.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="mailSentByUserDialog{{ mailSentByUser.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Do you really want to delete this mail sent ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('mails_mailsent_delete', { 'id': mailSentByUser.id }) }}" class="btn btn-danger">Confirm</a>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </td>
-                </tr>
-                {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
-                {% endfor %}
-            </table>
-        </div>
-        {% else %}
-        <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet utilisateur.</div>
-        {% endif %}
-        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-<a href="{{ path('mails_mailsent_add') }}"><u>Enregistrer un nouveau courrier envoyé</u></a>
-{% endif %}
+        {{ include("MailsUserBundle:User:mailsent_user.html.twig") }}
     </div> 
    <div class="tab-pane fade adminTable" id="allMailreceivedByUser">
-         {% if allMailreceivedByUser %}
-         
-        <a href="{{ path('mails_mailreceived_filter_user', {'id': user.id}) }}">
-        <u>Filtrer les courriers reçus par "{{user.username}}"</u>
-        </a>
-         
-         <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-               <thead align="center" valign="middle" bgcolor="#A9A9A9">
-                    <tr>
-                        <th>Reference</th>
-                        <th>Objet</th>
-                        <th>Date d'enregistrement</th>
-                        <th>Date reception</th>
-                        <th>Nbre pièces j.</th>
-                        <th>Traitement</th>
-                        <th>Acc. reception</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                {% set fond = '#EFEFEF' %}
-                {% for mailReceivedByUser in allMailreceivedByUser %}
-                <tr bgcolor={{fond}} valign='top'>
-                    <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByUser.id}) }}">[{{ mailReceivedByUser.reference}}]</a></u></td>
-                    <td>{{ mailReceivedByUser.objet }}</td>
-                    <td>
-                        {% if mailReceivedByUser.dateEdition is not null %}
-                            {{ mailReceivedByUser.dateEdition.format('d/m/Y à H:i:s') }}
-                        {% endif %}
-                    </td>
-                    <td>{{ mailReceivedByUser.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</td>
-                    <td>{{ mailReceivedByUser.nombrePiecesJointes}}</td>
-                    <td>{% if mailReceivedByUser.treated == true %}OUI{% else %}NON{% endif %}</td>
-                    <td>{% if mailReceivedByUser.received == true %}OUI{% else %}NON{% endif %}</td>
-                    <td>
-                        <a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByUser.id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="{{ path('mails_mailreceived_edit', {'id': mailReceivedByUser.id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#mailReceivedByUserDialog{{ mailReceivedByUser.id }}"><span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                        <div class="modal fade" id="mailReceivedByUserDialog{{ mailReceivedByUser.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        Do you really want to delete this mail received ?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <a href="{{ path('mails_mailreceived_delete', { 'id': mailReceivedByUser.id }) }}" class="btn btn-danger">Confirm</a>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </td>
-                </tr>
-                {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
-                {% endfor %}
-            </table>
-        </div>
-        {% else %}
-        <div class="alert alert-warning">Aucun courrier n'a été reçu par cet utilisateur.</div>
-        {% endif %} 
-        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-<a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
-{% endif %}
+        {{ include("MailsUserBundle:User:mailreceived_user.html.twig") }}
     </div>   
 </div>
 {% endblock %}

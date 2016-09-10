@@ -1,8 +1,8 @@
-{% extends "MailsAdminBundle::layout.html.twig" %}
+{% extends "MailsMailBundle::layout_admin.html.twig" %}
 
 {% block title %}
   Critères de recherche - Liste des courriers reçus
-{% endblock %}
+    {% endblock %}
 
 {% block mailsadmin_body %}
 
@@ -10,7 +10,7 @@
 
 <div class="well">
     
-    {{ form_start(form, {'method': 'post', 'action': path('mails_mailreceived_filter'), 'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, {'method': 'post', 'action': path('mails_all_mailreceived_filter'), 'attr': {'class': 'form-horizontal'}}) }}
       
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
@@ -68,6 +68,6 @@
     
 </div>
 {% if app.user and is_granted('ROLE_ADMIN') %}
-<a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a> 
+<a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a> 
 {% endif %}
 {% endblock %}

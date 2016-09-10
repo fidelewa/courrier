@@ -1,4 +1,4 @@
-{% extends "MailsAdminBundle::layout.html.twig" %}
+{% extends "MailsMailBundle::layout_admin.html.twig" %}
 
 {% block title %}
   Critères de recherche - Liste des courriers envoyés
@@ -10,7 +10,7 @@
 
 <div class="well">
     
-    {{ form_start(form, {'method': 'post', 'action': path('mails_mailsent_filter'), 'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, {'method': 'post', 'action': path('mails_all_mailsent_filter'), 'attr': {'class': 'form-horizontal'}}) }}
       
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
@@ -59,6 +59,6 @@
     
 </div>
 {% if app.user and is_granted('ROLE_ADMIN') %}
-<a href="{{ path('mails_mailsent_add') }}"><u> Enregistrer un nouveau courrier envoyé</u></a> 
+<a href="{{ path('mails_mailsent_add') }}"><u> Créer un nouveau courrier envoyé</u></a> 
 {% endif %}
 {% endblock %}

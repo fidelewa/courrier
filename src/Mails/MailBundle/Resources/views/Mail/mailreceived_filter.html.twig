@@ -1,4 +1,4 @@
-{% extends "MailsAdminBundle::layout.html.twig" %}
+{% extends "MailsMailBundle::layout_admin.html.twig" %}
 
 {% block title %}
   Critères de recherche - Courriers reçus
@@ -55,6 +55,6 @@
     
 </div>
 {% if app.user and is_granted('ROLE_ADMIN') %}
-<a href="{{ path('mails_mailreceived_add') }}"><u>Enregistrer un nouveau courrier reçu</u></a>
+<a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a>
 {% endif %}
 {% endblock %}

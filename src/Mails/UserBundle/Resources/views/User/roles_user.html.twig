@@ -1,0 +1,5 @@
+{% for role in user.roles %}
+          {% if role == 'ROLE_SECRETAIRE' %}{{ 'Sécrétaire' }}{% endif %}
+          {% if role == 'ROLE_ADMINISTRATEUR' %}{{ 'Administrateur' }}{% endif %}
+          {% if role == 'ROLE_SUPER_ADMIN' %}{{ 'Modérateur' }}{% endif %}
+{% endfor %}

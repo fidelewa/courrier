@@ -1,0 +1,15 @@
+{#Un utilisateur peut faire toutes les actions sur lui même#}
+{% if user == app.user %}
+    {{ include("MailsUserBundle:User:action1_user.html.twig") }}
+{% endif %}
+{#Si L'un des utilisateurs est une sécrétaire, l'administrateur ne peut uniquement que la supprimer#}
+{% for role in user.roles %}
+    {% if role == 'ROLE_SECRETAIRE' %}
+        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span></button>
+    {% endif %}
+{% endfor %}
+{#Si L'utilisateur courant est un modérateur, il peut uniquement que supprimer les administrateurs, 
+mais un administrateur, ne peut pas supprimer un modérateur.#}
+{{ include("MailsUserBundle:User:action2_user.html.twig") }}
+{#Le reste des actions#}
+{{ include("MailsUserBundle:User:action3_user.html.twig") }}

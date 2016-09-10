@@ -44,28 +44,6 @@ class MailReceived
      * @Assert\DateTime()
      */
     private $dateReception;
-    
-    public function __construct()
-    {
-        //Par défaut la date d'édition du courrier est la date d'aujourd'hui
-        //$this->dateReception = new \Datetime("now", new \DateTimeZone('Africa/Abidjan'));
-        //$this->hydrate($donnees);
-
-    }
-    
-    /*public function hydrate(array $donnees)
-    {
-        foreach ($donnees as $key => $value) 
-           {
-              $method = 'set'.ucfirst($key);
-                    
-              if(method_exists($this,$method))
-              {
-                 $this->$method($value);
-              }
-           }
-    }*/
-
 
     /**
      * Get id

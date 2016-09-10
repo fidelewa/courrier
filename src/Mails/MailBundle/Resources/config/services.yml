@@ -13,3 +13,27 @@ services:
         class: Mails\MailBundle\Indexor\MailsIndexor
         arguments: [@doctrine.orm.entity_manager]
 
+    mails_mail.nbpage_calculator:
+        class: Mails\MailBundle\Calculator\NbPageCalculator
+
+    mails_mail.mail.model.class:
+        class: Mails\MailBundle\Entity\Mail
+
+    mails_mail.eraser:
+        class: Mails\MailBundle\Eraser\Eraser
+        arguments: [@doctrine.orm.entity_manager]
+
+    mails_mail.mail_creator:
+        class: Mails\MailBundle\Creator\MailsCreator
+        arguments: [@doctrine.orm.entity_manager, @mails_mail.mail.model.class]
+
+    mails_mail.mail_filter:
+        class: Mails\MailBundle\Filter\MailsFilter
+        arguments: [@doctrine.orm.entity_manager]
+        
+    mails_mail.mail_lister:
+        class: Mails\MailBundle\Lister\MailsLister
+        arguments: [@doctrine.orm.entity_manager]
+
+
+

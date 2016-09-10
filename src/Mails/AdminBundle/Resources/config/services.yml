@@ -1,8 +1,0 @@
-services:
-    mails_admin.mail_filter:
-        class: Mails\AdminBundle\Filter\MailsFilter
-        arguments: [@doctrine.orm.entity_manager]
-        
-    mails_admin.mail_lister:
-        class: Mails\AdminBundle\Lister\MailsLister
-        arguments: [@doctrine.orm.entity_manager]

@@ -1,0 +1,30 @@
+{% extends "MailsMailBundle::layout_admin.html.twig" %}
+
+{% block title %}
+    Liste filtrée - Courriers reçu par l'interlocuteur "{{actor.name}}"
+{% endblock %}
+
+{% block mailsadmin_body %}
+<h2 class="text-center">Synthèse interlocuteur</h2>
+<div class="well">
+    <ul>
+        <li>Nom interlocuteur : {{actor.name}}</li>
+    </ul>
+</div>
+
+<h2 class="text-center">Rappel critères de filtrage</h2>
+<div class="well">
+    <ul>
+        <li>Nombre de jours d'ancienneté : {{ mail.nbDaysBefore }} jour(s) et plus</li>
+        <li>Réception : {% if mail.received == true %}OUI{% else %}NON{% endif %}</li>
+    </ul>
+</div>
+
+<h2 class="text-center">{{ block('title') }}</h2>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active adminTable" id="allMailsentFilterByActor">
+        {{ include("MailsMailBundle:Mail:bl_mailsent_filter_contact_result.html.twig") }}
+    </div>
+</div>
+{% endblock %}

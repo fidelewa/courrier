@@ -1,0 +1,20 @@
+{% extends "MailsMailBundle::layout_admin.html.twig" %}
+{% block title %}Résultat de la recherche - Courriers envoyés{% endblock %}
+{% block mailsadmin_body %}
+
+<h2 class="text-center">Rappel critères de filtrage</h2>
+<div class="well">
+    <ul>
+        <li>Nombre de jours d'ancienneté : {{ mail.nbDaysBefore }} jour(s) et plus</li>
+        <li>Réception : {% if mail.received == true %}OUI{% else %}NON{% endif %}</li>
+    </ul>
+</div>
+
+<h2 class="text-center">{{ block('title') }}</h2>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active adminTable" id="allMailsentByFilter">
+        {{ include("MailsMailBundle:Mail:bl_mailsent_filter_result.html.twig") }}
+    </div>
+</div>
+{% endblock %}

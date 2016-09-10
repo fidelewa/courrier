@@ -1,0 +1,11 @@
+{% if allMailreceivedFilterByActor %}
+  <div class="alert alert-success">La liste ci-dessous correspond au résultat de la recherche !</div>
+    <div class="table-responsive">
+        {{ include("MailsMailBundle:Mail:table_mailreceived_filter_contact_result.html.twig") }}
+     </div>
+{% else %}
+<div class="alert alert-warning">Aucune donnée ne correspond à cette recherche !</div>
+{% endif %}
+{% if app.user and is_granted('ROLE_ADMIN') %}
+<a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a> 
+{% endif %}

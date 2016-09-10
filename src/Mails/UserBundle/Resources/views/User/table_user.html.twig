@@ -1,0 +1,14 @@
+<table class="table table-hover table-condensed">
+  <thead align="center" valign="middle" bgcolor="#A9A9A9">
+    <tr><th>Name</th><th>Profil</th><th></th></tr>
+  </thead>
+  {% set fond = '#EFEFEF' %}
+   {% for user in users %}
+    <tr bgcolor={{fond}} valign='top'>
+      <td>{{ user.username }}</td>
+      <td>{{ include("MailsUserBundle:User:roles_user.html.twig") }}</td>
+      <td>{{ include("MailsUserBundle:User:actions_user.html.twig") }}</td>
+    </tr>
+    {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
+  {% endfor %}
+</table>

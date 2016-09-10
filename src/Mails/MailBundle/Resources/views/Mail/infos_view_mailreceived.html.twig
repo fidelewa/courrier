@@ -1,0 +1,30 @@
+<tr>
+  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Référence</font>&nbsp;&nbsp;</td>
+  <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.reference }}</td>
+</tr>
+<tr>
+  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Objet</font>&nbsp;&nbsp;</td>
+  <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.objet }}</td>
+</tr>
+<tr>
+   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Date d'enregistrement</font>&nbsp;&nbsp;</td>
+   <td align="left" bgcolor="#EBEBEB" width=60%>{% if mail.dateEdition is not null %}&nbsp;&nbsp;{{ mail.dateEdition|date('d/m/Y à H:i:s') }}{% endif %}</td>
+</tr>
+<tr>
+   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Date de reception</font>&nbsp;&nbsp;</td>
+   <td align="left" bgcolor="#EBEBEB" width=60%>{% if mail.mailreceived.dateReception is not null %}&nbsp;&nbsp;{{ mail.mailreceived.dateReception|date('d/m/Y à H:i:s') }}{% endif %}</td>
+</tr>
+<tr>
+   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Nombre de pièces jointes</font>&nbsp;&nbsp;</td>
+   <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.nombrePiecesJointes }}</td>
+</tr>
+<tr>
+   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Accusé de reception</font>&nbsp;&nbsp;</td>
+   <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{% if mail.received == true %}OUI{% else %}NON{% endif %}</td>
+</tr>
+<tr>
+   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Traitement</font>&nbsp;&nbsp;</td>
+   <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{% if mail.treated == true %}OUI{% else %}NON{% endif %}</td>
+</tr>
+
+{{ include("MailsMailBundle:Mail:info2_view_mailreceived.html.twig") }}

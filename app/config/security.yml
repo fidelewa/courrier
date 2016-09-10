@@ -5,7 +5,7 @@ security:
 
     encoders:
         #Symfony\Component\Security\Core\User\User: sha512
-        Mails\UserBundle\Entity\User: plaintext
+        Mails\UserBundle\Entity\User: sha512
 
     role_hierarchy:
         ROLE_SECRETAIRE:     ROLE_USER
