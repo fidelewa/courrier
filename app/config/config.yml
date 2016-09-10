@@ -26,7 +26,8 @@ framework:
     trusted_proxies: ~
     session:
         # handler_id set to null will use default session handler from php.ini
-        handler_id:  ~
+        handler_id:  1
+        
     fragments:       ~
     http_method_override: true
 
