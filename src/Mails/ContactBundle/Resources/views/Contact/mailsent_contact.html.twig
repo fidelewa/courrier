@@ -1,26 +1,7 @@
 {% if allMailsentByActor %}
     <a href="{{ path('mails_mailreceived_filter_actor', {'id': actor.id}) }}"><u>Filtrer les courriers envoyés par "{{actor.name}}"</u></a>
 		 <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead align="center" valign="middle" bgcolor="#A9A9A9">
-                    <tr><th>Reference</th><th>Objet</th><th>Date d'enregistrement</th><th>Nbre pièces j.</th><th>Acc. reception</th><th></th></tr>
-                </thead>
-                {% set fond = '#EFEFEF' %}
-                {% for mailSentByActor in allMailsentByActor %}
-                <tr bgcolor={{fond}} valign='top'>
-                    <td><u><a href="{{ path('mails_mailreceived_detail', {'id': mailSentByActor.id}) }}">[{{ mailSentByActor.reference}}]</a></u></td>
-                    <td>{{ mailSentByActor.objet }}</td>
-                    <td>{% if mailSentByActor.dateEdition is not null %}{{ mailSentByActor.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
-                    <td>{{ mailSentByActor.nombrePiecesJointes}}</td>
-                    <td>{% if mailSentByActor.received == true %}OUI{% else %}NON{% endif %}</td>
-                    <td>
-                    {{ render(controller("MailsCoreBundle:Home:manageMails", {'editRoute': 'mails_mailreceived_edit','detailRoute': 'mails_mailreceived_detail',
-                        'deleteRoute': 'mails_mailreceived_delete','id': mailSentByActor.id,'var': mailSentByActor,'type': 'mail sent',}))}}
-                    </td>
-                </tr>
-                {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
-                {% endfor %}
-            </table>
+            {{ include("MailsContactBundle:Contact:table_mailsent_contact.html.twig") }}
         </div>
 {% else %}
    <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet interlocuteur.</div>
