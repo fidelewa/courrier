@@ -21,7 +21,7 @@ class MailsentController extends Controller
 			* @param Request $request Incoming request
 			* @Security("has_role('ROLE_ADMIN')")
 			* @Template("MailsMailBundle:Mail:mailsent_add.html.twig")
-			*/     
+			*/
 			public function addMailsentAction(Request $request)
 			{
 				  // On récupère notre service mail creator

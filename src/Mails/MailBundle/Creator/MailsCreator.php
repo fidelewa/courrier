@@ -52,32 +52,32 @@ class MailsCreator
 
     public function processCreateMailSent(Form $form, MailSent $mailsent, User $user)
     {
-      //On défini notre courrier et on récupère l'id de la sécrétaire qui a enregistré le courrier envoyé
-			$this->courier = $form->getData();
-			$idSecretary = $this->courier->getMailsent()->getUser()->getId();
+        //On défini notre courrier et on récupère l'id de la sécrétaire qui a enregistré le courrier envoyé
+		$this->courier = $form->getData();
+		$idSecretary = $this->courier->getMailsent()->getUser()->getId();
 							
-			//On récupère le destinataire du courrier envoyé
-			$recipient = $this->courier->getMailsent()->getActor();
+		//On récupère le destinataire du courrier envoyé
+		$recipient = $this->courier->getMailsent()->getActor();
 							
-			//On défini le destinataire du courrier envoyé
-			$mailsent->setActor($recipient);
+		//On défini le destinataire du courrier envoyé
+		$mailsent->setActor($recipient);
+						
+		//On défini la signature de la sécrétaire dans le courrier envoyé
+		$this->courier->setVisaSecretaire($idSecretary);
 							
-			//On défini la signature de la sécrétaire dans le courrier envoyé
-			$this->courier->setVisaSecretaire($idSecretary);
+		//On défini l'expéditeur du courrier envoyé (qui est en faite l'utilisateur qui crée le courrier envoyé)
+		$sender = $user;
+		$mailsent->setUser($sender);
 							
-			//On défini l'expéditeur du courrier envoyé (qui est en faite l'utilisateur qui crée le courrier envoyé)
-			$sender = $user;
-			$mailsent->setUser($sender);
+		//On défini le courrier envoyé
+		$this->courier->setMailsent($mailsent);
 							
-			//On défini le courrier envoyé
-			$this->courier->setMailsent($mailsent);
-							
-			//On enregiste le courrier envoyé en BDD
-			$this->em->persist($this->courier);
-      $this->em->flush();
+		//On enregiste le courrier envoyé en BDD
+		$this->em->persist($this->courier);
+        $this->em->flush();
 
-       // On renvoi le conrrier envoyé crée
-       return $this->courier;
+        // On renvoi le conrrier envoyé crée
+        return $this->courier;
     }
 
 }
