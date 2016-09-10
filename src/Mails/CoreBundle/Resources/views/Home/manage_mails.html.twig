@@ -1,8 +1,12 @@
+{% if detailRoute != null %}
 <a href="{{ path(detailRoute, {'id': id}) }}" class="btn btn-info btn-xs" title="Detail"><span class="glyphicon glyphicon-eye-open"></span></a>
+{% endif %}
+{% if editRoute != null %}
 <a href="{{ path(editRoute, {'id': id}) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+{% endif %}
 <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#varDialog{{ id }}"><span class="glyphicon glyphicon-remove"></span>
 </button>
-  <div class="modal fade" id="varDialog{{ id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="varDialog{{ id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
        <div class="modal-content">
           <div class="modal-header">
@@ -18,4 +22,4 @@
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+</div><!-- /.modal -->
