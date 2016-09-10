@@ -71,7 +71,6 @@ class LoadMail implements FixtureInterface
           
           //On extrait chaque élément de la liste fusionnée  
           extract($allActors, EXTR_PREFIX_INVALID, "acteur");
-          //echo $acteur_0, $acteur_1, $acteur_2, $acteur_3, $acteur_4, $acteur_5;
           
           //------------------------------------------------------------------------
             
