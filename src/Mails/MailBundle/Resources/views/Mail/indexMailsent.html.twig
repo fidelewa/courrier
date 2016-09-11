@@ -13,9 +13,9 @@
 {% endif %}
  
  {% if app.user and is_granted('ROLE_SECRETAIRE') %}
- <h2>Liste des courriers envoyés à enregistrer par "{{app.user.username}}"</h2>
+ <h2>Liste des courriers envoyés à enregistrer par <b><i>{{ app.user.username | title }}</i></b></h2>
  {% elseif app.user and is_granted('ROLE_ADMIN') %}
- <h2>Liste des courriers envoyés à valider par "{{app.user.username}}"</h2>
+ <h2>Liste des courriers envoyés à valider par <b><i>{{ app.user.username | title }}</i></b></h2>
  {% else %}
  <h2>Liste de tous les courriers envoyés et enregistrés</h2>
  {% endif %}
