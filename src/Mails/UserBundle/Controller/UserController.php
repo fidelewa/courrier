@@ -23,7 +23,7 @@ class UserController extends Controller
         // On affiche la liste de tous les utilisateurs
         $listUser = $lister->listAdminUser();
 
-        return $this->render('MailsUserBundle:User:user.html.twig', array(
+        return $this->render('@show_users_views/user.html.twig', array(
             'users' => $listUser
             ));
     }
