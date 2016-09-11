@@ -4,9 +4,7 @@
    </thead>
     {% set fond = '#EFEFEF' %}
     {% for mailSentByUser in allMailsentByUser %}
-
-      {{ include("MailsUserBundle:User:row_mailsent_user.html.twig") }}
-
+      {{ include('@user_mailsent_views/row_mailsent_user.html.twig') }}
       {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
     {% endfor %}
 </table>

@@ -6,4 +6,4 @@
 <font size="2px"> Date de reception :</font> <font size="3px">{{ mailReceivedByActor.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</font>
 {% endif %}
 ,<font size="2px"> Nombre de pièces jointes :</font> <font size="3px">{{ mailReceivedByActor.nombrePiecesJointes}}</font>
-{{ include("MailsUserBundle:User:infos2_user_mailreceived.html.twig") }}
+{{ include('@admin_user_mailreceived_views/infos2_user_mailreceived.html.twig') }}

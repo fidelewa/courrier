@@ -1,9 +1,7 @@
 {% if allMailsentByUser %}
     <a href="{{ path('mails_mailsent_filter_user', {'id': user.id}) }}"><u>Filtrer les courriers envoyés par "{{user.username}}"</u></a>
        <div class="table-responsive">
-
-            {{ include("MailsUserBundle:User:table_mailsent_user.html.twig") }}
-            
+            {{ include('@user_mailsent_views/table_mailsent_user.html.twig') }}
         </div>
 {% else %}
     <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet utilisateur.</div>

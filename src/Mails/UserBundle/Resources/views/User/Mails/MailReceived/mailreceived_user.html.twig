@@ -1,7 +1,7 @@
 {% if allMailreceivedByUser %}
    <a href="{{ path('mails_mailreceived_filter_user', {'id': user.id}) }}"><u>Filtrer les courriers reçus par "{{user.username}}"</u></a>
         <div class="table-responsive">
-            {{ include("MailsUserBundle:User:table_mailreceived_user.html.twig") }}
+            {{ include('@user_mailreceived_views/table_mailreceived_user.html.twig') }}
         </div>
 {% else %}
   <div class="alert alert-warning">Aucun courrier n'a été reçu par cet utilisateur.</div>
