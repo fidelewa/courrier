@@ -36,6 +36,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    paths:
+        '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/ShowUsers': show_users_views
     
     #globals:
         #mails: "@mails_mail.mail_checker"
