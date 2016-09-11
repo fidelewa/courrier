@@ -26,7 +26,7 @@ class ContactController extends Controller
         // On affiche la liste de tous les interlocuteurs
         $listActor = $lister->listAdminActor();
 
-        return $this->render('MailsContactBundle:Contact:show_all_contact.html.twig', array(
+        return $this->render('MailsContactBundle:Contact:contact.html.twig', array(
             'actors' => $listActor
             ));
     }
@@ -164,7 +164,7 @@ class ContactController extends Controller
         throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
         }
 
-        return $this->render('MailsContactBundle:Contact:all_mails_contact.html.twig', array(
+        return $this->render('MailsContactBundle:Contact:contact_mails.html.twig', array(
         'actor' => $actor,
         'allMailsentByActor' => $allMailsentByActor,
         'allMailreceivedByActor' => $allMailreceivedByActor,
