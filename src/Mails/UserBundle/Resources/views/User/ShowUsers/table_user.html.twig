@@ -6,8 +6,8 @@
    {% for user in users %}
     <tr bgcolor={{fond}} valign='top'>
       <td>{{ user.username }}</td>
-      <td>{{ include("MailsUserBundle:User:roles_user.html.twig") }}</td>
-      <td>{{ include("MailsUserBundle:User:actions_user.html.twig") }}</td>
+      <td>{{ include('@show_users_views/roles_user.html.twig') }}</td>
+      <td>{{ include('@show_users_views/actions_user.html.twig') }}</td>
     </tr>
     {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
   {% endfor %}
