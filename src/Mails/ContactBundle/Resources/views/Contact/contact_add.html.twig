@@ -27,17 +27,8 @@
 </div>
 
 {% if app.user and is_granted('ROLE_ADMIN') %}
-         <a href="{{ path('mails_contact_show_all') }}">
-            <u>
-                Retour à la liste des interlocuteurs
-            </u> 
-         </a> 
+   <a href="{{ path('mails_contact_show_all') }}"><u>Retour à la liste des interlocuteurs</u> </a> 
 {% endif %}
 &nbsp;<b>|</b>&nbsp;
-<a href="{{ path('mails_core_home') }}">
-      <u>
-      Accueil
-      </u>
-  </a>
-
+<a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
 {% endblock %}
