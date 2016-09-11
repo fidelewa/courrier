@@ -67,7 +67,7 @@
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Welcome, {{ app.user.username }} <b class="caret"></b></a>
+                                <span class="glyphicon glyphicon-user"></span> Welcome, <b><i>{{ app.user.username | title }}</i></b> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('fos_user_security_logout') }}">Log out</a></li>
                                 </ul>
