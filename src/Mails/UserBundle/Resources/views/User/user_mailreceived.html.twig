@@ -11,9 +11,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="mailsReceivedByActor">
-
-        {{ include("MailsUserBundle:User:bl_user_mailreceived.html.twig") }}
-     
+        {{ include('@admin_user_mailreceived_views/bl_user_mailreceived.html.twig') }}
      {% if app.user and is_granted('ROLE_ADMIN') %}
        <a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a> 
      {% endif %}

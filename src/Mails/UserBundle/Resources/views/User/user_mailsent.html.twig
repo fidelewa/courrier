@@ -11,15 +11,12 @@
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="mailsSentByActor">
-
-        {{ include("MailsUserBundle:User:bl_user_mailsent.html.twig") }}
-       
+        {{ include('@admin_user_mailsent_views/bl_user_mailsent.html.twig') }}
      {% if app.user and is_granted('ROLE_ADMIN') %}
        <a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a>
      {% endif %}
     </div>
 </div>
-
 <ul class="pagination">
     {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
     {% for p in range(1, nbPages) %}
