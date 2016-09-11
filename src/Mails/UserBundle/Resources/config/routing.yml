@@ -1,5 +1,5 @@
 mails_user_show_all:
-    path:     /showall
+    path:     /show
     defaults: { _controller: MailsUserBundle:User:showAllUser }
 
 mails_user_mailsent:

@@ -1,5 +1,5 @@
 mails_contact_show_all:
-    path:     /showall
+    path:     /show
     defaults: { _controller: MailsContactBundle:Contact:showAllInterlocutor }
 
 mails_contact_edit:
