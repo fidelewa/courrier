@@ -9,11 +9,8 @@
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="actors">
-
-        {{ include("MailsContactBundle:Contact:bl_all_contact.html.twig") }}
-
+        {{ include("@show_contact_views/bl_contact.html.twig") }}
         <a href="{{ path('mails_contact_add') }}"><u>Créer un nouvel interlocuteur</u></a>
     </div>
-    
 </div>
 {% endblock %}

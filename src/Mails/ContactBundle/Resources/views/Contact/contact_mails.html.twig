@@ -22,10 +22,10 @@
 </div>
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="allMailsentByActor">
-        {{ include("MailsContactBundle:Contact:mailsent_contact.html.twig") }}
+        {{ include("@contact_mailsent_views/contact_mailsent.html.twig") }}
     </div>
     <div class="tab-pane fade adminTable" id="allMailreceivedByActor">
-        {{ include("MailsContactBundle:Contact:mailreceived_contact.html.twig") }}  
+        {{ include("@contact_mailreceived_views/contact_mailreceived.html.twig") }}
     </div>   
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% if allMailsentByActor %}
     <a href="{{ path('mails_mailreceived_filter_actor', {'id': actor.id}) }}"><u>Filtrer les courriers envoyés par "{{actor.name}}"</u></a>
 		 <div class="table-responsive">
-            {{ include("MailsContactBundle:Contact:table_mailsent_contact.html.twig") }}
+            {{ include("@contact_mailsent_views/table_mailsent_contact.html.twig") }}
         </div>
 {% else %}
    <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet interlocuteur.</div>
