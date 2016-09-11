@@ -37,7 +37,14 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     paths:
-        '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/ShowUsers': show_users_views
+        '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Show': show_users_views
+        '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Mails/MailSent': user_mailsent_views
+        '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Mails/MailReceived': user_mailreceived_views
+        '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Mails/Admin/MailSent': admin_user_mailsent_views
+        '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Mails/Admin/MailReceived': admin_user_mailreceived_views
+        '%kernel.root_dir%/../src/Mails/ContactBundle/Resources/views/Contact/Show': show_contact_views
+        '%kernel.root_dir%/../src/Mails/ContactBundle/Resources/views/Contact/Mails/MailSent': contact_mailsent_views
+        '%kernel.root_dir%/../src/Mails/ContactBundle/Resources/views/Contact/Mails/MailReceived': contact_mailreceived_views
     
     #globals:
         #mails: "@mails_mail.mail_checker"
