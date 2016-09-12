@@ -1,7 +1,7 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
 
 {% block title %}
-    Liste filtrée - Courriers envoyés par l'utilisateur "{{user.username}}"
+    Liste filtrée - Courriers envoyés par l'utilisateur <b><i>{{ user.username | title }}</i></b>
 {% endblock %}
 
 {% block mailsadmin_body %}
@@ -25,7 +25,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="allMailsentFilterByUser">
-        {{ include("MailsMailBundle:Mail:bl_user_mailsent_filter_result.html.twig") }}
+        {{ include("@user_mailsent_filter_result_views/bl_user_mailsent_filter_result.html.twig") }} 
     </div>
 </div>   
 {% endblock %}
