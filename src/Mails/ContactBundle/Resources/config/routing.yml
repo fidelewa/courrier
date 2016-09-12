@@ -5,14 +5,14 @@ mails_contact_show_all:
 
 mails_contact_edit:
     path:     /edit/{id}
-    methods: [ get,post ]
+    methods: [ get,post,put ]
     defaults: { _controller: MailsContactBundle:Contact:editInterlocutor }
     requirements:
         id: \d+
 
 mails_contact_delete:
     path:     /delete/{id}
-    methods: [ get ]
+    methods: [ get,delete ]
     defaults: { _controller: MailsContactBundle:Contact:deleteInterlocutor }
     requirements:
         id: \d+
