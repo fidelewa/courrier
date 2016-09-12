@@ -1,7 +1,7 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
 
 {% block title %}
-    Liste filtrée - Courriers envoyés par l'interlocuteur "{{actor.name}}"
+    Liste filtrée - Courriers envoyés par l'interlocuteur <b><i>{{ actor.name | title }}</i></b>
 {% endblock %}
 
 {% block mailsadmin_body %}
@@ -24,7 +24,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="allMailreceivedFilterByActor">
-        {{ include("MailsMailBundle:Mail:bl_mailreceived_filter_contact_result.html.twig") }}
+        {{ include("@contact_mailsent_filter_result_views/bl_mailsent_filter_contact_result.html.twig") }}
     </div>
 </div>
 {% endblock %}

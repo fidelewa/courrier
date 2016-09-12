@@ -1,5 +1,5 @@
 {% if allMailreceivedByActor %}
-   <a href="{{ path('mails_mailsent_filter_actor', {'id': actor.id}) }}"><u>Filtrer les courriers reçus par "{{actor.name}}"</u></a>
+   <a href="{{ path('mails_mailsent_filter_actor', {'id': actor.id}) }}"><u>Filtrer les courriers reçus par <b><i>{{ actor.name | title }}</i></b></u></a>
         <div class="table-responsive">
             {{ include("@contact_mailreceived_views/table_mailreceived_contact.html.twig") }}
         </div>
