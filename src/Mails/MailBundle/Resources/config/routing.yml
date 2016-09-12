@@ -20,7 +20,7 @@ mails_mailreceived_add:
 
 mails_mailreceived_edit:
     path:     /mailreceived/edit/{id}
-    methods: [ get,post ]
+    methods: [ get,post,put ]
     defaults: { _controller: MailsMailBundle:Mailreceived:editMailreceived }
     requirements:
         id: \d+
@@ -34,7 +34,7 @@ mails_mailreceived_delete:
 
 mails_mailreceived_registration:
     path:      /register/mailreceived/{id}
-    methods: [ get,post ]
+    methods: [ get,post,put ]
     defaults: { _controller: MailsMailBundle:Mailreceived:registerMailreceived }
     requirements:
         id: \d+ 
@@ -53,21 +53,21 @@ mails_mailsent_add:
 
 mails_mailsent_edit:
     path:     /mailsent/edit/{id}
-    methods: [ get,post ]
+    methods: [ get,post,put ]
     defaults: { _controller: MailsMailBundle:Mailsent:editMailsent }
     requirements:
         id: \d+ 
        
 mails_mailsent_delete:
     path:     /mailsent/delete/{id}
-    methods: [ get ]
+    methods: [ get,post,delete ]
     defaults: { _controller: MailsMailBundle:Mailsent:deleteMailsent }  
     requirements:
         id: \d+
         
 mails_mailsent_registration:
     path:      /register/mailsent/{id}
-    methods: [ get,post ]
+    methods: [ get,post,put ]
     defaults: { _controller: MailsMailBundle:Mailsent:registerMailsent }
     requirements:
         id: \d+
@@ -107,7 +107,7 @@ mails_all_mailreceived_filter:
 
 mails_mailreceived_validation:
     path:      /validate/mailreceived/{id}
-    methods: [ put,get ]
+    methods: [ get,put ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:validateMailreceived }
     requirements:
         id: \d+ 
@@ -140,7 +140,7 @@ mails_all_mailsent_filter:
 
 mails_mailsent_validation:
     path:      /validate/mailsent/{id}
-    methods: [ get ]
+    methods: [ get,put ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:validateMailsent }
     requirements:
         id: \d+
