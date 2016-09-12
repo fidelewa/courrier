@@ -7,8 +7,8 @@
     </thead>
 {% set fond = '#EFEFEF' %}
 {% for mailsentByFilter in allMailsentByFilter %}
-    
-    {{ include("MailsMailBundle:Mail:row_mailsent_filter_result.html.twig") }}
+
+    {{ include("@mailsent_filter_result_views/row_mailsent_filter_result.html.twig") }}
 
 {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
 {% endfor %}
