@@ -26,5 +26,4 @@
    <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Traitement</font>&nbsp;&nbsp;</td>
    <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{% if mail.treated == true %}OUI{% else %}NON{% endif %}</td>
 </tr>
-
-{{ include("MailsMailBundle:Mail:info2_view_mailreceived.html.twig") }}
+{{ include("@mailreceived_detail_views/info2_view_mailreceived.html.twig") }}
