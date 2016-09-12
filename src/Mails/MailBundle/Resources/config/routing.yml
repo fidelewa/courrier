@@ -27,7 +27,7 @@ mails_mailreceived_edit:
         
 mails_mailreceived_delete:
     path:     /mailreceived/delete/{id}
-    methods: [ get ]
+    methods: [ get,post,delete ]
     defaults: { _controller: MailsMailBundle:Mailreceived:deleteMailreceived }
     requirements:
         id: \d+
@@ -107,7 +107,7 @@ mails_all_mailreceived_filter:
 
 mails_mailreceived_validation:
     path:      /validate/mailreceived/{id}
-    methods: [ get ]
+    methods: [ put,get ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:validateMailreceived }
     requirements:
         id: \d+ 
