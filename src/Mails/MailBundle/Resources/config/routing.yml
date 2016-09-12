@@ -1,124 +1,146 @@
 #MailController---------------------------------------------------------------------- 
 mails_mail_mailsent:
     path:     /sent/{page}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mail:showIndexMailsentByUser, page: 1 }
     requirements:
         page: \d*
 
 mails_mail_mailreceived:
     path:     /received/{page}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mail:showIndexMailreceivedByUser, page: 1 }
     requirements:
         page: \d*
 #MailreceivedController----------------------------------------------------------------
 mails_mailreceived_add:
     path:     /mailreceived/add/
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailreceived:addMailreceived }
 
 mails_mailreceived_edit:
     path:     /mailreceived/edit/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailreceived:editMailreceived }
     requirements:
         id: \d+
         
 mails_mailreceived_delete:
     path:     /mailreceived/delete/{id}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mailreceived:deleteMailreceived }
     requirements:
         id: \d+
 
 mails_mailreceived_registration:
     path:      /register/mailreceived/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailreceived:registerMailreceived }
     requirements:
         id: \d+ 
 
 mails_mailreceived_detail:
     path:      /mailreceived/{id}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mailreceived:viewMailreceived }
     requirements:
         id: \d+
 #MailsentController--------------------------------------------------------------------
 mails_mailsent_add:
     path:     /mailsent/add/
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailsent:addMailsent } 
 
 mails_mailsent_edit:
     path:     /mailsent/edit/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailsent:editMailsent }
     requirements:
         id: \d+ 
        
 mails_mailsent_delete:
     path:     /mailsent/delete/{id}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mailsent:deleteMailsent }  
     requirements:
         id: \d+
         
 mails_mailsent_registration:
     path:      /register/mailsent/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailsent:registerMailsent }
     requirements:
         id: \d+
 
 mails_mailsent_detail:
     path:      /mailsent/{id}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mailsent:viewMailsent }
     requirements:
         id: \d+
 #MailreceivedExtraController---------------------------------------------------------------         
 mails_mailreceived_filter:
     path:     /mailreceived/filter
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceived }
 
 mails_mailreceived_filter_user:
     path:     /mailreceived/filter/user/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByUser }
     requirements:
         id: \d+
 
 mails_mailreceived_filter_actor:
     path:     /mailreceived/filter/contact/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByInterlocutor }
     requirements:
         id: \d+
 
 mails_all_mailreceived_filter:
     path:     /all/mailreceived/filter/{page}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceived, page: 1 }
     requirements:
         page: \d*
 
 mails_mailreceived_validation:
     path:      /validate/mailreceived/{id}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:validateMailreceived }
     requirements:
         id: \d+ 
 #MailsentExtraController----------------------------------------------------------------
 mails_mailsent_filter:
     path:     /mailsent/filter
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsent }
 
 mails_mailsent_filter_user:
     path:     /mailsent/filter/user/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByUser }
     requirements:
         id: \d+
 
 mails_mailsent_filter_actor:
     path:     /mailsent/filter/contact/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByInterlocutor }
     requirements:
         id: \d+
 
 mails_all_mailsent_filter:
     path:     /all/mailsent/filter/{page}
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterAllMailsent, page: 1 }
     requirements:
         page: \d*
 
 mails_mailsent_validation:
     path:      /validate/mailsent/{id}
+    methods: [ get ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:validateMailsent }
     requirements:
         id: \d+

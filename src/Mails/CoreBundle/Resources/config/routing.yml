@@ -1,8 +1,10 @@
 mails_core_home:
     path:     /
+    methods: [ get ]
     defaults: { _controller: MailsCoreBundle:Home:index }
     
 mails_core_contact:
     path:     /contact
+    methods: [ get,post ]
     defaults: { _controller: MailsCoreBundle:Home:contact }
     

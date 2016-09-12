@@ -1,25 +1,30 @@
 mails_contact_show_all:
     path:     /show
+    methods: [ get ]
     defaults: { _controller: MailsContactBundle:Contact:showAllInterlocutor }
 
 mails_contact_edit:
     path:     /edit/{id}
+    methods: [ get,post ]
     defaults: { _controller: MailsContactBundle:Contact:editInterlocutor }
     requirements:
         id: \d+
 
 mails_contact_delete:
     path:     /delete/{id}
+    methods: [ get ]
     defaults: { _controller: MailsContactBundle:Contact:deleteInterlocutor }
     requirements:
         id: \d+
 
 mails_contact_add:
     path:     /add
+    methods: [ get,post ]
     defaults: { _controller: MailsContactBundle:Contact:addInterlocutor }
 
 mails_contact_all_mail:
     path:     /all/mail/{id}
+    methods: [ get ]
     defaults: { _controller: MailsContactBundle:Contact:showAllMailInterlocutor }
     requirements:
         id: \d+
