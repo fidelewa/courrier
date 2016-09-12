@@ -1,5 +1,5 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
-{% block title %}Liste des courriers de l'utilisateur "{{user.username}}" {% endblock %}
+{% block title %}Liste des courriers de l'utilisateur <b><i>{{ user.username | title }}</i></b> {% endblock %}
 {% block mailsmail_body %}
 
 <h2 class="text-center">Synthèse utilisateur</h2>
