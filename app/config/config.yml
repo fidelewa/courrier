@@ -45,7 +45,20 @@ twig:
         '%kernel.root_dir%/../src/Mails/ContactBundle/Resources/views/Contact/Show': show_contact_views
         '%kernel.root_dir%/../src/Mails/ContactBundle/Resources/views/Contact/Mails/MailSent': contact_mailsent_views
         '%kernel.root_dir%/../src/Mails/ContactBundle/Resources/views/Contact/Mails/MailReceived': contact_mailreceived_views
-    
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailSent/FilterUser/Result': user_mailsent_filter_result_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailReceived/FilterUser/Result': user_mailreceived_filter_result_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailReceived/FilterContact/Result': contact_mailreceived_filter_result_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailSent/FilterContact/Result': contact_mailsent_filter_result_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailReceived/Filter/Result': mailreceived_filter_result_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailSent/Filter/Result': mailsent_filter_result_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailReceived/Detail': mailreceived_detail_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailSent/Detail': mailsent_detail_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailReceived/Form': mailreceived_form_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailSent/Form': mailsent_form_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/ShowLatest': show_latest_mails_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/Delete': delete_mails_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailReceived/Index': mailreceived_index_views
+        '%kernel.root_dir%/../src/Mails/MailBundle/Resources/views/Mail/MailSent/Index': mailsent_index_views
     #globals:
         #mails: "@mails_mail.mail_checker"
 
