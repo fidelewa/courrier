@@ -20,7 +20,7 @@ class MailreceivedController extends Controller
      * Add or create a mail received action.
      *
      * @param Request $request Incoming request
-     * @Template("MailsMailBundle:Mail:mailreceived_add.html.twig")
+     * @Template("@mailreceived_form_views/mailreceived_add.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
      public function addMailreceivedAction(Request $request)
@@ -87,7 +87,7 @@ class MailreceivedController extends Controller
         }
 
         //Si la requête est en GET
-        return $this->render('MailsMailBundle:Mail:mailreceived_edit.html.twig', array(
+        return $this->render('@mailreceived_form_views/mailreceived_edit.html.twig', array(
         'form'   => $form->createView(),
         'mail' => $mail 
         ));
@@ -100,7 +100,7 @@ class MailreceivedController extends Controller
      * @param integer $id mail received id
      * @param Request $request Incoming request
      * @Security("has_role('ROLE_ADMIN')")
-     * @Template("MailsMailBundle:Mail:delete_mailreceived.html.twig")
+     * @Template("@delete_mails_views/delete_mailreceived.html.twig")
      */
      public function deleteMailreceivedAction($id, Request $request)
      {
@@ -145,7 +145,7 @@ class MailreceivedController extends Controller
      * @param Request $request Incoming request
      * @param Integer $id mail received id
      * @Security("has_role('ROLE_SECRETAIRE')")
-     * @Template("MailsMailBundle:Mail:mailreceived_registred.html.twig")
+     * @Template("@mailreceived_form_views/mailreceived_registred.html.twig")
      */
      public function registerMailreceivedAction($id, Request $request)
      {

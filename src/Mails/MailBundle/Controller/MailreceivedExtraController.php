@@ -47,7 +47,7 @@ class MailreceivedExtraController extends Controller
             ));
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:mailreceived_filter.html.twig', array(
+        return $this->render('@mailreceived_form_views/mailreceived_filter.html.twig', array(
         'form' => $form->createView()
         ));  
      }
@@ -57,7 +57,7 @@ class MailreceivedExtraController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
-     * @Template("MailsMailBundle:Mail:mailreceived_user_filter.html.twig")
+     * @Template("@mailreceived_form_views/mailreceived_user_filter.html.twig")
      */
      public function filterMailreceivedByUserAction($id, Request $request)
      {
@@ -137,7 +137,7 @@ class MailreceivedExtraController extends Controller
         }
         
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:mailreceived_actor_filter.html.twig', array(
+        return $this->render('@mailreceived_form_views/mailreceived_actor_filter.html.twig', array(
         'actor' => $actor,    
         'form' => $form->createView()
         ));
@@ -149,7 +149,7 @@ class MailreceivedExtraController extends Controller
      *
      * @param integer $page page number
      * @param Request $request Incoming request
-     * @Template("MailsMailBundle:Mail:all_mailreceived_filter_result.html.twig")
+     * @Template("@mailreceived_filter_result_views/all_mailreceived_filter_result.html.twig")
      */
      public function filterAllMailreceivedAction(Request $request, $page)
      {
@@ -186,7 +186,7 @@ class MailreceivedExtraController extends Controller
             return array('allMailreceivedFilter' => $allMailreceivedFilter, 'mail' => $mail, 'nombreTotalPages' => $nombreTotalPagesByFilter,'page' => $page);
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:all_mailreceived_filter.html.twig', array(
+        return $this->render('@mailreceived_form_views/all_mailreceived_filter.html.twig', array(
         'form' => $form->createView()
         )); 
      }

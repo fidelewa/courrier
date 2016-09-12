@@ -20,7 +20,7 @@ class MailsentController extends Controller
 			*
 			* @param Request $request Incoming request
 			* @Security("has_role('ROLE_ADMIN')")
-			* @Template("MailsMailBundle:Mail:mailsent_add.html.twig")
+			* @Template("@mailsent_form_views/mailsent_add.html.twig")
 			*/
 			public function addMailsentAction(Request $request)
 			{
@@ -87,7 +87,7 @@ class MailsentController extends Controller
 					}
 
 					//Si la requête est en GET
-					return $this->render('MailsMailBundle:Mail:mailsent_edit.html.twig', array(
+					return $this->render('@mailsent_form_views/mailsent_edit.html.twig', array(
 					'form'   => $form->createView(),
 					'mail' => $mail // Je passe également le courrier envoyé a la vue si jamais elle veut l'afficher
 					));
@@ -99,7 +99,7 @@ class MailsentController extends Controller
 			* @param integer $id mail sent id
 			* @param Request $request Incoming request
 			* @Security("has_role('ROLE_ADMIN')")
-			* @Template("MailsMailBundle:Mail:delete_mailsent.html.twig")
+			* @Template("@delete_mails_views/delete_mailsent.html.twig")
 			*/
 			public function deleteMailsentAction($id, Request $request)
 			{
@@ -144,7 +144,7 @@ class MailsentController extends Controller
 			* @param Request $request Incoming request
 			* @param Integer $id mail sent id
 			* @Security("has_role('ROLE_SECRETAIRE')")
-			* @Template("MailsMailBundle:Mail:mailsent_registred.html.twig")
+			* @Template("@mailsent_form_views/mailsent_registred.html.twig")
 			*/
 			public function registerMailsentAction($id, Request $request)
 			{

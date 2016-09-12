@@ -14,7 +14,7 @@ class MailController extends Controller
      * Displays the list of index of mails sent by user profil
      *
      * @param Integer $page page number
-     * @Template("MailsMailBundle:Mail:indexMailsent.html.twig")
+     * @Template("@mailsent_index_views/index_mailsent.html.twig")
      */
     public function showIndexMailsentByUserAction($page)
     {
@@ -68,7 +68,7 @@ class MailController extends Controller
      * Displays the list of index of mails received by user profil
      *
      * @param Integer $page page number
-     * @Template("MailsMailBundle:Mail:indexMailreceived.html.twig")
+     * @Template("@mailreceived_index_views/index_mailreceived.html.twig")
      */
     public function showIndexMailreceivedByUserAction($page)
     {
@@ -132,7 +132,7 @@ class MailController extends Controller
 
         $latestMailsReceived = $indexor->indexLatestMailreceived($indexor::NUM_ITEMS);
         
-        return $this->render('MailsMailBundle:Mail:listMail.html.twig', array(
+        return $this->render('@show_latest_mails_views/listMail.html.twig', array(
             'mailsSent' => $latestMailsSent,
             'mailsReceived' => $latestMailsReceived
         ));
@@ -157,7 +157,7 @@ class MailController extends Controller
 
         $listMailreceivedBySecretary = $indexor->indexMailreceivedNotRegistredBySecretary($idSecretaire, $indexor::NUM_ITEMS);
         
-        return $this->render('MailsMailBundle:Mail:listMail_secretary.html.twig', array(
+        return $this->render('@show_latest_mails_views/listMail_secretary.html.twig', array(
             'listMailsentBySecretary' => $listMailsentBySecretary,
             'listMailreceivedBySecretary' => $listMailreceivedBySecretary,
         ));
@@ -181,7 +181,7 @@ class MailController extends Controller
 
         $listMailreceivedByAdmin = $indexor->indexMailreceivedNotValidatedByAdmin($admin, $indexor::NUM_ITEMS);
         
-        return $this->render('MailsMailBundle:Mail:listMail_admin.html.twig', array(
+        return $this->render('@show_latest_mails_views/listMail_admin.html.twig', array(
             'listMailsentNotValidated' => $listMailsentByAdmin,
             'listMailreceivedNotValidated' => $listMailreceivedByAdmin
         ));

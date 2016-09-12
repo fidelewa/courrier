@@ -46,7 +46,7 @@ class MailsentExtraController extends Controller
             ));
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:mailsent_filter.html.twig', array(
+        return $this->render('@mailsent_form_views/mailsent_filter.html.twig', array(
         'form' => $form->createView()
         ));
          
@@ -88,7 +88,7 @@ class MailsentExtraController extends Controller
             return array('allMailsentFilterByUser' => $allMailsentFilterByUser, 'mail' => $mail, 'user' => $user);
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:mailsent_user_filter.html.twig', array(
+        return $this->render('@mailsent_form_views/mailsent_user_filter.html.twig', array(
         'user' => $user,    
         'form' => $form->createView()
         ));
@@ -130,7 +130,7 @@ class MailsentExtraController extends Controller
             return array('allMailsentFilterByActor' => $allMailsentFilterByActor, 'mail' => $mail, 'actor' => $actor);
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:mailsent_actor_filter.html.twig', array(
+        return $this->render('@mailsent_form_views/mailsent_actor_filter.html.twig', array(
         'actor' => $actor,    
         'form' => $form->createView()
         ));
@@ -141,7 +141,7 @@ class MailsentExtraController extends Controller
      *
      * @param integer $page page number
      * @param Request $request Incoming request
-     * @Template("MailsMailBundle:Mail:all_mailsent_filter_result.html.twig")
+     * @Template("@mailsent_filter_result_views/all_mailsent_filter_result.html.twig")
      */
      public function filterAllMailsentAction(Request $request, $page)
      {
@@ -177,7 +177,7 @@ class MailsentExtraController extends Controller
             return array('allMailsentFilter' => $allMailsentFilter, 'mail' => $mail, 'nbPages' => $nombreTotalPagesByFilter, 'page' => $page);
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('MailsMailBundle:Mail:all_mailsent_filter.html.twig', array(
+        return $this->render('@mailsent_form_views/all_mailsent_filter.html.twig', array(
         'form' => $form->createView()
         ));
          
