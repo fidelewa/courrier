@@ -19,7 +19,7 @@ mails_user_mailreceived:
 
 mails_user_delete:
     path:     /delete/{id}
-    methods: [ get ]
+    methods: [ get,delete ]
     defaults: { _controller: MailsUserBundle:User:deleteUser }
     requirements:
         id: \d+
