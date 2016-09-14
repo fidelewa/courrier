@@ -35,4 +35,5 @@ security:
                 path:       fos_user_security_logout
                 target:     /
             remember_me:
-                key:        %secret% # %secret% est un paramètre de parameters.yml
+                key:        %secret% 
+                
