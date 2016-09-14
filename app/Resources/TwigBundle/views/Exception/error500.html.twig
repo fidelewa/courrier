@@ -1,0 +1,16 @@
+{% extends "MailsCoreBundle::layout.html.twig" %}
+{% block title %}An Error Occurred: {{ status_text }}{% endblock %}
+
+{% block body %}
+<div class="row" id="errorPanel">
+    <div class="col-xs-5">
+        <img class="img-responsive pull-right" src="{{ app.request.basepath }}/images/500_error.png" alt="Error 403"/>
+    </div>
+    <div class="col-xs-6">
+        <h1>Oops! An Error Occurred</h1>
+        <h2>The server returned a "{{ status_code }} {{ status_text }}".<br>
+        <small>Erreur interne du serveur.</small>
+        </h2>
+    </div>
+</div>
+{% endblock %}
