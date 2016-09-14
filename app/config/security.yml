@@ -11,7 +11,7 @@ security:
         ROLE_SECRETAIRE:
         ROLE_ADMINISTRATEUR: ROLE_ADMIN
         ROLE_SUPER_ADMIN:    [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        
+
     providers:
         main:
             id: fos_user.user_provider.username
@@ -23,7 +23,7 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-            
+
         main:
             pattern:        ^/
             anonymous:      true
@@ -35,5 +35,4 @@ security:
                 path:       fos_user_security_logout
                 target:     /
             remember_me:
-                key:        %secret% 
-                
+                key:        %secret%
