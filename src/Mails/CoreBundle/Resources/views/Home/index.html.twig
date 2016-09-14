@@ -1,7 +1,7 @@
 {% extends "MailsCoreBundle::layout.html.twig" %}
 {% block title %}Accueil{% endblock %}
 {% block body %}
-        
+    {{ include("MailsCoreBundle:Home:connexion.html.twig") }} 
     {# On affiche tous les messages flash dont le nom est « info » #}
     {% for message in app.session.flashbag.get('info') %}
         <div class="alert alert-info">Message flash : {{ message }}</div>
