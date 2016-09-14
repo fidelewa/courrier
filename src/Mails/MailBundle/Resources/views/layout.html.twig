@@ -1,16 +1,8 @@
 {% extends "MailsCoreBundle::layout.html.twig" %}
 
 {% block body %}
-        <div class="navbar-right">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    Connecté en tant que <b><i>{{ app.user.username | title }}</i></b> - <u><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></u>
-                {% else %}
-                    <u><a href="{{ path('fos_user_security_login') }}">Connexion</a></u>
-                {% endif %}
-        </div>
   {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
   <h1>Courrier</h1>
-  
   <hr>
 
   {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
