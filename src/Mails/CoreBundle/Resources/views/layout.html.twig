@@ -13,11 +13,11 @@
         <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
+                    </button>-->
                     <a class="navbar-brand" href="{{ path('mails_core_home') }}">Mails</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
@@ -30,41 +30,36 @@
                                     <li><a href="{{ path('mails_mail_mailreceived') }}">Reçus</a></li>
                                 </ul>
                         </li>
-                        {% if app.user and is_granted('ROLE_ADMIN') %}
-                        <li class="dropdown">
-                           <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> Créer un courrier<b class="caret"></b></a>
-                              <ul class="dropdown-menu">
-                                  <li><a href="{{ path('mails_mailsent_add') }}">Envoyé</a></li>
-                                  <li><a href="{{ path('mails_mailreceived_add') }}">Reçu</a></li>
-                               </ul>
-                         </li>
-                        <li class="dropdown">
-                           <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Administration<b class="caret"></b></a>
-                              <ul class="dropdown-menu">
-                                  <li><a href="{{ path('mails_user_mailsent') }}">Courriers envoyés</a></li>
-                                  <li><a href="{{ path('mails_user_mailreceived') }}">Courriers reçus</a></li>
-                                  <li><a href="{{ path('mails_contact_show_all') }}">Interlocuteurs</a></li>
-                                  <li><a href="{{ path('mails_user_show_all') }}">Utilisateurs</a></li>
-                               </ul>
-                         </li>
-                        {% endif %}
-                        
-                        {% if app.user is not null %}
-                            {% for role in app.user.roles %}
-                                {% if loop.length > 1 and role == 'ROLE_SECRETAIRE' %}
+                        {#Si l'utilisteur est authentifié #}
+                        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {#Si l'utilisteur est authentifié en tant qu'administrateur#}
+                            {% if app.user and is_granted('ROLE_ADMIN') %}
                                     <li class="dropdown">
-                                        <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Espace utilisateur<b class="caret"></b></a>
+                                    <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> Créer un courrier<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('mails_mailsent_add') }}">Envoyé</a></li>
+                                            <li><a href="{{ path('mails_mailreceived_add') }}">Reçu</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                    <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Administration<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('mails_user_mailsent') }}">Courriers envoyés</a></li>
+                                            <li><a href="{{ path('mails_user_mailreceived') }}">Courriers reçus</a></li>
+                                            <li><a href="{{ path('mails_contact_show_all') }}">Interlocuteurs</a></li>
+                                            <li><a href="{{ path('mails_user_show_all') }}">Utilisateurs</a></li>
+                                        </ul>
+                                    </li>
+                            {% elseif app.user and is_granted('ROLE_SECRETAIRE') %}{#Si l'utilisteur est authentifié en tant que sécrétaire#}
+                                    <li class="dropdown">
+                                    <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Espace utilisateur<b class="caret"></b></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ path('fos_user_profile_show') }}">Voir le profil</a></li>
                                             <li><a href="{{ path('fos_user_profile_edit') }}">Modifier le profil</a></li>
                                             <li><a href="{{ path('fos_user_change_password') }}">Modifier le mot de passe</a></li>
                                         </ul>
                                     </li>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                        
-                        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% endif %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span> Welcome, <b><i>{{ app.user.username | title }}</i></b> <b class="caret"></b></a>
@@ -72,7 +67,7 @@
                                     <li><a href="{{ path('fos_user_security_logout') }}">Log out</a></li>
                                 </ul>
                             </li>
-                        {% else %}
+                        {% else %}{#Si l'utilisteur n'est pas authentifié #}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span> Not connected <b class="caret"></b></a>
@@ -86,8 +81,7 @@
             </div><!-- /.container -->
         </nav>
         <div id="content">
-            {{ include("MailsCoreBundle:Home:connexion.html.twig") }} 
-                {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
         </div>
         <footer class="footer">
             <strong>Mails</strong> est construit avec PHP, Symfony, Twig, Doctrine et Bootstrap.
