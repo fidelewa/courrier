@@ -86,7 +86,8 @@
             </div><!-- /.container -->
         </nav>
         <div id="content">
-            {% block body %}{% endblock %}
+            {{ include("MailsCoreBundle:Home:connexion.html.twig") }} 
+                {% block body %}{% endblock %}
         </div>
         <footer class="footer">
             <strong>Mails</strong> est construit avec PHP, Symfony, Twig, Doctrine et Bootstrap.
