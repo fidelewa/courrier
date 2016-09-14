@@ -1,16 +1,14 @@
 # app/config/security.yml
 security:
-    access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
 
     encoders:
         #Symfony\Component\Security\Core\User\User: sha512
         Mails\UserBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_SECRETAIRE:     ROLE_USER
-        ROLE_ADMINISTRATEUR: [ROLE_ADMIN, ROLE_EXPEDITEUR, ROLE_DESTINATAIRE]    
-        ROLE_SUPER_ADMIN:    [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]    
+        ROLE_SECRETAIRE:
+        ROLE_ADMINISTRATEUR: ROLE_ADMIN
+        ROLE_SUPER_ADMIN:    [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         
     providers:
         main:
