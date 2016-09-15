@@ -4,6 +4,11 @@ services:
         arguments: [@doctrine.orm.entity_manager]
         tags:
             -  { name: twig.extension }
+
+    twig.extension.actions:
+        class: Mails\MailBundle\Twig\NullExtension
+        tags:
+            -  { name: twig.extension }
             
     mails_mail.mail_paginator:
         class: Mails\MailBundle\Paginator\MailsPaginator
