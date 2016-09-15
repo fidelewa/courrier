@@ -1,12 +1,12 @@
 <tr bgcolor={{fond}} valign='top'>
-        <td><u><a href="{{ path('mails_mailsent_detail', {'id': mailsentFilterByActor.id}) }}">[{{ mailsentFilterByActor.reference}}]</a></u></td>
-        <td>{{ mailsentFilterByActor.objet }}</td>
-        <td>{% if mailsentFilterByActor.dateEdition is not null %}{{ mailsentFilterByActor.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
-        <td>{% if mailsentFilterByActor.mailsent.dateEnvoi is defined %}{{ mailsentFilterByActor.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}{% endif %}</td>
-        <td>{{ mailsentFilterByActor.nombrePiecesJointes}}</td>
-        <td>{% if mailsentFilterByActor.received == true %}OUI{% else %}NON{% endif %}</td>
-        <td>
-            {{ render(controller("MailsCoreBundle:Home:manageMails",{'editRoute': 'mails_mailsent_edit','detailRoute': 'mails_mailsent_detail',
-            'deleteRoute': 'mails_mailsent_delete','id': mailsentFilterByActor.id,'var': mailsentFilterByActor,'type': 'mail sent',}))}}
-        </td>
+   <td><u><a href="{{ path('mails_mailsent_detail', {'id': mailsentFilterByActor.id}) }}">[{{ mailsentFilterByActor.reference}}]</a></u></td>
+   <td>{{ mailsentFilterByActor.objet }}</td>
+   <td>{% if mailsentFilterByActor.dateEdition is not null %}{{ mailsentFilterByActor.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
+   <td>{% if mailsentFilterByActor.mailsent.dateEnvoi is defined %}{{ mailsentFilterByActor.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}{% endif %}</td>
+   <td>{{ mailsentFilterByActor.nombrePiecesJointes}}</td>
+   <td>{% if mailsentFilterByActor.received == true %}OUI{% else %}NON{% endif %}</td>
+   <td>
+  {{ render(controller("MailsCoreBundle:Home:manageMails",{'editRoute': 'mails_mailsent_edit','detailRoute': 'mails_mailsent_detail',
+  'deleteRoute': 'mails_mailsent_delete','id': mailsentFilterByActor.id,'var': mailsentFilterByActor,'type': 'mail sent',}))}}
+   </td>
 </tr>

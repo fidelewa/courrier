@@ -116,27 +116,14 @@
     l'esprit générale du courrier déjà publié.
   </p>
 
-  <p>
-  {% if app.user and is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('mails_mail_mailreceived') }}">
-      <u>
-      Retour à la liste des courriers reçus
-      </u>
-    </a>
+<p>
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('mails_mail_mailreceived') }}"><u>Retour à la liste des courriers reçus</u></a>
     &nbsp;<b>|</b>&nbsp;
     {% else %}
-    <a href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}">
-      <u>
-      Retour au détail
-      </u>
-    </a>
+    <a href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}"><u>Retour au détail</u></a>
     &nbsp;<b>|</b>&nbsp;
     {% endif %}
-    <a href="{{ path('mails_core_home') }}">
-        <u>
-      Accueil
-      </u>
-  </a>
+    <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
   </p>
-
 {% endblock %}

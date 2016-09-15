@@ -6,7 +6,6 @@ namespace Mails\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
-
 /**
  * @ORM\Entity
  */
@@ -18,5 +17,4 @@ class User extends BaseUser
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
-  
 }

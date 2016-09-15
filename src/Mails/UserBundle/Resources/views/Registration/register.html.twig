@@ -81,21 +81,12 @@
      Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
      et tous les champs cachés (type « hidden »). #}
     {{ form_rest(form) }}
-    
     {# Fermeture de la balise <form> du formulaire HTML #}
     {{ form_end(form) }}
 </div>
 
-<a href="{{ path('mails_user_show_all') }}">
-      <u>
-      Retour à la liste des utilisateurs
-      </u>
-    </a>
-    &nbsp;<b>|</b>&nbsp;
-    <a href="{{ path('mails_core_home') }}">
-      <u>
-      Accueil
-      </u>
-  </a>
+<a href="{{ path('mails_user_show_all') }}"><u>Retour à la liste des utilisateurs</u></a>
+&nbsp;<b>|</b>&nbsp;
+<a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
 
 {% endblock fos_user_content %}

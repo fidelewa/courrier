@@ -1,8 +1,6 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
 
-{% block title %}
-  Enregistrement du courrier envoyé 
-{% endblock %}
+{% block title %}Enregistrement du courrier envoyé {% endblock %}
 
 {% block mailsmail_body %}
 
@@ -44,21 +42,15 @@
      Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
      et tous les champs cachés (type « hidden »). #}
     {{ form_rest(form) }}
-    
     {{ form_end(form) }}
     
 </div>
 
-<a href="{{ path('mails_core_home') }}">
-      <u>
-      Accueil
-      </u>
-  </a>
+<a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
 
   <p class="text-center">
     <b>Attention : ce courrier sera directement enregistré 
     après validation du formulaire.</b>
   </p>
-
 
 {% endblock %}
