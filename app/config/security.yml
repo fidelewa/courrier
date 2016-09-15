@@ -36,4 +36,3 @@ security:
                 target:     /
             remember_me:
                 key:        %secret%
-    
