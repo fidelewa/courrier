@@ -37,3 +37,4 @@ class ActorType extends AbstractType
         return 'mails_mailbundle_actor';
     }
 }
+

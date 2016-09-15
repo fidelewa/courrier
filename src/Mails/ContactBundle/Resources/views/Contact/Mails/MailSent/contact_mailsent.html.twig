@@ -7,4 +7,4 @@
    <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet interlocuteur.</div>
 {% endif %}
 {% if app.user and is_granted('ROLE_ADMIN') %}<a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a>{% endif %}
-        
+     

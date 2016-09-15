@@ -229,5 +229,4 @@ class MailsFilter
         
         return $allMailreceivedFilter;
     }
-
 }

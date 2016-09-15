@@ -47,6 +47,4 @@ class MailsChecker extends \Twig_Extension
     return 'MailsChecker';
   }
 
-    
-
 }

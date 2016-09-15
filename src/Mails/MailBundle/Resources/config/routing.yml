@@ -144,17 +144,3 @@ mails_mailsent_validation:
     defaults: { _controller: MailsMailBundle:MailsentExtra:validateMailsent }
     requirements:
         id: \d+
-    
- 
-    
-
-    
-
-        
-
-
-    
-
-    
-
-        

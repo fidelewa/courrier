@@ -105,5 +105,4 @@ class MailsIndexor
         return $listMailreceivedByAdmin
         ;
     }
-
 }

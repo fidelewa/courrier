@@ -104,5 +104,4 @@ class MailsPaginator
         return $listMailsReceived
         ;
     }
-
 }

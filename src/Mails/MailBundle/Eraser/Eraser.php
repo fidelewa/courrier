@@ -126,5 +126,4 @@ class Eraser
             $this->em->flush();
         }
     }
-
 }

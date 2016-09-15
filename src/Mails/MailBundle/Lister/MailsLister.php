@@ -23,8 +23,7 @@ class MailsLister
                             
         $this->em->flush();
 
-        return $listActor
-        ;
+        return $listActor;
     }
 
     public function listAdminUser()
@@ -38,8 +37,7 @@ class MailsLister
                             
         $this->em->flush();
 
-        return $listUser
-        ;
+        return $listUser;
     }
 
     public function listAdminMailsent($pageNumber, $itemsNumber, $admin)
@@ -69,8 +67,6 @@ class MailsLister
         // Et on n'oublie pas de faire un flush !
         $this->em->flush();
 
-        return $listMailsReceived
-        ;
+        return $listMailsReceived;
     }
-
 }

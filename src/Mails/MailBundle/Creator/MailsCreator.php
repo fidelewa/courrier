@@ -79,5 +79,4 @@ class MailsCreator
         // On renvoi le conrrier envoyé crée
         return $this->courier;
     }
-
 }

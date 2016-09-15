@@ -35,5 +35,4 @@ class MailsManager extends \Twig_Extension
   {
     return 'MailsManager';
   }
-
 }
