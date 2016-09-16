@@ -78,14 +78,20 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-        server_version: 5.6
+        default_connection:   default
+
+        connections:
+            # A collection of different named connections (e.g. default, conn2, etc)
+            default:
+                dbname:               "%database_name%"
+                host:                 "%database_host%"
+                port:                 "%database_port%"
+                user:                 "%database_user%"
+                password:             "%database_password%"
+                charset:              UTF8
+                driver:               pdo_mysql
+                server_version:       5.6
+
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
