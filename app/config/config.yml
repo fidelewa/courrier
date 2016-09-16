@@ -83,7 +83,7 @@ doctrine:
         connections:
             # A collection of different named connections (e.g. default, conn2, etc)
             default:
-                dbname:               "%database_name%"
+                dbname:               symfony
                 host:                 "%database_host%"
                 port:                 "%database_port%"
                 user:                 "%database_user%"
