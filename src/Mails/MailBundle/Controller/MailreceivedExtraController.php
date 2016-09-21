@@ -46,9 +46,11 @@ class MailreceivedExtraController extends Controller
             'allmailreceivedByFilter' => $allmailreceivedByFilter,
             ));
 
+            //return $this->redirect($this->generateUrl('mails_mailreceived_filter_result'));
+
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
-        return $this->render('Mail/MailReceived/Form/mailreceived_filter.html.twig', array(
+        return $this->render('@mailreceived_form_views/mailreceived_filter.html.twig', array(
         'form' => $form->createView()
         ));  
      }
