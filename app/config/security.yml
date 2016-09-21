@@ -10,7 +10,7 @@ security:
     role_hierarchy:
         ROLE_SECRETAIRE:
         ROLE_ADMINISTRATEUR: ROLE_ADMIN
-        ROLE_SUPER_ADMIN:    [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_MODERATEUR:     ROLE_SUPER_ADMIN
 
     providers:
         main:
