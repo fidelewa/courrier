@@ -17,7 +17,7 @@
         <h2>Liste des courriers à valider par <i>{{ app.user.username | title }}</i></h2>
         <hr>
         {{ render(controller("MailsMailBundle:Mail:showLatestNotValidatedMailByUser", {'limit': 3})) }}
-    {% elseif app.user and is_granted("ROLE_SUPER_ADMIN") %}
+    {% elseif app.user and is_granted("ROLE_MODERATEUR") %}
         <h1>Page d'accueil des modérateurs</h1>
         <h2>Liste des courriers à valider par <i>{{ app.user.username | title }}</i></h2>
         <hr>

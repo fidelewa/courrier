@@ -1,5 +1,5 @@
 {% for role in app.user.roles %}
-    {% if role == 'ROLE_SUPER_ADMIN' %}
+    {% if role == 'ROLE_MODERATEUR' %}
      {% for role in user.roles %}
         {% if role == 'ROLE_ADMINISTRATEUR' %}
             <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span></button>
