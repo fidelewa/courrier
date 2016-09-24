@@ -1,5 +1,5 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
-{% block title %}Interlocuteurs{% endblock %}
+{% block title %}Contacts{% endblock %}
 {% block mailsadmin_body %}
 
 <h2 class="text-center">{{ block('title') }}</h2>
@@ -10,7 +10,7 @@
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="actors">
         {{ include("@show_contact_views/bl_contact.html.twig") }}
-        <a href="{{ path('mails_contact_add') }}"><u>Créer un nouvel interlocuteur</u></a>
+        <a href="{{ path('mails_contact_add') }}"><u>Créer un nouveau contact</u></a>
     </div>
 </div>
 {% endblock %}
