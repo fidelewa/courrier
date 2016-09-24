@@ -42,7 +42,7 @@ class MailController extends Controller
                 $listMailsSent = $paginator->pageIndexMailsentBySecretary($page, $paginator::NUM_ITEMS, $this->getUser()->getId());
                    
             }
-            if(in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_MODERATEUR", $userRoles)) 
+            if(in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_SUPER_ADMIN", $userRoles)) 
             {
                 // On récupère notre objet Paginator en fonction des critères spécifiés
                 $listMailsSent = $paginator->pageIndexMailsentNotValidated($page, $paginator::NUM_ITEMS, $this->getUser());
@@ -94,7 +94,7 @@ class MailController extends Controller
                 $listMailsReceived = $paginator->pageIndexMailreceivedBySecretary($page, $paginator::NUM_ITEMS, $this->getUser()->getId());
                    
             }
-            if(in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_MODERATEUR", $userRoles)) 
+            if(in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_SUPER_ADMIN", $userRoles)) 
             {
                 // On récupère notre objet Paginator en fonction des critères spécifiés
                 $listMailsReceived = $paginator->pageIndexMailreceivedNotValidated($page, $paginator::NUM_ITEMS, $this->getUser());
