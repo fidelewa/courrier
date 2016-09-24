@@ -105,11 +105,11 @@ class MailreceivedExtraController extends Controller
      */
      public function filterMailreceivedByInterlocutorAction($id, Request $request)
      {
-        // On récupère l'interlocuteur par son id
+        // On récupère le contact par son id
         $actor = $this->getDoctrine()->getRepository('MailsMailBundle:Actor')->find($id);
 
         if (null === $actor) {
-        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
+        throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
         }
 
         //On crée notre formulaire
@@ -127,7 +127,7 @@ class MailreceivedExtraController extends Controller
             // On récupère notre service
             $filter = $this->get('mails_mail.mail_filter');
 
-            //On récupère tous les courriers reçus, filtrés par date, par reception, par interlocuteur et par traitement
+            //On récupère tous les courriers reçus, filtrés par date, par reception, par contact et par traitement
             $allMailreceivedFilterByActor = $filter->filtreMailreceivedByActor($days, $reception, $actor->getId(), $traitement);
 
             return $this->render('MailsMailBundle:Mail:actor_mailreceived_filter_result.html.twig', array(

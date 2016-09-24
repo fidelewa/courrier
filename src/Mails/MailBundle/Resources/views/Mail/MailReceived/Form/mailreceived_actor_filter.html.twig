@@ -1,14 +1,14 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
 
 {% block title %}
-  Critères de filtrage - Courriers envoyés par l'interlocuteur <b><i>{{ actor.name | title }}</i></b>
+  Critères de filtrage - Courriers envoyés par le contact <b><i>{{ actor.name | title }}</i></b>
 {% endblock %}
 
 {% block mailsadmin_body %}
-<h2 class="text-center">Synthèse interlocuteur</h2>
+<h2 class="text-center">Synthèse du contact</h2>
 <div class="well">
     <ul>
-        <li>Nom interlocuteur : {{actor.name}}</li>
+        <li>Nom du contact : {{actor.name}}</li>
     </ul>
 </div>
 

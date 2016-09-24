@@ -4,6 +4,6 @@
             {{ include("@contact_mailreceived_views/table_mailreceived_contact.html.twig") }}
         </div>
 {% else %}
-    <div class="alert alert-warning">Aucun courrier n'a été reçu par cet interlocuteur.</div>
+    <div class="alert alert-warning">Aucun courrier n'a été reçu par cet contact.</div>
 {% endif %} 
 {% if app.user and is_granted('ROLE_ADMIN') %}<a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a>{% endif %}

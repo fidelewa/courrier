@@ -1,14 +1,13 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
-
 {% block title %}{{title}}{% endblock %}
-
 {% block body %}
+
 <h2 class="text-center">{{ block('title') }}</h2>
 
 <div class="well">
     {{ form_start(actorForm, { 'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
-        {{ form_label(actorForm.name, "Nom de l'interlocuteur * :", { 'label_attr':  {
+        {{ form_label(actorForm.name, "Nom du contact * :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -27,7 +26,7 @@
 </div>
 
 {% if app.user and is_granted('ROLE_ADMIN') %}
-   <a href="{{ path('mails_contact_show_all') }}"><u>Retour à la liste des interlocuteurs</u> </a> 
+   <a href="{{ path('mails_contact_show_all') }}"><u>Retour à la liste des contacts</u> </a> 
 {% endif %}
 &nbsp;<b>|</b>&nbsp;
 <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>

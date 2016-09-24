@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Mails\MailBundle\Entity\ActorRepository")
- * @UniqueEntity(fields="name", message="Un interlocuteur existe déjà avec ce nom.")
+ * @UniqueEntity(fields="name", message="Un contact existe déjà avec ce nom.")
  */
 class Actor
 {

@@ -23,7 +23,7 @@ class ContactController extends Controller
         // On récupère notre service lister
         $lister = $this->get('mails_mail.mail_lister');
 
-        // On affiche la liste de tous les interlocuteurs
+        // On affiche la liste de tous les contacts
         $listActor = $lister->listAdminActor();
 
         return $this->render('MailsContactBundle:Contact:contact.html.twig', array(
@@ -41,11 +41,11 @@ class ContactController extends Controller
      {
         $em = $this->getDoctrine()->getManager();
 
-        // On récupère l'id $id de l'interlocuteur
+        // On récupère l'id $id du contact
         $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
 
         if (null === $actor) {
-        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
+        throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
         }
 
         //On crée le formulaire
@@ -55,14 +55,14 @@ class ContactController extends Controller
         if ($form->handleRequest($request)->isValid())
         {
            $em->flush();
-           $request->getSession()->getFlashBag()->add('success', 'L\'interlocuteur "'.$actor->getName().'" a bien été modifiée.');
+           $request->getSession()->getFlashBag()->add('success', 'Le contact "'.$actor->getName().'" a bien été modifiée.');
            return $this->redirect($this->generateUrl('mails_contact_show_all'));
         }
 
         // Si la requête est en GET
         return $this->render('MailsContactBundle:Contact:contact_add.html.twig', array(
         'actorForm'   => $form->createView(),
-        'title' => 'Modifier un interlocuteur existant',
+        'title' => 'Modifier un contact existant',
         ));
     
      }
@@ -77,30 +77,30 @@ class ContactController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        // On récupère l'interlocuteur par son id
+        // On récupère le contact par son id
         $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
 
-        // On récupère tous les courriers envoyés par l'interlocuteur
+        // On récupère tous les courriers envoyés par le contact
         $allMailsentByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByActor($id);
         
-        // On récupère tous les courriers reçus par l'interlocuteur
+        // On récupère tous les courriers reçus par le contact
         $allMailreceivedByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByActor($id);
 
         if (null === $actor) {
-        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
+        throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
         }
         
-        //On stocke le nom de l'interlocuteur dans une variable tampon
+        //On stocke le nom du contact dans une variable tampon
         $tempActorName = $actor->getName();
         
         // On récupère notre service eraser
         $eraser = $this->get('mails_mail.eraser');
 
-        //supression de l'interlocuteur
+        //supression du contact
         $eraser->deleteContactAndAllHisMails($actor, $allMailsentByActor, $allMailreceivedByActor);
         
         //On affiche le message flash
-        $request->getSession()->getFlashBag()->add('success', 'L\'interlocuteur "'.$tempActorName.'" ainsi que tous ses courriers ont bien été supprimés.');
+        $request->getSession()->getFlashBag()->add('success', 'Le contact "'.$tempActorName.'" ainsi que tous ses courriers ont bien été supprimés.');
 
         // On détruit la variable tampon
         unset($tempActorName);
@@ -116,7 +116,7 @@ class ContactController extends Controller
      */
      public function addInterlocutorAction(Request $request) 
      {
-        // Création d'un nouvel interlocuteur
+        // Création d'un nouveau contact
         $actor = new Actor();
         
         // Création du formulaire
@@ -129,7 +129,7 @@ class ContactController extends Controller
             $em->persist($actor);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('success', 'L\'interlocuteur "'.$actor->getName().'" à bien été enregistré.');
+            $request->getSession()->getFlashBag()->add('success', 'Le contact "'.$actor->getName().'" à bien été enregistré.');
 
             return $this->redirect($this->generateUrl('mails_contact_show_all'));
         }
@@ -137,7 +137,7 @@ class ContactController extends Controller
         // Si la requête est en GET
         return $this->render('MailsContactBundle:Contact:contact_add.html.twig', array(
         'actorForm' => $form->createView(),
-        'title' => 'Ajouter un nouvel interlocuteur'
+        'title' => 'Ajouter un nouveau contact'
         ));
         
      }
@@ -151,17 +151,17 @@ class ContactController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        // On récupère l'interlocuteur par son id
+        // On récupère le contact par son id
         $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
 
-        // On récupère tous les courriers envoyés par l'interlocuteur
+        // On récupère tous les courriers envoyés par le contact
         $allMailsentByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByActorReverse($id);
         
-        // On récupère tous les courriers reçus par l'interlocuteur
+        // On récupère tous les courriers reçus par le contact
         $allMailreceivedByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByActorReverse($id);
 
         if (null === $actor) {
-        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
+        throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
         }
 
         return $this->render('MailsContactBundle:Contact:contact_mails.html.twig', array(

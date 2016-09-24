@@ -280,7 +280,7 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailreceivedByActorReverse($id)
-    {// Permet de récupérer la liste de tous les courriers reçus par l'interlocuteur spécifié
+    {// Permet de récupérer la liste de tous les courriers reçus par le contact spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -298,7 +298,7 @@ class MailRepository extends EntityRepository
     }
 
     public function findAllMailsentByActorReverse($id)
-    {// Permet de récupérer la liste de tous les courriers envoyé par l'interlocuteur spécifié
+    {// Permet de récupérer la liste de tous les courriers envoyé par le contact spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -316,7 +316,7 @@ class MailRepository extends EntityRepository
     }
 
     public function findAllMailreceivedByActor($id)
-    {// Permet de récupérer la liste de tous les courriers reçus par l'interlocuteur concerné
+    {// Permet de récupérer la liste de tous les courriers reçus par le contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -334,7 +334,7 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailsentByActor($id)
-    {// Permet de récupérer la liste de tous les courriers envoyés par l'interlocuteur concerné
+    {// Permet de récupérer la liste de tous les courriers envoyés par le contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -470,7 +470,7 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailSentFilterByActor(\Datetime $date, $received, $id)
-    {// Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception de l'interlocuteur concerné
+    {// Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception du contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -478,7 +478,7 @@ class MailRepository extends EntityRepository
             ->addSelect('ms')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
             ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND ms.actor = :id') // On filtre selon le status de reception et en fonction de l'interlocuteur spécifié
+            ->andwhere('m.received = :received AND ms.actor = :id') // On filtre selon le status de reception et en fonction du contact spécifié
             ->setParameters(array('received' => $received, 'date' => $date, 'id' => $id))
             ->orderBy('m.id', 'DESC')
             ;
@@ -490,7 +490,7 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailReceivedFilterByActor(\Datetime $date, $received, $id, $treated)
-    {// Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'interlocuteur concerné
+    {// Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement du contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -498,7 +498,7 @@ class MailRepository extends EntityRepository
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
             ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND mr.actor = :id AND m.treated = :treated') // On filtre selon le status de reception et de traitement en fonction de l'interlocuteur spécifié
+            ->andwhere('m.received = :received AND mr.actor = :id AND m.treated = :treated') // On filtre selon le status de reception et de traitement en fonction du contact spécifié
             ->setParameters(array('received' => $received, 'date' => $date, 'id' => $id, 'treated' => $treated))
             ->orderBy('m.id', 'DESC')
             ;

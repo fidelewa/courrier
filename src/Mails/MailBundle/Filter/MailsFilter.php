@@ -132,7 +132,7 @@ class MailsFilter
     }
     
     /**
-    * On récupère tous les courriers envoyés, filtrés par date, par reception et par interlocuteur
+    * On récupère tous les courriers envoyés, filtrés par date, par reception et par contact
     *
     * @param integer $days
     * @param boolean $reception
@@ -143,7 +143,7 @@ class MailsFilter
         // date d'il y a $days jours
         $date = new \Datetime($days.' days ago');
 
-        //On récupère tous les courriers envoyés, filtrés par date, par reception et par interlocuteur
+        //On récupère tous les courriers envoyés, filtrés par date, par reception et par contact
         $allMailsentFilterByActor = $this
                              ->em
                              ->getRepository('MailsMailBundle:Mail')
@@ -157,7 +157,7 @@ class MailsFilter
     }
     
     /**
-    * On récupère tous les courriers reçus, filtrés par date, par reception par interlocuteur et par traitement
+    * On récupère tous les courriers reçus, filtrés par date, par reception par contact et par traitement
     *
     * @param integer $days
     * @param boolean $reception
@@ -169,7 +169,7 @@ class MailsFilter
         // date d'il y a $days jours
         $date = new \Datetime($days.' days ago');
 
-        //On récupère tous les courriers reçus, filtrés par date, par reception par interlocuteur et par traitement
+        //On récupère tous les courriers reçus, filtrés par date, par reception par contact et par traitement
         $allMailreceivedFilterByActor = $this
                                      ->em
                                      ->getRepository('MailsMailBundle:Mail')

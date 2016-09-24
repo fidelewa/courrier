@@ -1,8 +1,8 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
-{% block title %}Liste des courriers de l'interlocuteur <b><i>{{ actor.name | title }}</i></b>{% endblock %}
+{% block title %}Liste des courriers du contact <b><i>{{ actor.name | title }}</i></b>{% endblock %}
 {% block mailsmail_body %}
 
-<h2 class="text-center">Synthèse interlocuteur</h2>
+<h2 class="text-center">Synthèse contact</h2>
 <div class="well">
     <ul>
         <li>Nom : {{actor.name}}</li>

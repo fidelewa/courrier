@@ -103,11 +103,11 @@ class MailsentExtraController extends Controller
      */
      public function filterMailsentByInterlocutorAction($id, Request $request)
      {
-        // On récupère l'interlocuteur par son id
+        // On récupère le contact par son id
         $actor = $this->getDoctrine()->getRepository('MailsMailBundle:Actor')->find($id);
 
         if (null === $actor) {
-        throw new NotFoundHttpException("L'interlocuteur d'id ".$id." n'existe pas.");
+        throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
         }
 
         //On crée notre formulaire
@@ -124,7 +124,7 @@ class MailsentExtraController extends Controller
             // On récupère notre service
             $filter = $this->get('mails_mail.mail_filter');
 
-            //On récupère tous les courriers envoyés, filtrés par date, par reception et par interlocuteur
+            //On récupère tous les courriers envoyés, filtrés par date, par reception et par contact
             $allMailsentFilterByActor = $filter->filtreMailsentByActor($days, $reception, $actor->getId());
 
             return array('allMailsentFilterByActor' => $allMailsentFilterByActor, 'mail' => $mail, 'actor' => $actor);

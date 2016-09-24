@@ -80,7 +80,7 @@ class Eraser
                 $this->em->remove($mailreceivedByActor);
             }
             
-            //On supprime l'interlocuteur spécifié
+            //On supprime le contact spécifié
             $this->em->remove($actor);
             //On exécute ces opérations de suppression
             $this->em->flush();
@@ -93,14 +93,14 @@ class Eraser
                 $this->em->remove($mailsentByActor);
             }
             
-            //On supprime l'interlocuteur spécifié
+            //On supprime le contact spécifié
             $this->em->remove($actor);
             //On exécute ces opérations de suppression
             $this->em->flush();
         }
         elseif((empty($allMailsentByActor)) && (empty($allMailreceivedByActor))) 
         {
-            //On supprime l'interlocuteur spécifié
+            //On supprime le contact spécifié
             $this->em->remove($actor);
             //On exécute ces opérations de suppression
             $this->em->flush();
@@ -109,17 +109,17 @@ class Eraser
         {
             foreach($allMailreceivedByActor as $mailreceivedByActor)
             {
-                // On supprime tous les courriers reçus par l'interlocuteur spécifié 
+                // On supprime tous les courriers reçus par le contact spécifié 
                 $this->em->remove($mailreceivedByActor);
             }
             
             foreach($allMailsentByActor as $mailsentByActor)
             {
-                // On supprime tous les courriers envoyé par l'interlocuteur spécifié 
+                // On supprime tous les courriers envoyé par le contact spécifié 
                 $this->em->remove($mailsentByActor);
             }
         
-            //On supprime l'interlocuteur spécifié
+            //On supprime le contact spécifié
             $this->em->remove($actor);
         
             //On exécute ces opérations de suppression

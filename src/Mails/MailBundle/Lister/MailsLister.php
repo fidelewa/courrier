@@ -14,7 +14,7 @@ class MailsLister
     
     public function listAdminActor()
     {
-        // On récupère la liste de tous les interlocuteurs
+        // On récupère la liste de tous les contacts
                 $listActor = $this
                         ->em
                         ->getRepository('MailsMailBundle:Actor')
