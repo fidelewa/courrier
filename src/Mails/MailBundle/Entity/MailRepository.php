@@ -449,7 +449,7 @@ class MailRepository extends EntityRepository
         ;
     }
     
-    public function findAllMailReceivedFilterByUser(\Datetime $date, $received, $id, $treated)
+    public function findAllMailReceivedFilterByUser(\Datetime $date, $received, $user, $treated)
     {// Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'utilisateur concerné
 
         $qb = $this
@@ -458,8 +458,8 @@ class MailRepository extends EntityRepository
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
             ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND mr.user = :id AND m.treated = :treated') // On filtre selon le status de reception et de traitement en fonction de l'utilisateur spécifié
-            ->setParameters(array('received' => $received, 'date' => $date, 'id' => $id, 'treated' => $treated))
+            ->andwhere('m.received = :received AND mr.user = :user AND m.treated = :treated') // On filtre selon le status de reception et de traitement en fonction de l'utilisateur spécifié
+            ->setParameters(array('received' => $received, 'date' => $date, 'user' => $user, 'treated' => $treated))
             ->orderBy('m.id', 'DESC')
             ;
         
