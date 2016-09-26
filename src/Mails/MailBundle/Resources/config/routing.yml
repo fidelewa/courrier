@@ -81,8 +81,13 @@ mails_mailsent_detail:
 #MailreceivedExtraController---------------------------------------------------------------         
 mails_mailreceived_filter:
     path:     /mailreceived/filter
-    #methods: [ get,post ]
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceived }
+
+mails_mailreceived_filter_result:
+    path:     /mailreceived/filter/result
+    methods:  get
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedResult }
 
 mails_mailreceived_filter_user:
     path:     /mailreceived/filter/user/{id}
