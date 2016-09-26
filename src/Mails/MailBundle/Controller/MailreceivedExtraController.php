@@ -29,25 +29,14 @@ class MailreceivedExtraController extends Controller
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère le nombre de jours, la reception et le traitement du courrier reçu
-            $mail = $form->getData();
-            $days = $mail->getNbDaysBefore();
-            $reception = $mail->getReceived();
-            $traitement = $mail->getTreated();
-            
-            // On récupère notre service filter
-            $filter = $this->get('mails_mail.mail_filter');
+            // On récupère notre service handler mails data
+            $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
-            // On récupère tous les courriers reçus, filtrés par date, par reception, par traitement et par user courant
-            $allmailreceivedByFilter = $filter->filtreMailreceived($days, $reception, $traitement, $this->getUser());
-
-            // On défini les attributs de session
-            $request->getSession()->set('mail', $mail);
-            $request->getSession()->set('allmailreceivedByFilter', $allmailreceivedByFilter);
+            // On traite les données du courrier
+            $handlerMailsData->processMailsData($form->getData(), $this->getUser(), 'filtreMailreceived');
 
             // On redirige vers la route des résultats
             return $this->redirect($this->generateUrl('mails_mailreceived_filter_result'));
-
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailreceived_form_views/mailreceived_filter.html.twig', array(
@@ -82,26 +71,22 @@ class MailreceivedExtraController extends Controller
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère les données du courrier
-            $mail = $form->getData();
-            $days = $mail->getNbDaysBefore();
-            $reception = $mail->getReceived();
-            $traitement = $mail->getTreated();
-            
-            // On récupère notre service filter
-            $filter = $this->get('mails_mail.mail_filter');
+            // On récupère notre service handler mails data
+            $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
-            //On récupère tous les courriers reçus, filtrés par date, par reception, par user et par traitement
-            $allMailreceivedFilterByUser = $filter->filtreMailreceivedByUser($days, $reception, $user->getId(), $traitement);
+            // On traite les données du courrier
+            $handlerMailsData->processMailsData($form->getData(), $user, 'filtreMailreceivedByUser');
 
-            return $this->render('MailsMailBundle:Mail:user_mailreceived_filter_result.html.twig', array(
-            'allMailreceivedFilterByUser' => $allMailreceivedFilterByUser,
-            'mail' => $mail,
-            'user' => $user
-            ));
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_mailreceived_filter_user_result'));
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return array('user' => $user, 'form' => $form->createView()); 
+     }
+
+     public function filterMailreceivedByUserResultAction()
+     {
+        return $this->render('MailsMailBundle:Mail:user_mailreceived_filter_result.html.twig'); 
      }
      
      /**
@@ -125,31 +110,25 @@ class MailreceivedExtraController extends Controller
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère les données du courrier
-            $mail = $form->getData();
-            $days = $mail->getNbDaysBefore();
-            $reception = $mail->getReceived();
-            $traitement = $mail->getTreated();
-            
-            // On récupère notre service
-            $filter = $this->get('mails_mail.mail_filter');
+            // On récupère notre service handler mails data
+            $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
-            //On récupère tous les courriers reçus, filtrés par date, par reception, par contact et par traitement
-            $allMailreceivedFilterByActor = $filter->filtreMailreceivedByActor($days, $reception, $actor->getId(), $traitement);
+            // On traite les données du courrier
+            $handlerMailsData->processMailsData($form->getData(), $actor, 'filtreMailreceivedByActor');
 
-            return $this->render('MailsMailBundle:Mail:actor_mailreceived_filter_result.html.twig', array(
-            'allMailreceivedFilterByActor' => $allMailreceivedFilterByActor,
-            'mail' => $mail,
-            'actor' => $actor
-            ));
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_mailreceived_filter_actor_result'));
         }
-        
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailreceived_form_views/mailreceived_actor_filter.html.twig', array(
         'actor' => $actor,    
         'form' => $form->createView()
         ));
-         
+     }
+
+     public function filterMailreceivedByInterlocutorResultAction()
+     {
+        return $this->render('MailsMailBundle:Mail:actor_mailreceived_filter_result.html.twig'); 
      }
 
      /**
