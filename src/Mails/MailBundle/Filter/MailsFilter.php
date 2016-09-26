@@ -111,9 +111,9 @@ class MailsFilter
     * @param integer $days
     * @param boolean $reception
     * @param boolean $traitement
-    * @param integer $id
+    * @param integer $user
     */
-    public function filtreMailreceivedByUser($days, $reception, $id, $traitement)
+    public function filtreMailreceivedByUser($days, $reception, $user, $traitement)
     {
         // date d'il y a $days jours
         $date = new \Datetime($days.' days ago');
@@ -122,7 +122,7 @@ class MailsFilter
         $allMailreceivedFilterByUser = $this
                                      ->em
                                      ->getRepository('MailsMailBundle:Mail')
-                                     ->findAllMailReceivedFilterByUser($date, $reception, $id, $traitement)
+                                     ->findAllMailReceivedFilterByUser($date, $reception, $user, $traitement)
                                     ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -162,9 +162,9 @@ class MailsFilter
     * @param integer $days
     * @param boolean $reception
     * @param boolean $traitement
-    * @param integer $id
+    * @param integer $actor
     */
-    public function filtreMailreceivedByActor($days, $reception, $id, $traitement)
+    public function filtreMailreceivedByActor($days, $reception, $actor, $traitement)
     {
         // date d'il y a $days jours
         $date = new \Datetime($days.' days ago');
@@ -173,7 +173,7 @@ class MailsFilter
         $allMailreceivedFilterByActor = $this
                                      ->em
                                      ->getRepository('MailsMailBundle:Mail')
-                                     ->findAllMailReceivedFilterByActor($date, $reception, $id, $traitement)
+                                     ->findAllMailReceivedFilterByActor($date, $reception, $actor, $traitement)
                                     ;
                             
         // Et on n'oublie pas de faire un flush !
