@@ -170,6 +170,15 @@ class MailreceivedExtraController extends Controller
             // On calcule le nombre total de pages pour la recherche
             $nombreTotalPagesByFilter = $nbCalculator->calculateTotalNumberPageByFilter($allMailreceivedFilter, $page, $filter::NUM_ITEMS);
 
+            // On défini les attributs de session
+            //$request->getSession()->set('mail', $mail);
+            //$request->getSession()->set('allMailreceivedFilter', $allMailreceivedFilter);
+            //$request->getSession()->set('nombreTotalPages', $nombreTotalPagesByFilter);
+            //$request->getSession()->set('page', $page);
+
+            // On redirige vers la route des résultats
+            //return $this->redirect($this->generateUrl('mails_all_mailreceived_filter_result'));
+
             return array('allMailreceivedFilter' => $allMailreceivedFilter, 'mail' => $mail, 'nombreTotalPages' => $nombreTotalPagesByFilter,'page' => $page);
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
@@ -177,6 +186,11 @@ class MailreceivedExtraController extends Controller
         'form' => $form->createView()
         )); 
      }
+
+     /*public function filterAllMailreceivedResultAction()
+     {
+        return $this->render('MailsMailBundle:Mail:all_mailreceived_filter_result.html.twig'); 
+     }*/
 
      /**
      * validate a mail received.
