@@ -88,28 +88,45 @@ mails_mailreceived_filter_result:
     path:     /mailreceived/filter/result
     methods:  get
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedResult }
-
+#-----------------------------------------------
 mails_mailreceived_filter_user:
     path:     /mailreceived/filter/user/{id}
-    #methods: [ get,post ]
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByUser }
     requirements:
         id: \d+
 
+mails_mailreceived_filter_user_result:
+    path:     /mailreceived/filter/user/result
+    methods:  get
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByUserResult }
+#-----------------------------------------------
 mails_mailreceived_filter_actor:
     path:     /mailreceived/filter/contact/{id}
-    #methods: [ get,post ]
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByInterlocutor }
     requirements:
         id: \d+
 
+mails_mailreceived_filter_actor_result:
+    path:     /mailreceived/filter/contact/result
+    methods:  get
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterMailreceivedByInterlocutorResult }
+#------------------------------------------------
 mails_all_mailreceived_filter:
     path:     /all/mailreceived/filter/{page}
-    #methods: [ get,post ]
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceived, page: 1 }
     requirements:
         page: \d*
 
+mails_all_mailreceived_filter_result:
+    path:     /all/mailreceived/filter/result/{page}
+    methods:  get
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceivedResult, page: 1 }
+    requirements:
+        page: \d*
+#------------------------------------------------
 mails_mailreceived_validation:
     path:      /validate/mailreceived/{id}
     methods: [ get,put ]
