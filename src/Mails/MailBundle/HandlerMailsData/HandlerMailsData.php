@@ -12,7 +12,7 @@ class HandlerMailsData
         $this->session = $session;
     }
     
-    public function processMailsData($mail, $person, $method)
+    public function processMailsData(\Mails\MailBundle\Entity\Mail $mail, $person, $method)
     {
       // On récupère le nombre de jours, la reception et le traitement du courrier reçu
       $days = $mail->getNbDaysBefore();
