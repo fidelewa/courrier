@@ -1,8 +1,11 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
-
 {% block title %}Résultat de la recherche - Courriers reçus{% endblock %}
-
 {% block mailsadmin_body %}
+
+{#On defini nos variables depuis la session#}
+{% set allmailreceivedByFilter, mail = app.session.get('allmailreceivedByFilter'), app.session.get('mail') %}
+{#On efface tous nos attributs de session#}
+{{ app.session.clear }}
 
 <h2 class="text-center">Rappel critères de filtrage</h2>
 <div class="well">
