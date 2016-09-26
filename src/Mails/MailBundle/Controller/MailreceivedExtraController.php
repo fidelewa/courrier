@@ -38,19 +38,26 @@ class MailreceivedExtraController extends Controller
             // On récupère notre service filter
             $filter = $this->get('mails_mail.mail_filter');
 
-            //On récupère tous les courriers reçus, filtrés par date, par reception, par traitement et par user courant
+            // On récupère tous les courriers reçus, filtrés par date, par reception, par traitement et par user courant
             $allmailreceivedByFilter = $filter->filtreMailreceived($days, $reception, $traitement, $this->getUser());
 
-            return $this->render('MailsMailBundle:Mail:mailreceived_filter_result.html.twig', array(
-            'allmailreceivedByFilter' => $allmailreceivedByFilter,
-            'mail' => $mail
-            )); 
+            // On défini les attributs de session
+            $request->getSession()->set('mail', $mail);
+            $request->getSession()->set('allmailreceivedByFilter', $allmailreceivedByFilter);
+
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_mailreceived_filter_result'));
 
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailreceived_form_views/mailreceived_filter.html.twig', array(
         'form' => $form->createView()
         ));  
+     }
+
+     public function filterMailreceivedResultAction()
+     {
+        return $this->render('MailsMailBundle:Mail:mailreceived_filter_result.html.twig'); 
      }
      
      /**
