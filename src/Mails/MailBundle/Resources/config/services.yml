@@ -40,5 +40,6 @@ services:
         class: Mails\MailBundle\Lister\MailsLister
         arguments: [@doctrine.orm.entity_manager]
 
-
-
+    mails_mail.mails_handler_data:
+        class: Mails\MailBundle\HandlerMailsData\HandlerMailsData
+        arguments: [@mails_mail.mail_filter, @session]
