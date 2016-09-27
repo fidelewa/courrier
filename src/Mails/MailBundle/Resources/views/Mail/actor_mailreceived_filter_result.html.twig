@@ -6,6 +6,8 @@
 {% set allMailreceivedFilterByActor, mail = app.session.get('allMailreceivedFilterByActor'), app.session.get('mail')%}
 
 {% block mailsadmin_body %}
+{#On efface tous nos attributs de session#}
+{{ app.session.clear }}
 <h2 class="text-center">Synthèse du contact</h2>
 <div class="well">
     <ul>
