@@ -119,13 +119,6 @@ mails_all_mailreceived_filter:
     defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceived, page: 1 }
     requirements:
         page: \d*
-
-#mails_all_mailreceived_filter_result:
-    #path:     /all/mailreceived/filter/result/{page}
-    #methods:  get
-    #defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceivedResult, page: 1 }
-    #requirements:
-        #page: \d*
 #------------------------------------------------
 mails_mailreceived_validation:
     path:      /validate/mailreceived/{id}
