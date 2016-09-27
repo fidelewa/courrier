@@ -54,7 +54,6 @@ class MailreceivedExtraController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
-     * @Template("@mailreceived_form_views/mailreceived_user_filter.html.twig")
      */
      public function filterMailreceivedByUserAction($id, Request $request)
      {
