@@ -2,10 +2,10 @@
 {#On defini l'user depuis la session#}
 {% set user = app.session.get('user') %}
 {% block title %}Liste filtrée - Courriers reçus par l'utilisateur <b><i>{{ user.username | title }}</i></b>{% endblock %}
-{% block mailsadmin_body %}
-
 {#On defini nos variables depuis la session#}
 {% set allMailreceivedFilterByUser, mail = app.session.get('allMailreceivedFilterByUser'), app.session.get('mail')%}
+
+{% block mailsadmin_body %}
 {#On efface tous nos attributs de session#}
 {{ app.session.clear }}
 <h2 class="text-center">Synthèse utilisateur</h2>
