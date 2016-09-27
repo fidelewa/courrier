@@ -28,28 +28,25 @@ class MailsentExtraController extends Controller
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
-        {
-            // On récupère le nombre de jours et la reception du courrier envoyé.
-            $mail = $form->getData();
-            $days = $mail->getNbDaysBefore();
-            $reception = $mail->getReceived();
-            
-            // On récupère notre service filter
-            $filter = $this->get('mails_mail.mail_filter');
+        {   
+            // On récupère notre service handler mails data
+            $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
-            //On récupère tous les courriers envoyés, filtrés par date, par reception et par admin courant
-            $allMailsentByFilter = $filter->filtreMailsent($days, $reception, $this->getUser());
+            // On traite les données du courrier
+            $handlerMailsData->processMailsentData($form->getData(), $this->getUser(), 'filtreMailsent');
 
-            return $this->render('MailsMailBundle:Mail:mailsent_filter_result.html.twig', array(
-            'allMailsentByFilter' => $allMailsentByFilter,
-            'mail' => $mail
-            ));
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_mailsent_filter_result'));
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailsent_form_views/mailsent_filter.html.twig', array(
         'form' => $form->createView()
         ));
-         
+     }
+
+     public function filterMailsentResultAction()
+     {
+        return $this->render('MailsMailBundle:Mail:mailsent_filter_result.html.twig'); 
      }
 
      /**
@@ -57,7 +54,6 @@ class MailsentExtraController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
-     * @Template("MailsMailBundle:Mail:user_mailsent_filter_result.html.twig")
      */
      public function filterMailsentByUserAction($id, Request $request)
      {
@@ -74,18 +70,14 @@ class MailsentExtraController extends Controller
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère les données du courrier
-            $mail = $form->getData();
-            $days = $mail->getNbDaysBefore();
-            $reception = $mail->getReceived();
-            
-            // On récupère notre service filter
-            $filter = $this->get('mails_mail.mail_filter');
+            // On récupère notre service handler mails data
+            $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
-            //On récupère tous les courriers envoyés, filtrés par date, par reception et par user
-            $allMailsentFilterByUser = $filter->filtreMailsentByUser($days, $reception, $user->getId());
+            // On traite les données du courrier
+            $handlerMailsData->processMailsentData($form->getData(), $user, 'filtreMailsentByUser');
 
-            return array('allMailsentFilterByUser' => $allMailsentFilterByUser, 'mail' => $mail, 'user' => $user);
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_mailsent_filter_user_result'));
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailsent_form_views/mailsent_user_filter.html.twig', array(
@@ -94,12 +86,16 @@ class MailsentExtraController extends Controller
         ));
      }
 
+     public function filterMailsentByUserResultAction()
+     {
+        return $this->render('MailsMailBundle:Mail:user_mailsent_filter_result.html.twig'); 
+     }
+
      /**
      * filter mails sent according to the specified interlocutor
      *
      * @param integer $id Interlocutor id
      * @param Request $request Incoming request
-     * @Template("MailsMailBundle:Mail:actor_mailsent_filter_result.html.twig")
      */
      public function filterMailsentByInterlocutorAction($id, Request $request)
      {
@@ -116,24 +112,25 @@ class MailsentExtraController extends Controller
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
         {
-            // On récupère les données du courrier
-            $mail = $form->getData();
-            $days = $mail->getNbDaysBefore();
-            $reception = $mail->getReceived();
-            
-            // On récupère notre service
-            $filter = $this->get('mails_mail.mail_filter');
+            // On récupère notre service handler mails data
+            $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
-            //On récupère tous les courriers envoyés, filtrés par date, par reception et par contact
-            $allMailsentFilterByActor = $filter->filtreMailsentByActor($days, $reception, $actor->getId());
+            // On traite les données du courrier
+            $handlerMailsData->processMailsentData($form->getData(), $actor, 'filtreMailsentByActor');
 
-            return array('allMailsentFilterByActor' => $allMailsentFilterByActor, 'mail' => $mail, 'actor' => $actor);
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_mailsent_filter_actor_result'));
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailsent_form_views/mailsent_actor_filter.html.twig', array(
         'actor' => $actor,    
         'form' => $form->createView()
         ));
+     }
+
+     public function filterMailsentByInterlocutorResultAction()
+     {
+        return $this->render('MailsMailBundle:Mail:actor_mailsent_filter_result.html.twig'); 
      }
 
      /**
