@@ -1,10 +1,13 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
-
-{% block title %}
-    Liste filtrée - Courriers reçu par le contact <b><i>{{ actor.name | title }}</i></b>
-{% endblock %}
+{#On defini le contact depuis la session#}
+{% set actor = app.session.get('contact') %}
+{% block title %}Liste filtrée - Courriers reçu par le contact <b><i>{{ actor.name | title }}</i></b>{% endblock %}
+{#On defini nos variables depuis la session#}
+{% set allMailsentFilterByActor, mail = app.session.get('allMailsentFilterByActor'), app.session.get('mail')%}
 
 {% block mailsadmin_body %}
+{#On efface tous nos attributs de session#}
+{{ app.session.clear }}
 <h2 class="text-center">Synthèse du contact</h2>
 <div class="well">
     <ul>
