@@ -5,9 +5,6 @@
 {#On defini nos variables depuis la session#}
 {% set allMailreceivedFilterByActor, mail = app.session.get('allMailreceivedFilterByActor'), app.session.get('mail')%}
 
-{#On efface tous nos attributs de session#}
-{{ app.session.clear }}
-
 {% block mailsadmin_body %}
 <h2 class="text-center">Synthèse du contact</h2>
 <div class="well">
