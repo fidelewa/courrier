@@ -129,23 +129,38 @@ mails_mailreceived_validation:
 #MailsentExtraController----------------------------------------------------------------
 mails_mailsent_filter:
     path:     /mailsent/filter
-    #methods: [ get,post ]
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsent }
 
+mails_mailsent_filter_result:
+    path:     /mailsent/filter/result
+    methods:  get
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentResult }
+#-------------------------------------------
 mails_mailsent_filter_user:
     path:     /mailsent/filter/user/{id}
-    #methods: [ get,post ]
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByUser }
     requirements:
         id: \d+
 
+mails_mailsent_filter_user_result:
+    path:     /mailsent/filter/user/result
+    methods:  get
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByUserResult }
+#-------------------------------------------
 mails_mailsent_filter_actor:
     path:     /mailsent/filter/contact/{id}
-    #methods: [ get,post ]
+    methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByInterlocutor }
     requirements:
         id: \d+
 
+mails_mailsent_filter_actor_result:
+    path:     /mailsent/filter/contact/result
+    methods:  get
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterMailsentByInterlocutorResult }
+#-------------------------------------------
 mails_all_mailsent_filter:
     path:     /all/mailsent/filter/{page}
     #methods: [ get,post ]
