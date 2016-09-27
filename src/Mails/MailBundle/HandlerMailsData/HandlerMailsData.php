@@ -12,7 +12,7 @@ class HandlerMailsData
         $this->session = $session;
     }
     
-    public function processMailsData(\Mails\MailBundle\Entity\Mail $mail, $person, $method)
+    public function processMailreceivedData(\Mails\MailBundle\Entity\Mail $mail, $person, $method)
     {
       // On récupère le nombre de jours, la reception et le traitement du courrier reçu
       $days = $mail->getNbDaysBefore();
@@ -24,6 +24,7 @@ class HandlerMailsData
 
       // On défini l'attribut de session mail
       $this->session->set('mail', $mail);
+      
 
       if($method === 'filtreMailreceived')
       {
@@ -51,7 +52,47 @@ class HandlerMailsData
         $this->session->set('allMailreceivedFilterByActor', $allMailreceivedFilterByActor);
         $this->session->set('contact', $person);
       }
+
+    }
+
+    public function processMailsentData(\Mails\MailBundle\Entity\Mail $mail, $person, $method)
+    {
+      // On récupère le nombre de jours, la reception et le traitement du courrier reçu
+      $days = $mail->getNbDaysBefore();
+      $reception = $mail->getReceived();
+
+      // On purge la session 
+      $this->session->clear();
+
+      // On défini l'attribut de session mail
+      $this->session->set('mail', $mail);
       
+      if($method === 'filtreMailsent')
+      {
+        //On récupère tous les courriers envoyés, filtrés par date, par reception et par admin courant
+        $allMailsentByFilter = $this->filter->filtreMailsent($days, $reception, $person);
+
+        // On défini l'attribut de session allmailsentByFilter
+        $this->session->set('allMailsentByFilter', $allMailsentByFilter);
+      }
+      elseif($method === 'filtreMailsentByUser')
+      {
+        //On récupère tous les courriers envoyés, filtrés par date, par reception et par user
+        $allMailsentFilterByUser = $this->filter->filtreMailsentByUser($days, $reception, $person);
+
+        // On défini les attributs de session allMailsentFilterByUser et user
+        $this->session->set('allMailsentFilterByUser', $allMailsentFilterByUser);
+        $this->session->set('user', $person);
+      }
+      elseif($method === 'filtreMailsentByActor')
+      {
+        //On récupère tous les courriers envoyé, filtrés par date, par reception et par user
+        $allMailsentFilterByActor = $this->filter->filtreMailsentByActor($days, $reception, $person);
+
+        // On défini les attributs de session allMailsentFilterByUser et user
+        $this->session->set('allMailsentFilterByActor', $allMailsentFilterByActor);
+        $this->session->set('contact', $person);
+      }
 
     }
 
