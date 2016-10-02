@@ -19,8 +19,9 @@ class AppKernel extends Kernel
             new Mails\CoreBundle\MailsCoreBundle(),
             new Mails\MailBundle\MailsMailBundle(),
             new Mails\UserBundle\MailsUserBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
             new Mails\ContactBundle\MailsContactBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Lsw\MemcacheBundle\LswMemcacheBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
