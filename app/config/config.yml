@@ -126,3 +126,11 @@ sensio_framework_extra:
     cache:       { annotations: true }
     security:    { annotations: true }
     psr_message: { enabled: false } # Defaults to true if the PSR-7 bridge is installed
+
+lsw_memcache:
+    session:
+        pool: default
+    pools:
+        default:
+            servers:
+              - { host: localhost, tcp_port: 11211 }
