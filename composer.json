@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "courrier\\": "src/"
+            "": "src/"
         }
     },
     "require": {
@@ -19,7 +19,10 @@
         "sensio/framework-extra-bundle": "^3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
-        "friendsofsymfony/user-bundle": "2.0.0-alpha3"
+        "friendsofsymfony/user-bundle": "2.0.0-alpha3",
+        "friendsofphp/php-cs-fixer": "^1.12",
+        "squizlabs/php_codesniffer": "^2.7",
+        "leaseweb/memcache-bundle": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
