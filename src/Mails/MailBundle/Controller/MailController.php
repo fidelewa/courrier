@@ -128,9 +128,9 @@ class MailController extends Controller
         $indexor = $this->get('mails_mail.mail_indexor');
 
         // On récupère notre objet indexor en fonction des critères spécifiés
-        $latestMailsSent = $indexor->indexLatestMailsent($indexor::NUM_ITEMS);
+        $latestMailsSent = $indexor->indexLatestMailsent($limit);
 
-        $latestMailsReceived = $indexor->indexLatestMailreceived($indexor::NUM_ITEMS);
+        $latestMailsReceived = $indexor->indexLatestMailreceived($limit);
         
         return $this->render('@show_latest_mails_views/listMail.html.twig', array(
             'mailsSent' => $latestMailsSent,
@@ -153,9 +153,9 @@ class MailController extends Controller
         $indexor = $this->get('mails_mail.mail_indexor');
 
         // On récupère notre objet indexor en fonction des critères spécifiés
-        $listMailsentBySecretary = $indexor->indexMailsentNotRegistredBySecretary($idSecretaire, $indexor::NUM_ITEMS);
+        $listMailsentBySecretary = $indexor->indexMailsentNotRegistredBySecretary($idSecretaire, $limit);
 
-        $listMailreceivedBySecretary = $indexor->indexMailreceivedNotRegistredBySecretary($idSecretaire, $indexor::NUM_ITEMS);
+        $listMailreceivedBySecretary = $indexor->indexMailreceivedNotRegistredBySecretary($idSecretaire, $limit);
         
         return $this->render('@show_latest_mails_views/listMail_secretary.html.twig', array(
             'listMailsentBySecretary' => $listMailsentBySecretary,
@@ -177,9 +177,9 @@ class MailController extends Controller
         $indexor = $this->get('mails_mail.mail_indexor');
 
         // On récupère notre objet indexor en fonction des critères spécifiés
-        $listMailsentByAdmin = $indexor->indexMailsentNotValidatedByAdmin($admin, $indexor::NUM_ITEMS);
+        $listMailsentByAdmin = $indexor->indexMailsentNotValidatedByAdmin($admin, $limit);
 
-        $listMailreceivedByAdmin = $indexor->indexMailreceivedNotValidatedByAdmin($admin, $indexor::NUM_ITEMS);
+        $listMailreceivedByAdmin = $indexor->indexMailreceivedNotValidatedByAdmin($admin, $limit);
         
         return $this->render('@show_latest_mails_views/listMail_admin.html.twig', array(
             'listMailsentNotValidated' => $listMailsentByAdmin,
