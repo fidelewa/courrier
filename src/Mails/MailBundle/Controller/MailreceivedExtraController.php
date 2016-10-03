@@ -33,7 +33,7 @@ class MailreceivedExtraController extends Controller
             $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
             // On traite les données du courrier
-            $handlerMailsData->processMailsData($form->getData(), $this->getUser(), 'filtreMailreceived');
+            $handlerMailsData->processMailreceivedData($form->getData(), $this->getUser(), 'filtreMailreceived');
 
             // On redirige vers la route des résultats
             return $this->redirect($this->generateUrl('mails_mailreceived_filter_result'));
