@@ -37,10 +37,8 @@ class MailController extends Controller
             //En fonction du profil on fait la pagination de l'index des courriers envoyés
             if(in_array("ROLE_SECRETAIRE", $userRoles)) 
             {
-
                 // On récupère notre objet Paginator en fonction des critères spécifiés
                 $listMailsSent = $paginator->pageIndexMailsentBySecretary($page, $paginator::NUM_ITEMS, $this->getUser()->getId());
-                   
             }
             if(in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_SUPER_ADMIN", $userRoles)) 
             {
