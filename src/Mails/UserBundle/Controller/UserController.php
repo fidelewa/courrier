@@ -48,7 +48,7 @@ class UserController extends Controller
         $listMailsSent = $lister->listAdminMailsent($page, $lister::NUM_ITEMS, $this->getUser());
 
         // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-        $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
+        $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPageByUser($listMailsSent, $lister::NUM_ITEMS, $page);
 
         return $this->render('MailsUserBundle:User:user_mailsent.html.twig', array(
             'mailsSentByActor' => $listMailsSent,
@@ -73,13 +73,11 @@ class UserController extends Controller
         // On récupère la liste de tous les courriers reçus par l'administrateur courant
         $listMailsReceived = $lister->listAdminMailreceived($page, $lister::NUM_ITEMS, $this->getUser());
 
-        $nombreTotalMailsReceived = $listMailsReceived->count();
-        $nombreMailreceivedPage = $lister::NUM_ITEMS;
-        $nombreTotalPages = ceil($nombreTotalMailsReceived/$nombreMailreceivedPage); 
-                
-        if($page > $nombreTotalPages){
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-        } 
+        // On récupère notre service calculator
+        $nbPageCalculator = $this->get('mails_mail.nbpage_calculator');
+
+        // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
+        $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPageByUser($listMailsReceived, $lister::NUM_ITEMS, $page); 
 
         return $this->render('MailsUserBundle:User:user_mailreceived.html.twig', array(
             'mailsReceivedByActor' => $listMailsReceived,
