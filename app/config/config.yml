@@ -130,6 +130,12 @@ sensio_framework_extra:
 lsw_memcache:
     session:
         pool: default
+        auto_load: true
+        prefix: "session_"
+        ttl: 7200
+        locking: true
+        spin_lock_wait: 150000
+
     pools:
         default:
             servers:
