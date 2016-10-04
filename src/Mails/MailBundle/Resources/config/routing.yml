@@ -175,6 +175,13 @@ mails_all_mailsent_filter:
     requirements:
         page: \d*
 
+mails_all_mailsent_filter_result:
+    path:     /all/mailsent/filter/result/{page}
+    #methods: [ get,post ]
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterAllMailsentResult, page: 1 }
+    requirements:
+        page: \d*
+#--------------------------------------------
 mails_mailsent_validation:
     path:      /validate/mailsent/{id}
     methods: [ get,put ]
