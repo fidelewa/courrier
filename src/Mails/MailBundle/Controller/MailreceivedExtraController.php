@@ -133,6 +133,7 @@ class MailreceivedExtraController extends Controller
 
      /**
      * filter all mails received.
+     *
      * @param integer $page page number
      * @param Request $request Incoming request
      */
@@ -178,6 +179,12 @@ class MailreceivedExtraController extends Controller
         )); 
      }
 
+     /**
+     * filter all mails received.
+     *
+     * @param integer $page page number
+     * @param Request $request Incoming request
+     */
       public function filterAllMailreceivedResultAction($page, Request $request)
      {
          if ($page < 1) {
