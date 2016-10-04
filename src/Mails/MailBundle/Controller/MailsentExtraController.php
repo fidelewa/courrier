@@ -138,7 +138,6 @@ class MailsentExtraController extends Controller
      *
      * @param integer $page page number
      * @param Request $request Incoming request
-     * @Template("@mailsent_filter_result_views/all_mailsent_filter_result.html.twig")
      */
      public function filterAllMailsentAction(Request $request, $page)
      {
@@ -158,27 +157,67 @@ class MailsentExtraController extends Controller
             $reception = $mail->getReceived();
             $destinataire = $mail->getMailsent()->getActor()->getName();
             $expediteur = $this->getUser()->getUsername();
-            
-            // On récupère notre service
+
+            // On récupère notre service filter
             $filter = $this->get('mails_mail.mail_filter');
 
-            // On récupère notre service calculator
-            $nbCalculator = $this->get('mails_mail.nbpage_calculator');
+            // On défini les attributs de session des données du courrier envoyé
+            $request->getSession()->set('days', $days);
+            $request->getSession()->set('reception', $reception);
+            $request->getSession()->set('expediteur', $expediteur);
+            $request->getSession()->set('destinataire', $destinataire);
+            $request->getSession()->set('num_items', $filter::NUM_ITEMS);
+            $request->getSession()->set('mail', $mail);
 
-            //On récupère tous les courriers envoyés, filtrés par date et par reception
-            $allMailsentFilter = $filter->filtreAllMailsent($days, $reception, $expediteur, $destinataire, $page, $filter::NUM_ITEMS);
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_all_mailsent_filter_result', array('page' => $page)));
 
-            // On calcule le nombre total de pages pour la recherche
-            $nombreTotalPagesByFilter = $nbCalculator->calculateTotalNumberPageByFilter($allMailsentFilter, $page, $filter::NUM_ITEMS);
-
-            return array('allMailsentFilter' => $allMailsentFilter, 'mail' => $mail, 'nbPages' => $nombreTotalPagesByFilter, 'page' => $page);
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailsent_form_views/all_mailsent_filter.html.twig', array(
         'form' => $form->createView()
         ));
-         
      }
+
+     /**
+     * filter all mails received.
+     *
+     * @param integer $page page number
+     * @param Request $request Incoming request
+     */
+      public function filterAllMailsentResultAction($page, Request $request)
+     {
+         if ($page < 1) {
+        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+            // On récupère les données du courrier reçu depuis la session
+            $days = $request->getSession()->get('days');
+            $reception = $request->getSession()->get('reception');
+            $expediteur = $request->getSession()->get('expediteur');
+            $destinataire = $request->getSession()->get('destinataire');
+            $numItems = $request->getSession()->get('num_items');
+            $mail = $request->getSession()->get('mail');
+
+            // On récupère notre service filter
+            $filter = $this->get('mails_mail.mail_filter');
+
+            //On récupère tous les courriers envoyés, filtrés par date et par reception
+            $allMailsentFilter = $filter->filtreAllMailsent($days, $reception, $expediteur, $destinataire, $page, $numItems);
+
+            // On récupère notre service calculator
+            $nbCalculator = $this->get('mails_mail.nbpage_calculator');
+
+            // On calcule le nombre total de pages pour la recherche
+            $nombreTotalPagesByFilter = $nbCalculator->calculateTotalNumberPageByFilter($allMailsentFilter, $page, $numItems);
+        
+        return $this->render('@mailsent_filter_result_views/all_mailsent_filter_result.html.twig', array(
+        'page' => $page,
+        'allMailsentFilter' => $allMailsentFilter,
+        'nbPages' => $nombreTotalPagesByFilter,
+        'mail' => $mail
+        )); 
+     }
+
 
      /**
      * validate a mail sent.
