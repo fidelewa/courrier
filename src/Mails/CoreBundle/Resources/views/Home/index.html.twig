@@ -2,6 +2,7 @@
 {% block title %}Accueil{% endblock %}
 {% block body %}
     {{ include("MailsCoreBundle:Home:connexion.html.twig") }} 
+    
     {# On affiche tous les messages flash dont le nom est « info » #}
     {% for message in app.session.flashbag.get('info') %}
         <div class="alert alert-info">Message flash : {{ message }}</div>
@@ -25,6 +26,6 @@
     {% else %}
     <h1>Page d'accueil de l'application</h1>
     <h2>Liste des derniers courriers crées</h2>
-        {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'limit': 3})) }}
+        {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'limit': 4})) }}
     {% endif %}
 {% endblock %}
