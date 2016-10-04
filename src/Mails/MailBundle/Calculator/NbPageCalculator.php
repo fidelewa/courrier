@@ -22,6 +22,20 @@ class NbPageCalculator
         return $nombreTotalPages;
     }
 
+    public function calculateTotalNumberPageByUser(Paginator $listMails, $numItems, $page)
+    {
+        // On calcule le nombre total de pages grâce au count($listMails) qui retourne le nombre total de courriers
+        $nombreTotalMails = $listMails->count();
+        $nombreMailPage = $numItems;
+        $nombreTotalPages = ceil($nombreTotalMails/$nombreMailPage); 
+                
+        if($page > $nombreTotalPages){
+            throw new NotFoundHttpException("La page ".$page." n'existe pas.");
+        }
+        return $nombreTotalPages;
+    }
+
+
     public function calculateTotalNumberPageByFilter(Paginator $allMailFilter, $page, $nbPerPage)
     {
         // On calcule le nombre total de pages grâce au count($listMailsReceived) qui retourne le nombre total de courriers reçus
