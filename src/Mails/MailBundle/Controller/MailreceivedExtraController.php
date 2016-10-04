@@ -54,6 +54,7 @@ class MailreceivedExtraController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
+     * @Template("@mailreceived_form_views/mailreceived_user_filter.html.twig")
      */
      public function filterMailreceivedByUserAction($id, Request $request)
      {
@@ -74,7 +75,7 @@ class MailreceivedExtraController extends Controller
             $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
             // On traite les données du courrier
-            $handlerMailsData->processMailsData($form->getData(), $user, 'filtreMailreceivedByUser');
+            $handlerMailsData->processMailreceivedData($form->getData(), $user, 'filtreMailreceivedByUser');
 
             // On redirige vers la route des résultats
             return $this->redirect($this->generateUrl('mails_mailreceived_filter_user_result'));
@@ -113,7 +114,7 @@ class MailreceivedExtraController extends Controller
             $handlerMailsData = $this->get('mails_mail.mails_handler_data');
 
             // On traite les données du courrier
-            $handlerMailsData->processMailsData($form->getData(), $actor, 'filtreMailreceivedByActor');
+            $handlerMailsData->processMailreceivedData($form->getData(), $actor, 'filtreMailreceivedByActor');
 
             // On redirige vers la route des résultats
             return $this->redirect($this->generateUrl('mails_mailreceived_filter_actor_result'));
@@ -132,17 +133,15 @@ class MailreceivedExtraController extends Controller
 
      /**
      * filter all mails received.
-     *
      * @param integer $page page number
      * @param Request $request Incoming request
-     * @Template("@mailreceived_filter_result_views/all_mailreceived_filter_result.html.twig")
      */
      public function filterAllMailreceivedAction(Request $request, $page)
      {
          if ($page < 1) {
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
-         
+
         //On crée notre formulaire
         $form = $this->createForm(new MailReceivedFilterType(), new Mail());
          
@@ -160,20 +159,59 @@ class MailreceivedExtraController extends Controller
             // On récupère notre service filter
             $filter = $this->get('mails_mail.mail_filter');
 
-            // On récupère notre service calculator
-            $nbCalculator = $this->get('mails_mail.nbpage_calculator');
+            // On défini les attributs de session des données du courrier reçu
+            $request->getSession()->set('days', $days);
+            $request->getSession()->set('reception', $reception);
+            $request->getSession()->set('expediteur', $expediteur);
+            $request->getSession()->set('destinataire', $destinataire);
+            $request->getSession()->set('traitement', $traitement);
+            $request->getSession()->set('num_items', $filter::NUM_ITEMS);
+            $request->getSession()->set('mail', $mail);
 
-            //On récupère tous les courriers envoyés, filtrés par date et par reception
-            $allMailreceivedFilter = $filter->filtreAllMailreceived($days, $reception, $expediteur, $destinataire, $traitement, $page, $filter::NUM_ITEMS);
-
-            // On calcule le nombre total de pages pour la recherche
-            $nombreTotalPagesByFilter = $nbCalculator->calculateTotalNumberPageByFilter($allMailreceivedFilter, $page, $filter::NUM_ITEMS);
-
-            return array('allMailreceivedFilter' => $allMailreceivedFilter, 'mail' => $mail, 'nombreTotalPages' => $nombreTotalPagesByFilter,'page' => $page);
+            // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_all_mailreceived_filter_result', array('page' => $page)));
         }
+
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return $this->render('@mailreceived_form_views/all_mailreceived_filter.html.twig', array(
         'form' => $form->createView()
+        )); 
+     }
+
+      public function filterAllMailreceivedResultAction($page, Request $request)
+     {
+         if ($page < 1) {
+        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+            // On récupère les données du courrier reçu depuis la session
+            $days = $request->getSession()->get('days');
+            $reception = $request->getSession()->get('reception');
+            $expediteur = $request->getSession()->get('expediteur');
+            $destinataire = $request->getSession()->get('destinataire');
+            $traitement = $request->getSession()->get('traitement');
+            $numItems = $request->getSession()->get('num_items');
+            $mail = $request->getSession()->get('mail');
+
+            // On efface les variables de session
+            //$request->getSession()->clear();
+
+            // On récupère notre service filter
+            $filter = $this->get('mails_mail.mail_filter');
+
+            //On récupère tous les courriers envoyés, filtrés par date et par reception
+            $allMailreceivedFilter = $filter->filtreAllMailreceived($days, $reception, $expediteur, $destinataire, $traitement, $page, $numItems);
+
+            // On récupère notre service calculator
+            $nbCalculator = $this->get('mails_mail.nbpage_calculator');
+
+            // On calcule le nombre total de pages pour la recherche
+            $nombreTotalPagesByFilter = $nbCalculator->calculateTotalNumberPageByFilter($allMailreceivedFilter, $page, $numItems);
+        
+        return $this->render('@mailreceived_filter_result_views/all_mailreceived_filter_result.html.twig', array(
+        'page' => $page,
+        'allMailreceivedFilter' => $allMailreceivedFilter,
+        'nombreTotalPages' => $nombreTotalPagesByFilter,
+        'mail' => $mail
         )); 
      }
 
