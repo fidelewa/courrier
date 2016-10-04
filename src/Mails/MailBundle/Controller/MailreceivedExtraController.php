@@ -192,9 +192,6 @@ class MailreceivedExtraController extends Controller
             $numItems = $request->getSession()->get('num_items');
             $mail = $request->getSession()->get('mail');
 
-            // On efface les variables de session
-            //$request->getSession()->clear();
-
             // On récupère notre service filter
             $filter = $this->get('mails_mail.mail_filter');
 
