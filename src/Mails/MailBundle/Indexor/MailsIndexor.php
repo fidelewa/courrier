@@ -3,7 +3,7 @@ namespace Mails\MailBundle\Indexor;
 
 class MailsIndexor 
 {
-    const NUM_ITEMS = 4;
+    const NUM_ITEMS = 1;
 
     private $em;
 

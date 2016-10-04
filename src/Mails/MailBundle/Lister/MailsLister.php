@@ -3,7 +3,7 @@ namespace Mails\MailBundle\Lister;
 
 class MailsLister 
 {
-    const NUM_ITEMS = 3;
+    const NUM_ITEMS = 1;
 
     private $em;
 

@@ -3,7 +3,7 @@ namespace Mails\MailBundle\Paginator;
 
 class MailsPaginator 
 {
-    const NUM_ITEMS = 5;
+    const NUM_ITEMS = 1;
 
     private $em;
 

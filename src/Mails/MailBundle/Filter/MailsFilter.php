@@ -4,7 +4,7 @@ namespace Mails\MailBundle\Filter;
 class MailsFilter
 {
     private $em;
-    const NUM_ITEMS = 5;
+    const NUM_ITEMS = 1;
 
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
     {
