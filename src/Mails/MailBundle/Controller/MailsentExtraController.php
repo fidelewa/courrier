@@ -9,7 +9,6 @@ use Mails\MailBundle\Entity\Mail;
 use Mails\MailBundle\Form\Type\MailMailsentFilterType;
 use Mails\MailBundle\Form\Type\MailSentFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
  /**
   * @Security("has_role('ROLE_ADMIN')")
