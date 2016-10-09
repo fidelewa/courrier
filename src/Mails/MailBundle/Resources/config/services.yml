@@ -43,3 +43,6 @@ services:
     mails_mail.mails_handler_data:
         class: Mails\MailBundle\HandlerMailsData\HandlerMailsData
         arguments: [@mails_mail.mail_filter, @session]
+
+    mails_mail.mail_factory:
+        class: Mails\MailBundle\Factory\MailFactory
