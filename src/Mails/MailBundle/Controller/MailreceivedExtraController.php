@@ -23,8 +23,11 @@ class MailreceivedExtraController extends Controller
      */
      public function filterMailreceivedAction(Request $request)
      {
+         // On récupère notre mail factory
+        $mailFactory = $this->get('mails_mail.mail_factory');
+        
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), new Mail());
+        $form = $this->createForm(new MailMailreceivedFilterType(), $mailFactory::create());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
@@ -65,8 +68,11 @@ class MailreceivedExtraController extends Controller
         throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
 
+        // On récupère notre mail factory
+        $mailFactory = $this->get('mails_mail.mail_factory');
+
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), new Mail());
+        $form = $this->createForm(new MailMailreceivedFilterType(), $mailFactory::create());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
@@ -104,8 +110,11 @@ class MailreceivedExtraController extends Controller
         throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
         }
 
+        // On récupère notre mail factory
+        $mailFactory = $this->get('mails_mail.mail_factory');
+
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), new Mail());
+        $form = $this->createForm(new MailMailreceivedFilterType(), $mailFactory::create());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 
@@ -143,8 +152,11 @@ class MailreceivedExtraController extends Controller
         throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
 
+        // On récupère notre mail factory
+        $mailFactory = $this->get('mails_mail.mail_factory');
+
         //On crée notre formulaire
-        $form = $this->createForm(new MailReceivedFilterType(), new Mail());
+        $form = $this->createForm(new MailReceivedFilterType(), $mailFactory::create());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if($form->handleRequest($request)->isValid()) 

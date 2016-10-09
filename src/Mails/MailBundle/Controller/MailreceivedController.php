@@ -25,18 +25,18 @@ class MailreceivedController extends Controller
      */
      public function addMailreceivedAction(Request $request)
      {
-        // On récupère notre service mail creator
-        $mailCreator = $this->get('mails_mail.mail_creator');
-            
+         // On récupère notre mail factory
+        $mailFactory = $this->get('mails_mail.mail_factory');
+    
         //On crée le courrier reçu
-        $mailreceived = new MailReceived();
+        $mailreceived = $mailFactory::createMailReceived();
         
         //On défini la date de reception du courrier reçu à la date courante
         $mailreceived->setdateReception(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
 
         //On crée le courrier
-        $courier = new Mail();
-        
+        $courier = $mailFactory::create();
+
         //On défini le courrier reçu
         $courier->setMailreceived($mailreceived);
 
@@ -46,6 +46,9 @@ class MailreceivedController extends Controller
         // Si la requête est en POST
         if($form->handleRequest($request)->isValid()) 
         {
+            // On récupère notre service mail creator
+            $mailCreator = $this->get('mails_mail.mail_creator');
+
             // On renvoi le conrrier reçu crée
             $mail = $mailCreator->processCreateMailReceived($form, $mailreceived, $this->getUser());
             
