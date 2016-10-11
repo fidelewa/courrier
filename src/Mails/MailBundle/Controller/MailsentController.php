@@ -5,8 +5,6 @@ namespace Mails\MailBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Mails\MailBundle\Entity\MailSent;
-use Mails\MailBundle\Entity\Mail;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mails\MailBundle\Form\Type\MailMailsentAdminType;
 use Mails\MailBundle\Form\Type\MailMailsentSecretaryType;

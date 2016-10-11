@@ -5,7 +5,6 @@ namespace Mails\MailBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Mails\MailBundle\Entity\Mail;
 use Mails\MailBundle\Form\Type\MailMailreceivedFilterType;
 use Mails\MailBundle\Form\Type\MailReceivedFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
