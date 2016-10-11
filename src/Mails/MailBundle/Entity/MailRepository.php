@@ -26,8 +26,8 @@ class MailRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
-        //$query->useResultCache(true);
-        //$query->setResultCacheLifetime(5);
+        $query->useResultCache(true);
+        $query->setResultCacheLifetime(5);
         
         return $query->getResult();
     }
@@ -44,8 +44,8 @@ class MailRepository extends EntityRepository
         
         $query = $qb->getQuery();
         $query->useQueryCache(false);
-        //$query->useResultCache(true);
-        //$query->setResultCacheLifetime(5);
+        $query->useResultCache(true);
+        $query->setResultCacheLifetime(5);
         
         return $query->getResult();
         ;
