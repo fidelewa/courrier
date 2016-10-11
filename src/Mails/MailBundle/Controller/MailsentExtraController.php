@@ -257,6 +257,7 @@ class MailsentExtraController extends Controller
         //On redirige vers la page d'accueil
         $request->getSession()->getFlashBag()->add('success', 'Le courrier envoyé de référence "'.$mailsent->getReference().'" a bien été validé.');
 
+        // On redirige vers l'accueil
         return $this->redirect($this->generateUrl('mails_core_home'));          
      }
 }
