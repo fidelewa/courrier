@@ -103,6 +103,8 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        #query_cache_driver: memcache
+        #result_cache_driver: memcache
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -128,13 +130,14 @@ sensio_framework_extra:
     psr_message: { enabled: false } # Defaults to true if the PSR-7 bridge is installed
 
 lsw_memcache:
-    session:
-        pool: default
-        auto_load: true
-        prefix: "session_"
-        ttl: 7200
-        locking: true
-        spin_lock_wait: 150000
+    doctrine:
+        result_cache:
+            pool: default
+            entity_manager: [default, read]  # you may specify multiple entity_managers
+            prefix: "result_"                # you may specify a prefix for the entries
+        query_cache:
+            pool: default
+            entity_manager: default
 
     pools:
         default:

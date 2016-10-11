@@ -23,11 +23,13 @@ class MailRepository extends EntityRepository
             ->orderBy('m.id', 'DESC')
             ->setMaxResults($limit)
         ;
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        //$query->useResultCache(true);
+        //$query->setResultCacheLifetime(5);
         
-        return $qb
-                ->getQuery()
-                ->getResult()
-        ;
+        return $query->getResult();
     }
     
     public function findLatestMailsReceived($limit)
@@ -40,9 +42,12 @@ class MailRepository extends EntityRepository
             ->orderBy('m.id', 'DESC')
             ->setMaxResults($limit);
         
-        return $qb
-                ->getQuery()
-                ->getResult()
+        $query = $qb->getQuery();
+        $query->useQueryCache(false);
+        //$query->useResultCache(true);
+        //$query->setResultCacheLifetime(5);
+        
+        return $query->getResult();
         ;
     }
     
