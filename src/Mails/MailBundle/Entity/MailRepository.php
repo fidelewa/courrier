@@ -14,11 +14,12 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class MailRepository extends EntityRepository
 {
     public function findLatestMailsSent($limit)
-    {//Permet de récupérer les $limit derniers courriers envoyés
-    
+    {
+        //Permet de récupérer les $limit derniers courriers envoyés
+
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->orderBy('m.id', 'DESC')
             ->setMaxResults($limit)
@@ -33,11 +34,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findLatestMailsReceived($limit)
-    {//Permet de récupérer les $limit derniers courriers reçus
-    
+    {
+        //Permet de récupérer les $limit derniers courriers reçus
+
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->orderBy('m.id', 'DESC')
             ->setMaxResults($limit);
@@ -52,11 +54,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findMailSent($id)
-    {//Permet de récupérer un courrier envoyé spécifique
+    {
+        //Permet de récupérer un courrier envoyé spécifique
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('m.id = :id')
             ->setParameter('id', $id);
@@ -68,10 +71,11 @@ class MailRepository extends EntityRepository
     }
     
     public function findMailReceived($id)
-    {//Permet de récupérer un courrier reçu spécifique
+    {
+        //Permet de récupérer un courrier reçu spécifique
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('m.id = :id')
             ->setParameter('id', $id);
@@ -83,10 +87,11 @@ class MailRepository extends EntityRepository
     }
     
     public function getMailsSent($page, $nbPerPage)
-    {//Permet de récupérer tous les courriers envoyés 
-    
+    {
+        //Permet de récupérer tous les courriers envoyés
+
         $query = $this->createQueryBuilder('m')
-                ->join('m.mailsent','ms')
+                ->join('m.mailsent', 'ms')
                 ->addSelect('ms')
                 ->orderBy('m.id', 'DESC')
                 ->getQuery()
@@ -106,10 +111,11 @@ class MailRepository extends EntityRepository
     }
     
     public function getMailsReceived($page, $nbPerPage)
-    {//Permet de récupérer tous les courriers reçus 
-    
+    {
+        //Permet de récupérer tous les courriers reçus
+
         $query = $this->createQueryBuilder('m')
-                ->join('m.mailreceived','mr')
+                ->join('m.mailreceived', 'mr')
                 ->addSelect('mr')
                 ->orderBy('m.id', 'DESC')
                 ->getQuery()
@@ -125,14 +131,14 @@ class MailRepository extends EntityRepository
         // Enfin, on retourne l'objet Paginator correspondant à la requête construite
         // (n'oubliez pas le use correspondant en début de fichier)
         return new Paginator($query, true);
-        
     }
     
     public function getMailsSentBySecretary($page, $nbPerPage, $id)
-    {//Permet de récupérer tous les courriers envoyés non enregistré par la sécrétaire concernée
-    
+    {
+        //Permet de récupérer tous les courriers envoyés non enregistré par la sécrétaire concernée
+
         $query = $this->createQueryBuilder('m')
-                ->join('m.mailsent','ms')
+                ->join('m.mailsent', 'ms')
                 ->addSelect('ms')
                 ->where('m.registred = :registred')
                 ->orWhere('m.registred IS NULL')
@@ -156,10 +162,11 @@ class MailRepository extends EntityRepository
     }
     
     public function getMailsReceivedBySecretary($page, $nbPerPage, $id)
-    {//Permet de récupérer tous les courriers reçus non enregistré par la sécrétaire concernée
-    
+    {
+        //Permet de récupérer tous les courriers reçus non enregistré par la sécrétaire concernée
+
         $query = $this->createQueryBuilder('m')
-                ->join('m.mailreceived','mr')
+                ->join('m.mailreceived', 'mr')
                 ->addSelect('mr')
                 ->where('m.registred = :registred')
                 ->orWhere('m.registred IS NULL')
@@ -179,15 +186,15 @@ class MailRepository extends EntityRepository
         // Enfin, on retourne l'objet Paginator correspondant à la requête construite
         // (n'oubliez pas le use correspondant en début de fichier)
         return new Paginator($query, true);
-        
     }
     
     public function getMailsSentNotValidated($page, $nbPerPage, $admin)
-    {//Permet de récupérer tous les courriers envoyés enregistré et non validé par l'administrateur concerné
-    
+    {
+        //Permet de récupérer tous les courriers envoyés enregistré et non validé par l'administrateur concerné
+
         $query = $this
                 ->createQueryBuilder('m')
-                ->join('m.mailsent','ms')
+                ->join('m.mailsent', 'ms')
                 ->addSelect('ms')
                 ->where('m.validated = :validated AND m.registred = :registred')
                 ->orWhere('m.validated IS NULL AND m.registred = :registred')
@@ -211,10 +218,11 @@ class MailRepository extends EntityRepository
     }
     
     public function getMailsReceivedNotValidated($page, $nbPerPage, $admin)
-    {//Permet de récupérer tous les courriers reçus enregistré et non validé par l'administrateur concerné
-    
+    {
+        //Permet de récupérer tous les courriers reçus enregistré et non validé par l'administrateur concerné
+
         $query = $this->createQueryBuilder('m')
-                ->join('m.mailreceived','mr')
+                ->join('m.mailreceived', 'mr')
                 ->addSelect('mr')
                 ->where('m.validated = :validated AND m.registred = :registred')
                 ->orWhere('m.validated IS NULL AND m.registred = :registred')
@@ -234,14 +242,14 @@ class MailRepository extends EntityRepository
         // Enfin, on retourne l'objet Paginator correspondant à la requête construite
         // (n'oubliez pas le use correspondant en début de fichier)
         return new Paginator($query, true);
-        
     }
     
     public function findAllMailSent($page, $nbPerPage, $admin)
-    {// Permet de récupérer la liste de tous les courriers envoyés par l'administrateur spécifié
+    {
+        // Permet de récupérer la liste de tous les courriers envoyés par l'administrateur spécifié
 
         $query = $this->createQueryBuilder('m')
-               ->join('m.mailsent','ms')
+               ->join('m.mailsent', 'ms')
                ->addSelect('ms')
                ->where('ms.user = :admin')
                ->setParameter('admin', $admin)
@@ -260,11 +268,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailReceived($page, $nbPerPage, $admin)
-    {// Permet de récupérer la liste de tous les courriers reçus par l'administrateur spécifié
+    {
+        // Permet de récupérer la liste de tous les courriers reçus par l'administrateur spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.user = :admin')
             ->setParameter('admin', $admin)
@@ -285,11 +294,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailreceivedByActorReverse($id)
-    {// Permet de récupérer la liste de tous les courriers reçus par le contact spécifié
+    {
+        // Permet de récupérer la liste de tous les courriers reçus par le contact spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.actor = :id')
             ->setParameter('id', $id)
@@ -303,11 +313,12 @@ class MailRepository extends EntityRepository
     }
 
     public function findAllMailsentByActorReverse($id)
-    {// Permet de récupérer la liste de tous les courriers envoyé par le contact spécifié
+    {
+        // Permet de récupérer la liste de tous les courriers envoyé par le contact spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.actor = :id')
             ->setParameter('id', $id)
@@ -321,11 +332,12 @@ class MailRepository extends EntityRepository
     }
 
     public function findAllMailreceivedByActor($id)
-    {// Permet de récupérer la liste de tous les courriers reçus par le contact concerné
+    {
+        // Permet de récupérer la liste de tous les courriers reçus par le contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.actor = :id')
             ->setParameter('id', $id)
@@ -339,11 +351,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailsentByActor($id)
-    {// Permet de récupérer la liste de tous les courriers envoyés par le contact concerné
+    {
+        // Permet de récupérer la liste de tous les courriers envoyés par le contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.actor = :id')
             ->setParameter('id', $id)
@@ -354,15 +367,15 @@ class MailRepository extends EntityRepository
                 ->getQuery()
                 ->getResult()
         ;
-
     }
     
     public function findAllMailsentByUser($id)
-    {// Permet de récupérer la liste de tous les courriers envoyés par l'administrateur spécifié
+    {
+        // Permet de récupérer la liste de tous les courriers envoyés par l'administrateur spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.user = :id')
             ->setParameter('id', $id)
@@ -376,11 +389,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailreceivedByUser($id)
-    {// Permet de récupérer la liste de tous les courriers reçus par l'administrateur spécifié
+    {
+        // Permet de récupérer la liste de tous les courriers reçus par l'administrateur spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.user = :id')
             ->setParameter('id', $id)
@@ -394,11 +408,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailSentByFilter(\Datetime $date, $received, $admin)
-    {// Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception de l'administrateur concerné
+    {
+        // Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception de l'administrateur concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
             ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
@@ -414,11 +429,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailReceivedByFilter(\Datetime $date, $received, $treated, $admin)
-    {// Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'administrateur concerné
+    {
+        // Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'administrateur concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
             ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
@@ -435,11 +451,12 @@ class MailRepository extends EntityRepository
 
     
     public function findAllMailSentFilterByUser(\Datetime $date, $received, $id)
-    {// Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception de l'utilisateur concerné
+    {
+        // Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception de l'utilisateur concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
             ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
@@ -455,11 +472,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailReceivedFilterByUser(\Datetime $date, $received, $user, $treated)
-    {// Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'utilisateur concerné
+    {
+        // Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'utilisateur concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
             ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
@@ -475,11 +493,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailSentFilterByActor(\Datetime $date, $received, $id)
-    {// Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception du contact concerné
+    {
+        // Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception du contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
             ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
@@ -495,11 +514,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailReceivedFilterByActor(\Datetime $date, $received, $id, $treated)
-    {// Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement du contact concerné
+    {
+        // Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement du contact concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
             ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
@@ -515,20 +535,21 @@ class MailRepository extends EntityRepository
     }
     
     public function getAllMailsentFilter(\Datetime $date, $received, $user, $actor, $page, $nbPerPage)
-    {// Permet de récupérer tous les courriers envoyés, filtrés par date, par reception, par expéditeur et par destinataire spécifié
+    {
+        // Permet de récupérer tous les courriers envoyés, filtrés par date, par reception, par expéditeur et par destinataire spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
-            ->join('ms.user','u')
+            ->join('ms.user', 'u')
             ->addSelect('u')
-            ->join('ms.actor','a')
+            ->join('ms.actor', 'a')
             ->addSelect('a')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
             ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
             ->andwhere('m.received = :received AND u.username = :user AND a.name = :actor') // On filtre selon le status de reception et en fonction de l'expéditeur et du destinataire spécifiés
-            ->setParameters(array('received' => $received, 'date' => $date, 'user' => $user, 'actor' => $actor)) 
+            ->setParameters(array('received' => $received, 'date' => $date, 'user' => $user, 'actor' => $actor))
             ->orderBy('m.id', 'DESC')
             ->getQuery()
             ;
@@ -546,15 +567,16 @@ class MailRepository extends EntityRepository
     }
     
     public function getAllMailreceivedFilter(\Datetime $date, $received, $actor, $user, $treated, $page, $nbPerPage)
-    {// Permet de récupérer tous les courriers reçus, filtrés par date, par reception, par traitement, par expéditeur et par destinataire spécifié
+    {
+        // Permet de récupérer tous les courriers reçus, filtrés par date, par reception, par traitement, par expéditeur et par destinataire spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
-            ->join('mr.user','u')
+            ->join('mr.user', 'u')
             ->addSelect('u')
-            ->join('mr.actor','a')
+            ->join('mr.actor', 'a')
             ->addSelect('a')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
             ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
@@ -576,12 +598,13 @@ class MailRepository extends EntityRepository
         return new Paginator($qb, true);
     }
     
-     public function findAllMailSentNotValidated($admin, $limit)
-    {// Permet de récupérer la liste des courriers envoyés enregistrés et non validés par l'administrateur concerné
-    
+    public function findAllMailSentNotValidated($admin, $limit)
+    {
+        // Permet de récupérer la liste des courriers envoyés enregistrés et non validés par l'administrateur concerné
+
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('m.validated IS NULL AND m.registred = :registred')
             ->orWhere('m.validated = :validated AND m.registred = :registred')
@@ -598,11 +621,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailReceivedNotValidated($admin, $limit)
-    {// Permet de récupérer la liste des courriers reçus enregistrés et non validés par l'administrateur concerné
-    
+    {
+        // Permet de récupérer la liste des courriers reçus enregistrés et non validés par l'administrateur concerné
+
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('m.validated = :validated AND m.registred = :registred')
             ->orWhere('m.validated IS NULL AND m.registred = :registred')
@@ -620,11 +644,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailSentNotRegistred($id, $limit)
-    {// Permet de récupérer la liste des courriers envoyés non enregistrés par la sécrétaire concerné
+    {
+        // Permet de récupérer la liste des courriers envoyés non enregistrés par la sécrétaire concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailsent','ms')
+            ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('m.registred = :registred')
             ->orWhere('m.registred IS NULL')
@@ -641,11 +666,12 @@ class MailRepository extends EntityRepository
     }
     
     public function findAllMailReceivedNotRegistred($id, $limit)
-    {// Permet de récupérer la liste des courriers reçus non enregistrés par la sécrétaire concerné
+    {
+        // Permet de récupérer la liste des courriers reçus non enregistrés par la sécrétaire concerné
 
         $qb = $this
             ->createQueryBuilder('m')
-            ->join('m.mailreceived','mr')
+            ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('m.registred = :registred')
             ->orWhere('m.registred IS NULL')
@@ -661,5 +687,4 @@ class MailRepository extends EntityRepository
                 ->getResult()
         ;
     }
-    
 }

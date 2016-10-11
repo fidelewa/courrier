@@ -22,21 +22,17 @@ class MailsChecker extends \Twig_Extension
         // Et on n'oublie pas de faire un flush !
         $this->em->flush();
         
-        if(count($findOneMailByReference)>=1)
-        {
-          return "1";
+        if (count($findOneMailByReference)>=1) {
+            return "1";
+        } else {
+            return "2";
         }
-        else
-        {
-          return "2";
-        }
-        
     }
 
     // Twig va exécuter cette méthode pour savoir quelle(s) fonction(s) ajoute notre service
   public function getFunctions()
   {
-    return array(
+      return array(
       'checkRef' => new \Twig_Function_Method($this, 'checkReference')
     );
   }
@@ -44,7 +40,6 @@ class MailsChecker extends \Twig_Extension
   // La méthode getName() identifie votre extension Twig, elle est obligatoire
   public function getName()
   {
-    return 'MailsChecker';
+      return 'MailsChecker';
   }
-
 }
