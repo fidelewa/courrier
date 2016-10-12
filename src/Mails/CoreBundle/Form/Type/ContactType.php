@@ -1,5 +1,4 @@
 <?php
-# src/tuto/WelcomeBundle/Form/Type/ContactType.php
 
 namespace Mails\CoreBundle\Form\Type;
 

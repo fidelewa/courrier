@@ -12,18 +12,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-    
-    public function findAllSecretaries($role)
-    {
-        $qb = $this->createQueryBuilder('u');
-            //Puis on filtre sur le nom des catégories à l'aide d'un IN
-        $qb->where($qb->expr()->in('u.roles', $role));
-      
-        
-        return $qb
-                ->getQuery()
-                ->getResult()
-        ;
-    }
-
 }

@@ -409,15 +409,16 @@ class MailRepository extends EntityRepository
     
     public function findAllMailSentByFilter(\Datetime $date, $received, $admin)
     {
-        // Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception de l'administrateur concerné
+        /* Permet de récupérer la liste tous les courriers envoyés,
+        filtrés par date et par reception de l'administrateur concerné */
 
         $qb = $this
             ->createQueryBuilder('m')
             ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
-            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND ms.user = :admin') // On filtre selon le status de reception en fonction de l'utilisateur spécifié
+            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date')
+            ->andwhere('m.received = :received AND ms.user = :admin')
             ->setParameters(array('received' => $received, 'date' => $date, 'admin' => $admin))
             ->orderBy('m.id', 'DESC')
             ;
@@ -430,15 +431,16 @@ class MailRepository extends EntityRepository
     
     public function findAllMailReceivedByFilter(\Datetime $date, $received, $treated, $admin)
     {
-        // Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'administrateur concerné
+        /* Permet de récupérer la liste tous les courriers reçu,
+        filtrés par date, par reception et par traitement de l'administrateur concerné */
 
         $qb = $this
             ->createQueryBuilder('m')
             ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
-            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND m.treated = :treated AND mr.user = :admin') // On filtre selon le status de reception et de traitement en fonction de l'utilisateur spécifié
+            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date')
+            ->andwhere('m.received = :received AND m.treated = :treated AND mr.user = :admin')
             ->setParameters(array('received' => $received, 'date' => $date, 'treated' => $treated, 'admin' => $admin))
             ->orderBy('m.id', 'DESC')
             ;
@@ -452,15 +454,18 @@ class MailRepository extends EntityRepository
     
     public function findAllMailSentFilterByUser(\Datetime $date, $received, $id)
     {
-        // Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception de l'utilisateur concerné
+        /* Permet de récupérer la liste tous les courriers envoyés,
+        filtrés par date et par reception de l'utilisateur concerné */
 
         $qb = $this
             ->createQueryBuilder('m')
             ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
-            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND ms.user = :id') // On filtre selon le status de reception et en fonction de l'utilisateur spécifié
+            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date')
+            // Si la date d'envoi est sans valeur, on vérifie la date d'édition
+            ->andwhere('m.received = :received AND ms.user = :id')
+            // On filtre selon le status de reception et en fonction de l'utilisateur spécifié
             ->setParameters(array('received' => $received, 'date' => $date, 'id' => $id))
             ->orderBy('m.id', 'DESC')
             ;
@@ -473,15 +478,18 @@ class MailRepository extends EntityRepository
     
     public function findAllMailReceivedFilterByUser(\Datetime $date, $received, $user, $treated)
     {
-        // Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement de l'utilisateur concerné
+        /* Permet de récupérer la liste tous les courriers reçu,
+        filtrés par date, par reception et par traitement de l'utilisateur concerné */
 
         $qb = $this
             ->createQueryBuilder('m')
             ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
-            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND mr.user = :user AND m.treated = :treated') // On filtre selon le status de reception et de traitement en fonction de l'utilisateur spécifié
+            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date')
+            // Si la date de reception est sans valeur, on vérifie la date d'édition
+            ->andwhere('m.received = :received AND mr.user = :user AND m.treated = :treated')
+            // On filtre selon le status de reception et de traitement en fonction de l'utilisateur spécifié
             ->setParameters(array('received' => $received, 'date' => $date, 'user' => $user, 'treated' => $treated))
             ->orderBy('m.id', 'DESC')
             ;
@@ -494,15 +502,18 @@ class MailRepository extends EntityRepository
     
     public function findAllMailSentFilterByActor(\Datetime $date, $received, $id)
     {
-        // Permet de récupérer la liste tous les courriers envoyés, filtrés par date et par reception du contact concerné
+        /* Permet de récupérer la liste tous les courriers envoyés,
+        filtrés par date et par reception du contact concerné */
 
         $qb = $this
             ->createQueryBuilder('m')
             ->join('m.mailsent', 'ms')
             ->addSelect('ms')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
-            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND ms.actor = :id') // On filtre selon le status de reception et en fonction du contact spécifié
+            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date')
+            // Si la date d'envoi est sans valeur, on vérifie la date d'édition
+            ->andwhere('m.received = :received AND ms.actor = :id')
+            // On filtre selon le status de reception et en fonction du contact spécifié
             ->setParameters(array('received' => $received, 'date' => $date, 'id' => $id))
             ->orderBy('m.id', 'DESC')
             ;
@@ -515,15 +526,18 @@ class MailRepository extends EntityRepository
     
     public function findAllMailReceivedFilterByActor(\Datetime $date, $received, $id, $treated)
     {
-        // Permet de récupérer la liste tous les courriers reçu, filtrés par date, par reception et par traitement du contact concerné
+        /* Permet de récupérer la liste tous les courriers reçu,
+        filtrés par date, par reception et par traitement du contact concerné */
 
         $qb = $this
             ->createQueryBuilder('m')
             ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
-            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND mr.actor = :id AND m.treated = :treated') // On filtre selon le status de reception et de traitement en fonction du contact spécifié
+            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date')
+            // Si la date de reception est sans valeur, on vérifie la date d'édition
+            ->andwhere('m.received = :received AND mr.actor = :id AND m.treated = :treated')
+            // On filtre selon le status de reception et de traitement en fonction du contact spécifié
             ->setParameters(array('received' => $received, 'date' => $date, 'id' => $id, 'treated' => $treated))
             ->orderBy('m.id', 'DESC')
             ;
@@ -536,7 +550,8 @@ class MailRepository extends EntityRepository
     
     public function getAllMailsentFilter(\Datetime $date, $received, $user, $actor, $page, $nbPerPage)
     {
-        // Permet de récupérer tous les courriers envoyés, filtrés par date, par reception, par expéditeur et par destinataire spécifié
+        /* Permet de récupérer tous les courriers envoyés,
+        filtrés par date, par reception, par expéditeur et par destinataire spécifié */
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -547,8 +562,10 @@ class MailRepository extends EntityRepository
             ->join('ms.actor', 'a')
             ->addSelect('a')
             ->where('ms.dateEnvoi <= :date') // Date d'envoi antérieure à :date
-            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date') // Si la date d'envoi est sans valeur, on vérifie la date d'édition
-            ->andwhere('m.received = :received AND u.username = :user AND a.name = :actor') // On filtre selon le status de reception et en fonction de l'expéditeur et du destinataire spécifiés
+            ->orWhere('ms.dateEnvoi IS NULL AND m.dateEdition <= :date')
+            // Si la date d'envoi est sans valeur, on vérifie la date d'édition
+            ->andwhere('m.received = :received AND u.username = :user AND a.name = :actor')
+            // On filtre selon le status de reception et en fonction de l'expéditeur et du destinataire spécifiés
             ->setParameters(array('received' => $received, 'date' => $date, 'user' => $user, 'actor' => $actor))
             ->orderBy('m.id', 'DESC')
             ->getQuery()
@@ -568,7 +585,8 @@ class MailRepository extends EntityRepository
     
     public function getAllMailreceivedFilter(\Datetime $date, $received, $actor, $user, $treated, $page, $nbPerPage)
     {
-        // Permet de récupérer tous les courriers reçus, filtrés par date, par reception, par traitement, par expéditeur et par destinataire spécifié
+        /* Permet de récupérer tous les courriers reçus,
+         filtrés par date, par reception, par traitement, par expéditeur et par destinataire spécifié */
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -579,9 +597,11 @@ class MailRepository extends EntityRepository
             ->join('mr.actor', 'a')
             ->addSelect('a')
             ->where('mr.dateReception <= :date') // Date de reception antérieure à :date
-            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date') // Si la date de reception est sans valeur, on vérifie la date d'édition
+            ->orWhere('mr.dateReception IS NULL AND m.dateEdition <= :date')
+            // Si la date de reception est sans valeur, on vérifie la date d'édition
             ->andwhere('m.received = :received AND u.username = :user AND a.name = :actor AND m.treated = :treated') // On filtre selon le status de reception et de traitement en fonction de l'expéditeur et du destinataire spécifiés
-            ->setParameters(array('received' => $received, 'date' => $date, 'user' => $user, 'actor' => $actor, 'treated' => $treated))
+            ->setParameters(array('received' => $received, 'date' => $date,
+            'user' => $user, 'actor' => $actor, 'treated' => $treated))
             ->orderBy('m.id', 'DESC')
             ->getQuery()
             ;
@@ -600,7 +620,8 @@ class MailRepository extends EntityRepository
     
     public function findAllMailSentNotValidated($admin, $limit)
     {
-        // Permet de récupérer la liste des courriers envoyés enregistrés et non validés par l'administrateur concerné
+        /* Permet de récupérer la liste des courriers envoyés enregistrés
+        et non validés par l'administrateur concerné */
 
         $qb = $this
             ->createQueryBuilder('m')
@@ -622,7 +643,8 @@ class MailRepository extends EntityRepository
     
     public function findAllMailReceivedNotValidated($admin, $limit)
     {
-        // Permet de récupérer la liste des courriers reçus enregistrés et non validés par l'administrateur concerné
+        /* Permet de récupérer la liste des courriers reçus enregistrés
+        et non validés par l'administrateur concerné */
 
         $qb = $this
             ->createQueryBuilder('m')

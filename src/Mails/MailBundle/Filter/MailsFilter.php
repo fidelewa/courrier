@@ -1,4 +1,5 @@
 <?php
+
 namespace Mails\MailBundle\Filter;
 
 class MailsFilter
@@ -219,9 +220,9 @@ class MailsFilter
 
         //On récupère tous les courriers envoyés, filtrés par date et par reception
         $allMailreceivedFilter = $this
-                             ->em
-                             ->getRepository('MailsMailBundle:Mail')
-                             ->getAllMailreceivedFilter($date, $reception, $expediteur, $destinataire, $traitement, $page, $nbPerPage)
+            ->em
+            ->getRepository('MailsMailBundle:Mail')
+            ->getAllMailreceivedFilter($date, $reception, $expediteur, $destinataire, $traitement, $page, $nbPerPage)
                             ;
                             
         // Et on n'oublie pas de faire un flush !

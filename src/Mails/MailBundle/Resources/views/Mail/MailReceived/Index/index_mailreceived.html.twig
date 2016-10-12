@@ -4,10 +4,10 @@
 
 {% if app.user and is_granted('ROLE_ADMIN') %}
   {#{% if nombreTotalPages > 4 %}#}
-  <div class="navbar-right">
-  <a href="{{ path('mails_mailreceived_filter') }}"><u>Filtrer la liste</u></a>
-  &nbsp;<b>|</b>&nbsp;
-  <a href="{{ path('mails_all_mailreceived_filter') }}"><u>Filtrer toute la liste</u></a>
+  <div>
+    <a href="{{ path('mails_mailreceived_filter') }}"><u>Filtrer la liste</u></a>
+    &nbsp;<b>|</b>&nbsp;
+    <a href="{{ path('mails_all_mailreceived_filter') }}"><u>Filtrer toute la liste</u></a>
   </div>
   {#{% endif %}#}
 {% endif %}

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-  /**
+/**
    * @Security("has_role('ROLE_ADMIN')")
    */
 class UserController extends Controller
@@ -15,7 +15,7 @@ class UserController extends Controller
     /**
      * Displays a list of all users
      */
-    public function showAllUserAction() 
+    public function showAllUserAction()
     {
         // On récupère notre service lister
         $lister = $this->get('mails_mail.mail_lister');
@@ -32,10 +32,10 @@ class UserController extends Controller
      * Displays a list of all mail sent by the responsible power
      * @param interger $page page number
      */
-    public function showAllMailsentCurrentUserAction($page) 
+    public function showAllMailsentCurrentUserAction($page)
     {
         if ($page < 1) {
-        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
     
         // On récupère notre service lister
@@ -47,7 +47,8 @@ class UserController extends Controller
         // On récupère la liste de tous les courriers envoyés par l'administrateur courant
         $listMailsSent = $lister->listAdminMailsent($page, $lister::NUM_ITEMS, $this->getUser());
 
-        // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
+        /* On calcule le nombre total de pages grâce au count($listMailsSent)
+        qui retourne le nombre total de courriers envoyé */
         $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPageByUser($listMailsSent, $lister::NUM_ITEMS, $page);
 
         return $this->render('MailsUserBundle:User:user_mailsent.html.twig', array(
@@ -61,10 +62,10 @@ class UserController extends Controller
      * Displays a list of all mail received by the responsible power
      * @param interger $page page number
      */
-    public function showAllMailreceivedCurrentUserAction($page) 
+    public function showAllMailreceivedCurrentUserAction($page)
     {
         if ($page < 1) {
-        throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
         
         // On récupère notre service lister
@@ -76,8 +77,10 @@ class UserController extends Controller
         // On récupère notre service calculator
         $nbPageCalculator = $this->get('mails_mail.nbpage_calculator');
 
-        // On calcule le nombre total de pages grâce au count($listMailsSent) qui retourne le nombre total de courriers envoyé
-        $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPageByUser($listMailsReceived, $lister::NUM_ITEMS, $page); 
+        /* On calcule le nombre total de pages grâce au count($listMailsSent)
+        qui retourne le nombre total de courriers envoyé */
+        $nombreTotalPages = $nbPageCalculator
+                          ->calculateTotalNumberPageByUser($listMailsReceived, $lister::NUM_ITEMS, $page);
 
         return $this->render('MailsUserBundle:User:user_mailreceived.html.twig', array(
             'mailsReceivedByActor' => $listMailsReceived,
@@ -107,7 +110,7 @@ class UserController extends Controller
         $allMailreceivedByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByUser($id);
 
         if (null === $user) {
-        throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
         
         // On stocke le nom de l'utilisateur dans une variable tampon
@@ -119,7 +122,10 @@ class UserController extends Controller
         //supression de l'utilisateur
         $eraser->deleteUserAndAllHisMails($user, $allMailsentByUser, $allMailreceivedByUser);
         
-        $request->getSession()->getFlashBag()->add('success', 'L\'utilisateur "'.$tempUserName.'" ainsi que tous ses courriers ont bien été supprimés.');
+        $request
+        ->getSession()
+        ->getFlashBag()
+        ->add('success', 'L\'utilisateur "'.$tempUserName.'" ainsi que tous ses courriers ont bien été supprimés.');
 
         // On supprime la variable tampon
         unset($tempUserName);
@@ -147,7 +153,7 @@ class UserController extends Controller
         $allMailreceivedByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByUser($id);
 
         if (null === $user) {
-        throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
         
         return $this->render('MailsUserBundle:User:user_mails.html.twig', array(
@@ -155,7 +161,5 @@ class UserController extends Controller
         'allMailsentByUser' => $allMailsentByUser,
         'allMailreceivedByUser' => $allMailreceivedByUser,
         ));
-       
     }
-    
 }

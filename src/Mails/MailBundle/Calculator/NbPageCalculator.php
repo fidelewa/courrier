@@ -37,7 +37,8 @@ class NbPageCalculator
 
     public function calculateTotalNumberPageByFilter(Paginator $allMailFilter, $page, $nbPerPage)
     {
-        // On calcule le nombre total de pages grâce au count($listMailsReceived) qui retourne le nombre total de courriers reçus
+        /* On calcule le nombre total de pages grâce au
+        count($listMailsReceived) qui retourne le nombre total de courriers reçus */
         $nombreTotalMails = $allMailFilter->count();
         $nombreMailreceived = $nbPerPage;
         $nombreTotalPagesByFilter = ceil($nombreTotalMails/$nombreMailreceived);

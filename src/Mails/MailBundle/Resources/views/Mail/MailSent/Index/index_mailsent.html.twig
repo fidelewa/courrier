@@ -4,7 +4,7 @@
 
 {% if app.user and is_granted('ROLE_ADMIN') %}
     {#{% if nbPages > 4 %}#}
-  <div class="navbar-right">
+  <div>
   <a href="{{ path('mails_mailsent_filter') }}"><u>Filtrer la liste</u></a>
   &nbsp;<b>|</b>&nbsp;
   <a href="{{ path('mails_all_mailsent_filter') }}"><u>Filtrer toute la liste</u></a>

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mails\MailBundle\Factory;
 
 class MailFactory
