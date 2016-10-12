@@ -7,22 +7,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MailSentHeir2Type extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-    $builder
-         ->add('dateEnvoi','datetime')
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+         ->add('dateEnvoi', 'datetime')
          ->remove('actor')
          ->remove('user')
         ;
-  }
+    }
 
-  public function getName()
-  {
-    return 'mails_mailsent_heir';
-  }
+    public function getName()
+    {
+        return 'mails_mailsent_heir';
+    }
 
-  public function getParent()
-  {
-    return new MailSentType();
-  }
+    public function getParent()
+    {
+        return new MailSentType();
+    }
 }

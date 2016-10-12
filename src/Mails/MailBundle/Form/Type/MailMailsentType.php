@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MailMailsentType extends AbstractType 
+class MailMailsentType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,37 +17,37 @@ class MailMailsentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reference','text')
-            ->add('objet','text')
-            ->add('dateEdition','datetime')
-            ->add('nombrePiecesJointes','text')
+            ->add('reference', 'text')
+            ->add('objet', 'text')
+            ->add('dateEdition', 'datetime')
+            ->add('nombrePiecesJointes', 'text')
             ->add('mailsent', new MailSentType())
             //->add('mailsent', new MailSentHeirType())
             //->add('mailsent', new MailSentHeir2Type())
             //->add('mailsent', new MailSentHeir3Type())
             //->add('mailreceived', new MailReceivedType())
             //->add('nbDaysBefore','text')
-            ->add('save',      'submit')
+            ->add('save', 'submit')
             
         ;
         
         // On ajoute une fonction qui va écouter l'évènement PRE_SET_DATA
         $builder->addEventListener(
-        FormEvents::PRE_SET_DATA,
-        function(FormEvent $event) {
-            // On récupère notre objet Mail sous-jacent
-            $mail = $event->getData();
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                // On récupère notre objet Mail sous-jacent
+                $mail = $event->getData();
 
-            if (null === $mail) {
-            return;
-            }
+                if (null === $mail) {
+                    return;
+                }
 
-            if (!$mail->getReceived() || null === $mail->getId()) {
-            $event->getForm()->add('received','checkbox', array('required' => false));
-            } else {
-            $event->getForm()->remove('received');
+                if (!$mail->getReceived() || null === $mail->getId()) {
+                    $event->getForm()->add('received', 'checkbox', array('required' => false));
+                } else {
+                    $event->getForm()->remove('received');
+                }
             }
-        }
         );
     }
     

@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 class MailSentType extends AbstractType
 {
     /**
@@ -16,19 +15,19 @@ class MailSentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateEnvoi','datetime')
+            ->add('dateEnvoi', 'datetime')
             ->add('actor', 'entity', array(
-        'class'    => 'MailsMailBundle:Actor',
-        'choice_label' => 'name',
-        'multiple' => false,
-        'expanded' => false
-      ))
+            'class'    => 'MailsMailBundle:Actor',
+            'choice_label' => 'name',
+            'multiple' => false,
+            'expanded' => false
+            ))
             ->remove('user', 'entity', array(
-        'class'    => 'MailsUserBundle:User',
-        'choice_label' => 'username',
-        'multiple' => false,
-        'expanded' => false,
-      ))
+            'class'    => 'MailsUserBundle:User',
+            'choice_label' => 'username',
+            'multiple' => false,
+            'expanded' => false,
+            ))
         ;
     }
     
@@ -49,6 +48,4 @@ class MailSentType extends AbstractType
     {
         return 'mails_mailbundle_mailsent';
     }
-    
-  
 }

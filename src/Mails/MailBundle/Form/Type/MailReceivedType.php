@@ -15,21 +15,20 @@ class MailReceivedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateReception','datetime')
+            ->add('dateReception', 'datetime')
             ->add('actor', 'entity', array(
-        'class'    => 'MailsMailBundle:Actor',
-        'choice_label' => 'name',
-        'multiple' => false,
-        'expanded' => false
-      ))
+            'class'    => 'MailsMailBundle:Actor',
+            'choice_label' => 'name',
+            'multiple' => false,
+            'expanded' => false
+            ))
             ->remove('user', 'entity', array(
-        'class'    => 'MailsUserBundle:User',
-        'choice_label' => 'username',
-        'multiple' => false,
-        'expanded' => false
-      ))
+            'class'    => 'MailsUserBundle:User',
+            'choice_label' => 'username',
+            'multiple' => false,
+            'expanded' => false
+            ))
         ;
-
     }
     
     /**
