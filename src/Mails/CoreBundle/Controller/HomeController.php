@@ -4,7 +4,7 @@ namespace Mails\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Mails\CoreBundle\Form\Type\ContactType;
 
 class HomeController extends Controller
 {
@@ -15,10 +15,39 @@ class HomeController extends Controller
     
     public function contactAction(Request $request)
     {
-        $session = $request->getSession();
-        $session->getFlashBag()->add('info', 'La page de contact n\'est pas encore disponible, merci de revenir plus tard.');
+        //On crée notre formulaire de contact
+        $form = $this->createForm(new ContactType());
 
-         return $this->redirect($this->generateUrl('mails_core_home'));
+        // Check the method
+        if ($form->handleRequest($request)->isValid()) {
+            // Bind value with form
+            //$form->bindRequest($request);
+
+            $data = $form->getData();
+
+            $message = \Swift_Message::newInstance()
+                ->setContentType('text/html')
+                ->setSubject($data['subject'])
+                ->setFrom($data['email'])
+                ->setTo('fiderlet07@gmail.com')
+                ->setBody($data['content']);
+
+            $this->get('mailer')->send($message);
+
+            // Launch the message flash
+            $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('info', 'Merci de nous contacter, nous répondrons à vos questions dans les plus brefs délais.');
+
+            // On redirige vers l'accueil
+            return $this->redirect($this->generateUrl('mails_core_home'));
+        }
+
+         // Si la requête est en GET
+        return $this->render('MailsCoreBundle:Home:contact.html.twig', array(
+        'form'   => $form->createView()
+        ));
     }
 
     /**
@@ -38,5 +67,4 @@ class HomeController extends Controller
             'type' => $type,
         ));
     }
-    
 }
