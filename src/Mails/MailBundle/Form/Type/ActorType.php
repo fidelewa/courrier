@@ -15,7 +15,7 @@ class ActorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name','text')
+            ->add('name', 'text')
         ;
     }
     
@@ -37,4 +37,3 @@ class ActorType extends AbstractType
         return 'mails_mailbundle_actor';
     }
 }
-
