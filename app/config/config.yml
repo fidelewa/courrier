@@ -130,7 +130,19 @@ sensio_framework_extra:
     psr_message: { enabled: false } # Defaults to true if the PSR-7 bridge is installed
 
 lsw_memcache:
+    session:
+        pool: default
+        auto_load: true
+        prefix: "session_"
+        ttl: 7200
+        locking: true
+        spin_lock_wait: 150000
+
     doctrine:
+        metadata_cache:
+            pool: default
+            entity_manager: default          # the name of your entity_manager connection
+            document_manager: default
         result_cache:
             pool: default
             entity_manager: [default, read]  # you may specify multiple entity_managers
