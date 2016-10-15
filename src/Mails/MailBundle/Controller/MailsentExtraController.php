@@ -196,7 +196,7 @@ class MailsentExtraController extends Controller
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
             // On récupère les données du courrier reçu depuis la session
-            $days = $request->getSession()->get('days');
+        $days = $request->getSession()->get('days');
         $reception = $request->getSession()->get('reception');
         $expediteur = $request->getSession()->get('expediteur');
         $destinataire = $request->getSession()->get('destinataire');
@@ -204,18 +204,23 @@ class MailsentExtraController extends Controller
         $mail = $request->getSession()->get('mail');
 
             // On récupère notre service filter
-            $filter = $this->get('mails_mail.mail_filter');
+        $filter = $this->get('mails_mail.mail_filter');
 
             //On récupère tous les courriers envoyés, filtrés par date et par reception
-            $allMailsentFilter = $filter
-                               ->filtreAllMailsent($days, $reception, $expediteur, $destinataire, $page, $numItems);
+        $allMailsentFilter = $filter
+                            ->filtreAllMailsent($days, $reception, $expediteur, $destinataire, $page, $numItems);
 
             // On récupère notre service calculator
-            $nbCalculator = $this->get('mails_mail.nbpage_calculator');
+        $nbCalculator = $this->get('mails_mail.nbpage_calculator');
 
             // On calcule le nombre total de pages pour la recherche
-            $nombreTotalPagesByFilter = $nbCalculator
-                                      ->calculateTotalNumberPageByFilter($allMailsentFilter, $page, $numItems);
+        $nombreTotalPagesByFilter = $nbCalculator
+                                    ->calculateTotalNumberPageByFilter($allMailsentFilter, $page, $numItems);
+
+        if ($page > $nombreTotalPagesByFilter) {
+            $request->getSession()->getFlashBag()->add('danger', 'Aucune donnée ne correspond a cette recherche !');
+            return $this->redirect($this->generateUrl('mails_core_home'));
+        }
         
         return $this->render('@mailsent_filter_result_views/all_mailsent_filter_result.html.twig', array(
         'page' => $page,

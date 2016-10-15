@@ -32,7 +32,7 @@ class UserController extends Controller
      * Displays a list of all mail sent by the responsible power
      * @param interger $page page number
      */
-    public function showAllMailsentCurrentUserAction($page)
+    public function showAllMailsentCurrentUserAction($page, Request $request)
     {
         if ($page < 1) {
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
@@ -51,6 +51,14 @@ class UserController extends Controller
         qui retourne le nombre total de courriers envoyé */
         $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPageByUser($listMailsSent, $lister::NUM_ITEMS, $page);
 
+        if ($page > $nombreTotalPages) {
+            $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('danger', 'Il n\'y a pas de liste de courrier envoyés à gerer pour vous !');
+            return $this->redirect($this->generateUrl('mails_core_home'));
+        }
+
         return $this->render('MailsUserBundle:User:user_mailsent.html.twig', array(
             'mailsSentByActor' => $listMailsSent,
             'nbPages' => $nombreTotalPages,
@@ -62,7 +70,7 @@ class UserController extends Controller
      * Displays a list of all mail received by the responsible power
      * @param interger $page page number
      */
-    public function showAllMailreceivedCurrentUserAction($page)
+    public function showAllMailreceivedCurrentUserAction($page, Request $request)
     {
         if ($page < 1) {
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
@@ -81,6 +89,14 @@ class UserController extends Controller
         qui retourne le nombre total de courriers envoyé */
         $nombreTotalPages = $nbPageCalculator
                           ->calculateTotalNumberPageByUser($listMailsReceived, $lister::NUM_ITEMS, $page);
+
+        if ($page > $nombreTotalPages) {
+            $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('danger', 'Il n\'y a pas de liste de courrier reçu à gérer pour vous !');
+            return $this->redirect($this->generateUrl('mails_core_home'));
+        }
 
         return $this->render('MailsUserBundle:User:user_mailreceived.html.twig', array(
             'mailsReceivedByActor' => $listMailsReceived,
