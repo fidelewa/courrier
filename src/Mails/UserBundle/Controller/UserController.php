@@ -55,7 +55,7 @@ class UserController extends Controller
             $request
                     ->getSession()
                     ->getFlashBag()
-                    ->add('danger', 'Il n\'y a pas de liste de courrier envoyés à gerer pour vous !');
+                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courriers envoyés à gerer !');
             return $this->redirect($this->generateUrl('mails_core_home'));
         }
 
@@ -94,7 +94,7 @@ class UserController extends Controller
             $request
                     ->getSession()
                     ->getFlashBag()
-                    ->add('danger', 'Il n\'y a pas de liste de courrier reçu à gérer pour vous !');
+                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier reçu à gerer !');
             return $this->redirect($this->generateUrl('mails_core_home'));
         }
 

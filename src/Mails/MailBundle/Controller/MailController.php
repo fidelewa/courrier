@@ -46,7 +46,7 @@ class MailController extends Controller
                     $request
                     ->getSession()
                     ->getFlashBag()
-                    ->add('danger', 'Il n\'y a aucune liste de courrier envoyés à enregistrer pour vous !');
+                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier envoyés à enregistrer !');
                     return $this->redirect($this->generateUrl('mails_core_home'));
                 }
             }
@@ -62,7 +62,7 @@ class MailController extends Controller
                     $request
                     ->getSession()
                     ->getFlashBag()
-                    ->add('danger', 'Il n\'y a aucune liste de courrier envoyés à valider pour vous !');
+                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier envoyés à valider !');
                     return $this->redirect($this->generateUrl('mails_core_home'));
                 }
             }
@@ -119,7 +119,7 @@ class MailController extends Controller
                     $request
                     ->getSession()
                     ->getFlashBag()
-                    ->add('danger', 'Il n\'y a aucune liste de courrier reçus à enregistrer pour vous !');
+                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier reçus à enregistrer !');
                     return $this->redirect($this->generateUrl('mails_core_home'));
                 }
             }
@@ -135,7 +135,7 @@ class MailController extends Controller
                     $request
                     ->getSession()
                     ->getFlashBag()
-                    ->add('danger', 'Il n\'y a aucune liste de courrier reçus à valider pour vous !');
+                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier reçus à valider !');
                     return $this->redirect($this->generateUrl('mails_core_home'));
                 }
             }
