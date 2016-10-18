@@ -21,7 +21,6 @@ class HomeController extends Controller
         // Check the method
         if ($form->handleRequest($request)->isValid()) {
             // Bind value with form
-            //$form->bindRequest($request);
 
             $data = $form->getData();
 
