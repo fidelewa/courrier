@@ -57,14 +57,14 @@ class MailreceivedExtraController extends Controller
      * @param Request $request Incoming request
      * @Template("@mailreceived_form_views/mailreceived_user_filter.html.twig")
      */
-     public function filterMailreceivedByUserAction($id, Request $request)
-     {
-         // On récupère l'user par son id
+    public function filterMailreceivedByUserAction($id, Request $request)
+    {
+        // On récupère l'user par son id
         $user = $this->getDoctrine()->getRepository('MailsUserBundle:User')->find($id);
 
-         if (null === $user) {
-             throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
-         }
+        if (null === $user) {
+            throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
+        }
 
         // On récupère notre mail factory
         $mailFactory = $this->get('mails_mail.mail_factory');
@@ -85,7 +85,7 @@ class MailreceivedExtraController extends Controller
         }
         //Si la requête est en GET on affiche le formulaire de critère de recherche
         return array('user' => $user, 'form' => $form->createView());
-     }
+    }
 
     public function filterMailreceivedByUserResultAction()
     {
@@ -98,14 +98,14 @@ class MailreceivedExtraController extends Controller
      * @param integer $id Interlocutor id
      * @param Request $request Incoming request
      */
-     public function filterMailreceivedByInterlocutorAction($id, Request $request)
-     {
-         // On récupère le contact par son id
+    public function filterMailreceivedByInterlocutorAction($id, Request $request)
+    {
+        // On récupère le contact par son id
         $actor = $this->getDoctrine()->getRepository('MailsMailBundle:Actor')->find($id);
 
-         if (null === $actor) {
-             throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
-         }
+        if (null === $actor) {
+            throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
+        }
 
         // On récupère notre mail factory
         $mailFactory = $this->get('mails_mail.mail_factory');
@@ -129,7 +129,7 @@ class MailreceivedExtraController extends Controller
         'actor' => $actor,
         'form' => $form->createView()
         ));
-     }
+    }
 
     public function filterMailreceivedByInterlocutorResultAction()
     {
