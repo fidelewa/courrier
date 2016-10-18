@@ -1,11 +1,16 @@
 {% extends "MailsCoreBundle::layout.html.twig" %}
 {% block title %}Accueil{% endblock %}
 {% block body %}
-    {{ include("MailsCoreBundle:Home:connexion.html.twig") }} 
+    {{ include("MailsCoreBundle:Home:connexion.html.twig") }}
     
     {# On affiche tous les messages flash dont le nom est « info » #}
     {% for message in app.session.flashbag.get('info') %}
         <div class="alert alert-info">Message flash : {{ message }}</div>
+    {% endfor %}
+
+    {# On affiche tous les messages flash dont le nom est « warning » #}
+    {% for message in app.session.flashbag.get('danger') %}
+        <div class="alert alert-danger">Message flash : {{ message }}</div>
     {% endfor %}
     
     {% if app.user and is_granted("ROLE_SECRETAIRE") %}
@@ -13,13 +18,8 @@
         <h2>Liste des courriers à enregistrer par <i>{{ app.user.username | title }}</i></h2>
         <hr>
         {{ render(controller("MailsMailBundle:Mail:showLatestUnregistredMailToSecretary", {'limit': 3})) }}
-    {% elseif app.user and is_granted("ROLE_ADMINISTRATEUR") %}
+    {% elseif app.user and is_granted("ROLE_ADMINISTRATEUR") or is_granted("ROLE_SUPER_ADMIN") %}
         <h1>Page d'accueil des administrateurs</h1>
-        <h2>Liste des courriers à valider par <i>{{ app.user.username | title }}</i></h2>
-        <hr>
-        {{ render(controller("MailsMailBundle:Mail:showLatestNotValidatedMailByUser", {'limit': 3})) }}
-    {% elseif app.user and is_granted("ROLE_SUPER_ADMIN") %}
-        <h1>Page d'accueil des modérateurs</h1>
         <h2>Liste des courriers à valider par <i>{{ app.user.username | title }}</i></h2>
         <hr>
         {{ render(controller("MailsMailBundle:Mail:showLatestNotValidatedMailByUser", {'limit': 3})) }}
