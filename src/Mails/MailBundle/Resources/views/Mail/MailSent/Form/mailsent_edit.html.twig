@@ -106,7 +106,7 @@
 
   <p>
     {% if app.user and is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('mails_mail_mailsent') }}"><u>Retour à la liste des courriers envoyés</u></a>
+    <a href="{{ path('mails_user_mailsent') }}"><u>Retour à la liste des courriers envoyés</u></a>
     &nbsp;<b>|</b>&nbsp;
     {% else %}
     <a href="{{ path('mails_mailsent_detail', {'id': mail.id}) }}"><u>Retour au détail</u></a>
