@@ -2,7 +2,6 @@
 
 namespace Mails\MailBundle\Calculator;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Mails\MailBundle\Paginator\MailsPaginator;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -14,7 +13,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class NbPageCalculator
 {
-    public function calculateTotalNumberPage(Paginator $listMails, $page)
+    public function calculateTotalNumberPage(Paginator $listMails)
     {
         // On calcule le nombre total de pages grâce au count($listMails) qui retourne le nombre total de courriers
         $nombreTotalMails = $listMails->count();
@@ -24,7 +23,7 @@ class NbPageCalculator
         return $nombreTotalPages;
     }
 
-    public function calculateTotalNumberPageByUser(Paginator $listMails, $numItems, $page)
+    public function calculateTotalNumberPageByUser(Paginator $listMails, $numItems)
     {
         // On calcule le nombre total de pages grâce au count($listMails) qui retourne le nombre total de courriers
         $nombreTotalMails = $listMails->count();
@@ -35,7 +34,7 @@ class NbPageCalculator
     }
 
 
-    public function calculateTotalNumberPageByFilter(Paginator $allMailFilter, $page, $nbPerPage)
+    public function calculateTotalNumberPageByFilter(Paginator $allMailFilter, $nbPerPage)
     {
         /* On calcule le nombre total de pages grâce au
         count($listMailsReceived) qui retourne le nombre total de courriers reçus */
