@@ -84,10 +84,10 @@ class ContactController extends Controller
         $actor = $em->getRepository('MailsMailBundle:Actor')->find($id);
 
         // On récupère tous les courriers envoyés par le contact
-        $allMailsentByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByActor($id);
+        $allMailsentByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByActorReverse($id);
 
         // On récupère tous les courriers reçus par le contact
-        $allMailreceivedByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByActor($id);
+        $allMailreceivedByActor = $em->getRepository('MailsMailBundle:Mail')->findAllMailreceivedByActorReverse($id);
 
         if (null === $actor) {
             throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas.");
