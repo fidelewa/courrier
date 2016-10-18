@@ -7,4 +7,3 @@ mails_core_contact:
     path:     /contact
     methods: [ get,post ]
     defaults: { _controller: MailsCoreBundle:Home:contact }
-    
