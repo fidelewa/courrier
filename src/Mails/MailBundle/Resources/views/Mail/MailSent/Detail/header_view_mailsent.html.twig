@@ -1,7 +1,7 @@
 <tr align="right" valign="middle" bgcolor="#C0C0C0">
       <td colspan="2">
         {% if app.user and is_granted('ROLE_ADMIN') %}
-          {% if mail.registred == true %}
+          {% if mail.registred == true and mail.validated != true %}
           <a href="{{ path('mails_mailsent_validation', {'id': mail.id}) }}"><u>Valider le courrier</u></a>&nbsp;<b>|</b>&nbsp;
           {% endif %}
           <a href="{{ path('mails_mailsent_add') }}"><u>Ajouter</u></a>&nbsp;<b>|</b>&nbsp;
@@ -13,7 +13,7 @@
           <a href="{{ path('mails_mailsent_registration', {'id': mail.id}) }}"><u>Enregistrer le courrier</u></a>&nbsp;<b>|</b>&nbsp;
         {% endif %}
                           
-        <a href="{{ path('mails_mail_mailsent') }}"><u>Retour</u></a>&nbsp;<b>|</b>&nbsp;
+        <a href="{{ path('mails_user_mailsent') }}"><u>Retour</u></a>&nbsp;<b>|</b>&nbsp;
         <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>&nbsp;&nbsp;
       </td>
 </tr>
