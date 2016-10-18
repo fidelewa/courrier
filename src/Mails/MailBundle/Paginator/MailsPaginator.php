@@ -1,7 +1,8 @@
 <?php
+
 namespace Mails\MailBundle\Paginator;
 
-class MailsPaginator 
+class MailsPaginator
 {
     const NUM_ITEMS = 1;
 
