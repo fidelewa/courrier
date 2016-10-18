@@ -1,7 +1,7 @@
 <?php
 namespace Mails\MailBundle\Indexor;
 
-class MailsIndexor 
+class MailsIndexor
 {
     const NUM_ITEMS = 1;
 
@@ -48,7 +48,7 @@ class MailsIndexor
         $listMailsentBySecretary = $this
                                 ->em
                                 ->getRepository('MailsMailBundle:Mail')
-                                ->findAllMailSentNotRegistred($idSecretaire, $limit)
+                                ->findLatestMailSentNotRegistred($idSecretaire, $limit)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -60,11 +60,11 @@ class MailsIndexor
 
     public function indexMailreceivedNotRegistredBySecretary($idSecretaire, $limit)
     {
-        // On récupère les $limit derniers courriers envoyés enregistrés par la sécrétaire
+        // On récupère les $limit derniers courriers reçus non encore enregistrés par la sécrétaire courante
         $listMailreceivedBySecretary = $this
                                     ->em
                                     ->getRepository('MailsMailBundle:Mail')
-                                    ->findAllMailReceivedNotRegistred($idSecretaire, $limit)
+                                    ->findLatestMailReceivedNotRegistred($idSecretaire, $limit)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -80,7 +80,7 @@ class MailsIndexor
         $listMailsentByAdmin = $this
                             ->em
                             ->getRepository('MailsMailBundle:Mail')
-                            ->findAllMailSentNotValidated($admin, $limit)
+                            ->findLatestMailSentNotValidated($admin, $limit)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -96,7 +96,7 @@ class MailsIndexor
         $listMailreceivedByAdmin = $this
                             ->em
                             ->getRepository('MailsMailBundle:Mail')
-                            ->findAllMailReceivedNotValidated($admin, $limit)
+                            ->findLatestMailReceivedNotValidated($admin, $limit)
                 ;
                             
         // Et on n'oublie pas de faire un flush !

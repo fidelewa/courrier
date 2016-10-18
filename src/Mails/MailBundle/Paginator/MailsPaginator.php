@@ -19,7 +19,7 @@ class MailsPaginator
                 $listMailsSent = $this
                         ->em
                         ->getRepository('MailsMailBundle:Mail')
-                        ->getMailsSentBySecretary($pageNumber, $itemsNumber, $idSecretary)
+                        ->getAllMailSentNotRegistred($pageNumber, $itemsNumber, $idSecretary)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -34,7 +34,7 @@ class MailsPaginator
                 $listMailsSentNotValidated = $this
                         ->em
                         ->getRepository('MailsMailBundle:Mail')
-                        ->getMailsSentNotValidated($pageNumber, $itemsNumber, $admin)
+                        ->getAllMailSentNotValidated($pageNumber, $itemsNumber, $admin)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -65,7 +65,7 @@ class MailsPaginator
                 $listMailsReceived = $this
                         ->em
                         ->getRepository('MailsMailBundle:Mail')
-                        ->getMailsReceivedBySecretary($pageNumber, $itemsNumber, $idSecretary)
+                        ->getAllMailReceivedNotRegistred($pageNumber, $itemsNumber, $idSecretary)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -81,7 +81,7 @@ class MailsPaginator
                 $listMailsReceivedNotValidated = $this
                         ->em
                         ->getRepository('MailsMailBundle:Mail')
-                        ->getMailsReceivedNotValidated($pageNumber, $itemsNumber, $admin)
+                        ->getAllMailReceivedNotValidated($pageNumber, $itemsNumber, $admin)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
