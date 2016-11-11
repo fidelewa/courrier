@@ -11,9 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Mails\MailBundle\Entity\MailSentRepository")
  */
-class MailSent 
+class MailSent
 {
-   /**
+    /**
     * @ORM\ManyToOne(targetEntity="Mails\MailBundle\Entity\Actor")
     * @ORM\JoinColumn(nullable=false)
     * @Assert\Valid
@@ -39,7 +39,7 @@ class MailSent
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_envoi", type="datetime", nullable=true)
+     * @ORM\Column(name="date_envoi", type="datetime", nullable = false)
      * @Assert\DateTime()
      */
     private $dateEnvoi;
@@ -61,7 +61,7 @@ class MailSent
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -84,7 +84,7 @@ class MailSent
     /**
      * Get dateEnvoi
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateEnvoi()
     {
@@ -109,7 +109,7 @@ class MailSent
     /**
      * Get actor
      *
-     * @return \Mails\MailBundle\Entity\Actor 
+     * @return \Mails\MailBundle\Entity\Actor
      */
     public function getActor()
     {
@@ -132,7 +132,7 @@ class MailSent
     /**
      * Get user
      *
-     * @return \Mails\UserBundle\Entity\User 
+     * @return \Mails\UserBundle\Entity\User
      */
     public function getUser()
     {
