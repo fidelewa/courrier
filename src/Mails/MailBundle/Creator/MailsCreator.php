@@ -22,9 +22,9 @@ class MailsCreator
     
     public function processCreateMailReceived(Form $form, MailReceived $mailreceived, User $user)
     {
-        //On défini notre courrier et on récupère l'id de la sécrétaire qui a enregistré le courrier reçu
+        //On défini notre courrier et on récupère la sécrétaire qui a enregistré le courrier reçu
         $this->courier = $form->getData();
-        $idSecretary = $this->courier->getMailreceived()->getUser()->getId();
+        $secretary = $this->courier->getMailreceived()->getUser();
             
        //On récupère l'expéditeur du courrier reçu
         $sender = $this->courier->getMailreceived()->getActor();
@@ -32,8 +32,8 @@ class MailsCreator
        //On défini l'expéditeur du courrier reçu
         $mailreceived->setActor($sender);
             
-       //On défini la signature de la sécrétaire dans le courrier reçu
-        $this->courier->setVisaSecretaire($idSecretary);
+       //On défini le nom de la sécrétaire dans le courrier reçu
+        $this->courier->setSecretaire($secretary);
             
        //On défini le destinataire du courrier reçu (qui est en faite l'utilisateur qui crée le courrier reçu)
         $recipient = $user;
@@ -52,9 +52,9 @@ class MailsCreator
 
     public function processCreateMailSent(Form $form, MailSent $mailsent, User $user)
     {
-        //On défini notre courrier et on récupère l'id de la sécrétaire qui a enregistré le courrier envoyé
+        //On défini notre courrier et on récupère la sécrétaire qui a enregistré le courrier envoyé
         $this->courier = $form->getData();
-        $idSecretary = $this->courier->getMailsent()->getUser()->getId();
+        $secretary = $this->courier->getMailsent()->getUser();
                             
         //On récupère le destinataire du courrier envoyé
         $recipient = $this->courier->getMailsent()->getActor();
@@ -62,8 +62,8 @@ class MailsCreator
         //On défini le destinataire du courrier envoyé
         $mailsent->setActor($recipient);
                         
-        //On défini la signature de la sécrétaire dans le courrier envoyé
-        $this->courier->setVisaSecretaire($idSecretary);
+        //On défini le nom de la sécrétaire dans le courrier envoyé
+        $this->courier->setSecretaire($secretary);
                             
         //On défini l'expéditeur du courrier envoyé (qui est en faite l'utilisateur qui crée le courrier envoyé)
         $sender = $user;
