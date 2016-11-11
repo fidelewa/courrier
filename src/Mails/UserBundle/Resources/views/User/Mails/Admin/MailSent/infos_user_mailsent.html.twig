@@ -12,4 +12,4 @@
 ,<font size="2px"> Destinataire :</font> <font size="3px"><i><b>{{ mailSentByActor.mailsent.actor.name}}</b></i></font>
 ,<font size="2px"> Enregistrement :</font> <font size="3px">{% if mailSentByActor.registred == true %}OUI{% else %}NON{% endif %}</font>
 ,<font size="2px"> Validation :</font> <font size="3px">{% if mailSentByActor.validated == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Visa secretaire:</font> <font size="3px"><i><b>{{ mailSentByActor.visaSecretaire}}</b></i></font>
+,<font size="2px"> Nom secretaire :</font> <font size="3px"><i><b>{{ mailSentByActor.secretaire.username}}</b></i></font>
