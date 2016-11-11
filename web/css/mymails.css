@@ -1,7 +1,9 @@
+/*Permet d'ajuster la position du contenu de l'application*/
 body { 
     padding-top: 50px; 
 }
 
+/*Permet d'appiquer du style au pied de page*/
 .footer {
     border-top: 1px solid #ccc;
     padding-top: 10px;
@@ -17,14 +19,13 @@ body {
     margin-bottom: 20px;
 }
 
-a:visited /* Quand le visiteur a déjà vu la page concernée */
+/*Permet de colorier le texte du lien lorsque le visiteur a déjà clické la-dessus*/
+a:visited
 {
-    color: red; /* Appliquer une couleur grise */
-    
+    color: red; 
 }
 
+/*Permet de mettre un espace blanc entre toutes les lignes du tableau d'information sur les courriers*/
 .table-view td{
     border:2px white solid;
 }
-
-
