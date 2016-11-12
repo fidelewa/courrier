@@ -1,0 +1,18 @@
+{% extends "MailsCoreBundle::layout.html.twig" %}
+
+{% block body %}
+<h2 class="text-center">{{ block('title') }}</h2>
+
+{% for flashMessage in app.session.flashbag.get('success') %}
+<div class="alert alert-success">{{ flashMessage }}</div>
+{% endfor %}
+  <div class="company_infos_show">
+      <p>Nom de l'entreprise: {{ company.nom }}</p>
+      <p>Secteur d'activité: {{ company.secteurActivite }}</p>
+      <p>Raison sociale: {{ company.raisonSociale }}</p>
+      <p>Siège social: {{ company.siegeSocial }}</p>
+      <p>Adresse e-mail: {{ company.email }}</p>
+      <p>Numéro de téléphone: {{ company.telephone }}</p>
+      <p>Nom du directeur: {{ company.directeur }}</p>
+  </div>
+{% endblock %}

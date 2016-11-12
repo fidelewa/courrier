@@ -5,6 +5,10 @@ namespace Mails\CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Mails\CoreBundle\Form\Type\ContactType;
+use Mails\MailBundle\Form\Type\CompanyType;
+use Mails\MailBundle\Entity\Company;
+use Mails\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class HomeController extends Controller
 {
@@ -54,6 +58,7 @@ class HomeController extends Controller
      * @param String $editRoute the name of the edition route
      * @param String $detailRoute the name of the detail route
      * @param Integer $id id number
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function manageMailsAction($editRoute, $detailRoute, $deleteRoute, $id, $var, $type)
     {
@@ -65,5 +70,73 @@ class HomeController extends Controller
             'var' => $var,
             'type' => $type,
         ));
+    }
+
+     /**
+      * Create a company action.
+      *
+      * @param Request $request Incoming request
+      * @Security("has_role('ROLE_ADMIN')")
+      */
+    public function createCompanyAction(Request $request)
+    {
+        // Création d'une entreprise
+        $company = new Company();
+
+        // We define the id of the company in the user (super admin)
+        $superAdmin = $this->getUser();
+        $superAdmin->setCompany($company);
+
+        //On crée le formulaire de création de l'entreprise
+        $form = $this->createForm(new CompanyType(), $company);
+
+        // Si la requête est en POST
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($company);
+            $em->persist($superAdmin);
+            $em->flush();
+
+            $request
+                    ->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Votre entreprise "'.$company->getNom().'" à bien été créée et enregistré.');
+
+            // On rédirige vers la page des informations concernant l'entreprise
+            return $this->redirect($this->generateUrl('mails_core_company_infos', array('id' => $company->getId())));
+        }
+
+          // Si la requête est en GET
+        return $this->render('MailsCoreBundle:Home:company_create.html.twig', array(
+        'companyForm' => $form->createView(),
+        'title' => 'Ajouter les informations de votre entreprise'
+        ));
+    }
+
+    /**
+      * show informations about the specified company
+      *
+      * @param Integer $id Company id
+      * @Security("has_role('ROLE_ADMIN')")
+      */
+    public function infosCompanyAction($id)
+    {
+        // On récupère l'EntityManager
+          $em = $this->getDoctrine()->getManager();
+          
+          // On récupère l'entreprise spécifiée
+          $company = $em
+          ->getRepository('MailsMailBundle:Company')
+          ->find($id)
+          ;
+
+        if (null === $company) {
+            throw $this->createNotFoundException("L'entreprise' d'id ".$id." n'existe pas.");
+        }
+
+        return $this->render('MailsCoreBundle:Home:company_infos.html.twig', array(
+          'company' => $company,
+          'title' => 'Récapitulatif des informations de votre entreprise'
+          ));
     }
 }

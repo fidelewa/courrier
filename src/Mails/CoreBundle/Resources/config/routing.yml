@@ -7,3 +7,13 @@ mails_core_contact:
     path:     /contact
     methods: [ get,post ]
     defaults: { _controller: MailsCoreBundle:Home:contact }
+
+mails_core_company:
+    path:     /company
+    methods: [ get,post ]
+    defaults: { _controller: MailsCoreBundle:Home:createCompany }
+
+mails_core_company_infos:
+    path:     /infos/company/{id}
+    methods: [ get ]
+    defaults: { _controller: MailsCoreBundle:Home:infosCompany }

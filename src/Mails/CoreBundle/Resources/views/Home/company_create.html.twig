@@ -1,0 +1,112 @@
+{% extends "MailsCoreBundle::layout.html.twig" %}
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+<h2 class="text-center">{{ block('title') }}</h2>
+
+<div class="well">
+
+    {{ form_start(companyForm, {'method': 'post', 'action': path('mails_core_company'), 'attr': {'class': 'form-horizontal'}}) }}
+    <div class="form-group">
+        {{ form_label(companyForm.nom, "Nom de l'entreprise * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(companyForm.nom) }}
+            {{ form_widget(companyForm.nom, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(companyForm.secteurActivite, "Secteur d'activité * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(companyForm.secteurActivite) }}
+            {{ form_widget(companyForm.secteurActivite, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(companyForm.raisonSociale, "Raison sociale * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(companyForm.raisonSociale) }}
+            {{ form_widget(companyForm.raisonSociale, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(companyForm.siegeSocial, "Siège social * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(companyForm.siegeSocial) }}
+            {{ form_widget(companyForm.siegeSocial, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(companyForm.email, "Adresse e-mail * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(companyForm.email) }}
+            {{ form_widget(companyForm.email, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(companyForm.telephone, "Numéro de téléphone * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(companyForm.telephone) }}
+            {{ form_widget(companyForm.telephone, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(companyForm.directeur, "Nom du directeur * :", { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(companyForm.directeur) }}
+            {{ form_widget(companyForm.directeur, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            <input type="submit" class="btn btn-primary" value="Enregistrer" />
+        </div>
+    </div>
+
+  {{ form_rest(companyForm) }}
+    
+  {{ form_end(companyForm) }}
+
+</div>
+
+{% endblock %}
