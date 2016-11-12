@@ -4,11 +4,14 @@
   </thead>
   {% set fond = '#EFEFEF' %}
    {% for user in users %}
-    <tr bgcolor={{fond}} valign='top'>
-      <td>{{ user.username }}</td>
-      <td>{{ include('@show_users_views/roles_user.html.twig') }}</td>
-      <td>{{ include('@show_users_views/actions_user.html.twig') }}</td>
-    </tr>
+   {# we show users from the same company #}
+   {% if app.user.company == user.company %}
+      <tr bgcolor={{fond}} valign='top'>
+        <td>{{ user.username }}</td>
+        <td>{{ include('@show_users_views/roles_user.html.twig') }}</td>
+        <td>{{ include('@show_users_views/actions_user.html.twig') }}</td>
+      </tr>
+    {% endif %}
     {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
   {% endfor %}
 </table>
