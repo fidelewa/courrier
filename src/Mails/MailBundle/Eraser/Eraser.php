@@ -103,4 +103,26 @@ class Eraser
             $this->em->flush();
         }
     }
+
+    public function deleteSecretaryAndAllHisMails($secretary, $allMailRegistredBySecretary)
+    {
+        if ((empty($allMailRegistredBySecretary))) {
+            //On supprime l'user spécifié
+            $this->em->remove($secretary);
+
+            //On exécute ces opérations de suppression
+            $this->em->flush();
+        } else {
+            foreach ($allMailRegistredBySecretary as $mailRegistredBySecretary) {
+                // On supprime tous les courriers envoyés par l'user spécifié
+                $this->em->remove($mailRegistredBySecretary);
+            }
+            
+            //On supprime l'user spécifié
+            $this->em->remove($secretary);
+        
+            //On exécute ces opérations de suppression
+            $this->em->flush();
+        }
+    }
 }

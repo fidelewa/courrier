@@ -128,14 +128,23 @@ class UserController extends Controller
         if (null === $user) {
             throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
-        
+                
         // On stocke le nom de l'utilisateur dans une variable tampon
         $tempUserName = $user->getUsername();
 
         // On récupère notre service eraser
         $eraser = $this->get('mails_mail.eraser');
 
-        //supression de l'utilisateur
+        // Si l'user est une secretaire
+        if (in_array("ROLE_SECRETAIRE", $user->getRoles())) {
+            // On récupère la liste de tous les courrier enregistrés par la sécrétaire concernée
+            $allMailRegistredBySecretary = $em->getRepository('MailsMailBundle:Mail')->getAllMailRegistred($user);
+
+            // supression de la sécrétaire
+            $eraser->deleteSecretaryAndAllHisMails($user, $allMailRegistredBySecretary);
+        }
+
+        // supression de l'utilisateur
         $eraser->deleteUserAndAllHisMails($user, $allMailsentByUser, $allMailreceivedByUser);
         
         $request
