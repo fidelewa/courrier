@@ -8,6 +8,7 @@ body {
     border-top: 1px solid #ccc;
     padding-top: 10px;
     text-align: center;
+    /*position: relative;*/
 }
 
 .mailObjet:hover, .mailObjet:focus {
@@ -28,4 +29,9 @@ a:visited
 /*Permet de mettre un espace blanc entre toutes les lignes du tableau d'information sur les courriers*/
 .table-view td{
     border:2px white solid;
+}
+
+/*Permet d'ajuster la position du contenu de l'application*/
+.fos_user_user_show { 
+    padding-top: 30px; 
 }
