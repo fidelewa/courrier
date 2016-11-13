@@ -8,6 +8,16 @@ use Doctrine\ORM\EntityRepository;
 
 class MailSentHeir3Type extends AbstractType
 {
+    private $adminCompany;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($adminCompany)
+    {
+        $this->adminCompany = $adminCompany;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -18,8 +28,9 @@ class MailSentHeir3Type extends AbstractType
         'expanded' => false,
         'query_builder' => function (EntityRepository $er) {
             return $er->createQueryBuilder('u')
-                ->where('u.roles = :role')
-                ->setParameter('role', 'a:1:{i:0;s:15:"ROLE_SECRETAIRE";}');
+                ->where('u.roles = :role AND u.company = :company')
+                //->setParameter('role', 'a:1:{i:0;s:15:"ROLE_SECRETAIRE";}')
+                ->setParameters(array('role' => 'a:1:{i:0;s:15:"ROLE_SECRETAIRE";}', 'company' => $this->adminCompany));
         },
           ))
         ;

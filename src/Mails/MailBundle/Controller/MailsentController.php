@@ -38,7 +38,7 @@ class MailsentController extends Controller
           $courier->setMailsent($mailsent);
 
           //On crée un formulaire de création de courrier
-          $form = $this->createForm(new MailMailsentAdminType(), $courier);
+          $form = $this->createForm(new MailMailsentAdminType($this->getUser()), $courier);
           
           // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
