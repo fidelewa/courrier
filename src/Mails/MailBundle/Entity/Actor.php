@@ -4,6 +4,7 @@ namespace Mails\MailBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Actor
@@ -25,9 +26,16 @@ class Actor
     private $id;
 
     /**
+    * @ORM\ManyToOne(targetEntity="Mails\UserBundle\Entity\User")
+    * @ORM\JoinColumn(nullable=true)
+    * @Assert\Valid
+    */
+    private $user;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=20)
      */
     private $name;
     
@@ -35,7 +43,7 @@ class Actor
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -58,10 +66,34 @@ class Actor
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Mails\UserBundle\Entity\User $user
+     *
+     * @return Actor
+     */
+    public function setUser(\Mails\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Mails\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
