@@ -83,15 +83,16 @@ class HomeController extends Controller
         // Création d'une entreprise
         $company = new Company();
 
-        // We define the id of the company in the user (super admin)
-        $superAdmin = $this->getUser();
-        $superAdmin->setCompany($company);
-
         //On crée le formulaire de création de l'entreprise
         $form = $this->createForm(new CompanyType(), $company);
 
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
+
+            // We define the id of the company in the user (super admin)
+            $superAdmin = $this->getUser();
+            $superAdmin->setCompany($company);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($company);
             $em->persist($superAdmin);
