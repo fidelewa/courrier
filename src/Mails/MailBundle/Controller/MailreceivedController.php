@@ -38,7 +38,7 @@ class MailreceivedController extends Controller
         $courier->setMailreceived($mailreceived);
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedAdminType(), $courier);
+        $form = $this->createForm(new MailMailreceivedAdminType($this->getUser()), $courier);
         
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
