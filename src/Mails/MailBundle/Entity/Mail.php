@@ -1,5 +1,4 @@
 <?php
-
 namespace Mails\MailBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -18,15 +17,24 @@ class Mail
 {
     /**
     * @ORM\OneToOne(targetEntity="Mails\MailBundle\Entity\MailSent", cascade={"persist","remove"})
+    * @ORM\JoinColumn(nullable=false)
     * @Assert\Valid
     */
     private $mailsent;
     
     /**
     * @ORM\OneToOne(targetEntity="Mails\MailBundle\Entity\MailReceived", cascade={"persist","remove"})
+    * @ORM\JoinColumn(nullable=false)
     * @Assert\Valid
     */
     private $mailreceived;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Mails\UserBundle\Entity\User")
+    * @ORM\JoinColumn(nullable=false)
+    * @Assert\Valid
+    */
+    private $secretaire;
     
     /**
      * @var integer
@@ -40,7 +48,7 @@ class Mail
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=255)
+     * @ORM\Column(name="reference", type="string", length=10)
      * @Assert\Regex(
      *     pattern="/^(CDEP[0-9]{4}|CARR[0-9]{4})$/",
      *     match=true,
@@ -52,7 +60,7 @@ class Mail
     /**
      * @var string
      *
-     * @ORM\Column(name="objet", type="string", length=255)
+     * @ORM\Column(name="objet", type="string", length=50)
      */
     private $objet;
 
@@ -107,16 +115,12 @@ class Mail
      * )
      */
     private $nbDaysBefore;
-    
-    /**
-     * @ORM\Column(name="visa_secretaire", type="integer")
-     */
-    private $visaSecretaire;
 
     /**
+
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -139,7 +143,7 @@ class Mail
     /**
      * Get reference
      *
-     * @return string 
+     * @return string
      */
     public function getReference()
     {
@@ -162,7 +166,7 @@ class Mail
     /**
      * Get objet
      *
-     * @return string 
+     * @return string
      */
     public function getObjet()
     {
@@ -185,7 +189,7 @@ class Mail
     /**
      * Get dateEdition
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateEdition()
     {
@@ -208,7 +212,7 @@ class Mail
     /**
      * Get nombrePiecesJointes
      *
-     * @return integer 
+     * @return integer
      */
     public function getNombrePiecesJointes()
     {
@@ -231,7 +235,7 @@ class Mail
     /**
      * Get received
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getReceived()
     {
@@ -256,7 +260,7 @@ class Mail
     /**
      * Get mailsent
      *
-     * @return \Mails\MailBundle\Entity\MailSent 
+     * @return \Mails\MailBundle\Entity\MailSent
      */
     public function getMailsent()
     {
@@ -279,7 +283,7 @@ class Mail
     /**
      * Get mailreceived
      *
-     * @return \Mails\MailBundle\Entity\MailReceived 
+     * @return \Mails\MailBundle\Entity\MailReceived
      */
     public function getMailreceived()
     {
@@ -302,7 +306,7 @@ class Mail
     /**
      * Get treated
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getTreated()
     {
@@ -319,30 +323,6 @@ class Mail
     public function getNbDaysBefore()
     {
         return $this->nbDaysBefore;
-    }
- 
-
-    /**
-     * Set visaSecretaire
-     *
-     * @param integer $visaSecretaire
-     * @return Mail
-     */
-    public function setVisaSecretaire($visaSecretaire)
-    {
-        $this->visaSecretaire = $visaSecretaire;
-
-        return $this;
-    }
-
-    /**
-     * Get visaSecretaire
-     *
-     * @return integer 
-     */
-    public function getVisaSecretaire()
-    {
-        return $this->visaSecretaire;
     }
 
     /**
@@ -361,7 +341,7 @@ class Mail
     /**
      * Get validated
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getValidated()
     {
@@ -384,10 +364,34 @@ class Mail
     /**
      * Get registred
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getRegistred()
     {
         return $this->registred;
+    }
+
+    /**
+     * Set secretaire
+     *
+     * @param \Mails\UserBundle\Entity\User $secretaire
+     *
+     * @return Mail
+     */
+    public function setSecretaire(\Mails\UserBundle\Entity\User $secretaire = null)
+    {
+        $this->secretaire = $secretaire;
+
+        return $this;
+    }
+
+    /**
+     * Get secretaire
+     *
+     * @return \Mails\UserBundle\Entity\User
+     */
+    public function getSecretaire()
+    {
+        return $this->secretaire;
     }
 }
