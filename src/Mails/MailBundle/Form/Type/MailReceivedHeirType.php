@@ -7,6 +7,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MailReceivedHeirType extends AbstractType
 {
+    private $adminCompany;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($adminCompany)
+    {
+        $this->adminCompany = $adminCompany;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -21,6 +31,6 @@ class MailReceivedHeirType extends AbstractType
 
     public function getParent()
     {
-        return new MailReceivedType();
+        return new MailReceivedType($adminCompany);
     }
 }

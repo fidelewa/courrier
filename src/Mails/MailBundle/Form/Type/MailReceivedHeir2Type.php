@@ -43,6 +43,6 @@ class MailReceivedHeir2Type extends AbstractType
 
     public function getParent()
     {
-        return new MailReceivedType();
+        return new MailReceivedType($this->adminCompany);
     }
 }

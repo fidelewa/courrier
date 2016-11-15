@@ -8,13 +8,23 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class MailMailreceivedFilterType extends AbstractType
 {
+    private $admin;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($user)
+    {
+        $this->admin = $user;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
         ->remove('reference', 'text')
         ->remove('objet', 'text')
         ->remove('nombrePiecesJointes', 'text')
-        ->remove('mailreceived', new MailReceivedType())
+        ->remove('mailreceived', new MailReceivedType($this->admin->getCompany()))
         ->remove('dateEdition', 'datetime')
         ->add('nbDaysBefore', new IntegerType())
         ->remove('save', 'submit')
@@ -29,6 +39,6 @@ class MailMailreceivedFilterType extends AbstractType
 
     public function getParent()
     {
-        return new MailMailreceivedType();
+        return new MailMailreceivedType($this->admin->getCompany());
     }
 }

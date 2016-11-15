@@ -32,6 +32,6 @@ class MailMailreceivedAdminType extends AbstractType
 
     public function getParent()
     {
-        return new MailMailreceivedType();
+        return new MailMailreceivedType($this->admin->getCompany());
     }
 }

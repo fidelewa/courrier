@@ -10,6 +10,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MailMailreceivedType extends AbstractType
 {
+    private $adminCompany;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($adminCompany)
+    {
+        $this->adminCompany = $adminCompany;
+    }
+
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -22,7 +33,7 @@ class MailMailreceivedType extends AbstractType
             ->add('dateEdition', 'datetime')
             ->add('nombrePiecesJointes', 'text')
             ->add('received', 'checkbox', array('required' => false))
-            ->add('mailreceived', new MailReceivedType())
+            ->add('mailreceived', new MailReceivedType($this->adminCompany))
             ->add('save', 'submit')
             //->add('nbDaysBefore','text')
             //->add('mailsent', new MailSentType())
