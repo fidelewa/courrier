@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Mails\CoreBundle\Form\Type\ContactType;
 use Mails\MailBundle\Form\Type\CompanyType;
 use Mails\MailBundle\Entity\Company;
-use Mails\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class HomeController extends Controller
