@@ -3,6 +3,9 @@
 namespace Mails\MailBundle\Manager;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Mails\MailBundle\Paginator\MailsPaginator;
+use Mails\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
 
 class ListMailUserManager
 {
@@ -13,7 +16,7 @@ class ListMailUserManager
         $this->nbPageCalculator = $nbPageCalculator;
     }
 
-    public function manageListMailsentByUserRole($user, $page, $request, \Mails\MailBundle\Paginator\MailsPaginator $paginator)
+    public function manageListMailsentByUserRole(User $user, $page, Request $request, MailsPaginator $paginator)
     {
         //Utilisateur authentifié ou non
         if ($user !== null) {
@@ -75,7 +78,7 @@ class ListMailUserManager
         }
     }
 
-    public function manageListMailreceivedByUserRole($user, $page, $request, \Mails\MailBundle\Paginator\MailsPaginator $paginator)
+    public function manageListMailreceivedByUserRole(User $user, $page, Request $request, \Mails\MailBundle\Paginator\MailsPaginator $paginator)
     {
         //Utilisateur authentifié ou non
         if ($user !== null) {
