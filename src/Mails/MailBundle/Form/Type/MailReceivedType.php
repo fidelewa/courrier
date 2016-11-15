@@ -67,9 +67,4 @@ class MailReceivedType extends AbstractType
     {
         return 'mails_mailbundle_mailreceived';
     }
-
-    /*public function getParent()
-    {
-        return new MailType();
-    }*/
 }
