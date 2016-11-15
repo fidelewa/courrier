@@ -13,7 +13,7 @@ class ListMailUserManager
         $this->nbPageCalculator = $nbPageCalculator;
     }
 
-    public function manageListMailsentByUserRole($user, $page, $request, $paginator)
+    public function manageListMailsentByUserRole($user, $page, $request, Mails\MailBundle\Paginator\MailsPaginator $paginator)
     {
         //Utilisateur authentifié ou non
         if ($user !== null) {
@@ -75,7 +75,7 @@ class ListMailUserManager
         }
     }
 
-    public function manageListMailreceivedByUserRole($user, $page, $request, $paginator)
+    public function manageListMailreceivedByUserRole($user, $page, $request, Mails\MailBundle\Paginator\MailsPaginator $paginator)
     {
         //Utilisateur authentifié ou non
         if ($user !== null) {
