@@ -1,7 +1,7 @@
 <?php
 namespace Mails\MailBundle\Lister;
 
-class MailsLister 
+class MailsLister
 {
     const NUM_ITEMS = 1;
 
@@ -12,18 +12,18 @@ class MailsLister
         $this->em = $entityManager;
     }
     
-    public function listAdminActor()
+    public function listContactCompany($adminCompany)
     {
-        // On récupère la liste de tous les contacts
-                $listActor = $this
+        // On récupère la liste de tous les contacts de l'entreprise de l'administrateur courant
+                $listContactCompany = $this
                         ->em
                         ->getRepository('MailsMailBundle:Actor')
-                        ->findAll()
+                        ->getContactCompany($adminCompany)
                 ;
                             
         $this->em->flush();
 
-        return $listActor;
+        return $listContactCompany;
     }
 
     public function listAdminUser()
