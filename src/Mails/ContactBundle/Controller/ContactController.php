@@ -23,8 +23,8 @@ class ContactController extends Controller
         // On récupère notre service lister
         $lister = $this->get('mails_mail.mail_lister');
 
-        // On affiche la liste de tous les contacts
-        $listActor = $lister->listAdminActor();
+        // On affiche la liste de tous les contacts de l'entreprise de l'administrateur courant
+        $listActor = $lister->listContactCompany($this->getUser()->getCompany());
 
         return $this->render('MailsContactBundle:Contact:contact.html.twig', array(
             'actors' => $listActor
@@ -130,6 +130,10 @@ class ContactController extends Controller
 
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
+
+            // We define the id of the user who has created the contact in the contact
+            $actor->setUser($this->getUser());
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($actor);
             $em->flush();
