@@ -74,7 +74,7 @@ class MailreceivedController extends Controller
         }
 
         //On crée le formulaire
-        $form = $this->createForm(new MailMailreceivedEditType(), $mail);
+        $form = $this->createForm(new MailMailreceivedEditType($this->getUser()), $mail);
 
         //Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -159,7 +159,7 @@ class MailreceivedController extends Controller
         $mailReceived->setdateEdition(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
         
         //On crée le formulaire
-        $form = $this->createForm(new MailMailreceivedSecretaryType, $mailReceived);
+        $form = $this->createForm(new MailMailreceivedSecretaryType($this->getUser()->getCompany()), $mailReceived);
         
         //Si la réquête est en POST
         if ($form->handleRequest($request)->isValid()) {

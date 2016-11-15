@@ -25,7 +25,7 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailsentFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailMailsentFilterType($this->getUser()), $mailFactory::create());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -68,7 +68,7 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailsentFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailMailsentFilterType($this->getUser()), $mailFactory::create());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -112,7 +112,7 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailsentFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailMailsentFilterType($this->getUser()), $mailFactory::create());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -153,7 +153,7 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
         
         //On crée notre formulaire
-        $form = $this->createForm(new MailSentFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailSentFilterType($this->getUser()), $mailFactory::create());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {

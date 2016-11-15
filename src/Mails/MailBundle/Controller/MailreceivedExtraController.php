@@ -26,7 +26,7 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
         
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailMailreceivedFilterType($this->getUser()), $mailFactory::create());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -70,7 +70,7 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailMailreceivedFilterType($this->getUser()), $mailFactory::create());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -111,7 +111,7 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailMailreceivedFilterType($this->getUser()), $mailFactory::create());
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -152,7 +152,7 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailReceivedFilterType(), $mailFactory::create());
+        $form = $this->createForm(new MailReceivedFilterType($this->getUser()), $mailFactory::create());
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
