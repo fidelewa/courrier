@@ -49,11 +49,7 @@ class Mail
      * @var string
      *
      * @ORM\Column(name="reference", type="string", length=10)
-     * @Assert\Regex(
-     *     pattern="/^(CDEP[0-9]{4}|CARR[0-9]{4})$/",
-     *     match=true,
-     *     message="La référence du courrier n'est pas valide, elle doit être de la forme CDEP[0-9]{4} ou CARR[0-9]{4}."
-     * )
+     *
      */
     private $reference;
 
