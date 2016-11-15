@@ -41,12 +41,12 @@ class MailSentType extends AbstractType
                 ;
             },
             ))
-            ->remove('user', 'entity', array(
+            /*->remove('user', 'entity', array(
             'class'    => 'MailsUserBundle:User',
             'choice_label' => 'username',
             'multiple' => false,
             'expanded' => false,
-            ))
+            ))*/
         ;
     }
     

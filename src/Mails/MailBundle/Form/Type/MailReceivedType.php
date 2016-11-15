@@ -41,12 +41,12 @@ class MailReceivedType extends AbstractType
                 ;
             },
             ))
-            ->remove('user', 'entity', array(
+            /*->remove('user', 'entity', array(
             'class'    => 'MailsUserBundle:User',
             'choice_label' => 'username',
             'multiple' => false,
             'expanded' => false
-            ))
+            ))*/
         ;
     }
     
@@ -67,4 +67,9 @@ class MailReceivedType extends AbstractType
     {
         return 'mails_mailbundle_mailreceived';
     }
+
+    /*public function getParent()
+    {
+        return new MailType();
+    }*/
 }
