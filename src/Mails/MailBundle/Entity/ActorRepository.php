@@ -4,7 +4,6 @@ namespace Mails\MailBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-
 /**
  * ActorRepository
  *
@@ -13,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class ActorRepository extends EntityRepository
 {
+    public function getContactCompany($adminCompany)
+    {
+        //Permet de récupérer la liste des contacts de l'entreprise de l'administrateur courant
+
+        $qb = $this
+            ->createQueryBuilder('a')
+            ->join('a.user', 'u')
+            ->addSelect('u')
+            ->where('u.company = :company')
+            ->setParameter('company', $adminCompany)
+        ;
+
+        $query = $qb
+                ->getQuery()
+                ->useQueryCache(true)
+                //->useResultCache(true, 3600, 'find_latest_mailsent')
+        ;
+
+        return $query->getResult();
+    }
 }
