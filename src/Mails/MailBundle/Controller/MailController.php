@@ -21,67 +21,16 @@ class MailController extends Controller
         if ($page < 1) {
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
-        
-        // On récupère notre service paginator
-        $paginator = $this->get('mails_mail.mail_paginator');
 
-        // On récupère notre service calculator
-        $nbPageCalculator = $this->get('mails_mail.nbpage_calculator');
+        // On récupère notre service index user role manager
+        $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
-        //Utilisateur authentifié ou non
-        if ($this->getUser() !== null) {
-            //On récupère les roles de l'user
-            $userRoles = $this->getUser()->getRoles();
+        // Process
+        $listMailsentUserManager = $listMailUserManager
+        ->manageListMailsentByUserRole($this->getUser(), $page, $request, $this->get('mails_mail.mail_paginator'));
 
-            //En fonction du profil on fait la pagination de l'index des courriers envoyés
-            if (in_array("ROLE_SECRETAIRE", $userRoles)) {
-                // On récupère notre objet Paginator en fonction des critères spécifiés
-                $listMailsSent = $paginator
-                               ->pageIndexMailsentBySecretary($page, $paginator::NUM_ITEMS, $this->getUser()->getId());
-
-                // On calcule le nombre total de pages en fonction du nombre total de courriers envoyé
-                $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
-
-                if ($page > $nombreTotalPages) {
-                    $request
-                    ->getSession()
-                    ->getFlashBag()
-                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier envoyés à enregistrer !');
-                    return $this->redirect($this->generateUrl('mails_core_home'));
-                }
-            }
-            if (in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_SUPER_ADMIN", $userRoles)) {
-                // On récupère notre objet Paginator en fonction des critères spécifiés
-                $listMailsSent = $paginator
-                               ->pageIndexMailsentNotValidated($page, $paginator::NUM_ITEMS, $this->getUser());
-
-                // On calcule le nombre total de pages en fonction du nombre total de courriers envoyé
-                $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
-
-                if ($page > $nombreTotalPages) {
-                    $request
-                    ->getSession()
-                    ->getFlashBag()
-                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier envoyés à valider !');
-                    return $this->redirect($this->generateUrl('mails_core_home'));
-                }
-            }
-        } else {
-            // On récupère notre objet Paginator en fonction des critères spécifiés
-            $listMailsSent = $paginator->pageIndexMailsent($page, $paginator::NUM_ITEMS);
-
-            /* On calcule le nombre total de pages grâce
-            au count($listMailsSent) qui retourne le nombre total de courriers envoyé */
-            $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
-
-            if ($page > $nombreTotalPages) {
-                $request
-                ->getSession()->getFlashBag()->add('danger', 'Il n\'y a aucune liste de courrier envoyés !');
-                return $this->redirect($this->generateUrl('mails_core_home'));
-            }
-        }
-        
-        return array('mails' => $listMailsSent,'nbPages' => $nombreTotalPages,'page' => $page);
+        // result
+        return $listMailsentUserManager;
     }
     
     /**
@@ -95,66 +44,16 @@ class MailController extends Controller
         if ($page < 1) {
             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
-
-        // On récupère notre service paginator
-        $paginator = $this->get('mails_mail.mail_paginator');
-
-        // On récupère notre service calculator
-        $nbPageCalculator = $this->get('mails_mail.nbpage_calculator');
         
-        //Utilisateur authentifié ou non
-        if ($this->getUser() !== null) {
-            //On récupère les roles de l'user
-            $userRoles = $this->getUser()->getRoles();
-            
-            if (in_array("ROLE_SECRETAIRE", $userRoles)) {
-                // On récupère notre objet Paginator en fonction des critères spécifiés
-                $listMailsReceived = $paginator
-                ->pageIndexMailreceivedBySecretary($page, $paginator::NUM_ITEMS, $this->getUser()->getId());
+        // On récupère notre service index user role manager
+        $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
-                // On calcule le nombre total de pages en fonction du nombre total de courriers reçu
-                $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsReceived, $page);
+        // Process
+        $listMailreceivedUserManager = $listMailUserManager
+        ->manageListMailreceivedByUserRole($this->getUser(), $page, $request, $this->get('mails_mail.mail_paginator'));
 
-                if ($page > $nombreTotalPages) {
-                    $request
-                    ->getSession()
-                    ->getFlashBag()
-                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier reçus à enregistrer !');
-                    return $this->redirect($this->generateUrl('mails_core_home'));
-                }
-            }
-            if (in_array("ROLE_ADMINISTRATEUR", $userRoles) || in_array("ROLE_SUPER_ADMIN", $userRoles)) {
-                // On récupère notre objet Paginator en fonction des critères spécifiés
-                $listMailsReceived = $paginator
-                                   ->pageIndexMailreceivedNotValidated($page, $paginator::NUM_ITEMS, $this->getUser());
-
-                // On calcule le nombre total de pages en fonction du nombre total de courriers reçu
-                $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsReceived, $page);
-
-                if ($page > $nombreTotalPages) {
-                    $request
-                    ->getSession()
-                    ->getFlashBag()
-                    ->add('danger', 'vous n\'avez pour le moment aucune liste de courrier reçus à valider !');
-                    return $this->redirect($this->generateUrl('mails_core_home'));
-                }
-            }
-        } else {
-            // On récupère notre objet Paginator en fonction des critères spécifiés
-            $listMailsReceived = $paginator->pageIndexMailreceived($page, $paginator::NUM_ITEMS);
-
-            /* On calcule le nombre total de pages grâce
-            au count($listMailsReceived) qui retourne le nombre total de courriers reçus */
-            $nombreTotalPages= $nbPageCalculator->calculateTotalNumberPage($listMailsReceived, $page);
-
-            if ($page > $nombreTotalPages) {
-                $request
-                ->getSession()->getFlashBag()->add('danger', 'Il n\'y a aucune liste de courrier reçu !');
-                return $this->redirect($this->generateUrl('mails_core_home'));
-            }
-        }
-
-        return array('mails' => $listMailsReceived, 'nombreTotalPages' => $nombreTotalPages, 'page' => $page);
+        // result
+        return $listMailreceivedUserManager;
     }
     
     /**

@@ -46,3 +46,7 @@ services:
 
     mails_mail.mail_factory:
         class: Mails\MailBundle\Factory\MailFactory
+
+    mails_mail.list_mail_user_manager:
+        class: Mails\MailBundle\Manager\ListMailUserManager
+        arguments: [@mails_mail.nbpage_calculator]
