@@ -8,6 +8,16 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class MailSentFilterType extends AbstractType
 {
+    private $admin;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($user)
+    {
+        $this->admin = $user;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -16,7 +26,7 @@ class MailSentFilterType extends AbstractType
         ->remove('nombrePiecesJointes', 'text')
         ->remove('objet', 'text')
         ->add('nbDaysBefore', new IntegerType())
-        ->add('mailsent', new MailSentHeirType())
+        ->add('mailsent', new MailSentHeirType($this->admin->getCompany()))
         ->remove('save', 'submit')
         ->add('rechercher', 'submit')
         
@@ -30,6 +40,6 @@ class MailSentFilterType extends AbstractType
 
     public function getParent()
     {
-        return new MailMailsentType();
+        return new MailMailsentType($this->admin->getCompany());
     }
 }

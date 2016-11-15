@@ -7,6 +7,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MailMailsentSecretaryType extends AbstractType
 {
+    private $adminCompany;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($adminCompany)
+    {
+        $this->adminCompany = $adminCompany;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -24,6 +34,6 @@ class MailMailsentSecretaryType extends AbstractType
 
     public function getParent()
     {
-        return new MailMailsentType();
+        return new MailMailsentType($this->adminCompany);
     }
 }

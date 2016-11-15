@@ -10,6 +10,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MailMailsentType extends AbstractType
 {
+    private $adminCompany;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($adminCompany)
+    {
+        $this->adminCompany = $adminCompany;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -21,12 +31,12 @@ class MailMailsentType extends AbstractType
             ->add('objet', 'text')
             ->add('dateEdition', 'datetime')
             ->add('nombrePiecesJointes', 'text')
-            ->add('mailsent', new MailSentType())
+            ->add('mailsent', new MailSentType($this->adminCompany))
             //->add('mailsent', new MailSentHeirType())
             //->add('mailsent', new MailSentHeir2Type())
             //->add('mailsent', new MailSentHeir3Type())
             //->add('mailreceived', new MailReceivedType())
-            //->add('nbDaysBefore','text')
+            //->add('nbDaysBefore', 'text')
             ->add('save', 'submit')
             
         ;

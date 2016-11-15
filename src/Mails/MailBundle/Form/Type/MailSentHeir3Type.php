@@ -43,6 +43,6 @@ class MailSentHeir3Type extends AbstractType
 
     public function getParent()
     {
-        return new MailSentType();
+        return new MailSentType($this->adminCompany);
     }
 }

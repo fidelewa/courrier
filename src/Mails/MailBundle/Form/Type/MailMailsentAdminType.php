@@ -32,6 +32,6 @@ class MailMailsentAdminType extends AbstractType
 
     public function getParent()
     {
-        return new MailMailsentType();
+        return new MailMailsentType($this->admin->getCompany());
     }
 }
