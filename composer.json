@@ -24,7 +24,10 @@
         "squizlabs/php_codesniffer": "^2.7",
         "leaseweb/memcache-bundle": "^2.1",
         "coresphere/console-bundle": "^0.4.0",
-        "phpdocumentor/phpdocumentor": "^2.9"
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "sonata-project/admin-bundle": "^3.9",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.1",
+        "phpunit/phpunit": "4.8.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
