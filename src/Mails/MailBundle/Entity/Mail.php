@@ -17,14 +17,14 @@ class Mail
 {
     /**
     * @ORM\OneToOne(targetEntity="Mails\MailBundle\Entity\MailSent", cascade={"persist","remove"})
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     * @Assert\Valid
     */
     private $mailsent;
     
     /**
     * @ORM\OneToOne(targetEntity="Mails\MailBundle\Entity\MailReceived", cascade={"persist","remove"})
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     * @Assert\Valid
     */
     private $mailreceived;
