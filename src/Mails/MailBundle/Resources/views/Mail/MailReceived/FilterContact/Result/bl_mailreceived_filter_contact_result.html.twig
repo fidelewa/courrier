@@ -5,5 +5,7 @@
     <div class="alert alert-warning">Aucune donnée ne correspond à cette recherche !</div>
 {% endif %}
 {% if app.user and is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a> 
+    <a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a> |
+    <a href="{{ path('mails_contact_all_mail', {'id': actor.id}) }}"><u>Retour à la liste des courriers du contact <b><i>{{actor.name}}</b></i></u></a>
+    | <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
 {% endif %}
