@@ -27,7 +27,7 @@ class MailReceivedType extends AbstractType
     {
         $builder
             ->add('dateReception', 'datetime')
-            ->add('actor', 'entity', array(
+            ->add('actor', 'entity', array(//Champs du destinataire du courrier reçu
             'class'    => 'MailsMailBundle:Actor',
             'choice_label' => 'name',
             'multiple' => false,
@@ -41,13 +41,18 @@ class MailReceivedType extends AbstractType
                 ;
             },
             ))
-            /*->remove('user', 'entity', array(
+            ->add('user', 'entity', array(//Champs de la sécrétaire qui doit enregistrer le courrier reçu
             'class'    => 'MailsUserBundle:User',
             'choice_label' => 'username',
             'multiple' => false,
-            'expanded' => false
-            ))*/
-        ;
+            'expanded' => false,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                ->where('u.roles = :role AND u.company = :company')
+                ->setParameters(array('role' => 'a:1:{i:0;s:15:"ROLE_SECRETAIRE";}', 'company' => $this->adminCompany));
+            },
+            ))
+            ;
     }
     
     /**
