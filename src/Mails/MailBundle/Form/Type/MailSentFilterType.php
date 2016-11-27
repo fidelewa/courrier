@@ -26,7 +26,7 @@ class MailSentFilterType extends AbstractType
         ->remove('nombrePiecesJointes', 'text')
         ->remove('objet', 'text')
         ->add('nbDaysBefore', new IntegerType())
-        ->add('mailsent', new MailSentHeirType($this->admin->getCompany()))
+        ->add('mailsent', new MailsentRemovedateEnvoiAndSecretaryType($this->admin))
         ->remove('save', 'submit')
         ->add('rechercher', 'submit')
         

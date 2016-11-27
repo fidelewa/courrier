@@ -26,7 +26,7 @@ class MailReceivedFilterType extends AbstractType
         ->remove('nombrePiecesJointes', 'text')
         ->remove('objet', 'text')
         ->add('nbDaysBefore', new IntegerType())
-        ->add('mailreceived', new MailReceivedHeirType($this->admin->getCompany()))
+        ->add('mailreceived', new MailreceivedRemovedateReceptionAndSecretaryType($this->admin))
         ->remove('save', 'submit')
         ->add('rechercher', 'submit')
         ;
