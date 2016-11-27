@@ -32,11 +32,6 @@ class MailMailsentType extends AbstractType
             ->add('dateEdition', 'datetime')
             ->add('nombrePiecesJointes', 'text')
             ->add('mailsent', new MailSentType($this->adminCompany))
-            //->add('mailsent', new MailSentHeirType())
-            //->add('mailsent', new MailSentHeir2Type())
-            //->add('mailsent', new MailSentHeir3Type())
-            //->add('mailreceived', new MailReceivedType())
-            //->add('nbDaysBefore', 'text')
             ->add('save', 'submit')
             
         ;

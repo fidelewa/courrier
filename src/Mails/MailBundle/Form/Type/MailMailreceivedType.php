@@ -30,13 +30,11 @@ class MailMailreceivedType extends AbstractType
         $builder
             ->add('reference', 'text')
             ->add('objet', 'text')
-            ->add('dateEdition', 'datetime')
+            ->add('dateEdition', 'datetime')//apparait pour la date d'enregistrement du courrier
             ->add('nombrePiecesJointes', 'text')
             ->add('received', 'checkbox', array('required' => false))
             ->add('mailreceived', new MailReceivedType($this->adminCompany))
             ->add('save', 'submit')
-            //->add('nbDaysBefore','text')
-            //->add('mailsent', new MailSentType())
         ;
         
         // On ajoute une fonction qui va écouter l'évènement PRE_SET_DATA
