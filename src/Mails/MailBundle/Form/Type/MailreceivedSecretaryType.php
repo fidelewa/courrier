@@ -5,7 +5,7 @@ namespace Mails\MailBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MailMailreceivedSecretaryType extends AbstractType
+class MailreceivedSecretaryType extends AbstractType
 {
     private $adminCompany;
 

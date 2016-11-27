@@ -5,7 +5,7 @@ namespace Mails\MailBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MailMailsentAdminType extends AbstractType
+class MailsentRegisterType extends AbstractType
 {
     private $admin;
 
@@ -20,8 +20,7 @@ class MailMailsentAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->remove('dateEdition', 'datetime')
-        ->add('mailsent', new MailSentHeir3Type($this->admin->getCompany()))
+        ->remove('dateEdition', 'datetime')//supprimer dans la création d'un nouveau courrier envoyé
         ;
     }
 

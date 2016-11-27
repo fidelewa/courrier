@@ -5,7 +5,7 @@ namespace Mails\MailBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MailMailsentEditType extends AbstractType
+class MailreceivedRegisterType extends AbstractType
 {
     private $admin;
 
@@ -16,21 +16,21 @@ class MailMailsentEditType extends AbstractType
     {
         $this->admin = $user;
     }
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->remove('dateEdition', 'datetime')
+        ->remove('dateEdition', 'datetime')//supprimer dans la création d'un nouveau courrier reçu
         ;
     }
 
     public function getName()
     {
-        return 'mails_mailbundle_mailsent_edit';
+        return 'mails_mailbundle_mailreceived_admin';
     }
 
     public function getParent()
     {
-        return new MailMailsentType($this->admin->getCompany());
+        return new MailMailreceivedType($this->admin->getCompany());
     }
 }
