@@ -21,9 +21,6 @@ services:
     mails_mail.nbpage_calculator:
         class: Mails\MailBundle\Calculator\NbPageCalculator
 
-    mails_mail.mail.model.class:
-        class: Mails\MailBundle\Entity\Mail
-
     mails_mail.eraser:
         class: Mails\MailBundle\Eraser\Eraser
         arguments: [@doctrine.orm.entity_manager]
@@ -46,7 +43,10 @@ services:
 
     mails_mail.mail_factory:
         class: Mails\MailBundle\Factory\MailFactory
+#MODEL CLASS AS SERVICE
+    mails_mail.mail.model.class:
+        class: Mails\MailBundle\Entity\Mail
 
     mails_mail.list_mail_user_manager:
         class: Mails\MailBundle\Manager\ListMailUserManager
-        arguments: [@mails_mail.nbpage_calculator]
+        arguments: [@mails_mail.nbpage_calculator, @mails_mail.mail_paginator]
