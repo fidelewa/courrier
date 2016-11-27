@@ -11,7 +11,7 @@
     <ul>
         <li>Nom de l'expéditeur : {{ app.user.username }} </li>
         <li>Nom du destinataire : {{ mail.mailsent.actor.name }} </li>
-        <li>Nombre de jours d'ancienneté : {{ mail.nbDaysBefore }} jour(s) et plus</li>
+        <li>Nombre de jours d'ancienneté du courrier : {{ mail.nbDaysBefore }} jour(s) et plus</li>
         <li>Réception : {% if mail.received == true %}OUI{% else %}NON{% endif %}</li>
     </ul>
 </div>
