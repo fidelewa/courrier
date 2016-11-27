@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mails\MailBundle\Form\Type\MailMailsentAdminType;
+use Mails\MailBundle\Form\Type\MailsentRegisterType;
 use Mails\MailBundle\Form\Type\MailMailsentSecretaryType;
-use Mails\MailBundle\Form\Type\MailMailsentEditType;
+use Mails\MailBundle\Form\Type\MailsentEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class MailsentController extends Controller
@@ -38,7 +38,7 @@ class MailsentController extends Controller
           $courier->setMailsent($mailsent);
 
           //On crée un formulaire de création de courrier
-          $form = $this->createForm(new MailMailsentAdminType($this->getUser()), $courier);
+          $form = $this->createForm(new MailsentRegisterType($this->getUser()), $courier);
           
           // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -74,7 +74,7 @@ class MailsentController extends Controller
         }
 
           //On crée le formulaire
-          $form = $this->createForm(new MailMailsentEditType($this->getUser()), $mail);
+          $form = $this->createForm(new MailsentEditType($this->getUser()), $mail);
 
           //Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {

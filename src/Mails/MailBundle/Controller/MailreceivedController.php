@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mails\MailBundle\Form\Type\MailMailreceivedAdminType;
-use Mails\MailBundle\Form\Type\MailMailreceivedSecretaryType;
-use Mails\MailBundle\Form\Type\MailMailreceivedEditType;
+use Mails\MailBundle\Form\Type\MailreceivedRegisterType;
+use Mails\MailBundle\Form\Type\MailreceivedSecretaryType;
+use Mails\MailBundle\Form\Type\MailreceivedEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class MailreceivedController extends Controller
@@ -38,7 +38,7 @@ class MailreceivedController extends Controller
         $courier->setMailreceived($mailreceived);
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedAdminType($this->getUser()), $courier);
+        $form = $this->createForm(new MailreceivedRegisterType($this->getUser()), $courier);
         
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -74,7 +74,7 @@ class MailreceivedController extends Controller
         }
 
         //On crée le formulaire
-        $form = $this->createForm(new MailMailreceivedEditType($this->getUser()), $mail);
+        $form = $this->createForm(new MailreceivedEditType($this->getUser()), $mail);
 
         //Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -159,7 +159,7 @@ class MailreceivedController extends Controller
         $mailReceived->setdateEdition(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
         
         //On crée le formulaire
-        $form = $this->createForm(new MailMailreceivedSecretaryType($this->getUser()->getCompany()), $mailReceived);
+        $form = $this->createForm(new MailreceivedSecretaryType($this->getUser()->getCompany()), $mailReceived);
         
         //Si la réquête est en POST
         if ($form->handleRequest($request)->isValid()) {
