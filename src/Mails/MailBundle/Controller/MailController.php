@@ -26,8 +26,7 @@ class MailController extends Controller
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
         // Process
-        $listMailsentUserManager = $listMailUserManager
-        ->manageListMailsentByUserRole($this->getUser(), $page, $request, $this->get('mails_mail.mail_paginator'));
+        $listMailsentUserManager = $listMailUserManager->manageListMailsentByUserRole($page, $this->getUser(), $request);
 
         // result
         return $listMailsentUserManager;
@@ -49,8 +48,7 @@ class MailController extends Controller
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
         // Process
-        $listMailreceivedUserManager = $listMailUserManager
-        ->manageListMailreceivedByUserRole($this->getUser(), $page, $request, $this->get('mails_mail.mail_paginator'));
+        $listMailreceivedUserManager = $listMailUserManager->manageListMailreceivedByUserRole($page, $this->getUser(), $request);
 
         // result
         return $listMailreceivedUserManager;
