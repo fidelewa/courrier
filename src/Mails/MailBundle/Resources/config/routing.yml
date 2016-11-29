@@ -2,19 +2,19 @@
 mails_mail_mailsent:
     path:     /sent/{page}
     methods: [ get ]
-    defaults: { _controller: MailsMailBundle:Mail:showIndexMailsentByUser, page: 1 }
+    defaults: { _controller: MailsMailBundle:Mail:showIndexMailsentByUser, page: 1}
     requirements:
         page: \d*
 
 mails_mail_mailreceived:
     path:     /received/{page}
     methods: [ get ]
-    defaults: { _controller: MailsMailBundle:Mail:showIndexMailreceivedByUser, page: 1 }
+    defaults: { _controller: MailsMailBundle:Mail:showIndexMailreceivedByUser, page: 1}
     requirements:
         page: \d*
 #MailreceivedController----------------------------------------------------------------
 mails_mailreceived_add:
-    path:     /mailreceived/add/
+    path:     /mailreceived/add
     methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailreceived:addMailreceived }
 
@@ -47,7 +47,7 @@ mails_mailreceived_detail:
         id: \d+
 #MailsentController--------------------------------------------------------------------
 mails_mailsent_add:
-    path:     /mailsent/add/
+    path:     /mailsent/add
     methods: [ get,post ]
     defaults: { _controller: MailsMailBundle:Mailsent:addMailsent } 
 
@@ -123,7 +123,7 @@ mails_all_mailreceived_filter:
 mails_all_mailreceived_filter_result:
     path:     /all/mailreceived/filter/result/{page}
     methods:  get
-    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceivedResult, page: 1 }
+    defaults: { _controller: MailsMailBundle:MailreceivedExtra:filterAllMailreceivedResult, page: 1}
     requirements:
         page: \d*
 #------------------------------------------------
@@ -170,15 +170,15 @@ mails_mailsent_filter_actor_result:
 #-------------------------------------------
 mails_all_mailsent_filter:
     path:     /all/mailsent/filter/{page}
-    #methods: [ get,post ]
-    defaults: { _controller: MailsMailBundle:MailsentExtra:filterAllMailsent, page: 1 }
+    methods: [ get,post ]
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterAllMailsent, page: 1}
     requirements:
         page: \d*
 
 mails_all_mailsent_filter_result:
     path:     /all/mailsent/filter/result/{page}
-    #methods: [ get,post ]
-    defaults: { _controller: MailsMailBundle:MailsentExtra:filterAllMailsentResult, page: 1 }
+    methods: get
+    defaults: { _controller: MailsMailBundle:MailsentExtra:filterAllMailsentResult, page: 1}
     requirements:
         page: \d*
 #--------------------------------------------
