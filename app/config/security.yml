@@ -35,4 +35,4 @@ security:
                 path:       fos_user_security_logout
                 target:     /
             remember_me:
-                key:        %secret%
+                key:        "%secret%"
