@@ -48,7 +48,7 @@ class HomeController extends Controller
 
          // Si la requête est en GET
         return $this->render('MailsCoreBundle:Home:contact.html.twig', array(
-        'form'   => $form->createView()
+        'contact'   => $form->createView()
         ));
     }
 
