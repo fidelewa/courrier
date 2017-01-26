@@ -25,7 +25,7 @@ mails_user_delete:
         id: \d+
 
 mails_user_all_mails:
-    path:     /all/mails/{id}
+    path:     /all/mail/{id}
     methods: [ get ]
     defaults: { _controller: MailsUserBundle:User:showAllMailOfUser }
     requirements:
