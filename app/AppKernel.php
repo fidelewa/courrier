@@ -22,12 +22,7 @@ class AppKernel extends Kernel
             new Mails\ContactBundle\MailsContactBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Lsw\MemcacheBundle\LswMemcacheBundle(),
-            new Sonata\CoreBundle\SonataCoreBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle()
-
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
