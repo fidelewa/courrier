@@ -1,17 +1,32 @@
 #MailController---------------------------------------------------------------------- 
 mails_mail_mailsent:
-    path:     /sent/{page}
+    path:     /sent/user/{page}
     methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mail:showIndexMailsentByUser, page: 1}
     requirements:
         page: \d*
 
+mails_mail_mailsent_index:
+    path:     /sent/{page}
+    methods: [ get ]
+    defaults: { _controller: MailsMailBundle:Mail:showIndexMailsent, page: 1}
+    requirements:
+        page: \d*
+
 mails_mail_mailreceived:
-    path:     /received/{page}
+    path:     /received/user/{page}
     methods: [ get ]
     defaults: { _controller: MailsMailBundle:Mail:showIndexMailreceivedByUser, page: 1}
     requirements:
         page: \d*
+
+mails_mail_mailreceived_index:
+    path:     /received/{page}
+    methods: [ get ]
+    defaults: { _controller: MailsMailBundle:Mail:showIndexMailreceived, page: 1}
+    requirements:
+        page: \d*
+
 #MailreceivedController----------------------------------------------------------------
 mails_mailreceived_add:
     path:     /mailreceived/add
