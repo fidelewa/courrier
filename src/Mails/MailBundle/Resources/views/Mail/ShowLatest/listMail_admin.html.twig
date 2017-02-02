@@ -1,7 +1,7 @@
 {# On affiche tous les messages flash dont le nom est « success » #}
-    {% for message in app.session.flashbag.get('success') %}
-        <div class="alert alert-success">Message flash : {{ message }}</div>
-    {% endfor %}
+{% for message in app.session.flashbag.get('success') %}
+    <div class="alert alert-success">Message flash : {{ message }}</div>
+{% endfor %}
 
   <h3>Courriers envoyés non validés</h3>
 
@@ -49,7 +49,4 @@
      </ul>   
      {% else %}
        <div class="alert alert-warning">Vous n'avez aucun courrier reçu à valider</div>
-     {% endif %}
-
-     
-   
+{% endif %}
