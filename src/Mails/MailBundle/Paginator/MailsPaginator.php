@@ -44,18 +44,33 @@ class MailsPaginator
         ;
     }
 
-    public function pageIndexMailsent($pageNumber, $itemsNumber)
+    public function pageIndexMailsent($pageNumber, $itemsNumber, $userCompany)
     {
         // On récupère notre objet Paginator en fonction des critères spécifiés
                 $listMailsSent = $this
                         ->em
                         ->getRepository('MailsMailBundle:Mail')
-                        ->getMailsSent($pageNumber, $itemsNumber)
+                        ->getMailsSent($pageNumber, $itemsNumber, $userCompany)
                 ;
                             
         $this->em->flush();
 
         return $listMailsSent
+        ;
+    }
+
+    public function pageIndexMailreceived($pageNumber, $itemsNumber, $userCompany)
+    {
+        // On récupère notre objet Paginator en fonction des critères spécifiés
+                $listMailsReceived = $this
+                        ->em
+                        ->getRepository('MailsMailBundle:Mail')
+                        ->getMailsReceived($pageNumber, $itemsNumber, $userCompany)
+                ;
+                            
+        $this->em->flush();
+
+        return $listMailsReceived
         ;
     }
 
@@ -88,21 +103,6 @@ class MailsPaginator
         $this->em->flush();
 
         return $listMailsReceivedNotValidated
-        ;
-    }
-
-    public function pageIndexMailreceived($pageNumber, $itemsNumber)
-    {
-        // On récupère notre objet Paginator en fonction des critères spécifiés
-                $listMailsReceived = $this
-                        ->em
-                        ->getRepository('MailsMailBundle:Mail')
-                        ->getMailsReceived($pageNumber, $itemsNumber)
-                ;
-                            
-        $this->em->flush();
-
-        return $listMailsReceived
         ;
     }
 }
