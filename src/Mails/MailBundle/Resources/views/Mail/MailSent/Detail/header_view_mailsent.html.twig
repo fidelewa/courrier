@@ -10,10 +10,12 @@
         {% endif %}
 
         {% if app.user and is_granted('ROLE_SECRETAIRE') %}
-          <a href="{{ path('mails_mailsent_registration', {'id': mail.id}) }}"><u>Enregistrer le courrier</u></a>&nbsp;<b>|</b>&nbsp;
+          {% if mail.registred != true %}
+            <a href="{{ path('mails_mailsent_registration', {'id': mail.id}) }}"><u>Enregistrer le courrier</u></a>&nbsp;<b>|</b>&nbsp;
+          {% endif %}
         {% endif %}
                           
-        <a href="{{ path('mails_user_mailsent') }}"><u>Retour</u></a>&nbsp;<b>|</b>&nbsp;
+        {% if app.user and is_granted('ROLE_ADMIN') %}<a href="{{ path('mails_user_mailsent') }}"><u>Retour</u></a>&nbsp;<b>|</b>&nbsp;{% endif %}
         <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>&nbsp;&nbsp;
       </td>
 </tr>
