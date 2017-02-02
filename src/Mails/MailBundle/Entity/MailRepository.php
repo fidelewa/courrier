@@ -13,17 +13,19 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class MailRepository extends EntityRepository
 {
-
-    public function findLatestMailsSent($limit)
+    public function findLatestMailsSent($limit, $idCompany)
     {
 
-        //Permet de récupérer les $limit derniers courriers envoyés
+        //Permet de récupérer les $limit derniers courriers envoyés par l'entreprise de l'user spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
-            // Permet de sélectionner toutes les colonnes de la table mail
             ->join('m.mailsent', 'ms')
             ->addSelect('ms')
+            ->join('ms.user', 'u')
+            ->addSelect('u')
+            ->where('u.company = :idCompany')
+            ->setParameter('idCompany', $idCompany)
             ->orderBy('m.id', 'DESC')
             ->setMaxResults($limit)
         ;
@@ -37,14 +39,18 @@ class MailRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function findLatestMailsReceived($limit)
+    public function findLatestMailsReceived($limit, $idCompany)
     {
-        //Permet de récupérer les $limit derniers courriers reçus
+        //Permet de récupérer les $limit derniers courriers reçus par l'entreprise de l'user spécifié
 
         $qb = $this
             ->createQueryBuilder('m')
             ->join('m.mailreceived', 'mr')
             ->addSelect('mr')
+            ->join('mr.user', 'u')
+            ->addSelect('u')
+            ->where('u.company = :idCompany')
+            ->setParameter('idCompany', $idCompany)
             ->orderBy('m.id', 'DESC')
             ->setMaxResults($limit)
         ;
@@ -100,13 +106,17 @@ class MailRepository extends EntityRepository
         return $query->getSingleResult();
     }
 // SHOW ALL MAILS
-    public function getMailsSent($page, $nbPerPage)
+    public function getMailsSent($page, $nbPerPage, $idCompany)
     {
-        //Permet de récupérer la liste de tous les courriers envoyés
+        //Permet de récupérer la liste de tous les courriers envoyés par l'entreprise de l'user spécifié
 
         $query = $this->createQueryBuilder('m')
                 ->join('m.mailsent', 'ms')
                 ->addSelect('ms')
+                ->join('ms.user', 'u')
+                ->addSelect('u')
+                ->where('u.company = :idCompany')
+                ->setParameter('idCompany', $idCompany)
                 ->orderBy('m.id', 'DESC')
                 ->getQuery()
                 ->useQueryCache(true)
@@ -125,13 +135,17 @@ class MailRepository extends EntityRepository
         return new Paginator($query, true);
     }
 
-    public function getMailsReceived($page, $nbPerPage)
+    public function getMailsReceived($page, $nbPerPage, $idCompany)
     {
-        //Permet de récupérer la liste de tous les courriers reçus
+        //Permet de récupérer la liste de tous les courriers reçus par l'entreprise de l'user spécifié
 
         $query = $this->createQueryBuilder('m')
                 ->join('m.mailreceived', 'mr')
                 ->addSelect('mr')
+                ->join('mr.user', 'u')
+                ->addSelect('u')
+                ->where('u.company = :idCompany')
+                ->setParameter('idCompany', $idCompany)
                 ->orderBy('m.id', 'DESC')
                 ->getQuery()
                 ->useQueryCache(true)
@@ -433,7 +447,6 @@ class MailRepository extends EntityRepository
         ;
 
         return $query->getResult();
-        
     }
     
     public function findLatestMailReceivedNotValidated($admin, $limit)
