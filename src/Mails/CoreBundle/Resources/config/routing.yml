@@ -14,6 +14,16 @@ mails_core_company:
     defaults: { _controller: MailsCoreBundle:Home:createCompany }
 
 mails_core_company_infos:
-    path:     /infos/company/{id}
+    path:     /infos/company
     methods: [ get ]
-    defaults: { _controller: MailsCoreBundle:Home:infosCompany }
+    defaults: { _controller: MailsCoreBundle:Home:infosCompanyLayout }
+
+mails_core_workspace_admin:
+    path:     /workspace/admin
+    methods: [ get ]
+    defaults: { _controller: MailsMailBundle:Mail:showLatestNotValidatedMailByUser }
+
+mails_core_workspace_secretary:
+    path:     /workspace/secretary
+    methods: [ get ]
+    defaults: { _controller: MailsMailBundle:Mail:showLatestUnregistredMailToSecretary }
