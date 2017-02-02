@@ -1,32 +1,16 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
 {% block title %}Accueil - {{ parent() }}{% endblock %}
 {% block mailsmail_body %}
-
-{% if app.user and is_granted('ROLE_ADMIN') %}
-    {#{% if nbPages > 4 %}#}
-  <div>
-  <a href="{{ path('mails_mailsent_filter') }}"><u>Filtrer la liste</u></a>
-  &nbsp;<b>|</b>&nbsp;
-  <a href="{{ path('mails_all_mailsent_filter') }}"><u>Filtrer toute la liste</u></a>
-  </div>
-  {#{% endif %}#}
-{% endif %}
  
- {% if app.user and is_granted('ROLE_SECRETAIRE') %}
- <h2>Liste des courriers envoyés à enregistrer par <b><i>{{ app.user.username | title }}</i></b></h2>
- {% elseif app.user and is_granted('ROLE_ADMIN') %}
- <h2>Liste des courriers envoyés à valider par <b><i>{{ app.user.username | title }}</i></b></h2>
- {% else %}
  <h2>Liste de tous les courriers envoyés et enregistrés</h2>
- {% endif %}
 
-  {{ include("@mailsent_index_views/bl_index_mailsent.html.twig") }}
+    {{ include("@mailsent_index_views/bl_index_mailsent.html.twig") }}
 
     <ul class="pagination">
       {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
       {% for p in range(1, nbPages) %}
         <li{% if p == page %} class="active"{% endif %}>
-          <a href="{{ path('mails_mail_mailsent', {'page': p}) }}">{{ p }}</a>
+          <a href="{{ path('mails_mail_mailsent_index', {'page': p}) }}">{{ p }}</a>
         </li>
       {% endfor %}
     </ul>
