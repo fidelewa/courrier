@@ -67,7 +67,7 @@ class MailsentController extends Controller
         $em = $this->getDoctrine()->getManager();
 
           // On récupère le mail sent d'id $id en BDD
-          $mail = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id);
+          $mail = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id, $this->getUser()->getCompany());
 
         if (null === $mail) {
             throw new NotFoundHttpException("Le courrier envoyé d'id ".$id." n'existe pas.");
@@ -109,7 +109,7 @@ class MailsentController extends Controller
         $em = $this->getDoctrine()->getManager();
 
           // On récupère le mail sent d'id $id
-          $mail = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id);
+          $mail = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id, $this->getUser()->getCompany());
 
         if (null === $mail) {
             throw new NotFoundHttpException("Le courrier envoyé d'id ".$id." n'existe pas.");
@@ -157,7 +157,7 @@ class MailsentController extends Controller
           $em = $this->getDoctrine()->getManager();
 
           // On récupère l'$id du mail sent
-          $mailSent = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id);
+          $mailSent = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id, $this->getUser()->getCompany());
 
         if (null === $mailSent) {
             throw new NotFoundHttpException("Le courrier envoyé d'id ".$id." n'existe pas.");
@@ -204,7 +204,7 @@ class MailsentController extends Controller
           // Pour récupérer un courrier envoyé unique
           $mail = $em
           ->getRepository('MailsMailBundle:Mail')
-          ->findMailSent($id)
+          ->findMailSent($id, $this->getUser()->getCompany())
           ;
 
         if (null === $mail) {
@@ -214,5 +214,21 @@ class MailsentController extends Controller
         return $this->render('MailsMailBundle:Mail:view_mailsent.html.twig', array(
           'mail' => $mail
           ));
+    }
+
+    public function showLatestMailAction($limit, $idCompany)
+    {
+        // On récupère notre service indexor
+        $indexor = $this->get('mails_mail.mail_indexor');
+
+        // On récupère notre objet indexor en fonction des critères spécifiés
+        $latestMailsSent = $indexor->indexLatestMailsent($limit, $idCompany);
+
+        $latestMailsReceived = $indexor->indexLatestMailreceived($limit, $idCompany);
+        
+        return $this->render('@show_latest_mails_views/listMail.html.twig', array(
+            'mailsSent' => $latestMailsSent,
+            'mailsReceived' => $latestMailsReceived
+        ));
     }
 }

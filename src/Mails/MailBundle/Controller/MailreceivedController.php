@@ -67,7 +67,7 @@ class MailreceivedController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On récupère le mail received d'id $id
-        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id);
+        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
 
         if (null === $mail) {
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
@@ -104,7 +104,7 @@ class MailreceivedController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On récupère le mail received d'id $id
-        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id);
+        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
 
         if (null === $mail) {
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
@@ -149,7 +149,7 @@ class MailreceivedController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'$id du mail received
-        $mailReceived = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id);
+        $mailReceived = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
 
         if (null === $mailReceived) {
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
@@ -192,8 +192,7 @@ class MailreceivedController extends Controller
         
         // Pour récupérer un courrier reçus unique
         $mail = $em
-        ->getRepository('MailsMailBundle:Mail')
-        ->findMailReceived($id)
+        ->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany())
         ;
 
         if (null === $mail) {

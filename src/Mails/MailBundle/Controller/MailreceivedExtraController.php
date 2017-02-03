@@ -245,7 +245,7 @@ class MailreceivedExtraController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'$id du mail received
-        $mailreceived = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id);
+        $mailreceived = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
 
          if (null === $mailreceived) {
              throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");

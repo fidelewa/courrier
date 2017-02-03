@@ -243,7 +243,7 @@ class MailsentExtraController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'$id du mail sent
-        $mailsent = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id);
+        $mailsent = $em->getRepository('MailsMailBundle:Mail')->findMailSent($id, $this->getUser()->getCompany());
 
         if (null === $mailsent) {
             throw new NotFoundHttpException("Le courrier envoyé d'id ".$id." n'existe pas.");
