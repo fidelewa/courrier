@@ -11,6 +11,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class HomeController extends Controller
 {
+    /**
+    * index action.
+    *
+    * @Security("has_role('ROLE_USER')")
+    */
     public function indexAction()
     {
         return $this->render('MailsCoreBundle:Home:index.html.twig');
@@ -135,7 +140,18 @@ class HomeController extends Controller
         }
 
         return $this->render('MailsCoreBundle:Home:company_infos.html.twig', array(
-          'company' => $company,
+          'company' => $company
+          ));
+    }
+
+    /**
+    * infos company layout action.
+    *
+    * @Security("has_role('ROLE_ADMIN')")
+    */
+    public function infosCompanyLayoutAction()
+    {
+        return $this->render('MailsCoreBundle:Home:company_infos_layout.html.twig', array(
           'title' => 'Récapitulatif des informations de votre entreprise'
           ));
     }
