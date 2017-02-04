@@ -25,8 +25,8 @@
 <tr>
   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Expéditeur</font>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-    &nbsp;&nbsp;<a href="{{ path('mails_user_all_mails', {'id': mail.mailsent.user.id}) }}"><u>{{ mail.mailsent.user.username }}</u></a>
+    {% if mail.mailsent.user == app.user and is_granted('ROLE_ADMIN') %}
+      &nbsp;&nbsp;<a href="{{ path('mails_user_all_mails', {'id': mail.mailsent.user.id}) }}"><u>{{ mail.mailsent.user.username }}</u></a>
     {% else %}
     &nbsp;&nbsp;{{ mail.mailsent.user.username }}
     {% endif %}
@@ -35,7 +35,7 @@
 <tr>
   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Destinataire</font>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>
-    {% if app.user and is_granted('ROLE_ADMIN') %}
+    {% if mail.mailsent.user == app.user and is_granted('ROLE_ADMIN') %}
     &nbsp;&nbsp;<a href="{{ path('mails_contact_all_mail', {'id': mail.mailsent.actor.id}) }}"><u>{{ mail.mailsent.actor.name }}</u></a>
     {% else %}
     &nbsp;&nbsp;{{ mail.mailsent.actor.name }}
