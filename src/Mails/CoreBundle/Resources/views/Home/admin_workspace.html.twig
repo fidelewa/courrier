@@ -3,11 +3,6 @@
 {% block body %}
 
   {% if app.user and is_granted("ROLE_ADMIN") %}
-        {% if app.user and is_granted("ROLE_ADMINISTRATEUR") %}
-            <h1>Page d'accueil des administrateurs</h1>
-        {% elseif app.user and is_granted("ROLE_SUPER_ADMIN") %}
-            <h1>Page d'accueil des modérateurs</h1>
-        {% endif %}
         <h2>Liste des courriers à valider par <i>{{ app.user.username | title }}</i></h2>
         <hr>
 
