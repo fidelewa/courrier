@@ -24,6 +24,8 @@ class MailMailsentSecretaryType extends AbstractType
             ->remove('objet')
             ->remove('mailsent')
             ->remove('nombrePiecesJointes')
+            ->add('enregistrer', 'submit')
+            ->remove('save', 'submit')
         ;
     }
 
