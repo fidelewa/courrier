@@ -13,7 +13,7 @@
         <div class="alert alert-danger">Message flash : {{ message }}</div>
     {% endfor %}
     
-    <h1>Page d'accueil de l'application</h1>
-    <h2>Liste des derniers courriers crées par votre entreprise</h2>
+    <h2>Liste des derniers courriers ajoutés par votre entreprise</h2>
+    <hr>
         {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'limit': 4, 'idCompany': app.user.company.id})) }}
 {% endblock %}
