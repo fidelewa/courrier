@@ -24,6 +24,8 @@ class MailreceivedSecretaryType extends AbstractType
             ->remove('objet')
             ->remove('mailreceived')
             ->remove('nombrePiecesJointes')
+            ->add('enregistrer', 'submit')
+            ->remove('save', 'submit')
         ;
     }
 
