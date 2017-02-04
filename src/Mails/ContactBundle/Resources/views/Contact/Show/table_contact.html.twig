@@ -9,12 +9,12 @@
    {% for actor in actors %}
    <tr bgcolor={{fond}} valign='top'>
        <td>{{ actor.name }}</td>
-       {% if actor.user == app.user %}
             <td>
-            {{ render(controller("MailsCoreBundle:Home:manageMails", {'editRoute': 'mails_contact_edit','detailRoute': null,
-            'deleteRoute': 'mails_contact_delete','id': actor.id,'var': actor,'type': 'actor',}))}}
+                {% if actor.user == app.user %}{# Si l'user courant de l'appli est celui qui à crée l'acteur spécifié #}
+                    {{ render(controller("MailsCoreBundle:Home:manageMails", {'editRoute': 'mails_contact_edit','detailRoute': null,
+                    'deleteRoute': 'mails_contact_delete','id': actor.id,'var': actor,'type': 'actor',}))}}
+                {% endif %}
             </td>
-        {% endif %}
    </tr>
    {% if fond == '#EFEFEF' %}{% set fond = '#DDD' %}{% else %}{% set fond = '#EFEFEF' %}{% endif %}
    {% endfor %}
