@@ -79,7 +79,10 @@ class MailreceivedController extends Controller
         //Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
             $em->flush();
-            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mail->getReference().'" a bien été modifiée.');
+            $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('success', 'Le courrier reçu de référence "'.$mail->getReference().'" a bien été modifiée.');
 
             return $this->redirect($this->generateUrl('mails_user_mailreceived'));
         }
@@ -123,7 +126,10 @@ class MailreceivedController extends Controller
             $em->remove($mail);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$tempMailreceivedRef.'" a bien été supprimé.');
+            $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('success', 'Le courrier reçu de référence "'.$tempMailreceivedRef.'" a bien été supprimé.');
 
             //On détruit la variable tampon.
             unset($tempMailreceivedRef);
@@ -149,7 +155,9 @@ class MailreceivedController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'$id du mail received
-        $mailReceived = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
+        $mailReceived = $em
+        ->getRepository('MailsMailBundle:Mail')
+        ->findMailReceived($id, $this->getUser()->getCompany());
 
         if (null === $mailReceived) {
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
@@ -171,7 +179,10 @@ class MailreceivedController extends Controller
             $em->flush();
 
             //On redirige vers la page d'accueil
-            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mailReceived->getReference().'" a bien été enregistré.');
+            $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('success', 'Le courrier reçu de référence "'.$mailReceived->getReference().'" a bien été enregistré.');
 
             // On redirige vers l'accueil
             return $this->redirect($this->generateUrl('mails_core_home'));
