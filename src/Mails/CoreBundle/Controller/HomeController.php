@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function contactAction(Request $request)
     {
         //On crée notre formulaire de contact
-        $form = $this->createForm(new ContactType());
+        $form = $this->createForm(ContactType::class);
 
         // Check the method
         if ($form->handleRequest($request)->isValid()) {
@@ -88,7 +88,7 @@ class HomeController extends Controller
         $company = new Company();
 
         //On crée le formulaire de création de l'entreprise
-        $form = $this->createForm(new CompanyType(), $company);
+        $form = $this->createForm(CompanyType::class, $company);
 
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {

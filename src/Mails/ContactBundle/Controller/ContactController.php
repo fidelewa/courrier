@@ -49,7 +49,7 @@ class ContactController extends Controller
         }
 
         //On crée le formulaire
-        $form = $this->createForm(new ActorType(), $actor);
+        $form = $this->createForm(ActorType::class, $actor);
 
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -126,7 +126,7 @@ class ContactController extends Controller
         $actor = new Actor();
 
         // Création du formulaire
-        $form = $this->createForm(new ActorType(), $actor);
+        $form = $this->createForm(ActorType::class, $actor);
 
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {

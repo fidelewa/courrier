@@ -13,10 +13,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class MailreceivedController extends Controller
 {
+
     /**
      * Add or create a mail received action.
      *
-     * @param Request $request Incoming request
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @Template("@mailreceived_form_views/mailreceived_add.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -38,7 +41,9 @@ class MailreceivedController extends Controller
         $courier->setMailreceived($mailreceived);
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailreceivedRegisterType($this->getUser()), $courier);
+        $form = $this->createForm(MailreceivedRegisterType::class, $courier, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -55,11 +60,13 @@ class MailreceivedController extends Controller
         return array('form' => $form->createView());
     }
 
-     /**
+    /**
      * Edit a mail received.
      *
-     * @param integer $id Mail received id
-     * @param Request $request Incoming request
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function editMailreceivedAction($id, Request $request)
@@ -73,8 +80,9 @@ class MailreceivedController extends Controller
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
         }
 
-        //On crée le formulaire
-        $form = $this->createForm(new MailreceivedEditType($this->getUser()), $mail);
+        $form = $this->createForm(MailreceivedEditType::class, $mail, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
 
         //Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -167,7 +175,9 @@ class MailreceivedController extends Controller
         $mailReceived->setdateEdition(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
         
         //On crée le formulaire
-        $form = $this->createForm(new MailreceivedSecretaryType($this->getUser()->getCompany()), $mailReceived);
+        $form = $this->createForm(MailreceivedSecretaryType::class, $mailReceived, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         //Si la réquête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -185,7 +195,7 @@ class MailreceivedController extends Controller
             ->add('success', 'Le courrier reçu de référence "'.$mailReceived->getReference().'" a bien été enregistré.');
 
             // On redirige vers l'accueil
-            return $this->redirect($this->generateUrl('mails_core_home'));
+            return $this->redirect($this->generateUrl('mails_core_workspace_secretary'));
         }
         //Si la réquête est en GET
         return array('form' => $form->createView());

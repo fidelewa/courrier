@@ -7,9 +7,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mails\MailBundle\Form\Type\MailsentRegisterType;
-use Mails\MailBundle\Form\Type\MailMailsentSecretaryType;
+use Mails\MailBundle\Form\Type\MailsentSecretaryType;
 use Mails\MailBundle\Form\Type\MailsentEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Mails\MailBundle\Lister\MailsLister;
 
 class MailsentController extends Controller
 {
@@ -38,7 +39,9 @@ class MailsentController extends Controller
           $courier->setMailsent($mailsent);
 
           //On crée un formulaire de création de courrier
-          $form = $this->createForm(new MailsentRegisterType($this->getUser()), $courier);
+        $form = $this->createForm(MailsentRegisterType::class, $courier, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
           
           // Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -74,7 +77,9 @@ class MailsentController extends Controller
         }
 
           //On crée le formulaire
-          $form = $this->createForm(new MailsentEditType($this->getUser()), $mail);
+        $form = $this->createForm(MailsentEditType::class, $mail, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
 
           //Si la requête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -167,7 +172,9 @@ class MailsentController extends Controller
           $mailSent->setdateEdition(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
           
           //On crée le formulaire
-          $form = $this->createForm(new MailMailsentSecretaryType($this->getUser()->getCompany()), $mailSent);
+        $form = $this->createForm(MailsentSecretaryType::class, $mailSent, array(
+            'adminCompany' => $this->getUser()->getCompany()
+          ));
           
           //Si la réquête est en POST
         if ($form->handleRequest($request)->isValid()) {
@@ -185,7 +192,7 @@ class MailsentController extends Controller
               ->add('success', 'Le courrier envoyé "'.$mailSent->getReference().'" a bien été enregistré.');
 
               // On redirige vers l'accueil
-              return $this->redirect($this->generateUrl('mails_core_home'));
+              return $this->redirect($this->generateUrl('mails_core_workspace_secretary'));
         }
           //Si la réquête est en GET
           return array('form' => $form->createView());
@@ -216,7 +223,7 @@ class MailsentController extends Controller
           ));
     }
 
-    public function showLatestMailAction($limit, $idCompany)
+    public function showLatestMailAction($idCompany, $limit = MailsLister::LIMIT)
     {
         // On récupère notre service indexor
         $indexor = $this->get('mails_mail.mail_indexor');
