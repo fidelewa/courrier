@@ -6,15 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MailreceivedSecretaryType extends AbstractType
+class MailsentSecretaryType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->remove('reference')
             ->remove('objet')
-            ->remove('mailreceived')
+            ->remove('mailsent')
             ->remove('nombrePiecesJointes')
             ->add('enregistrer', SubmitType::class)
             ->remove('save', 'submit')
@@ -23,11 +22,11 @@ class MailreceivedSecretaryType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'mails_mailbundle_mailreceived_secretary';
+        return 'mails_mailbundle_mailsent_secretary';
     }
 
     public function getParent()
     {
-        return MailMailreceivedType::class;
+        return MailMailsentType::class;
     }
 }

@@ -8,18 +8,11 @@ use Doctrine\ORM\EntityRepository;
 
 class MailsentRemovedateEnvoiAndSecretaryType extends AbstractType
 {
-    private $admin;
-
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($user)
-    {
-        $this->admin = $user;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->adminCompany = $options['adminCompany'];
+
         $builder
         ->remove('dateEnvoi', 'datetime')//On supprime la date de reception
         ->remove('user', 'entity', array(//On supprime le champs de la sécrétaire qui doit enregistrer le courrier reçu
@@ -30,19 +23,19 @@ class MailsentRemovedateEnvoiAndSecretaryType extends AbstractType
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
                 ->where('u.roles = :role AND u.company = :company')
-                ->setParameters(array('role' => 'a:1:{i:0;s:15:"ROLE_SECRETAIRE";}', 'company' => $this->admin->getCompany()));
+                ->setParameters(array('role' => 'a:1:{i:0;s:15:"ROLE_SECRETAIRE";}', 'company' => $this->adminCompany));
             },
             ))
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'mails_mailbundle_mailsent_remove_secretary';
     }
 
     public function getParent()
     {
-        return new MailSentType($this->admin->getCompany());
+        return MailSentType::class;
     }
 }

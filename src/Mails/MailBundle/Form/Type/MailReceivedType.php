@@ -2,22 +2,15 @@
 
 namespace Mails\MailBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 
 class MailReceivedType extends AbstractType
 {
-    private $adminCompany;
-
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($adminCompany)
-    {
-        $this->adminCompany = $adminCompany;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -25,9 +18,14 @@ class MailReceivedType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // On redéfinit l'attribut de l'entreprise de l'utilisateur si pas encore défini
+        if (!isset($this->adminCompany)) {
+            $this->adminCompany = $options['adminCompany'];
+        }
+
         $builder
-            ->add('dateReception', 'datetime')
-            ->add('actor', 'entity', array(//Champs du destinataire du courrier reçu
+            ->add('dateReception', DateTimeType::class)
+            ->add('actor', EntityType::class, array(//Champs du destinataire du courrier reçu
             'class'    => 'MailsMailBundle:Actor',
             'choice_label' => 'name',
             'multiple' => false,
@@ -41,7 +39,7 @@ class MailReceivedType extends AbstractType
                 ;
             },
             ))
-            ->add('user', 'entity', array(//Champs de la sécrétaire qui doit enregistrer le courrier reçu
+            ->add('user', EntityType::class, array(//Champs de la sécrétaire qui doit enregistrer le courrier reçu
             'class'    => 'MailsUserBundle:User',
             'choice_label' => 'username',
             'multiple' => false,
@@ -54,21 +52,22 @@ class MailReceivedType extends AbstractType
             ))
             ;
     }
-    
+
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Mails\MailBundle\Entity\MailReceived'
+            'data_class' => 'Mails\MailBundle\Entity\MailReceived',
+            'adminCompany' => null,
         ));
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'mails_mailbundle_mailreceived';
     }

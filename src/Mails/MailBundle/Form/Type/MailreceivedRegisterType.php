@@ -7,16 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MailreceivedRegisterType extends AbstractType
 {
-    private $admin;
-
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($user)
-    {
-        $this->admin = $user;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -24,13 +14,13 @@ class MailreceivedRegisterType extends AbstractType
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'mails_mailbundle_mailreceived_admin';
     }
 
     public function getParent()
     {
-        return new MailMailreceivedType($this->admin->getCompany());
+        return MailMailreceivedType::class;
     }
 }
