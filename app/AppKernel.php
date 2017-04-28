@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Mails\CoreBundle\MailsCoreBundle(),
             new Mails\MailBundle\MailsMailBundle(),
-            new Mails\UserBundle\MailsUserBundle(),
+            new Mails\UserBundle\UserBundle(),
             new Mails\ContactBundle\MailsContactBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Lsw\MemcacheBundle\LswMemcacheBundle(),
