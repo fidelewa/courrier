@@ -1,4 +1,4 @@
-{% extends "MailsUserBundle::layout.html.twig" %}
+{% extends "UserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
@@ -15,7 +15,7 @@
     {{ form_errors(form) }}
     
     <div class="form-group">
-        {{ form_label(form.username,"Nom d'utilisateur * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.username,"Nom d'utilisateur :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.username) }}
@@ -24,7 +24,7 @@
     </div>
     
      <div class="form-group">
-        {{ form_label(form.plainPassword.first, "Mot de passe * :", { 'label_attr':  {
+        {{ form_label(form.plainPassword.first, "Mot de passe :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.plainPassword.second, "Répéter le mot de passe * :", { 'label_attr':  {
+        {{ form_label(form.plainPassword.second, "Répéter le mot de passe :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -49,7 +49,7 @@
     </div>
     
     <div class="form-group">
-        {{ form_label(form.email, "Adresse e-mail * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.email, "Adresse e-mail :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.email) }}
@@ -61,7 +61,7 @@
     </div>
     
     <div class="form-group">
-        {{ form_label(form.roles, "Choisissez un rôle * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.roles, "Choisissez un rôle :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.roles) }}

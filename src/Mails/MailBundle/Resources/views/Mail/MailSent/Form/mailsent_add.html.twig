@@ -17,7 +17,7 @@
    
     
     <div class="form-group">
-        {{ form_label(form.mailsent.actor, "Nom du destinataire * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailsent.actor, "Nom du destinataire :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.mailsent.actor) }}
@@ -27,7 +27,7 @@
     </div>
     
     <div class="form-group">
-        {{ form_label(form.mailsent.user, "Nom de la sécrétaire * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailsent.user, "Nom de la sécrétaire :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.mailsent.user) }}
@@ -37,7 +37,7 @@
     </div>
     
     <div class="form-group">
-        {{ form_label(form.mailsent.dateEnvoi, "Date d'envoi * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailsent.dateEnvoi, "Date d'envoi :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.mailsent.dateEnvoi) }}
@@ -47,7 +47,7 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.reference, "Référence * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.reference, "Référence :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
         <div class="col-sm-6">
             {{ form_errors(form.reference) }}
             {{ form_widget(form.reference, {'attr': {'class': 
@@ -59,7 +59,7 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.objet, "Objet * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.objet, "Objet :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.objet) }}
@@ -69,7 +69,7 @@
     
 
     <div class="form-group">
-        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.nombrePiecesJointes) }}
@@ -79,11 +79,12 @@
     
     <div class="form-group">
         {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-1">
-            {{ form_errors(form.received) }}
-            {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
+
+        <div class="checkbox">
+          {{ form_errors(form.received) }}
+          {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
         </div>
+
     </div>
     
     <div class="form-group">

@@ -30,7 +30,7 @@
     {{ form_errors(form) }}
     
     <div class="form-group">
-        {{ form_label(form.mailreceived.actor, "Nom de l'expéditeur * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailreceived.actor, "Nom de l'expéditeur : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.mailreceived.actor) }}
@@ -40,7 +40,7 @@
     </div>
     
     <div class="form-group">
-        {{ form_label(form.reference, "Référence * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.reference, "Référence : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.reference) }}
@@ -50,7 +50,7 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.objet, "Objet * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.objet, "Objet : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.objet) }}
@@ -60,7 +60,7 @@
     
     {% if form.mailreceived.dateReception is defined %}
     <div class="form-group">
-        {{ form_label(form.mailreceived.dateReception, "Date de reception * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailreceived.dateReception, "Date de reception : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.mailreceived.dateReception) }}
@@ -70,7 +70,7 @@
     {% endif %}
 
     <div class="form-group">
-        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.nombrePiecesJointes) }}
@@ -80,7 +80,7 @@
 
     {% if form.received is defined %}
     <div class="form-group">
-        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.received, "Réception : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-1">
             {{ form_errors(form.received) }}
@@ -91,7 +91,7 @@
     
     {% if form.treated is defined %}
     <div class="form-group">
-        {{ form_label(form.treated, "Traitement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.treated, "Traitement : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-1">
             {{ form_errors(form.treated) }}
