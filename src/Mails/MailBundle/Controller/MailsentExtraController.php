@@ -17,7 +17,8 @@ class MailsentExtraController extends Controller
     /**
      * Filter mails sent.
      *
-     * @param Request $request Incoming request
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function filterMailsentAction(Request $request)
     {
@@ -25,7 +26,9 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailsentFilterType($this->getUser()), $mailFactory::create());
+        $form = $this->createForm(MailMailsentFilterType::class, $mailFactory::create(), array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -49,16 +52,17 @@ class MailsentExtraController extends Controller
         return $this->render('MailsMailBundle:Mail:mailsent_filter_result.html.twig');
     }
 
-     /**
+    /**
      * filter mails sent according to the specified user
      *
-     * @param integer $id User id
-     * @param Request $request Incoming request
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function filterMailsentByUserAction($id, Request $request)
     {
         // On récupère l'user par son id
-        $user = $this->getDoctrine()->getRepository('MailsUserBundle:User')->find($id);
+        $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($id);
 
         if (null === $user) {
             throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
@@ -68,7 +72,9 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailsentFilterType($this->getUser()), $mailFactory::create());
+        $form = $this->createForm(MailMailsentFilterType::class, $mailFactory::create(), array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -93,11 +99,12 @@ class MailsentExtraController extends Controller
         return $this->render('MailsMailBundle:Mail:user_mailsent_filter_result.html.twig');
     }
 
-     /**
+    /**
      * filter mails sent according to the specified interlocutor
      *
-     * @param integer $id Interlocutor id
-     * @param Request $request Incoming request
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function filterMailsentByInterlocutorAction($id, Request $request)
     {
@@ -112,7 +119,9 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailsentFilterType($this->getUser()), $mailFactory::create());
+        $form = $this->createForm(MailMailsentFilterType::class, $mailFactory::create(), array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -137,11 +146,12 @@ class MailsentExtraController extends Controller
         return $this->render('MailsMailBundle:Mail:actor_mailsent_filter_result.html.twig');
     }
 
-     /**
+    /**
      * filter all mails sent.
      *
-     * @param integer $page page number
-     * @param Request $request Incoming request
+     * @param Request $request
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function filterAllMailsentAction(Request $request, $page)
     {
@@ -153,7 +163,9 @@ class MailsentExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
         
         //On crée notre formulaire
-        $form = $this->createForm(new MailSentFilterType($this->getUser()), $mailFactory::create());
+        $form = $this->createForm(MailSentFilterType::class, $mailFactory::create(), array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -184,11 +196,12 @@ class MailsentExtraController extends Controller
         ));
     }
 
-     /**
+    /**
      * filter all mails received.
      *
-     * @param integer $page page number
-     * @param Request $request Incoming request
+     * @param $page
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function filterAllMailsentResultAction($page, Request $request)
     {
@@ -215,7 +228,7 @@ class MailsentExtraController extends Controller
 
             // On calcule le nombre total de pages pour la recherche
         $nombreTotalPagesByFilter = $nbCalculator
-                                    ->calculateTotalNumberPageByFilter($allMailsentFilter, $page, $numItems);
+                                    ->calculateTotalNumberPageByFilter($allMailsentFilter, $numItems);
 
         if ($page > $nombreTotalPagesByFilter) {
             $request->getSession()->getFlashBag()->add('danger', 'Aucune donnée ne correspond a cette recherche !');
@@ -231,11 +244,12 @@ class MailsentExtraController extends Controller
     }
 
 
-     /**
+    /**
      * validate a mail sent.
      *
-     * @param integer $id Mail sent id
-     * @param Request $request Incoming request
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function validateMailsentAction($id, Request $request)
     {
@@ -263,7 +277,7 @@ class MailsentExtraController extends Controller
 
         $flashbag->add('success', 'Le courrier envoyé de référence "'.$mailsent->getReference().'" a été validé');
 
-        // On redirige vers l'accueil
-        return $this->redirect($this->generateUrl('mails_core_home'));
+        // On redirige vers l'espace de travail de l'utilisateur
+        return $this->redirect($this->generateUrl('mails_core_workspace_admin'));
     }
 }

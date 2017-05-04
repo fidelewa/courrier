@@ -26,8 +26,10 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
         
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType($this->getUser()), $mailFactory::create());
-         
+        $form = $this->createForm(MailMailreceivedFilterType::class, $mailFactory::create(), array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
+
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
             // On récupère notre service handler mails data
@@ -60,7 +62,7 @@ class MailreceivedExtraController extends Controller
     public function filterMailreceivedByUserAction($id, Request $request)
     {
         // On récupère l'user par son id
-        $user = $this->getDoctrine()->getRepository('MailsUserBundle:User')->find($id);
+        $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($id);
 
         if (null === $user) {
             throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
@@ -70,7 +72,9 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType($this->getUser()), $mailFactory::create());
+        $form = $this->createForm(MailMailreceivedFilterType::class, $mailFactory::create(), array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -111,7 +115,9 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailMailreceivedFilterType($this->getUser()), $mailFactory::create());
+        $form = $this->createForm(MailMailreceivedFilterType::class, $mailFactory::create(), array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -142,7 +148,7 @@ class MailreceivedExtraController extends Controller
      * @param integer $page page number
      * @param Request $request Incoming request
      */
-     public function filterAllMailreceivedAction(Request $request, $page)
+     public function filterAllMailreceivedByUserAction(Request $request, $page)
      {
          if ($page < 1) {
              throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
@@ -152,7 +158,9 @@ class MailreceivedExtraController extends Controller
         $mailFactory = $this->get('mails_mail.mail_factory');
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailReceivedFilterType($this->getUser()), $mailFactory::create());
+         $form = $this->createForm(MailReceivedFilterType::class, $mailFactory::create(), array(
+             'adminCompany' => $this->getUser()->getCompany()
+         ));
          
         //Si la requête est en POST on affiche la liste du resultat de la recherche
         if ($form->handleRequest($request)->isValid()) {
@@ -177,6 +185,105 @@ class MailreceivedExtraController extends Controller
             $request->getSession()->set('mail', $mail);
 
             // On redirige vers la route des résultats
+            return $this->redirect($this->generateUrl('mails_all_mailreceived_filter_user_result', array('page' => $page)));
+        }
+
+        //Si la requête est en GET on affiche le formulaire de critère de recherche
+        return $this->render('@mailreceived_form_views/all_mailreceived_filter_user.html.twig', array(
+        'form' => $form->createView()
+        ));
+     }
+
+     /**
+     * filter all mails received.
+     *
+     * @param integer $page page number
+     * @param Request $request Incoming request
+     */
+    public function filterAllMailreceivedByUserResultAction($page, Request $request)
+    {
+        if ($page < 1) {
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+        // On récupère les données du courrier reçu depuis la session
+        $days = $request->getSession()->get('days');
+        $reception = $request->getSession()->get('reception');
+        $expediteur = $request->getSession()->get('expediteur');
+        $destinataire = $request->getSession()->get('destinataire');
+        $traitement = $request->getSession()->get('traitement');
+        $numItems = $request->getSession()->get('num_items');
+        $mail = $request->getSession()->get('mail');
+
+        // On récupère notre service filter
+         $filter = $this->get('mails_mail.mail_filter');
+
+        //On récupère tous les courriers envoyés, filtrés par date et par reception
+        $allMailreceivedFilter = $filter
+        ->filtreAllMailreceivedByUser($days, $reception, $expediteur, $destinataire, $traitement, $page, $numItems);
+
+        // On récupère notre service calculator
+        $nbCalculator = $this->get('mails_mail.nbpage_calculator');
+
+        // On calcule le nombre total de pages pour la recherche
+        $nombreTotalPagesByFilter = $nbCalculator
+        ->calculateTotalNumberPageByFilter($allMailreceivedFilter, $numItems);
+
+        if ($page > $nombreTotalPagesByFilter) {
+            $request->getSession()->getFlashBag()->add('danger', 'Aucune donnée ne correspond a cette recherche !');
+            return $this->redirect($this->generateUrl('mails_core_home'));
+        }
+        
+        return $this->render('@mailreceived_filter_result_views/all_mailreceived_filter_user_result.html.twig', array(
+        'page' => $page,
+        'allMailreceivedFilter' => $allMailreceivedFilter,
+        'nombreTotalPages' => $nombreTotalPagesByFilter,
+        'mail' => $mail
+        ));
+    }
+
+     /**
+     * filter all mails received.
+     *
+     * @param integer $page page number
+     * @param Request $request Incoming request
+     */
+     public function filterAllMailreceivedAction(Request $request, $page)
+     {
+         if ($page < 1) {
+             throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+         }
+
+        // On récupère notre mail factory
+        $mailFactory = $this->get('mails_mail.mail_factory');
+
+        //On crée notre formulaire
+         $form = $this->createForm(MailReceivedFilterType::class, $mailFactory::create(), array(
+             'adminCompany' => $this->getUser()->getCompany()
+         ));
+         
+        //Si la requête est en POST on affiche la liste du resultat de la recherche
+        if ($form->handleRequest($request)->isValid()) {
+            // On récupère les données du courrier reçu
+            $mail = $form->getData();
+            $days = $mail->getNbDaysBefore();
+            $reception = $mail->getReceived();
+            $traitement = $mail->getTreated();
+            $expediteur = $mail->getMailreceived()->getActor()->getName();
+            //$destinataire = $mail->getMailreceived()->getUser()->getUsername();
+
+            // On récupère notre service filter
+            $filter = $this->get('mails_mail.mail_filter');
+
+            // On défini les attributs de session des données du courrier reçu
+            $request->getSession()->set('days', $days);
+            $request->getSession()->set('reception', $reception);
+            $request->getSession()->set('expediteur', $expediteur);
+            //$request->getSession()->set('destinataire', $destinataire);
+            $request->getSession()->set('traitement', $traitement);
+            $request->getSession()->set('num_items', $filter::NUM_ITEMS);
+            $request->getSession()->set('mail', $mail);
+
+            // On redirige vers la route des résultats
             return $this->redirect($this->generateUrl('mails_all_mailreceived_filter_result', array('page' => $page)));
         }
 
@@ -186,7 +293,7 @@ class MailreceivedExtraController extends Controller
         ));
      }
 
-     /**
+    /**
      * filter all mails received.
      *
      * @param integer $page page number
@@ -211,14 +318,14 @@ class MailreceivedExtraController extends Controller
 
         //On récupère tous les courriers envoyés, filtrés par date et par reception
         $allMailreceivedFilter = $filter
-        ->filtreAllMailreceived($days, $reception, $expediteur, $destinataire, $traitement, $page, $numItems);
+        ->filtreAllMailreceived($days, $reception, $expediteur, $traitement, $page, $numItems);
 
         // On récupère notre service calculator
         $nbCalculator = $this->get('mails_mail.nbpage_calculator');
 
         // On calcule le nombre total de pages pour la recherche
         $nombreTotalPagesByFilter = $nbCalculator
-        ->calculateTotalNumberPageByFilter($allMailreceivedFilter, $page, $numItems);
+        ->calculateTotalNumberPageByFilter($allMailreceivedFilter, $numItems);
 
         if ($page > $nombreTotalPagesByFilter) {
             $request->getSession()->getFlashBag()->add('danger', 'Aucune donnée ne correspond a cette recherche !');
@@ -239,17 +346,17 @@ class MailreceivedExtraController extends Controller
      * @param integer $id Mail received id
      * @param Request $request Incoming request
      */
-     public function validateMailreceivedAction($id, Request $request)
-     {
-         //On récupère notre Entity Manager
+    public function validateMailreceivedAction($id, Request $request)
+    {
+        //On récupère notre Entity Manager
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'$id du mail received
         $mailreceived = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
 
-         if (null === $mailreceived) {
-             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
-         }
+        if (null === $mailreceived) {
+            throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
+        }
         
         //On valide le mail received
         $mailreceived->setValidated(true);
@@ -261,6 +368,6 @@ class MailreceivedExtraController extends Controller
         $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mailreceived->getReference().'" a bien été validé.');
         
         // On redirige vers l'accueil
-        return $this->redirect($this->generateUrl('mails_core_home'));
-     }
+        return $this->redirect($this->generateUrl('mails_core_workspace_admin'));
+    }
 }
