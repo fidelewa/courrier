@@ -7,14 +7,64 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Mails\MailBundle\Lister\MailsLister;
 
 class MailController extends Controller
 {
+
     /**
      * Displays the list of index of mails sent by user profil
      *
      * @param Integer $page page number
      * @Template("@mailsent_index_views/index_mailsent.html.twig")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function showIndexMailsentAction($page, Request $request)
+    {
+        if ($page < 1) {
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+
+        // On récupère notre service index user role manager
+        $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
+
+        // Process
+        $listMailsentUserManager = $listMailUserManager
+                                ->manageListMailsent($page, $request, $this->getUser()->getCompany());
+
+        // result
+        return $listMailsentUserManager;
+    }
+
+    /**
+     * Displays the list of index of mails sent by user profil
+     *
+     * @param Integer $page page number
+     * @Template("@mailreceived_index_views/index_mailreceived.html.twig")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function showIndexMailreceivedAction($page, Request $request)
+    {
+        if ($page < 1) {
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+        }
+
+        // On récupère notre service index user role manager
+        $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
+
+        // Process
+        $listMailreceivedUserManager = $listMailUserManager
+                                    ->manageListMailreceived($page, $request, $this->getUser()->getCompany());
+        // result
+        return $listMailreceivedUserManager;
+    }
+
+    /**
+     * Displays the list of index of mails sent by user profil
+     *
+     * @param Integer $page page number
+     * @Template("@mailsent_index_views/index_mailsent_user.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showIndexMailsentByUserAction($page, Request $request)
     {
@@ -26,7 +76,8 @@ class MailController extends Controller
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
         // Process
-        $listMailsentUserManager = $listMailUserManager->manageListMailsentByUserRole($page, $this->getUser(), $request);
+        $listMailsentUserManager = $listMailUserManager
+        ->manageListMailsentByUserRole($page, $this->getUser(), $request);
 
         // result
         return $listMailsentUserManager;
@@ -36,7 +87,8 @@ class MailController extends Controller
      * Displays the list of index of mails received by user profil
      *
      * @param Integer $page page number
-     * @Template("@mailreceived_index_views/index_mailreceived.html.twig")
+     * @Template("@mailreceived_index_views/index_mailreceived_user.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showIndexMailreceivedByUserAction($page, Request $request)
     {
@@ -48,7 +100,8 @@ class MailController extends Controller
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
         // Process
-        $listMailreceivedUserManager = $listMailUserManager->manageListMailreceivedByUserRole($page, $this->getUser(), $request);
+        $listMailreceivedUserManager = $listMailUserManager
+        ->manageListMailreceivedByUserRole($page, $this->getUser(), $request);
 
         // result
         return $listMailreceivedUserManager;
@@ -58,16 +111,17 @@ class MailController extends Controller
      * Displays the list of lastest mails on home page.
      *
      * @param Integer $limit limit number
+     * @Security("has_role('ROLE_USER')")
      */
-    public function showLatestMailAction($limit)
+    public function showLatestMailAction($idCompany, $limit = MailsLister::LIMIT)
     {
         // On récupère notre service indexor
         $indexor = $this->get('mails_mail.mail_indexor');
 
         // On récupère notre objet indexor en fonction des critères spécifiés
-        $latestMailsSent = $indexor->indexLatestMailsent($limit);
+        $latestMailsSent = $indexor->indexLatestMailsent($limit, $idCompany);
 
-        $latestMailsReceived = $indexor->indexLatestMailreceived($limit);
+        $latestMailsReceived = $indexor->indexLatestMailreceived($limit, $idCompany);
         
         return $this->render('@show_latest_mails_views/listMail.html.twig', array(
             'mailsSent' => $latestMailsSent,
@@ -81,7 +135,7 @@ class MailController extends Controller
      * @param Integer $limit limit number
      * @Security("has_role('ROLE_SECRETAIRE')")
      */
-    public function showLatestUnregistredMailToSecretaryAction($limit)
+    public function showLatestUnregistredMailToSecretaryAction($limit = MailsLister::LIMIT)
     {
         //On récupère l'id de la sécrétaire
         $idSecretaire = $this->getUser()->getId();
@@ -94,7 +148,7 @@ class MailController extends Controller
 
         $listMailreceivedBySecretary = $indexor->indexMailreceivedNotRegistredBySecretary($idSecretaire, $limit);
         
-        return $this->render('@show_latest_mails_views/listMail_secretary.html.twig', array(
+        return $this->render('MailsCoreBundle:Home:secretary_workspace.html.twig', array(
             'listMailsentBySecretary' => $listMailsentBySecretary,
             'listMailreceivedBySecretary' => $listMailreceivedBySecretary,
         ));
@@ -105,7 +159,7 @@ class MailController extends Controller
      * @param Integer $limit limit number
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function showLatestNotValidatedMailByUserAction($limit)
+    public function showLatestNotValidatedMailByUserAction($limit = MailsLister::LIMIT)
     {
         //On récupère notre administrateur courant
         $admin = $this->getUser();
@@ -118,7 +172,7 @@ class MailController extends Controller
 
         $listMailreceivedByAdmin = $indexor->indexMailreceivedNotValidatedByAdmin($admin, $limit);
         
-        return $this->render('@show_latest_mails_views/listMail_admin.html.twig', array(
+        return $this->render('MailsCoreBundle:Home:admin_workspace.html.twig', array(
             'listMailsentNotValidated' => $listMailsentByAdmin,
             'listMailreceivedNotValidated' => $listMailreceivedByAdmin
         ));
