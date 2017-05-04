@@ -2,6 +2,16 @@
 {% block title %}Accueil - {{ parent() }}{% endblock %}
 {% block mailsmail_body %}
 
+{% if app.user and is_granted('ROLE_ADMIN') %}
+  {#{% if nombreTotalPages > 4 %}#}
+  <div>
+    <a href="{{ path('mails_mailreceived_filter') }}"><u>Filtrer la liste</u></a>
+    &nbsp;<b>|</b>&nbsp;
+    <a href="{{ path('mails_all_mailreceived_filter') }}"><u>Filtrer toute la liste</u></a>
+  </div>
+  {#{% endif %}#}
+{% endif %}
+
  <h2>Liste de tous les courriers reçus</h2>
 
   {{ include("@mailreceived_index_views/bl_index_mailreceived.html.twig") }}
