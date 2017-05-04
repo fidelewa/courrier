@@ -15,7 +15,7 @@ class MailsentRemoveSecretaryType extends AbstractType
 
         $builder
         ->remove('user', 'entity', array(//Champs de la sécrétaire qui doit enregistrer le courrier envoyé
-            'class'    => 'MailsUserBundle:User',
+            'class'    => 'UserBundle:User',
             'choice_label' => 'username',
             'multiple' => false,
             'expanded' => false,

@@ -15,7 +15,7 @@ class MailreceivedRemoveSecretaryType extends AbstractType
 
         $builder
         ->remove('user', 'entity', array(//On supprime le champs de la sécrétaire qui doit enregistrer le courrier reçu
-            'class'    => 'MailsUserBundle:User',
+            'class'    => 'UserBundle:User',
             'choice_label' => 'username',
             'multiple' => false,
             'expanded' => false,

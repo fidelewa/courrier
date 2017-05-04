@@ -40,7 +40,7 @@ class MailSentType extends AbstractType
             },
             ))
             ->add('user', EntityType::class, array(//Champs de la sécrétaire qui doit enregistrer le courrier envoyé
-            'class'    => 'MailsUserBundle:User',
+            'class'    => 'UserBundle:User',
             'choice_label' => 'username',
             'multiple' => false,
             'expanded' => false,

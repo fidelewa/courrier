@@ -23,7 +23,7 @@ class UserController extends Controller
         // On affiche la liste de tous les utilisateurs
         $listUser = $lister->listAdminUser();
 
-        return $this->render('MailsUserBundle:User:user.html.twig', array(
+        return $this->render('UserBundle:User:user.html.twig', array(
             'users' => $listUser
             ));
     }
@@ -59,7 +59,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('mails_core_home'));
         }
 
-        return $this->render('MailsUserBundle:User:user_mailsent.html.twig', array(
+        return $this->render('UserBundle:User:user_mailsent.html.twig', array(
             'mailsSentByActor' => $listMailsSent,
             'nbPages' => $nombreTotalPages,
             'page' => $page,
@@ -98,7 +98,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('mails_core_home'));
         }
 
-        return $this->render('MailsUserBundle:User:user_mailreceived.html.twig', array(
+        return $this->render('UserBundle:User:user_mailreceived.html.twig', array(
             'mailsReceivedByActor' => $listMailsReceived,
             'nbPages' => $nombreTotalPages,
             'page' => $page,
@@ -117,7 +117,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         // On récupère l'user par son id
-        $user = $em->getRepository('MailsUserBundle:User')->find($id);
+        $user = $em->getRepository('UserBundle:User')->find($id);
 
         // On récupère tous les courriers envoyés par l'user
         $allMailsentByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByUser($id);
@@ -169,7 +169,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         // On récupère l'user par son id
-        $user = $em->getRepository('MailsUserBundle:User')->find($id);
+        $user = $em->getRepository('UserBundle:User')->find($id);
 
         // On récupère tous les courriers envoyés par l'user
         $allMailsentByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByUser($id);
@@ -181,7 +181,7 @@ class UserController extends Controller
             throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
         
-        return $this->render('MailsUserBundle:User:user_mails.html.twig', array(
+        return $this->render('UserBundle:User:user_mails.html.twig', array(
         'user' => $user,
         'allMailsentByUser' => $allMailsentByUser,
         'allMailreceivedByUser' => $allMailreceivedByUser,
