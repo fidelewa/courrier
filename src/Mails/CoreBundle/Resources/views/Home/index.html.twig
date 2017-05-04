@@ -15,5 +15,5 @@
     
     <h2>Liste des derniers courriers ajoutés par votre entreprise</h2>
     <hr>
-        {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'limit': 4, 'idCompany': app.user.company.id})) }}
+        {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'idCompany': app.user.company})) }}
 {% endblock %}
