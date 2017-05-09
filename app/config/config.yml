@@ -129,29 +129,29 @@ sensio_framework_extra:
     security:    { annotations: true }
     psr_message: { enabled: false } # Defaults to true if the PSR-7 bridge is installed
 
-lsw_memcache:
-    session:
-        pool: default
-        auto_load: true
-        prefix: "session_"
-        ttl: 7200
-        locking: true
-        spin_lock_wait: 150000
+#lsw_memcache:
+ #   session:
+  #      pool: default
+   #     auto_load: true
+    #    prefix: "session_"
+     #   ttl: 7200
+      #  locking: true
+       # spin_lock_wait: 150000
 
-    doctrine:
-        metadata_cache:
-            pool: default
-            entity_manager: default          # the name of your entity_manager connection
-            document_manager: default
-        result_cache:
-            pool: default
-            entity_manager: [default, read]  # you may specify multiple entity_managers
-            prefix: "result_"                # you may specify a prefix for the entries
-        query_cache:
-            pool: default
-            entity_manager: default
+    #doctrine:
+     #   metadata_cache:
+      #      pool: default
+       #     entity_manager: default          # the name of your entity_manager connection
+        #    document_manager: default
+        #result_cache:
+         #   pool: default
+          #  entity_manager: [default, read]  # you may specify multiple entity_managers
+           # prefix: "result_"                # you may specify a prefix for the entries
+        #query_cache:
+         #   pool: default
+          #  entity_manager: default
 
-    pools:
-        default:
-            servers:
-              - { host: localhost, tcp_port: 11211 }
+    #pools:
+     #   default:
+      #      servers:
+       #       - { host: localhost, tcp_port: 11211 }
