@@ -1,6 +1,14 @@
 imports:
     - { resource: config_dev.yml }
 
+doctrine:
+    
+    dbal:
+        host:     localhost
+        dbname:   courriersf3
+        user:     "%database_user%"
+        password: "%database_password%"
+         
 framework:
     test: ~
     session:

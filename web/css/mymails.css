@@ -11,19 +11,23 @@ body {
     /*position: relative;*/
 }
 
-.mailObjet:hover, .mailObjet:focus {
+/*.mailObjet:hover, .mailObjet:focus {
     text-decoration: none;
-}
+}*/
 
 .adminTable {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-/*Permet de colorier le texte du lien lorsque le visiteur a déjà clické la-dessus*/
+/*Permet de colorier le texte du lien lorsque le visiteur a déjà cliqué la-dessus*/
 a:visited
 {
-    color: red; 
+    color: red;
+}
+
+a[title]:visited{
+    color:white;
 }
 
 /*Permet de mettre un espace blanc entre toutes les lignes du tableau d'information sur les courriers*/
@@ -34,4 +38,11 @@ a:visited
 /*Permet d'ajuster la position du contenu de l'application*/
 .fos_user_user_show { 
     padding-top: 30px; 
+}
+
+/*Permet d'ajouter une astérique de couleur rouge à droite des labels des champs obligatoires*/
+label.required::after{
+    content: '* ';
+    float : right;
+    color: red;
 }

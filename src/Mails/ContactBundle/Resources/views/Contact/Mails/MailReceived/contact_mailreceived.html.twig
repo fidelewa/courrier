@@ -1,9 +1,9 @@
 {% if allMailreceivedByActor %}
-   <a href="{{ path('mails_mailsent_filter_actor', {'id': actor.id}) }}"><u>Filtrer les courriers reçus par <b><i>{{ actor.name | title }}</i></b></u></a>
+   <a class="souligne" href="{{ path('mails_mailsent_filter_actor', {'id': actor.id}) }}">Filtrer les courriers reçus par {{ actor.name | title }}</strong></a>
         <div class="table-responsive">
             {{ include("@contact_mailreceived_views/table_mailreceived_contact.html.twig") }}
         </div>
 {% else %}
     <div class="alert alert-warning">Aucun courrier n'a été reçu par cet contact.</div>
 {% endif %} 
-{% if app.user and is_granted('ROLE_ADMIN') %}<a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a>{% endif %}
+{% if app.user and is_granted('ROLE_ADMIN') %}<a class="souligne" href="{{ path('mails_mailreceived_add') }}">Créer un nouveau courrier reçu</a>{% endif %}

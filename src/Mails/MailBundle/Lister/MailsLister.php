@@ -3,7 +3,7 @@ namespace Mails\MailBundle\Lister;
 
 class MailsLister
 {
-    const NUM_ITEMS = 1;
+    const NUM_ITEMS = 1, LIMIT = 4;
 
     private $em;
 
@@ -31,7 +31,7 @@ class MailsLister
         // On récupère la liste de tous les utilisateurs
                 $listUser = $this
                         ->em
-                        ->getRepository('MailsUserBundle:User')
+                        ->getRepository('UserBundle:User')
                         ->findAll()
                 ;
                             

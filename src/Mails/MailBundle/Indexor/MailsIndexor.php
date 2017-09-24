@@ -12,13 +12,13 @@ class MailsIndexor
         $this->em = $entityManager;
     }
     
-    public function indexLatestMailsent($limit)
+    public function indexLatestMailsent($limit, $idCompany)
     {
-        // On récupère les $limit derniers courriers envoyés
+        //On récupère les $limit derniers courriers envoyés par l'entreprise spécifiée
         $latestMailsSent = $this
                         ->em
                         ->getRepository('MailsMailBundle:Mail')
-                        ->findLatestMailsSent($limit)
+                        ->findLatestMailsSent($limit, $idCompany)
                 ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -27,13 +27,13 @@ class MailsIndexor
         return $latestMailsSent;
     }
 
-    public function indexLatestMailreceived($limit)
+    public function indexLatestMailreceived($limit, $idCompany)
     {
-        // On récupère les $limit derniers courriers reçus
+        // On récupère les $limit derniers courriers reçus par l'entreprise spécifiée
         $latestMailsReceived = $this
                             ->em
                             ->getRepository('MailsMailBundle:Mail')
-                            ->findLatestMailsReceived($limit)
+                            ->findLatestMailsReceived($limit, $idCompany)
                 ;
                             
         // Et on n'oublie pas de faire un flush !

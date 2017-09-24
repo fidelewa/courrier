@@ -1,42 +1,42 @@
 <tr>
- <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Référence</font>&nbsp;&nbsp;</td>
+ <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Référence</span>&nbsp;&nbsp;</td>
  <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.reference }}</td>
 </tr>
 <tr>
- <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Objet</font>&nbsp;&nbsp;</td>
+ <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Objet</span>&nbsp;&nbsp;</td>
  <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.objet }}</td>
 </tr>
 <tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Date d'enregistrement</font>&nbsp;&nbsp;</td>
+  <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Date d'enregistrement</span>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>{% if mail.dateEdition is not null %}&nbsp;&nbsp;{{ mail.dateEdition|date('d/m/Y à H:i:s') }}{% endif %}</td>
 </tr>
 <tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Date d'envoi</font>&nbsp;&nbsp;</td>
+  <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Date d'envoi</span>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>{% if mail.mailsent.dateEnvoi is not null %}&nbsp;&nbsp;{{ mail.mailsent.dateEnvoi|date('d/m/Y à H:i:s') }}{% endif %}</td>
 </tr>
 <tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Nombre de pièces jointes</font>&nbsp;&nbsp;</td>
+  <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Nombre de pièces jointes</span>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{{ mail.nombrePiecesJointes }}</td>
 </tr>
 <tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Accusé de reception</font>&nbsp;&nbsp;</td>
+  <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Accusé de reception</span>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>&nbsp;&nbsp;{% if mail.received == true %}OUI{% else %}NON{% endif %}</td>
 </tr>
 <tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Expéditeur</font>&nbsp;&nbsp;</td>
+  <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Expéditeur</span>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-    &nbsp;&nbsp;<a href="{{ path('mails_user_all_mails', {'id': mail.mailsent.user.id}) }}"><u>{{ mail.mailsent.user.username }}</u></a>
+    {% if mail.mailsent.user == app.user and is_granted('ROLE_ADMIN') %}
+      &nbsp;&nbsp;<a class="souligne" href="{{ path('mails_user_all_mails', {'id': mail.mailsent.user.id}) }}">{{ mail.mailsent.user.username }}</a>
     {% else %}
     &nbsp;&nbsp;{{ mail.mailsent.user.username }}
     {% endif %}
   </td>
 </tr>
 <tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Destinataire</font>&nbsp;&nbsp;</td>
+  <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Destinataire</span>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-    &nbsp;&nbsp;<a href="{{ path('mails_contact_all_mail', {'id': mail.mailsent.actor.id}) }}"><u>{{ mail.mailsent.actor.name }}</u></a>
+    {% if mail.mailsent.user == app.user and is_granted('ROLE_ADMIN') %}
+    &nbsp;&nbsp;<a class="souligne" href="{{ path('mails_contact_all_mail', {'id': mail.mailsent.actor.id}) }}">{{ mail.mailsent.actor.name }}</a>
     {% else %}
     &nbsp;&nbsp;{{ mail.mailsent.actor.name }}
     {% endif %}

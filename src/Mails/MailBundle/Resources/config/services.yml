@@ -1,7 +1,7 @@
 services:
     mails_mail.mail_checker:
         class: Mails\MailBundle\Checker\MailsChecker
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: ["@doctrine.orm.entity_manager"]
         tags:
             -  { name: twig.extension }
 
@@ -12,34 +12,34 @@ services:
             
     mails_mail.mail_paginator:
         class: Mails\MailBundle\Paginator\MailsPaginator
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: ["@doctrine.orm.entity_manager"]
         
     mails_mail.mail_indexor:
         class: Mails\MailBundle\Indexor\MailsIndexor
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: ["@doctrine.orm.entity_manager"]
 
     mails_mail.nbpage_calculator:
         class: Mails\MailBundle\Calculator\NbPageCalculator
 
     mails_mail.eraser:
         class: Mails\MailBundle\Eraser\Eraser
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: ["@doctrine.orm.entity_manager"]
 
     mails_mail.mail_creator:
         class: Mails\MailBundle\Creator\MailsCreator
-        arguments: [@doctrine.orm.entity_manager, @mails_mail.mail.model.class]
+        arguments: ["@doctrine.orm.entity_manager", "@mails_mail.mail.model.class"]
 
     mails_mail.mail_filter:
         class: Mails\MailBundle\Filter\MailsFilter
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: ["@doctrine.orm.entity_manager"]
         
     mails_mail.mail_lister:
         class: Mails\MailBundle\Lister\MailsLister
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: ["@doctrine.orm.entity_manager"]
 
     mails_mail.mails_handler_data:
         class: Mails\MailBundle\HandlerMailsData\HandlerMailsData
-        arguments: [@mails_mail.mail_filter, @session]
+        arguments: ["@mails_mail.mail_filter", "@session"]
 
     mails_mail.mail_factory:
         class: Mails\MailBundle\Factory\MailFactory
@@ -49,4 +49,22 @@ services:
 
     mails_mail.list_mail_user_manager:
         class: Mails\MailBundle\Manager\ListMailUserManager
-        arguments: [@mails_mail.nbpage_calculator, @mails_mail.mail_paginator]
+        arguments: ["@mails_mail.nbpage_calculator", "@mails_mail.mail_paginator"]
+
+    #mails_mail.sendingmail_processor:
+     #   class:     Mails\MailBundle\Registration\SendingMailProcessor
+      #  arguments: ["@mailer", "%app_webmaster%"]
+
+    #mails_mail.registration_listener:
+     #   class:     Mails\MailBundle\Registration\RegistrationListener
+      #  arguments: ["@mails_mail.sendingmail_processor"]
+       # tags:
+            #- { name: kernel.event_listener, event: oc_platform.bigbrother.post_message, method: processMessage }
+        #     - { name: kernel.event_subscriber }
+
+    #mails_mail.mailsentfilter_listener:
+     #   class:     Mails\MailBundle\MailsentFilter\MailsentFilterListener
+        #arguments: ["@mails_mail.mail_filter"]
+      #  tags:
+            #- { name: kernel.event_listener, event: mails_mail.mailsent.filter_mailsent, method: processGetMailsentDatas }
+       #      - { name: kernel.event_subscriber }

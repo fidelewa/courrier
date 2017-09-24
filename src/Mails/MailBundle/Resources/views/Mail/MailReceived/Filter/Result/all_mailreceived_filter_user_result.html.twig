@@ -1,0 +1,26 @@
+{% extends "MailsMailBundle::layout.html.twig" %}
+{% block title %}Resultat de la recherche - liste des courriers reçus{% endblock %}
+{% block mailsmail_body %}
+
+<h1 class="text-center">Rappel critères de filtrage</h1>
+<div class="well">
+    <ul>
+        <li>Nom de l'expéditeur : {{ mail.mailreceived.actor.name }} </li>
+        <li>Nom du destinataire : {{ app.user.username }} </li>
+        <li>Nombre de jours d'ancienneté du courrier : {{ mail.nbDaysBefore }} jour(s) et plus</li>
+        <li>Réception : {% if mail.received == true %}OUI{% else %}NON{% endif %}</li>
+        <li>Traitement : {% if mail.treated == true %}OUI{% else %}NON{% endif %}</li>
+    </ul>
+</div>
+  <h2 class="text-center">Resultat de la recherche - liste des courriers reçus</h2>
+    {{ include("@mailreceived_filter_result_views/bl_all_mailreceived_filter_result.html.twig") }}
+   <ul class="pagination">
+      {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+      {% for p in range(1, nombreTotalPages) %}
+        <li{% if p == page %} class="active"{% endif %}>
+          <a href="{{ path('mails_all_mailreceived_filter_user_result', {'page': p}) }}">{{ p }}</a>
+        </li>
+      {% endfor %}
+   </ul>
+{% endblock %}
+

@@ -9,7 +9,7 @@
 {% endif %}
        
 {% if app.user and is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a>
-    | <a href="{{ path('mails_user_all_mails', {'id': user.id}) }}"><u>Retour à la liste des courriers de l'utilisateur <b><i>{{user.username}}</i></b></u></a>
-    | <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
+    <a class="souligne" href="{{ path('mails_mailsent_add') }}">Créer un nouveau courrier envoyé</a>
+    | <a class="souligne" href="{{ path('mails_user_all_mails', {'id': user.id}) }}">Retour à la liste des courriers de l'utilisateur <em>{{user.username}}</em></a>
+    | <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
 {% endif %}

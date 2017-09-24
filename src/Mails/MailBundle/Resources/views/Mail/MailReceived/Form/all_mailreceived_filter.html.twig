@@ -2,14 +2,14 @@
 {% block title %}Critères de recherche - Liste des courriers reçus{% endblock %}
 {% block mailsadmin_body %}
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="well">
     {{ form_start(form, {'method': 'post', 'action': path('mails_all_mailreceived_filter'), 'attr': {'class': 'form-horizontal'}}) }}
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
     <div class="form-group">
-        {{ form_label(form.mailreceived.actor, "Choix du nom de l'expéditeur * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailreceived.actor, "Choix du nom de l'expéditeur :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
         <div class="col-sm-6">
             {{ form_errors(form.mailreceived.actor) }}
             {{ form_widget(form.mailreceived.actor, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nom du destinataire recherché'}}
@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.nbDaysBefore, "Nombre de jours d'ancienneté du courrier * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.nbDaysBefore, "Nombre de jours d'ancienneté du courrier :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
         <div class="col-sm-6">
             {{ form_errors(form.nbDaysBefore) }}
             {{ form_widget(form.nbDaysBefore, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nombre de jours d\'ancienneté recherché'}}
@@ -50,5 +50,5 @@
     {{ form_end(form) }}
     
 </div>
-{% if app.user and is_granted('ROLE_ADMIN') %}<a href="{{ path('mails_mailreceived_add') }}"><u>Créer un nouveau courrier reçu</u></a>{% endif %}
+{% if app.user and is_granted('ROLE_ADMIN') %}<a class="souligne" href="{{ path('mails_mailreceived_add') }}">Créer un nouveau courrier reçu</a>{% endif %}
 {% endblock %}

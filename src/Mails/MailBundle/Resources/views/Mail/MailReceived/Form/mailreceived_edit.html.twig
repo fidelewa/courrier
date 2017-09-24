@@ -21,7 +21,7 @@
     </ul>
 </div>
 
- <h2 class="text-center">{{ block('title') }}</h2>
+ <h1 class="text-center">{{ block('title') }}</h1>
 
  <div class="well">
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -30,7 +30,7 @@
     {{ form_errors(form) }}
     
     <div class="form-group">
-        {{ form_label(form.mailreceived.actor, "Nom de l'expéditeur * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailreceived.actor, "Nom de l'expéditeur : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.mailreceived.actor) }}
@@ -40,7 +40,7 @@
     </div>
     
     <div class="form-group">
-        {{ form_label(form.reference, "Référence * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.reference, "Référence : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.reference) }}
@@ -50,7 +50,7 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.objet, "Objet * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.objet, "Objet : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.objet) }}
@@ -60,7 +60,7 @@
     
     {% if form.mailreceived.dateReception is defined %}
     <div class="form-group">
-        {{ form_label(form.mailreceived.dateReception, "Date de reception * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.mailreceived.dateReception, "Date de reception : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.mailreceived.dateReception) }}
@@ -70,7 +70,7 @@
     {% endif %}
 
     <div class="form-group">
-        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.nombrePiecesJointes) }}
@@ -80,7 +80,7 @@
 
     {% if form.received is defined %}
     <div class="form-group">
-        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.received, "Réception : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-1">
             {{ form_errors(form.received) }}
@@ -91,7 +91,7 @@
     
     {% if form.treated is defined %}
     <div class="form-group">
-        {{ form_label(form.treated, "Traitement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.treated, "Traitement : ", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-1">
             {{ form_errors(form.treated) }}
@@ -118,12 +118,12 @@
 
 <p>
     {% if app.user and is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('mails_user_mailreceived') }}"><u>Retour à la liste des courriers reçus</u></a>
-    &nbsp;<b>|</b>&nbsp;
+    <a class="souligne" href="{{ path('mails_user_mailreceived') }}">Retour à la liste des courriers reçus</a>
+    &nbsp;|&nbsp;
     {% else %}
-    <a href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}"><u>Retour au détail</u></a>
-    &nbsp;<b>|</b>&nbsp;
+    <a class="souligne" href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}">Retour au détail</a>
+    &nbsp;|&nbsp;
     {% endif %}
-    <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
   </p>
 {% endblock %}

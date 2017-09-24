@@ -14,6 +14,8 @@ class UserController extends Controller
 {
     /**
      * Displays a list of all users
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllUserAction()
     {
@@ -23,14 +25,18 @@ class UserController extends Controller
         // On affiche la liste de tous les utilisateurs
         $listUser = $lister->listAdminUser();
 
-        return $this->render('MailsUserBundle:User:user.html.twig', array(
+        return $this->render('UserBundle:User:user.html.twig', array(
             'users' => $listUser
             ));
     }
 
     /**
      * Displays a list of all mail sent by the responsible power
+     *
      * @param interger $page page number
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAllMailsentCurrentUserAction($page, Request $request)
     {
@@ -59,7 +65,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('mails_core_home'));
         }
 
-        return $this->render('MailsUserBundle:User:user_mailsent.html.twig', array(
+        return $this->render('UserBundle:User:user_mailsent.html.twig', array(
             'mailsSentByActor' => $listMailsSent,
             'nbPages' => $nombreTotalPages,
             'page' => $page,
@@ -68,7 +74,11 @@ class UserController extends Controller
 
     /**
      * Displays a list of all mail received by the responsible power
+     *
      * @param interger $page page number
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAllMailreceivedCurrentUserAction($page, Request $request)
     {
@@ -98,7 +108,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('mails_core_home'));
         }
 
-        return $this->render('MailsUserBundle:User:user_mailreceived.html.twig', array(
+        return $this->render('UserBundle:User:user_mailreceived.html.twig', array(
             'mailsReceivedByActor' => $listMailsReceived,
             'nbPages' => $nombreTotalPages,
             'page' => $page,
@@ -110,6 +120,8 @@ class UserController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteUserAction($id, Request $request)
     {
@@ -117,7 +129,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         // On récupère l'user par son id
-        $user = $em->getRepository('MailsUserBundle:User')->find($id);
+        $user = $em->getRepository('UserBundle:User')->find($id);
 
         // On récupère tous les courriers envoyés par l'user
         $allMailsentByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByUser($id);
@@ -163,13 +175,15 @@ class UserController extends Controller
      * Displays all the mails of the specified user.
      *
      * @param integer $id User id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllMailOfUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         
         // On récupère l'user par son id
-        $user = $em->getRepository('MailsUserBundle:User')->find($id);
+        $user = $em->getRepository('UserBundle:User')->find($id);
 
         // On récupère tous les courriers envoyés par l'user
         $allMailsentByUser = $em->getRepository('MailsMailBundle:Mail')->findAllMailsentByUser($id);
@@ -181,7 +195,7 @@ class UserController extends Controller
             throw new NotFoundHttpException("L'utilisateur d'id ".$id." n'existe pas.");
         }
         
-        return $this->render('MailsUserBundle:User:user_mails.html.twig', array(
+        return $this->render('UserBundle:User:user_mails.html.twig', array(
         'user' => $user,
         'allMailsentByUser' => $allMailsentByUser,
         'allMailreceivedByUser' => $allMailreceivedByUser,

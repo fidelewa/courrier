@@ -1,0 +1,11 @@
+{% extends "MailsCoreBundle::layout.html.twig" %}
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+  <h1 class="text-center">{{ block('title') }}</h1>
+
+  {% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-success">{{ flashMessage }}</div>
+  {% endfor %}
+    {{ render(controller("MailsCoreBundle:Home:infosCompany", {'id': app.user.company})) }}
+{% endblock %}

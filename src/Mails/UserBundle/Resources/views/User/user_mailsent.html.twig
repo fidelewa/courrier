@@ -2,18 +2,18 @@
 {% block title %}Courriers envoyés{% endblock %}
 {% block mailsadmin_body %}
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">Message flash : {{ flashMessage }}</div>
 {% endfor %}
 
-<a href="{{ path('mails_mailsent_filter') }}"><u>Filtrer les courriers envoyés</u></a> 
+<a class="souligne" href="{{ path('mails_mailsent_filter') }}">Filtrer les courriers envoyés</a> 
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="mailsSentByActor">
         {{ include('@admin_user_mailsent_views/bl_user_mailsent.html.twig') }}
      {% if app.user and is_granted('ROLE_ADMIN') %}
-       <a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a>
+       <a class="souligne" href="{{ path('mails_mailsent_add') }}">Créer un nouveau courrier envoyé</a>
      {% endif %}
     </div>
 </div>

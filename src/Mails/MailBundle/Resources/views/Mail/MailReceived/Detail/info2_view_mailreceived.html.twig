@@ -1,18 +1,18 @@
 <tr>
-   <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Expéditeur</font>&nbsp;&nbsp;</td>
+   <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Expéditeur</span>&nbsp;&nbsp;</td>
    <td align="left" bgcolor="#EBEBEB" width=60%>
-   {% if app.user and is_granted('ROLE_ADMIN') %}
-   &nbsp;&nbsp;<a href="{{ path('mails_contact_all_mail', {'id': mail.mailreceived.actor.id}) }}"><u>{{ mail.mailreceived.actor.name }}</u></a>
+   {% if mail.mailreceived.user == app.user and is_granted('ROLE_ADMIN') %}
+   &nbsp;&nbsp;<a class="souligne" href="{{ path('mails_contact_all_mail', {'id': mail.mailreceived.actor.id}) }}">{{ mail.mailreceived.actor.name }}</a>
    {% else %}
    &nbsp;&nbsp;{{ mail.mailreceived.actor.name }}
    {% endif %}
    </td>
 </tr>
 <tr>
-  <td align="right" bgcolor="#DEDEDE" width=40%><font color="gray">Destinataire</font>&nbsp;&nbsp;</td>
+  <td align="right" bgcolor="#DEDEDE" width=40%><span class="detail">Destinataire</span>&nbsp;&nbsp;</td>
   <td align="left" bgcolor="#EBEBEB" width=60%>
-    {% if app.user and is_granted('ROLE_ADMIN') %}
-    &nbsp;&nbsp;<a href="{{ path('mails_user_all_mails', {'id': mail.mailreceived.user.id}) }}"><u>{{ mail.mailreceived.user.username }}</u></a>
+    {% if mail.mailreceived.user == app.user and is_granted('ROLE_ADMIN') %}
+    &nbsp;&nbsp;<a class="souligne" href="{{ path('mails_user_all_mails', {'id': mail.mailreceived.user.id}) }}">{{ mail.mailreceived.user.username }}</a>
     {% else %}
     &nbsp;&nbsp;{{ mail.mailreceived.user.username }}
     {% endif %}

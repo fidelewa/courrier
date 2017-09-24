@@ -1,74 +1,74 @@
   {% if app.request.getPathInfo() == "/" %}
     Accueil 
   {% elseif app.request.getPathInfo() == "/contact" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Nous Contacter
   {% elseif app.request.getPathInfo() == "/login" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Authentification
   {% elseif app.request.getPathInfo() == "/mail/sent" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Liste des courriers envoyés
   {% elseif app.request.getPathInfo() == "/mail/mailsent/add/" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a>
     <span class="glyphicon glyphicon-triangle-right"></span> Création
   {% elseif app.request.getPathInfo() == "/mail/received" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Liste des courriers reçus
   {% elseif app.request.getPathInfo() == "/mail/mailreceived/add/" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
     <span class="glyphicon glyphicon-triangle-right"></span> Création
   {% elseif app.request.getPathInfo() == "/mail/mailreceived/filter" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
     <span class="glyphicon glyphicon-triangle-right"></span> Formulaire de recherche
   {% elseif app.request.getPathInfo() == "/mail/mailreceived/filter/result" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
     <span class="glyphicon glyphicon-triangle-right"></span> Résultat de la recherche
   {% elseif app.request.getPathInfo() == "/mail/mailreceived/filter/user/result" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
     <span class="glyphicon glyphicon-triangle-right"></span> Résultat de la recherche par utilisateur
   {% elseif app.request.getPathInfo() == "/mail/mailreceived/filter/contact/result" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Résultat de la recherche par contact
   {% elseif app.request.getPathInfo() == "/mail/mailsent/filter" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Formulaire de recherche
   {% elseif app.request.getPathInfo() == "/mail/mailsent/filter/result" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Résultat de la recherche
   {% elseif app.request.getPathInfo() == "/mail/mailsent/filter/user/result" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailsent') }}">Liste des courriers envoyés</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Résultat de la recherche par utilisateur
   {% elseif app.request.getPathInfo() == "/mail/mailsent/filter/contact/result" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
-    <span class="glyphicon glyphicon-triangle-right"></span> <a href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
+    <span class="glyphicon glyphicon-triangle-right"></span> <a class="souligne" href="{{ path('mails_mail_mailreceived') }}">Liste des courriers reçus</a>
     <span class="glyphicon glyphicon-triangle-right"></span> Résultat de la recherche par contact
   {% elseif app.request.getPathInfo() == "/contact/show" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Liste des contacts
   {% elseif app.request.getPathInfo() == "/contact/add" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Ajout de contact
   {% elseif app.request.getPathInfo() == "/user/show" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Liste des utilisateurs
   {% elseif app.request.getPathInfo() == "/register/" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Ajout d'utilisateur
   {% elseif app.request.getPathInfo() == "/profile/" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Profile de l'utilisateur
   {% elseif app.request.getPathInfo() == "/profile/edit" %}
-    <a href="{{ path('mails_core_home') }}">Accueil</a> 
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a> 
     <span class="glyphicon glyphicon-triangle-right"></span> Edition du profile de l'utilisateur
   {% else %}
   {{ app.request.getPathInfo() }}

@@ -2,11 +2,11 @@
 {% block title %}Resultat de la recherche - liste des courriers reçus{% endblock %}
 {% block mailsmail_body %}
 
-<h2 class="text-center">Rappel critères de filtrage</h2>
+<h1 class="text-center">Rappel critères de filtrage</h1>
 <div class="well">
     <ul>
         <li>Nom de l'expéditeur : {{ mail.mailreceived.actor.name }} </li>
-        <li>Nom du destinataire : {{ app.user.username }} </li>
+        <li>Nom du destinataire : {{ app.user.username }}</li>
         <li>Nombre de jours d'ancienneté du courrier : {{ mail.nbDaysBefore }} jour(s) et plus</li>
         <li>Réception : {% if mail.received == true %}OUI{% else %}NON{% endif %}</li>
         <li>Traitement : {% if mail.treated == true %}OUI{% else %}NON{% endif %}</li>

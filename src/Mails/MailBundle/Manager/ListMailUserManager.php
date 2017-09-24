@@ -4,6 +4,9 @@ namespace Mails\MailBundle\Manager;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Mails\MailBundle\Paginator\MailsPaginator;
+use Symfony\Component\HttpFoundation\Request;
+use Mails\UserBundle\Entity\User;
+use Mails\MailBundle\Entity\Company;
 
 class ListMailUserManager
 {
@@ -23,9 +26,9 @@ class ListMailUserManager
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse || array()
      */
-    public function manageListMailsentByUserRole($page, $user, \Symfony\Component\HttpFoundation\Request $request)
+    public function manageListMailsentByUserRole($page, User $user, Request $request)
     {
-        //Utilisateur authentifié ou non
+        //Si Utilisateur authentifié
         if ($user !== null) {
             //On récupère les roles de l'user
             $userRoles = $user->getRoles();
@@ -67,22 +70,56 @@ class ListMailUserManager
 
                 return array('mails' => $listMailsSent,'nbPages' => $nombreTotalPages,'page' => $page);
             }
-        } else {
-            // On récupère notre objet Paginator en fonction des critères spécifiés
-            $listMailsSent = $this->paginator->pageIndexMailsent($page, MailsPaginator::NUM_ITEMS);
+        }
+    }
+
+    /**
+     * @param integer $page the page number
+     * @param \Symfony\Component\HttpFoundation\Request $request the current request
+     * @param \Mails\MailBundle\Entity\Company $userCompany the company of the current user
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse || array()
+     */
+    public function manageListMailsent($page, Request $request, Company $userCompany)
+    {
+        // On récupère notre objet Paginator en fonction des critères spécifiés
+            $listMailsSent = $this->paginator->pageIndexMailsent($page, MailsPaginator::NUM_ITEMS, $userCompany);
 
             /* On calcule le nombre total de pages grâce
             au count($listMailsSent) qui retourne le nombre total de courriers envoyé */
             $nombreTotalPages= $this->nbPageCalculator->calculateTotalNumberPage($listMailsSent, $page);
 
-            if ($page > $nombreTotalPages) {
-                $request
+        if ($page > $nombreTotalPages) {
+            $request
                 ->getSession()->getFlashBag()->add('danger', 'Il n\'y a aucune liste de courrier envoyés !');
-                return new RedirectResponse($request->getBaseUrl().'/');
-            }
-            
-            return array('mails' => $listMailsSent,'nbPages' => $nombreTotalPages,'page' => $page);
+            return new RedirectResponse($request->getBaseUrl().'/');
         }
+            
+        return array('mails' => $listMailsSent,'nbPages' => $nombreTotalPages,'page' => $page);
+    }
+
+    /**
+     * @param integer $page the page number
+     * @param \Symfony\Component\HttpFoundation\Request $request the current request
+     * @param \Mails\MailBundle\Entity\Company $userCompany the company of the current user
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse || array()
+     */
+    public function manageListMailreceived($page, Request $request, Company $userCompany)
+    {
+        // On pagine la liste des courriers reçus en fonction des critères spécifiés
+            $listMailsReceived = $this->paginator->pageIndexMailreceived($page, MailsPaginator::NUM_ITEMS, $userCompany);
+
+            /* On calcule le nombre total de pages en fonction de la liste des courriers reçus */
+            $nombreTotalPages= $this->nbPageCalculator->calculateTotalNumberPage($listMailsReceived, $page);
+
+        if ($page > $nombreTotalPages) {
+            $request
+                ->getSession()->getFlashBag()->add('danger', 'Il n\'y a aucune liste de courrier reçu !');
+            return new RedirectResponse($request->getBaseUrl().'/');
+        }
+
+        return array('mails' => $listMailsReceived, 'nombreTotalPages' => $nombreTotalPages, 'page' => $page);
     }
 
     /**
@@ -135,22 +172,6 @@ class ListMailUserManager
 
                 return array('mails' => $listMailsReceived, 'nombreTotalPages' => $nombreTotalPages, 'page' => $page);
             }
-        } else {
-
-            // On pagine la liste des courriers reçus en fonction des critères spécifiés
-            $listMailsReceived = $this->paginator->pageIndexMailreceived($page, MailsPaginator::NUM_ITEMS);
-
-            /* On calcule le nombre total de pages en fonction de la liste des courriers reçus */
-            $nombreTotalPages= $this->nbPageCalculator->calculateTotalNumberPage($listMailsReceived, $page);
-
-            if ($page > $nombreTotalPages) {
-                $request
-                ->getSession()->getFlashBag()->add('danger', 'Il n\'y a aucune liste de courrier reçu !');
-                return new RedirectResponse($request->getBaseUrl().'/');
-            }
-
-            return array('mails' => $listMailsReceived, 'nombreTotalPages' => $nombreTotalPages, 'page' => $page);
         }
-        
     }
 }

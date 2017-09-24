@@ -1,5 +1,5 @@
 <tr bgcolor={{fond}} valign='top'>
-        <td><u><a href="{{ path('mails_mailsent_detail', {'id': mailsentByFilter.id}) }}">[{{ mailsentByFilter.reference}}]</a></u></td>
+        <td><a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mailsentByFilter.id}) }}">[{{ mailsentByFilter.reference}}]</a></td>
         <td>{{ mailsentByFilter.objet }}</td>
         <td>{% if mailsentByFilter.dateEdition is not null %}{{ mailsentByFilter.dateEdition.format('d/m/Y à H:i:s') }}{% endif %}</td>
         <td>{% if mailsentByFilter.mailsent.dateEnvoi is defined %}{{ mailsentByFilter.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}{% endif %}</td>

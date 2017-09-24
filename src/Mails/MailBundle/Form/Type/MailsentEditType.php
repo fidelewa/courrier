@@ -7,31 +7,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MailsentEditType extends AbstractType
 {
-    private $admin;
-
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($user)
-    {
-        $this->admin = $user;
-    }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
         ->remove('dateEdition', 'datetime')
-        ->add('mailsent', new MailsentRemoveSecretaryType($this->admin))
+        ->add('mailsent', MailsentRemoveSecretaryType::class, array('adminCompany' => $options['adminCompany']))
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'mails_mailbundle_mailsent_edit';
     }
 
     public function getParent()
     {
-        return new MailMailsentType($this->admin->getCompany());
+        return MailMailsentType::class;
     }
 }

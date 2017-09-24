@@ -6,7 +6,7 @@
 
 {% block mailsadmin_body %}
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="well">
     
@@ -16,7 +16,7 @@
         {{ form_errors(form) }}
     
     <div class="form-group">
-        {{ form_label(form.nbDaysBefore, "Nombre de jours d\'ancienneté * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.nbDaysBefore, "Nombre de jours d'ancienneté :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.nbDaysBefore) }}
@@ -45,6 +45,6 @@
     
 </div>
 {% if app.user and is_granted('ROLE_ADMIN') %}
-<a href="{{ path('mails_mailsent_add') }}"><u>Créer un nouveau courrier envoyé</u></a>
+<a class="souligne" href="{{ path('mails_mailsent_add') }}">Créer un nouveau courrier envoyé</a>
 {% endif %}
 {% endblock %}

@@ -3,20 +3,12 @@
 namespace Mails\MailBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class MailMailsentFilterType extends AbstractType
 {
-    private $admin;
-
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($user)
-    {
-        $this->admin = $user;
-    }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,21 +16,21 @@ class MailMailsentFilterType extends AbstractType
         ->remove('reference', 'text')
         ->remove('objet', 'text')
         ->remove('nombrePiecesJointes', 'text')
-        ->remove('mailsent', new MailSentType($this->admin->getCompany()))
+        ->remove('mailsent', MailSentType::class, array('adminCompany' => $options['adminCompany']))
         ->remove('dateEdition', 'datetime')
-        ->add('nbDaysBefore', new IntegerType())
+        ->add('nbDaysBefore', IntegerType::class)
         ->remove('save', 'submit')
-        ->add('rechercher', 'submit')
+        ->add('rechercher', SubmitType::class)
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'mails_mailbundle_mailsent_filter';
     }
 
     public function getParent()
     {
-        return new MailMailsentType($this->admin->getCompany());
+        return MailMailsentType::class;
     }
 }
