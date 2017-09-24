@@ -3,24 +3,17 @@
 namespace Mails\MailBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MailMailreceivedType extends AbstractType
 {
-    private $adminCompany;
-
-    /**
-     * @param string $class The User class name
-     */
-    public function __construct($adminCompany)
-    {
-        $this->adminCompany = $adminCompany;
-    }
-
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -28,13 +21,13 @@ class MailMailreceivedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reference', 'text')
-            ->add('objet', 'text')
-            ->add('dateEdition', 'datetime')//apparait pour la date d'enregistrement du courrier
-            ->add('nombrePiecesJointes', 'text')
-            ->add('received', 'checkbox', array('required' => false))
-            ->add('mailreceived', new MailReceivedType($this->adminCompany))
-            ->add('save', 'submit')
+            ->add('reference', TextType::class)
+            ->add('objet', TextType::class)
+            ->add('dateEdition', DateTimeType::class)//apparait pour la date d'enregistrement du courrier
+            ->add('nombrePiecesJointes', TextType::class)
+            // On passe l'admin en paramètre de mailreceived
+            ->add('mailreceived', MailReceivedType::class, array('adminCompany' => $options['adminCompany']))
+            ->add('save', SubmitType::class)
         ;
         
         // On ajoute une fonction qui va écouter l'évènement PRE_SET_DATA
@@ -49,34 +42,35 @@ class MailMailreceivedType extends AbstractType
                 }
 
                 if (!$mail->getReceived() || null === $mail->getId()) {
-                    $event->getForm()->add('received', 'checkbox', array('required' => false));
+                    $event->getForm()->add('received', CheckboxType::class, array('required' => false));
                 } else {
                     $event->getForm()->remove('received');
                 }
             
                 if (!$mail->getTreated() || null === $mail->getId()) {
-                    $event->getForm()->add('treated', 'checkbox', array('required' => false));
+                    $event->getForm()->add('treated', CheckboxType::class, array('required' => false));
                 } else {
                     $event->getForm()->remove('treated');
                 }
             }
         );
     }
-    
+
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Mails\MailBundle\Entity\Mail'
+            'data_class' => 'Mails\MailBundle\Entity\Mail',
+            'adminCompany' => null,
         ));
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'mails_mailbundle_mail';
     }

@@ -25,7 +25,7 @@ class MailsManager extends \Twig_Extension
   // Twig va exécuter cette méthode pour savoir quelle(s) fonction(s) ajoute notre service
   public function getFunctions()
   {
-    return array(
+      return array(
       'manageMails' => new \Twig_Function_Method($this, 'manageMails')
     );
   }
@@ -33,6 +33,6 @@ class MailsManager extends \Twig_Extension
   // La méthode getName() identifie votre extension Twig, elle est obligatoire
   public function getName()
   {
-    return 'MailsManager';
+      return 'MailsManager';
   }
 }

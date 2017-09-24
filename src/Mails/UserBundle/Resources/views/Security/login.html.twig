@@ -1,12 +1,12 @@
 
-{% extends "MailsUserBundle::layout.html.twig" %}
+{% extends "UserBundle::layout.html.twig" %}
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block title %}Authentification de l'utilisateur{% endblock %}
 
 {% block fos_user_content %}
 
-  <h2 class="text-center">{{ block('title') }}</h2>
+  <h1 class="text-center">{{ block('title') }}</h1>
 
   {# S'il y a une erreur, on l'affiche dans un joli cadre #}
   {% if error %}

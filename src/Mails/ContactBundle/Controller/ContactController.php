@@ -17,6 +17,8 @@ class ContactController extends Controller
 
     /**
      * Displays a list of all contacts.
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllInterlocutorAction()
     {
@@ -36,6 +38,8 @@ class ContactController extends Controller
      *
      * @param integer $id Actor id
      * @param Request $request Incoming request
+     * 
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editInterlocutorAction($id, Request $request)
     {
@@ -49,10 +53,10 @@ class ContactController extends Controller
         }
 
         //On crée le formulaire
-        $form = $this->createForm(new ActorType(), $actor);
+        $form = $this->createForm(ActorType::class, $actor);
 
         // Si la requête est en POST
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST')) {
             $em->flush();
             
             $request
@@ -70,11 +74,13 @@ class ContactController extends Controller
         ));
     }
 
-     /**
+    /**
      * Delete a contact.
      *
      * @param integer $id Actor id
      * @param Request $request Incoming request
+     * 
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteInterlocutorAction($id, Request $request)
     {
@@ -119,6 +125,8 @@ class ContactController extends Controller
      * Add an actor.
      *
      * @param Request $request Incoming request
+     * 
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function addInterlocutorAction(Request $request)
     {
@@ -126,10 +134,10 @@ class ContactController extends Controller
         $actor = new Actor();
 
         // Création du formulaire
-        $form = $this->createForm(new ActorType(), $actor);
+        $form = $this->createForm(ActorType::class, $actor);
 
         // Si la requête est en POST
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST')) {
 
             // We define the id of the user who has created the contact in the contact
             $actor->setUser($this->getUser());
@@ -153,10 +161,13 @@ class ContactController extends Controller
         ));
     }
 
-     /**
+    /**
+     * 
      * Displays all the mails of the specified contact.
      *
      * @param integer $id Interlocutor id
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllMailInterlocutorAction($id)
     {

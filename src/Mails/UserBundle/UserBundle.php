@@ -4,7 +4,7 @@ namespace Mails\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class MailsUserBundle extends Bundle
+class UserBundle extends Bundle
 {
     public function getParent()
     {

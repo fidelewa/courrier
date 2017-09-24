@@ -3,8 +3,9 @@
 namespace Mails\MailBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CompanyType extends AbstractType
 {
@@ -15,20 +16,20 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('secteurActivite')
-            ->add('raisonSociale')
-            ->add('siegeSocial')
-            ->add('email')
-            ->add('telephone')
-            ->add('directeur')
+            ->add('nom', TextType::class)
+            ->add('secteurActivite', TextType::class)
+            ->add('raisonSociale', TextType::class)
+            ->add('siegeSocial', TextType::class)
+            ->add('email', TextType::class)
+            ->add('telephone', TextType::class)
+            ->add('directeur', TextType::class)
         ;
     }
-    
+
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Mails\MailBundle\Entity\Company'
@@ -38,7 +39,7 @@ class CompanyType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'mails_mailbundle_company';
     }

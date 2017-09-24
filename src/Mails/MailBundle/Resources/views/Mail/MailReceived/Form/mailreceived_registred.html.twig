@@ -6,7 +6,7 @@
 
 {% block mailsmail_body %}
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="well">
     
@@ -16,7 +16,7 @@
     {{ form_errors(form) }}
 
     <div class="form-group">
-        {{ form_label(form.dateEdition, "Date d'enregistrement * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.dateEdition, "Date d'enregistrement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.dateEdition) }}
@@ -48,7 +48,7 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-3">
-            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
         </div>
     </div>
     {# Génération automatique des champs pas encore écrits.
@@ -60,7 +60,7 @@
     
 </div>
 
-<a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
+<a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
 
 <p class="text-center">
     <strong>Attention : ce courrier reçu sera directement enregistré 

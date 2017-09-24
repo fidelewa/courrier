@@ -26,7 +26,7 @@ class ActorRepository extends EntityRepository
 
         $query = $qb
                 ->getQuery()
-                ->useQueryCache(true)
+                //->useQueryCache(true)
                 //->useResultCache(true, 3600, 'find_latest_mailsent')
         ;
 

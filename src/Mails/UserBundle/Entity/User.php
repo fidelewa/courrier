@@ -4,10 +4,12 @@ namespace Mails\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * User
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Mails\UserBundle\Entity\UserRepository")
  */
 class User extends BaseUser
 {
@@ -19,9 +21,8 @@ class User extends BaseUser
     protected $id;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Mails\MailBundle\Entity\Company")
+    * @ORM\ManyToOne(targetEntity="Mails\MailBundle\Entity\Company", inversedBy="users")
     * @ORM\JoinColumn(nullable=true)
-    * @Assert\Valid
     */
     private $company;
 
@@ -32,7 +33,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setCompany(\Mails\MailBundle\Entity\Company $company = null)
+    public function setCompany(\Mails\MailBundle\Entity\Company $company)
     {
         $this->company = $company;
 

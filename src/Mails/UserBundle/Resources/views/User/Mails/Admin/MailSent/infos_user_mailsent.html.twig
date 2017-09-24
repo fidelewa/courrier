@@ -1,15 +1,15 @@
-<b>[</b><a href="{{ path('mails_mailsent_detail', {'id': mailSentByActor.id}) }}"><font color={{couleur}}><u>{{ mailSentByActor.reference}}</u></font></a><b>]</b>
-<b><u><a href="{{ path('mails_mailsent_detail', {'id': mailSentByActor.id}) }}">{{ mailSentByActor.objet }}</a></u></b>
+[<a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mailSentByActor.id}) }}"><font color={{couleur}}>{{ mailSentByActor.reference}}</font></a>]
+<a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mailSentByActor.id}) }}">{{ mailSentByActor.objet }}</a>
 {% if mailSentByActor.dateEdition is not null %}
-,<font size="2px"> Date édition :</font> <font size="3px">{{ mailSentByActor.dateEdition.format('d/m/Y à H:i:s') }}</font>,
+,<span class="taille_label"> Date édition :</span> <span class="taille_infos">{{ mailSentByActor.dateEdition.format('d/m/Y à H:i:s') }}</span>,
 {% endif %}
 {% if mailSentByActor.mailsent.dateEnvoi is not null %}
-<font size="2px"> Date d'envoi :</font> <font size="3px">{{ mailSentByActor.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}</font>
+<span class="taille_label"> Date d'envoi :</span> <span class="taille_infos">{{ mailSentByActor.mailsent.dateEnvoi.format('d/m/Y à H:i:s') }}</span>
 {% endif %}
-,<font size="2px"> Nombre de pièces jointes :</font> <font size="3px">{{ mailSentByActor.nombrePiecesJointes}}</font>
-<br/><font size="2px"> Accusé de reception :</font> <font size="3px">{% if mailSentByActor.received == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Expéditeur :</font> <font size="3px"><i><b>{{ mailSentByActor.mailsent.user.username}}</b></i></font>
-,<font size="2px"> Destinataire :</font> <font size="3px"><i><b>{{ mailSentByActor.mailsent.actor.name}}</b></i></font>
-,<font size="2px"> Enregistrement :</font> <font size="3px">{% if mailSentByActor.registred == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Validation :</font> <font size="3px">{% if mailSentByActor.validated == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Nom secretaire :</font> <font size="3px"><i><b>{{ mailSentByActor.secretaire.username}}</b></i></font>
+,<span class="taille_label"> Nombre de pièces jointes :</span> <span class="taille_infos">{{ mailSentByActor.nombrePiecesJointes}}</span>
+<br/><span class="taille_label"> Accusé de reception :</span> <span class="taille_infos">{% if mailSentByActor.received == true %}OUI{% else %}NON{% endif %}</span>
+,<span class="taille_label"> Expéditeur :</span> <span class="taille_infos"><strong>{{ mailSentByActor.mailsent.user.username}}</strong></span>
+,<span class="taille_label"> Destinataire :</span> <span class="taille_infos"><strong>{{ mailSentByActor.mailsent.actor.name}}</strong></span>
+,<span class="taille_label"> Enregistrement :</span> <span class="taille_infos">{% if mailSentByActor.registred == true %}OUI{% else %}NON{% endif %}</span>
+,<span class="taille_label"> Validation :</span> <span class="taille_infos">{% if mailSentByActor.validated == true %}OUI{% else %}NON{% endif %}</span>
+,<span class="taille_label"> Nom secretaire :</span> <span class="taille_infos"><strong>{{ mailSentByActor.secretaire.username}}</strong></span>

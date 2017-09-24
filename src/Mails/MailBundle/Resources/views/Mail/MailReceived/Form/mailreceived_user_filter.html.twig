@@ -1,7 +1,7 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
 
 {% block title %}
-  Critères de filtrage - Courriers reçus par l'utilisateur <b><i>{{ user.username | title }}</i></b>
+  Critères de filtrage - Courriers reçus par l'utilisateur <strong>{{ user.username | title }}</strong>
 {% endblock %}
 
 {% block mailsadmin_body %}
@@ -13,7 +13,7 @@
     </ul>
 </div>
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="well">
     
@@ -23,7 +23,7 @@
         {{ form_errors(form) }}
     
     <div class="form-group">
-        {{ form_label(form.nbDaysBefore, "Nombre de jours d\'ancienneté * :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_label(form.nbDaysBefore, "Nombre de jours d\'ancienneté :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
       
         <div class="col-sm-6">
             {{ form_errors(form.nbDaysBefore) }}

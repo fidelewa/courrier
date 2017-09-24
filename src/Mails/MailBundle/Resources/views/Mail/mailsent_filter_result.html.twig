@@ -6,7 +6,7 @@
 {% block mailsadmin_body %}
 {#On efface tous nos attributs de session#}
 {{ app.session.clear }}
-<h2 class="text-center">Rappel critères de filtrage</h2>
+<h1 class="text-center">Rappel critères de filtrage</h1>
 <div class="well">
     <ul>
         <li>Nombre de jours d'ancienneté du courrier : {{ mail.nbDaysBefore }} jour(s) et plus</li>
@@ -14,7 +14,7 @@
     </ul>
 </div>
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="allMailsentByFilter">

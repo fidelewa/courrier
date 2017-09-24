@@ -1,7 +1,7 @@
 <div class="navbar-right">
   {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      Connecté en tant que <b><i>{{ app.user.username | title }}</i></b> - <u><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></u>
+      Connecté en tant que <strong>{{ app.user.username | title }}</strong> - <a class="souligne" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
   {% else %}
-     <u><a href="{{ path('fos_user_security_login') }}">Connexion</a></u>
+     <a class="souligne" href="{{ path('fos_user_security_login') }}">Connexion</a>
   {% endif %}
 </div>

@@ -27,7 +27,7 @@ class MailsFilter
         $allMailsentByFilter = $this
                              ->em
                              ->getRepository('MailsMailBundle:Mail')
-                             ->findAllMailSentByFilter($date, $reception, $admin)
+                             ->filterAllMailsent($date, $reception, $admin)
                             ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -52,7 +52,7 @@ class MailsFilter
         $allMailreceivedByFilter = $this
                              ->em
                              ->getRepository('MailsMailBundle:Mail')
-                             ->findAllMailReceivedByFilter($date, $reception, $traitement, $admin)
+                             ->filterAllMailreceived($date, $reception, $traitement, $admin)
                             ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -71,7 +71,7 @@ class MailsFilter
         //On récupère tous les utilisateurs, filtrés par roles
         $allUserByFilter = $this
                          ->em
-                         ->getRepository('MailsUserBundle:User')
+                         ->getRepository('UserBundle:User')
                          ->findAllUserByFilter($roles)
                         ;
                             
@@ -97,7 +97,7 @@ class MailsFilter
         $allMailsentFilterByUser = $this
                              ->em
                              ->getRepository('MailsMailBundle:Mail')
-                             ->findAllMailSentFilterByUser($date, $reception, $id)
+                             ->filterAllMailsentByUser($date, $reception, $id)
                             ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -123,7 +123,7 @@ class MailsFilter
         $allMailreceivedFilterByUser = $this
                                      ->em
                                      ->getRepository('MailsMailBundle:Mail')
-                                     ->findAllMailReceivedFilterByUser($date, $reception, $user, $traitement)
+                                     ->filterAllMailreceivedByUser($date, $reception, $user, $traitement)
                                     ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -148,7 +148,7 @@ class MailsFilter
         $allMailsentFilterByActor = $this
                              ->em
                              ->getRepository('MailsMailBundle:Mail')
-                             ->findAllMailSentFilterByActor($date, $reception, $id)
+                             ->filterAllMailsentByActor($date, $reception, $id)
                             ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -174,7 +174,7 @@ class MailsFilter
         $allMailreceivedFilterByActor = $this
                                      ->em
                                      ->getRepository('MailsMailBundle:Mail')
-                                     ->findAllMailReceivedFilterByActor($date, $reception, $actor, $traitement)
+                                     ->filterAllMailreceivedByActor($date, $reception, $actor, $traitement)
                                     ;
                             
         // Et on n'oublie pas de faire un flush !
@@ -213,7 +213,7 @@ class MailsFilter
     * @param integer $days
     * @param boolean $reception
     */
-    public function filtreAllMailreceived($days, $reception, $expediteur, $destinataire, $traitement, $page, $nbPerPage)
+    public function filtreAllMailreceivedByUser($days, $reception, $expediteur, $destinataire, $traitement, $page, $nbPerPage)
     {
         // date d'il y a $days jours
         $date = new \Datetime($days.' days ago');
@@ -222,8 +222,32 @@ class MailsFilter
         $allMailreceivedFilter = $this
             ->em
             ->getRepository('MailsMailBundle:Mail')
-            ->getAllMailreceivedFilter($date, $reception, $expediteur, $destinataire, $traitement, $page, $nbPerPage)
-                            ;
+            ->getAllMailreceivedFilterByUser($date, $reception, $expediteur, $destinataire, $traitement, $page, $nbPerPage)
+        ;
+                            
+        // Et on n'oublie pas de faire un flush !
+        $this->em->flush();
+        
+        return $allMailreceivedFilter;
+    }
+
+    /**
+    * On récupère tous les courriers envoyés, filtrés par date et par reception
+    *
+    * @param integer $days
+    * @param boolean $reception
+    */
+    public function filtreAllMailreceived($days, $reception, $expediteur, $traitement, $page, $nbPerPage)
+    {
+        // date d'il y a $days jours
+        $date = new \Datetime($days.' days ago');
+
+        //On récupère tous les courriers envoyés, filtrés par date et par reception
+        $allMailreceivedFilter = $this
+            ->em
+            ->getRepository('MailsMailBundle:Mail')
+            ->getAllMailreceivedFilter($date, $reception, $expediteur, $traitement, $page, $nbPerPage)
+        ;
                             
         // Et on n'oublie pas de faire un flush !
         $this->em->flush();

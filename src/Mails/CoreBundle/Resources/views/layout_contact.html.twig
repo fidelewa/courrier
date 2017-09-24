@@ -1,0 +1,8 @@
+{% extends "MailsCoreBundle::layout.html.twig" %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('bundles/mailscore/css/contact.css') }}" type="text/css" media="all" />{% endblock %}
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+  <article>{% block contact_body %}{% endblock %}</article>
+{% endblock %}

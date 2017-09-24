@@ -13,12 +13,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class MailreceivedController extends Controller
 {
+
     /**
      * Add or create a mail received action.
      *
-     * @param Request $request Incoming request
+     * @param Request $request
+     *
      * @Template("@mailreceived_form_views/mailreceived_add.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
+     * 
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function addMailreceivedAction(Request $request)
     {
@@ -38,10 +42,12 @@ class MailreceivedController extends Controller
         $courier->setMailreceived($mailreceived);
 
         //On crée notre formulaire
-        $form = $this->createForm(new MailreceivedRegisterType($this->getUser()), $courier);
+        $form = $this->createForm(MailreceivedRegisterType::class, $courier, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         // Si la requête est en POST
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST')) {
             // On récupère notre service mail creator
             $mailCreator = $this->get('mails_mail.mail_creator');
 
@@ -55,31 +61,39 @@ class MailreceivedController extends Controller
         return array('form' => $form->createView());
     }
 
-     /**
+    /**
      * Edit a mail received.
      *
-     * @param integer $id Mail received id
-     * @param Request $request Incoming request
+     * @param $id
+     * @param Request $request
+     *
      * @Security("has_role('ROLE_ADMIN')")
+     * 
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editMailreceivedAction($id, Request $request)
     {
+        // On récupère notre entity manager
         $em = $this->getDoctrine()->getManager();
 
         // On récupère le mail received d'id $id
-        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id);
+        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
 
         if (null === $mail) {
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
         }
 
-        //On crée le formulaire
-        $form = $this->createForm(new MailreceivedEditType($this->getUser()), $mail);
+        $form = $this->createForm(MailreceivedEditType::class, $mail, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
 
         //Si la requête est en POST
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST') && $request->isMethod('POST')) {
             $em->flush();
-            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mail->getReference().'" a bien été modifiée.');
+            $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('success', 'Le courrier reçu de référence "'.$mail->getReference().'" a bien été modifiée.');
 
             return $this->redirect($this->generateUrl('mails_user_mailreceived'));
         }
@@ -91,20 +105,23 @@ class MailreceivedController extends Controller
         ));
     }
 
-     /**
+    /**
      * Delete a mail received.
      *
      * @param integer $id mail received id
      * @param Request $request Incoming request
      * @Security("has_role('ROLE_ADMIN')")
      * @Template("@delete_mails_views/delete_mailreceived.html.twig")
+     * 
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteMailreceivedAction($id, Request $request)
     {
+        // On récupère notre entity manager
         $em = $this->getDoctrine()->getManager();
 
         // On récupère le mail received d'id $id
-        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id);
+        $mail = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany());
 
         if (null === $mail) {
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
@@ -115,7 +132,7 @@ class MailreceivedController extends Controller
         $form = $this->createFormBuilder()->getForm();
         
         // Si la requête est en POST, le courrier sera supprimé
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST')) {
             //On stocke la référence du courrier reçu dans une varable tampon
             $tempMailreceivedRef = $mail->getReference();
 
@@ -123,7 +140,11 @@ class MailreceivedController extends Controller
             $em->remove($mail);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$tempMailreceivedRef.'" a bien été supprimé.');
+            // On affiche un message de confirmation
+            $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('success', 'Le courrier reçu de référence "'.$tempMailreceivedRef.'" a bien été supprimé.');
 
             //On détruit la variable tampon.
             unset($tempMailreceivedRef);
@@ -135,13 +156,15 @@ class MailreceivedController extends Controller
         return array('mail' => $mail, 'form' => $form->createView());
     }
 
-     /**
-     * Register a mail received action.
+    /**
+     *  Register a mail received action.
      *
      * @param Request $request Incoming request
      * @param Integer $id mail received id
      * @Security("has_role('ROLE_SECRETAIRE')")
      * @Template("@mailreceived_form_views/mailreceived_registred.html.twig")
+     * 
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function registerMailreceivedAction($id, Request $request)
     {
@@ -149,8 +172,11 @@ class MailreceivedController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On récupère l'$id du mail received
-        $mailReceived = $em->getRepository('MailsMailBundle:Mail')->findMailReceived($id);
+        $mailReceived = $em
+        ->getRepository('MailsMailBundle:Mail')
+        ->findMailReceived($id, $this->getUser()->getCompany());
 
+        // On vérifie que ce courrier reçu existe bele et bien en base de données
         if (null === $mailReceived) {
             throw new NotFoundHttpException("Le courrier reçu d'id ".$id." n'existe pas.");
         }
@@ -159,10 +185,12 @@ class MailreceivedController extends Controller
         $mailReceived->setdateEdition(new \Datetime("now", new \DateTimeZone('Africa/Abidjan')));
         
         //On crée le formulaire
-        $form = $this->createForm(new MailreceivedSecretaryType($this->getUser()->getCompany()), $mailReceived);
+        $form = $this->createForm(MailreceivedSecretaryType::class, $mailReceived, array(
+            'adminCompany' => $this->getUser()->getCompany()
+        ));
         
         //Si la réquête est en POST
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST')) {
             //On enregistre le courrier reçu
             $mailReceived->setRegistred(true);
         
@@ -170,36 +198,41 @@ class MailreceivedController extends Controller
             $em->persist($mailReceived);
             $em->flush();
 
-            //On redirige vers la page d'accueil
-            $request->getSession()->getFlashBag()->add('success', 'Le courrier reçu de référence "'.$mailReceived->getReference().'" a bien été enregistré.');
+            //On affiche un message de confirmation
+            $request
+            ->getSession()
+            ->getFlashBag()
+            ->add('success', 'Le courrier reçu de référence "'.$mailReceived->getReference().'" a bien été enregistré.');
 
             // On redirige vers l'accueil
-            return $this->redirect($this->generateUrl('mails_core_home'));
+            return $this->redirect($this->generateUrl('mails_core_workspace_secretary'));
         }
-        //Si la réquête est en GET
+        //Si la réquête est en GET on affiche le formulaire d'enregistrement
         return array('form' => $form->createView());
     }
-    
-     /**
+
+    /**
      * view the features of the mail received
      *
      * @param Integer $id Mailreceived id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewMailreceivedAction($id)
     {
         //On récupère l'EntityManager
         $em = $this->getDoctrine()->getManager();
         
-        // Pour récupérer un courrier reçus unique
+        // Pour récupérer un courrier reçu unique
         $mail = $em
-        ->getRepository('MailsMailBundle:Mail')
-        ->findMailReceived($id)
+        ->getRepository('MailsMailBundle:Mail')->findMailReceived($id, $this->getUser()->getCompany())
         ;
 
+        // On vérifie que ce courrier existe bel et bien
         if (null === $mail) {
             throw $this->createNotFoundException("Le courrier reçu d'id ".$id." n'existe pas.");
         }
 
+        // On affiche la page correspondante aux détails du courrier
         return $this->render('MailsMailBundle:Mail:view_mailreceived.html.twig', array(
         'mail' => $mail
         ));

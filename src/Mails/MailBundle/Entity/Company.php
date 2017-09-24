@@ -70,6 +70,11 @@ class Company
      */
     private $directeur;
 
+    /**
+    * @ORM\OneToMany(targetEntity="Mails\UserBundle\Entity\User", mappedBy="company")
+    */
+    private $users; // Notez le « s », une entreprise est liée à plusieurs utilisateurs
+
 
     /**
      * Get id
@@ -247,5 +252,55 @@ class Company
     public function getDirecteur()
     {
         return $this->directeur;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user
+     *
+     * @param \Mails\UserBundle\Entity\User $user
+     *
+     * @return Company
+     */
+    public function addUser(\Mails\UserBundle\Entity\User $user)
+    {
+        //En liant les users à l'entreprise
+
+        $this->users[] = $user;
+
+        return $this;
+
+        // On lie l'entreprise à l'user
+        $user->setCompany($this);
+        
+        //Ici l'user courant retourné est $user
+
+        return $this;//On retourne la company fraichement liée.
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \Mails\UserBundle\Entity\User $user
+     */
+    public function removeUser(\Mails\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

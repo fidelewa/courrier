@@ -10,12 +10,12 @@ mails_contact:
     prefix:   /contact
 
 mails_user:
-    resource: "@MailsUserBundle/Resources/config/routing.yml"
+    resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user
     
 #login:
     #pattern:   /login
-    #defaults:  { _controller: MailsUserBundle:Security:login }
+    #defaults:  { _controller: UserBundle:Security:login }
 
 #login_check:
     #pattern:   /login_check

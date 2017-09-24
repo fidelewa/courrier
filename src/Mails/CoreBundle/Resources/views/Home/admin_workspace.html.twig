@@ -1,0 +1,13 @@
+{% extends "MailsCoreBundle::layout.html.twig" %}
+{% block title %}My workspace{% endblock %}
+{% block body %}
+
+  {% if app.user and is_granted("ROLE_ADMIN") %}
+        <h1>Liste des courriers à valider par <em>{{ app.user.username | title }}</em></h1>
+        <hr>
+
+        {{ include("@show_latest_mails_views/listMail_admin.html.twig") }}
+
+  {% endif %}
+
+{% endblock %}
