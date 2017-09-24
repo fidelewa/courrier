@@ -5,14 +5,14 @@
  {% if app.user and is_granted('ROLE_ADMIN') %}
   {#{% if nombreTotalPages > 4 %}#}
   <div>
-    <a href="{{ path('mails_mailsent_filter') }}"><u>Filtrer la liste</u></a>
-    &nbsp;<b>|</b>&nbsp;
-    <a href="{{ path('mails_all_mailsent_filter') }}"><u>Filtrer toute la liste</u></a>
+    <a class="souligne" href="{{ path('mails_mailsent_filter') }}">Filtrer la liste</a>
+    &nbsp;|&nbsp;
+    <a class="souligne" href="{{ path('mails_all_mailsent_filter') }}">Filtrer toute la liste</a>
   </div>
   {#{% endif %}#}
 {% endif %}
 
- <h2>Liste de tous les courriers envoyés</h2>
+ <h1>Liste de tous les courriers envoyés</h1>
 
     {{ include("@mailsent_index_views/bl_index_mailsent.html.twig") }}
 

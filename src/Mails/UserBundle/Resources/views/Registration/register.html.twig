@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block fos_user_content %}
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 <div class="well">
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-horizontal'}}) }}
     
@@ -85,8 +85,8 @@
     {{ form_end(form) }}
 </div>
 
-<a href="{{ path('mails_user_show_all') }}"><u>Retour à la liste des utilisateurs</u></a>
-&nbsp;<b>|</b>&nbsp;
-<a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
+<a class="souligne" href="{{ path('mails_user_show_all') }}">Retour à la liste des utilisateurs</a>
+&nbsp;|&nbsp;
+<a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
 
 {% endblock fos_user_content %}

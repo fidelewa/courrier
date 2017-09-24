@@ -1,5 +1,5 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
-{% block title %}Liste des courriers de l'utilisateur <b><i>{{ user.username | title }}</i></b> {% endblock %}
+{% block title %}Liste des courriers de l'utilisateur <strong>{{ user.username | title }}</strong> {% endblock %}
 {% block mailsmail_body %}
 
 <h2 class="text-center">Synthèse utilisateur</h2>
@@ -9,7 +9,7 @@
         <li>Adresse e-mail : {{user.email}}</li>
     </ul>
 </div>
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">{{ flashMessage }}</div>
 {% endfor %}

@@ -1,7 +1,7 @@
 {% extends "MailsMailBundle::layout_admin.html.twig" %}
 {#On defini l'user depuis la session#}
 {% set user = app.session.get('user') %}
-{% block title %}Liste filtrée - Courriers envoyés par l'utilisateur <b><i>{{ user.username | title }}</i></b>{% endblock %}
+{% block title %}Liste filtrée - Courriers envoyés par l'utilisateur <strong>{{ user.username | title }}</strong>{% endblock %}
 {#On defini nos variables depuis la session#}
 {% set allMailsentFilterByUser, mail = app.session.get('allMailsentFilterByUser'), app.session.get('mail')%}
 
@@ -16,7 +16,7 @@
     </ul>
 </div>
 
-<h2 class="text-center">Rappel critères de filtrage</h2>
+<h1 class="text-center">Rappel critères de filtrage</h1>
 <div class="well">
     <ul>
         <li>Nombre de jours d'ancienneté du courrier : {{ mail.nbDaysBefore }} jour(s) et plus</li>
@@ -24,7 +24,7 @@
     </ul>
 </div>
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="tab-content">
     <div class="tab-pane fade in active adminTable" id="allMailsentFilterByUser">

@@ -20,7 +20,7 @@
     </ul>
 </div>
 
-  <h2 class="text-center">{{ block('title') }}</h2>
+  <h1 class="text-center">{{ block('title') }}</h1>
 
  <div class="well">
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -106,13 +106,13 @@
 
   <p>
     {% if app.user and is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('mails_user_mailsent') }}"><u>Retour à la liste des courriers envoyés</u></a>
-    &nbsp;<b>|</b>&nbsp;
+    <a class="souligne" href="{{ path('mails_user_mailsent') }}">Retour à la liste des courriers envoyés</a>
+    &nbsp;|&nbsp;
     {% else %}
-    <a href="{{ path('mails_mailsent_detail', {'id': mail.id}) }}"><u>Retour au détail</u></a>
-    &nbsp;<b>|</b>&nbsp; 
+    <a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mail.id}) }}">Retour au détail</a>
+    &nbsp;|&nbsp; 
     {% endif %}
-    <a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
+    <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
   </p>
 
 {% endblock %}

@@ -2,7 +2,7 @@
 {% block title %}{{ mail.objet }}{% endblock %}
 {% block body %}
 
-<h2>{{ mail.objet }}</h2>
+<h1>{{ mail.objet }}</h1>
 
 <div class="table-responsive">
     {{ include("@mailsent_detail_views/table_view_mailsent.html.twig") }}

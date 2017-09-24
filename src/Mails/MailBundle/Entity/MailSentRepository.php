@@ -4,7 +4,6 @@ namespace Mails\MailBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-
 /**
  * MailSentRepository
  *
@@ -13,4 +12,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class MailSentRepository extends EntityRepository
 {
+    public function findLatestMailsSent($limit, $idCompany)
+    {
+        //Permet de récupérer les $limit derniers courriers envoyés par l'entreprise de l'user spécifié
+
+        $qb = $this
+            ->createQueryBuilder('ms')// ->select('m')->from('MailsMailBundle:Mail', 'm', 'm.id');
+            //->join($condition='id')
+            //->addSelect('m')
+            ->join('ms.user', 'u')
+            ->addSelect('u')
+            ->where('u.company = :idCompany')
+            ->setParameter('idCompany', $idCompany, \PDO::PARAM_INT)
+            //->orderBy('ms.id', 'DESC')
+            ->setMaxResults($limit)
+          
+            //->select('ms')
+            //->from('MailSent', 'ms')
+            //->join('u.Phonenumbers', 'p', Expr\Join::WITH, 'p.is_primary = 1');
+        ;
+
+        $query = $qb
+                ->getQuery()
+                //->useQueryCache(true)
+                //->useResultCache(true, 3600, 'find_latest_mailsent')
+        ;
+
+        return $query->getResult();
+    }
 }

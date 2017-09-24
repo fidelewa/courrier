@@ -8,7 +8,7 @@
 
   {# On met l'id du courrier dans la route de l'action du formulaire #}
   <form action="{{ path('mails_mailsent_delete', { 'id': mail.id }) }}" method="post">
-    <a href="{{ path('mails_mailsent_detail', {'id': mail.id}) }}" class="btn btn-default">
+    <a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mail.id}) }}" class="btn btn-default">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour au courrier
     </a>

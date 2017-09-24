@@ -27,7 +27,7 @@ framework:
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
-        name:                 WebsiteID
+        name:        WebsiteID
         
     fragments:       ~
     http_method_override: true
@@ -36,6 +36,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+        #- 'bootstrap_3_horizontal_layout.html.twig'
     paths:
         '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Show': show_users_views
         '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Mails/MailSent': user_mailsent_views
@@ -119,6 +122,12 @@ fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    Mails\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    from_email:
+        address:        "%mailer_user%"
+        sender_name:    webmaster
+    registration:
+        form:
+            type: Mails\UserBundle\Form\Type\RegistrationFormType 
 
 # SFE Configuration
 sensio_framework_extra:
@@ -129,29 +138,29 @@ sensio_framework_extra:
     security:    { annotations: true }
     psr_message: { enabled: false } # Defaults to true if the PSR-7 bridge is installed
 
-lsw_memcache:
-    session:
-        pool: default
-        auto_load: true
-        prefix: "session_"
-        ttl: 7200
-        locking: true
-        spin_lock_wait: 150000
+#lsw_memcache:
+ #   session:
+  #      pool: default
+   #     auto_load: true
+    #    prefix: "session_"
+     #   ttl: 7200
+      #  locking: true
+       # spin_lock_wait: 150000
 
-    doctrine:
-        metadata_cache:
-            pool: default
-            entity_manager: default          # the name of your entity_manager connection
-            document_manager: default
-        result_cache:
-            pool: default
-            entity_manager: [default, read]  # you may specify multiple entity_managers
-            prefix: "result_"                # you may specify a prefix for the entries
-        query_cache:
-            pool: default
-            entity_manager: default
+    #doctrine:
+     #   metadata_cache:
+      #      pool: default
+       #     entity_manager: default          # the name of your entity_manager connection
+        #    document_manager: default
+        #result_cache:
+         #   pool: default
+          #  entity_manager: [default, read]  # you may specify multiple entity_managers
+           # prefix: "result_"                # you may specify a prefix for the entries
+        #query_cache:
+         #   pool: default
+          #  entity_manager: default
 
-    pools:
-        default:
-            servers:
-              - { host: localhost, tcp_port: 11211 }
+    #pools:
+     #   default:
+      #      servers:
+       #       - { host: localhost, tcp_port: 11211 }

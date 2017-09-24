@@ -1,7 +1,7 @@
-<br/><font size="2px"> Accusé de reception :</font> <font size="3px">{% if mailReceivedByActor.received == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Traitement :</font> <font size="3px">{% if mailReceivedByActor.treated == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Destinataire :</font> <font size="3px"><i><b>{{ mailReceivedByActor.mailreceived.user.username}}</b></i></font>
-,<font size="2px"> Expéditeur :</font> <font size="3px"><i><b>{{ mailReceivedByActor.mailreceived.actor.name}}</b></i></font>
-,<font size="2px"> Enregistrement :</font> <font size="3px">{% if mailReceivedByActor.registred == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Validation :</font> <font size="3px">{% if mailReceivedByActor.validated == true %}OUI{% else %}NON{% endif %}</font>
-,<font size="2px"> Nom secretaire :</font> <font size="3px"><i><b>{{ mailReceivedByActor.secretaire.username}}</b></i></font>
+<br/><span class="taille_label">Accusé de reception :</span> <span class="taille_infos">{% if mailReceivedByActor.received == true %}OUI{% else %}NON{% endif %}</span>
+,<span class="taille_label"> Traitement :</span> <span class="taille_infos">{% if mailReceivedByActor.treated == true %}OUI{% else %}NON{% endif %}</span>
+,<span class="taille_label"> Destinataire :</span> <span class="taille_infos"><strong>{{ mailReceivedByActor.mailreceived.user.username}}</strong></span>
+,<span class="taille_label"> Expéditeur :</span> <span class="taille_infos"><strong>{{ mailReceivedByActor.mailreceived.actor.name}}</strong></span>
+,<span class="taille_label"> Enregistrement :</span> <span class="taille_infos">{% if mailReceivedByActor.registred == true %}OUI{% else %}NON{% endif %}</span>
+,<span class="taille_label"> Validation :</span> <span class="taille_infos">{% if mailReceivedByActor.validated == true %}OUI{% else %}NON{% endif %}</span>
+,<span class="taille_label"> Nom secretaire :</span> <span class="taille_infos"><strong>{{ mailReceivedByActor.secretaire.username}}</strong></span>

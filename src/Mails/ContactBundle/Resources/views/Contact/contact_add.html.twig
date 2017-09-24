@@ -2,7 +2,7 @@
 {% block title %}{{title}}{% endblock %}
 {% block body %}
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="well">
 
@@ -28,6 +28,6 @@
     {{ form_end(actorForm) }}
 
 </div>
-{% if app.user and is_granted('ROLE_ADMIN') %}<a href="{{ path('mails_contact_show_all') }}"><u>Retour à la liste des contacts</u> </a>{% endif %}
-&nbsp;<b>|</b>&nbsp;<a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
+{% if app.user and is_granted('ROLE_ADMIN') %}<a class="souligne" href="{{ path('mails_contact_show_all') }}">Retour à la liste des contacts</a>{% endif %}
+&nbsp;|&nbsp;<a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
 {% endblock %}

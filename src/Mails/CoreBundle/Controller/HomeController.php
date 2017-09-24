@@ -12,10 +12,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class HomeController extends Controller
 {
     /**
-    * index action.
-    *
-    * @Security("has_role('ROLE_USER')")
-    */
+     * index action.
+     *
+     * @Security("has_role('ROLE_USER')")
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         return $this->render('MailsCoreBundle:Home:index.html.twig');
@@ -27,7 +29,7 @@ class HomeController extends Controller
         $form = $this->createForm(ContactType::class);
 
         // Check the method
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST')) {
             // Bind value with form
 
             $data = $form->getData();
@@ -59,10 +61,17 @@ class HomeController extends Controller
 
     /**
      * Manage all mails
+     * 
      * @param String $editRoute the name of the edition route
      * @param String $detailRoute the name of the detail route
+     * @param $deleteRoute
      * @param Integer $id id number
+     * @param $var
+     * @param $type
+     *
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function manageMailsAction($editRoute, $detailRoute, $deleteRoute, $id, $var, $type)
     {
@@ -76,12 +85,14 @@ class HomeController extends Controller
         ));
     }
 
-     /**
-      * Create a company action.
-      *
-      * @param Request $request Incoming request
-      * @Security("has_role('ROLE_ADMIN')")
-      */
+    /**
+     * Create a company action.
+     *
+     * @param Request $request Incoming request
+     * @Security("has_role('ROLE_ADMIN')")
+     * 
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function createCompanyAction(Request $request)
     {
         // Création d'une entreprise
@@ -91,7 +102,7 @@ class HomeController extends Controller
         $form = $this->createForm(CompanyType::class, $company);
 
         // Si la requête est en POST
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isSubmitted() && $request->isMethod('POST')) {
 
             // We define the id of the company in the user (super admin)
             $superAdmin = $this->getUser();
@@ -107,8 +118,9 @@ class HomeController extends Controller
                     ->getFlashBag()
                     ->add('success', 'Votre entreprise "'.$company->getNom().'" à bien été créée et enregistré.');
 
-            // On rédirige vers la page des informations concernant l'entreprise
-            return $this->redirect($this->generateUrl('mails_core_company_infos', array('id' => $company->getId())));
+            // On rédirige vers la page des informations concernant l'entreprise courant
+            $url = $this->generateUrl('mails_core_company_infos', array('id' => $company->getId()));
+            return $this->redirect($url);
         }
 
           // Si la requête est en GET
@@ -119,11 +131,13 @@ class HomeController extends Controller
     }
 
     /**
-      * show informations about the specified company
-      *
-      * @param Integer $id Company id
-      * @Security("has_role('ROLE_ADMIN')")
-      */
+     * show informations about the specified company
+     *
+     * @param Integer $id Company id
+     * @Security("has_role('ROLE_ADMIN')")
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function infosCompanyAction($id)
     {
         // On récupère l'EntityManager
@@ -145,10 +159,12 @@ class HomeController extends Controller
     }
 
     /**
-    * infos company layout action.
-    *
-    * @Security("has_role('ROLE_ADMIN')")
-    */
+     * infos company layout action.
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function infosCompanyLayoutAction()
     {
         return $this->render('MailsCoreBundle:Home:company_infos_layout.html.twig', array(

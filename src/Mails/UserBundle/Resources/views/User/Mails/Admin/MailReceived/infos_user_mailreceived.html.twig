@@ -1,9 +1,9 @@
-<b>[</b><a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByActor.id}) }}"><font color={{couleur}}><u>{{ mailReceivedByActor.reference}}</u></font></a><b>]</b>
-<b><u><a href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByActor.id}) }}">{{ mailReceivedByActor.objet }}</a></u></b>
-{% if mailReceivedByActor.dateEdition is not null %},<font size="2px"> Date édition :</font> <font size="3px">{{ mailReceivedByActor.dateEdition.format('d/m/Y à H:i:s') }}</font>,
+[<a class="souligne" href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByActor.id}) }}"><font color={{couleur}}>{{ mailReceivedByActor.reference}}</font></a>]
+<a class="souligne" href="{{ path('mails_mailreceived_detail', {'id': mailReceivedByActor.id}) }}">{{ mailReceivedByActor.objet }}</a>
+{% if mailReceivedByActor.dateEdition is not null %},<span class="taille_label"> Date édition :</span> <span class="taille_infos">{{ mailReceivedByActor.dateEdition.format('d/m/Y à H:i:s') }}</span>,
 {% endif %}
 {% if mailReceivedByActor.mailreceived.dateReception is not null %}
-<font size="2px"> Date de reception :</font> <font size="3px">{{ mailReceivedByActor.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</font>
+<span class="taille_label"> Date de reception :</span> <span class="taille_infos">{{ mailReceivedByActor.mailreceived.dateReception.format('d/m/Y à H:i:s') }}</span>
 {% endif %}
-,<font size="2px"> Nombre de pièces jointes :</font> <font size="3px">{{ mailReceivedByActor.nombrePiecesJointes}}</font>
+,<span class="taille_label"> Nombre de pièces jointes :</span> <span class="taille_infos">{{ mailReceivedByActor.nombrePiecesJointes}}</span>
 {{ include('@admin_user_mailreceived_views/infos2_user_mailreceived.html.twig') }}

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block fos_user_content %}
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 <div class="well">
 
 {#<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">#}
@@ -64,19 +64,11 @@
 </div>
 
 {% if is_granted('ROLE_ADMIN') %}
-<a href="{{ path('mails_user_show_all') }}">
-      <u>
-      Retour au tableau de bord
-      </u>
-</a>
-&nbsp;<b>|</b>&nbsp;
+<a class="souligne" href="{{ path('mails_user_show_all') }}">Retour au tableau de bord</a>
+&nbsp;|&nbsp;
 {% endif %}
 {% if is_granted('ROLE_USER') %}
-<a href="{{ path('mails_core_home') }}">
-      <u>
-      Accueil
-      </u>
-  </a>
+<a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
 {% endif %}
 
 {% endblock fos_user_content %}

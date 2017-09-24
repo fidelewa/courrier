@@ -1,36 +1,33 @@
-  <h3>Courriers envoyés</h3>
+  <h2>Courriers envoyés</h2>
 
     {% if mailsSent %}
     <ul class="nav nav-pills nav-stacked">
         {% for mailsent in mailsSent %}
             <li>
-                <a href="{{ path('mails_mailsent_detail', {'id': mailsent.id}) }}">
-                    <u>{{ mailsent.objet }}</u>
+                <a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mailsent.id}) }}">
+                    {{ mailsent.objet }}
                 </a>
             </li>
          {% endfor %}  
-         <a href="{{ path('mails_mail_mailsent_index') }}"><u>Voir plus</u></a>
+         <a class="souligne" href="{{ path('mails_mail_mailsent_index') }}">Voir plus</a>
      </ul>   
      {% else %}
         <div class="alert alert-warning">Pas (encore !) de courrier envoyé</div>
      {% endif %}
   
-  <h3>Courriers reçus</h3>
+  <h2>Courriers reçus</h2>
 
      {% if mailsReceived %}
      <ul class="nav nav-pills nav-stacked">
         {% for mailreceived in mailsReceived %}
             <li>
-                <a href="{{ path('mails_mailreceived_detail', {'id': mailreceived.id}) }}">
-                    <u>{{ mailreceived.objet }}</u>
+                <a class="souligne" href="{{ path('mails_mailreceived_detail', {'id': mailreceived.id}) }}">
+                    {{ mailreceived.objet }}
                 </a>
             </li>
         {% endfor %}
-        <a href="{{ path('mails_mail_mailreceived_index') }}"><u>Voir plus</u></a>
+        <a class="souligne" href="{{ path('mails_mail_mailreceived_index') }}">Voir plus</a>
      </ul>   
      {% else %}
         <div class="alert alert-warning">Pas (encore !) de courrier reçus</div>
      {% endif %}
-
-     
-   

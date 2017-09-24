@@ -4,50 +4,104 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ app.request.basepath }}/css/mymails.css" rel="stylesheet">
-    <title>Mails - {% block title %}{% endblock %}</title>
+    {#<link type="text/css" href="{{ asset('lib/bootstrap/css/bootstrap.css') }}" rel="stylesheet"></link>
+    <link type="text/css" href="{{ asset('lib/bootstrap/css/bootstrap-theme.css') }}" rel="stylesheet"></link>#}
+    <link type="text/css" href="{{ asset('css/mymails.css') }}" rel="stylesheet"></link> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css" rel="stylesheet"> 
+    <title>MyMail - {% block title %}{% endblock %}</title>
+    <style>
+			.dropdown-submenu{position:relative;}
+			.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+			.dropdown-submenu:hover>.dropdown-menu{display:block;}/*Fait sortir le sous-menu au passage du curseur*/
+			.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}/*Fait sortir le triangle*/
+			.dropdown-submenu.pull-left{float:none;}
+            .dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+			.blue{color:#1D38FC}
+			.green{color:#0EC929}
+			.red{color:#FF0000}
+			.orange{color:#ffe100}
+
+            .souligne{text-decoration: underline;}
+            .detail{color: gray}
+            .taille_label{font-size: 1em;}
+            .taille_infos{font-size: medium;}
+            mark{background: #FFFF00;}
+            a[title]:visited{color: white;}
+            h1{font-size: 2.5em;}
+            .espace{word-spacing: 10px;}
+            
+	</style>
+
 </head>
 <body>
     <div class="container">
         <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
+            
                 <div class="navbar-header">
                     <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>-->
-                    <a class="navbar-brand" href="{{ path('mails_core_home') }}">Mails</a>
+                    <a class="navbar-brand" href="{{ path('mails_core_home') }}">MyMail</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ path('mails_core_contact') }}">Nous contacter</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Liste des courriers<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('mails_mail_mailsent') }}">Envoyés</a></li>
-                                    <li><a href="{{ path('mails_mail_mailreceived') }}">Reçus</a></li>
-                                </ul>
-                        </li>
+                        <li><a href="{{ path('mails_core_contact') }}"><span class="glyphicon glyphicon-envelope"></span> Nous contacter</a></li>
                         {#Si l'utilisteur est authentifié #}
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if app.user and is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('mails_core_workspace_admin') }}"><span class="glyphicon glyphicon-check"></span> Mon espace de travail</a></li>
+                            {% endif %}
+                            {% if app.user and is_granted('ROLE_SECRETAIRE') %}
+                                <li><a href="{{ path('mails_core_workspace_secretary') }}"><span class="glyphicon glyphicon-check"></span> Mon espace de travail</a></li>
+                            {% endif %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list"></span> Ma liste de courriers<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('mails_mail_mailsent') }}">Envoyés</a></li>
+                                        <li><a href="{{ path('mails_mail_mailreceived') }}">Reçus</a></li>
+                                    </ul>
+                            </li>
+                        {#{% endif %}
+                        Si l'utilisteur est authentifié 
+                        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}#}
                             {#Si l'utilisteur est authentifié en tant qu'administrateur#}
                             {% if app.user and is_granted('ROLE_ADMIN') %}
+                                {% if app.user.company != null %}
                                     <li class="dropdown">
-                                    <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> Créer un courrier<b class="caret"></b></a>
+                                    <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span> Ajouter un courrier<b class="caret"></b></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ path('mails_mailsent_add') }}">Envoyé</a></li>
                                             <li><a href="{{ path('mails_mailreceived_add') }}">Reçu</a></li>
                                         </ul>
                                     </li>
+                                {% endif %}
                                     <li class="dropdown">
                                     <a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Administration<b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ path('mails_user_mailsent') }}">Courriers envoyés</a></li>
-                                            <li><a href="{{ path('mails_user_mailreceived') }}">Courriers reçus</a></li>
-                                            <li><a href="{{ path('mails_contact_show_all') }}">Contacts</a></li>
-                                            <li><a href="{{ path('mails_user_show_all') }}">Utilisateurs</a></li>
+                                            {% if app.user.company != null %}
+                                                <li><a href="{{ path('mails_user_mailsent') }}">Courriers envoyés</a></li>
+                                                <li><a href="{{ path('mails_user_mailreceived') }}">Courriers reçus</a></li>
+                                                <li><a href="{{ path('mails_contact_show_all') }}">Contacts</a></li>
+                                                <li><a href="{{ path('mails_user_show_all') }}">Utilisateurs</a></li>
+                                            {% endif %}
+                                            {% if app.user and is_granted('ROLE_ADMIN') %}
+                                                <li class="dropdown-submenu">
+                                                    <a data-toggle="dropdown" tabindex="-1" href="#"></span>Entreprise</a>
+                                                {% if app.user.company == null %}
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="{{ path('mails_core_company') }}"></span>Enregistrement</a></li>
+                                                    </ul>
+                                                {% else %}
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="{{ path('mails_core_company_infos') }}"></span>Informations</a></li>
+                                                    </ul>
+                                                {% endif %}
+                                                </li>
+                                            {% endif %}
                                         </ul>
                                     </li>
                             {% elseif app.user and is_granted('ROLE_SECRETAIRE') %}{#Si l'utilisteur est authentifié en tant que sécrétaire#}
@@ -62,7 +116,7 @@
                             {% endif %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Welcome, <b><i>{{ app.user.username | title }}</i></b> <b class="caret"></b></a>
+                                <span class="glyphicon glyphicon-user"></span> Welcome, <strong>{{ app.user.username | title }}</strong> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('fos_user_security_logout') }}">Log out</a></li>
                                 </ul>
@@ -85,13 +139,15 @@
             {% block body %}{% endblock %}
         </div>
         <footer class="footer">
-            <strong>Mails</strong> est construit avec PHP, Symfony, Twig, Doctrine et Bootstrap.
+            <strong>MyMail</strong> est construit avec PHP, Symfony, Twig, Doctrine et Bootstrap.
         </footer>
     </div>
     
     <!-- jQuery -->
-    <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
+    {#<script type="text/javascript" src="{{ asset('lib/jquery/jquery-3.1.1.js') }}"></script>#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- JavaScript Boostrap plugin -->
-    <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+    {#<script type="text/javascript" src="{{ asset('lib/bootstrap/js/bootstrap.js') }}"></script>#}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

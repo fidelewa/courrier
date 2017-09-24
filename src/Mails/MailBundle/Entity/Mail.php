@@ -48,7 +48,7 @@ class Mail
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=10)
+     * @ORM\Column(name="reference", type="string", length=10, unique=true)
      *
      */
     private $reference;
@@ -109,6 +109,7 @@ class Mail
      *     type="integer",
      *     message="La valeur {{ value }} n'est pas un{{ type }} valide ."
      * )
+     * @Assert\Range(min=0, max=10, minMessage="Valeur trop petite", maxMessage="Valeur trop grande", invalidMessage="Valeur invalide")
      */
     private $nbDaysBefore;
 

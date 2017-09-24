@@ -2,13 +2,13 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block body %}
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
 
 <div class="well">
 
     {{ form_start(companyForm, {'method': 'post', 'action': path('mails_core_company'), 'attr': {'class': 'form-horizontal'}}) }}
     <div class="form-group">
-        {{ form_label(companyForm.nom, "Nom de l'entreprise * :", { 'label_attr':  {
+        {{ form_label(companyForm.nom, "Nom de l'entreprise :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -21,7 +21,7 @@
 
     {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
-        {{ form_label(companyForm.secteurActivite, "Secteur d'activité * :", { 'label_attr':  {
+        {{ form_label(companyForm.secteurActivite, "Secteur d'activité :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -34,7 +34,7 @@
 
     {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
-        {{ form_label(companyForm.raisonSociale, "Raison sociale * :", { 'label_attr':  {
+        {{ form_label(companyForm.raisonSociale, "Raison sociale :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -47,7 +47,7 @@
 
     {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
-        {{ form_label(companyForm.siegeSocial, "Siège social * :", { 'label_attr':  {
+        {{ form_label(companyForm.siegeSocial, "Siège social :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -60,7 +60,7 @@
 
     {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
-        {{ form_label(companyForm.email, "Adresse e-mail * :", { 'label_attr':  {
+        {{ form_label(companyForm.email, "Adresse e-mail :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -73,7 +73,7 @@
 
     {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
-        {{ form_label(companyForm.telephone, "Numéro de téléphone * :", { 'label_attr':  {
+        {{ form_label(companyForm.telephone, "Numéro de téléphone :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
@@ -86,7 +86,7 @@
 
     {{ form_start(companyForm, {'attr': {'class': 'form-horizontal'} }) }}
     <div class="form-group">
-        {{ form_label(companyForm.directeur, "Nom du directeur * :", { 'label_attr':  {
+        {{ form_label(companyForm.directeur, "Nom du directeur :", { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">

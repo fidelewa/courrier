@@ -21,7 +21,6 @@ class AppKernel extends Kernel
             new Mails\UserBundle\UserBundle(),
             new Mails\ContactBundle\MailsContactBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Lsw\MemcacheBundle\LswMemcacheBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         );
 

@@ -4,7 +4,7 @@
 
 {% block mailsmail_body %}
 
-<h2 class="text-center">{{ block('title') }}</h2>
+<h1 class="text-center">{{ block('title') }}</h1>
   
 <div class="well">
     
@@ -46,11 +46,11 @@
     
 </div>
 
-<a href="{{ path('mails_core_home') }}"><u>Accueil</u></a>
+<a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
 
   <p class="text-center">
-    <b>Attention : ce courrier sera directement enregistré 
-    après validation du formulaire.</b>
+    <strong>Attention : ce courrier sera directement enregistré 
+    après validation du formulaire.</strong>
   </p>
 
 {% endblock %}

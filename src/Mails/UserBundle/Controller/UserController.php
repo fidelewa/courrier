@@ -14,6 +14,8 @@ class UserController extends Controller
 {
     /**
      * Displays a list of all users
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllUserAction()
     {
@@ -30,7 +32,11 @@ class UserController extends Controller
 
     /**
      * Displays a list of all mail sent by the responsible power
+     *
      * @param interger $page page number
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAllMailsentCurrentUserAction($page, Request $request)
     {
@@ -68,7 +74,11 @@ class UserController extends Controller
 
     /**
      * Displays a list of all mail received by the responsible power
+     *
      * @param interger $page page number
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAllMailreceivedCurrentUserAction($page, Request $request)
     {
@@ -110,6 +120,8 @@ class UserController extends Controller
      *
      * @param integer $id User id
      * @param Request $request Incoming request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteUserAction($id, Request $request)
     {
@@ -163,6 +175,8 @@ class UserController extends Controller
      * Displays all the mails of the specified user.
      *
      * @param integer $id User id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllMailOfUserAction($id)
     {

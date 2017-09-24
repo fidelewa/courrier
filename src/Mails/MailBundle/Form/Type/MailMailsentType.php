@@ -27,6 +27,7 @@ class MailMailsentType extends AbstractType
             ->add('nombrePiecesJointes', TextType::class)
             ->add('mailsent', MailSentType::class, array('adminCompany' => $options['adminCompany']))
             ->add('save', SubmitType::class)
+            //->add('Enregistrer', SubmitType::class)
             
         ;
         

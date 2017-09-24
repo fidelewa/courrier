@@ -5,7 +5,7 @@ doctrine:
     
     dbal:
         host:     localhost
-        dbname:   testcourrier
+        dbname:   courriersf3
         user:     "%database_user%"
         password: "%database_password%"
          
