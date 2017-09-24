@@ -1,0 +1,11 @@
+﻿h2, h3, input {
+    color: #472EA1;
+}
+
+svg {
+    fill: #472EA1;
+}
+
+nav, section.newsletter, .btn, footer {
+    background-color: #472EA1;
+}

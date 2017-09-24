@@ -1,0 +1,327 @@
+﻿$menu-width: 250px
+
+@media only screen and (max-width: 1360px)
+
+    div.sticky-wrapper
+        nav
+            .container
+                width: 100%
+                .image
+                    margin-left: 1em
+                .content
+                    width: auto
+                    float: right
+                    padding: 0
+                    ul
+                        -ms-transform: translateX($menu-width) /* IE 9 */
+                        -webkit-transform: translateX($menu-width) /* Chrome, Safari, Opera */
+                        transform: translateX($menu-width)
+                        background-color: darken($generalColor, 5)
+                        position: absolute
+                        top: 0
+                        right: 0
+                        width: 250px
+                        height: 1500px
+                        z-index: 999
+                        li
+                            margin: 0 auto
+                            display: block
+                            width: 200px
+                            float: none
+                            border-bottom: 1px solid $generalColor
+                            margin-top: 0.5em
+                            padding-bottom: 0.5em
+                        li:last-child
+                            margin-right: auto
+                    .menu-button
+                        top: 1em
+                        right: 0
+                        position: absolute
+                        display: block
+                        -moz-transition: all 0.3s ease-in-out
+                        -ms-transition: all 0.3s ease-in-out
+                        -o-transition: all 0.3s ease-in-out
+                        -webkit-transition: all 0.3s ease-in-out
+                        transition: all 0.3s ease-in-out
+
+    body.sidebar
+        overflow: hidden
+        .cache
+            width: 100%
+            height: 100%
+            z-index: 11
+            top: 0
+            left: 0
+            position: fixed
+            background-color: rgba(0, 0, 0, 0.6)
+        nav
+            .container
+                .content
+                    ul
+                        -ms-transform: translateX(0px)
+                        -webkit-transform: translateX(0px)
+                        transform: translateX(0px)
+                        -moz-transition: all 0.3s ease-in-out
+                        -ms-transition: all 0.3s ease-in-out
+                        -o-transition: all 0.3s ease-in-out
+                        -webkit-transition: all 0.3s ease-in-out
+                        transition: all 0.3s ease-in-out
+                    .menu-button
+                        margin-right: 14em
+                        -moz-transition: all 0.3s ease-in-out
+                        -ms-transition: all 0.3s ease-in-out
+                        -o-transition: all 0.3s ease-in-out
+                        -webkit-transition: all 0.3s ease-in-out
+                        transition: all 0.3s ease-in-out
+
+
+@media only screen and (max-width: 1200px)
+
+    section
+        padding: 3em
+        padding-top: 100px
+        .container
+            width: 100%
+
+    section.header
+        img
+            display: none
+        .logo
+            margin: 0 auto
+        .slogan
+            text-align: center
+            line-height: normal
+            width: auto
+        .subtitle
+            text-align: center
+            line-height: normal
+        div.secondTransition
+            .btn
+                text-align: center
+        .buttons
+            margin: 0 auto
+            display: table
+
+    section.content_with_pictures_1, section.content_with_pictures_2
+        .container
+            .col-sm-6, .col-md-6, .col-lg-6
+                width: 100%
+                svg, img
+                    margin: 0
+                    margin-right: 5%
+                svg
+                    height: 100px
+                .firstPicture, .secondPicture
+                    margin: 0
+                    top: 0
+                    float: left
+    section.content_with_pictures_2
+        .container
+            .col-sm-6, .col-md-6, .col-lg-6
+                svg
+                    margin-left: 5%
+                    margin-right: 0
+            .col-sm-6.col-md-6.col-lg-6.imagesTelephones
+                float: right
+                width: auto
+
+    section.content_middle_picture
+        col-sm-4, .col-md-4, .col-lg-4
+            width: 100%
+        ul	
+            margin-top: 5em
+        img
+            position: relative
+            margin-top: 5em
+            top: 0
+
+@media only screen and (max-width: 1000px)
+    section.pricing_table
+        .container
+            .col-sm-4, .col-md-4, .col-lg-4
+                svg
+                    margin: 0 auto
+                    display: block
+                    float: none
+                li
+                    margin-top: 5em
+                    p
+                        line-height: normal
+                        margin-left: 2em
+                        margin-right: 2em
+                a.btn
+                    width: 65%
+
+    footer
+        p
+            text-align: center
+        ul
+            li
+                display: block
+                margin-right: 0
+                margin-bottom: 3em
+
+@media only screen and (max-width: 850px)
+
+    section.header
+        .btn
+            width: 13em
+            margin-top: 2em
+            display: block
+
+    section.pricing_table
+        .container
+            .col-sm-4, .col-md-4, .col-lg-4
+                a.btn
+                    width: 70%
+
+    section.content_with_pictures_2, section.content_with_pictures_1
+        padding-right: 0
+        padding-left: 0
+        .container
+            .transitionFadeInLeft.secondTransition
+                width: 100%
+            .imagesTelephones
+                height: 490px
+            .col-sm-6, .col-md-6, .col-lg-6
+                .firstPicture
+                    width: 24em
+                .secondPicture
+                    width: 24em
+                ul
+                    li
+                        svg
+                            height: 60px
+                            margin: 0
+                            width: 100%
+                            display: block
+                            margin-bottom: 1.5em
+                        p
+                            height: auto
+                            margin: 0
+                            width: 100%
+                            display: block
+                            text-align: center
+                            margin-bottom: 3em
+
+    section.pricing_table
+        ul.table1, ul.table2, ul.table3
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"
+            filter: alpha(opacity=100)
+            -moz-opacity: 1
+            -khtml-opacity: 1
+            opacity: 1
+
+
+@media only screen and (max-width: 510px)
+
+    section
+        padding: 0
+        padding-top: 100px
+        padding-bottom: 100px
+
+    section.header
+        .slogan
+            width: 100%
+            font-size: 2em
+        .btn
+            width: 13em
+            margin-top: 2em
+            display: block
+    nav
+        #menu-button
+            svg
+                margin: 0
+                width: 100%
+                float: right
+                display: block
+            p
+                display: none
+
+    section.content_with_pictures_2, section.content_with_pictures_1
+        .container
+            .col-sm-6, .col-md-6, .col-lg-6
+                .firstPicture
+                    width: 20em
+                .secondPicture
+                    width: 20.2em
+
+
+    section.content_middle_picture
+        .container
+            .col-sm-4, .col-md-4, .col-lg-4
+                #telephoneMilieu
+                    width: 12em
+
+    section.newsletter
+        .newsletter-form
+            width: 20.5em
+
+    footer
+        p
+            margin: 0
+            text-align: center
+            font-size: 0.7em
+
+@media only screen and (max-width: 400px)
+
+    section.items
+        padding-top: 0
+
+    section.header
+        padding: 0
+        padding-top: 2.5em
+        padding-bottom: 2.5em
+        .slogan
+            width: 100%
+            font-size: 2em
+        .btn
+            font-size: 1em
+            width: 12em
+            margin-top: 2em
+            display: block
+
+    section.content_with_pictures_1
+        .container
+            .imagesTelephones
+                padding: 0
+                right: 3em
+
+    section.content_with_pictures_2
+        .container
+            .imagesTelephones
+                padding: 0
+                left: 1.5em
+
+
+@media only screen and (max-width: 480px)
+
+    section
+        background-attachment: scroll
+
+    section.header
+        .btn
+            width: auto
+
+    nav
+        .logo
+            display: none
+
+    body.sidebar
+        nav
+            #menu-button
+                margin-right: 7em !important
+            .content
+                ul
+                    width: 150px !important
+                    li
+                        width: 100px !important
+
+    section.newsletter
+        .newsletter-form
+            font-size: 1em
+            width: 13em
+            #email
+                width: 6em
+            #submit
+                width: 6em
