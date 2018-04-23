@@ -1,3 +1,5 @@
+php_version: 5
+
 php_ini: |
     extension=mysql.so
     extension=pdo_mysql.so
