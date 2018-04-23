@@ -1,3 +1,7 @@
+php_ini: |
+    extension=mysql.so
+    extension=pdo_mysql.so
+
 pre_composer_script: |
     #!/bin/bash
 
@@ -13,6 +17,7 @@ post_composer_script: |
     # Do what you need to configure your project
     php app/console doctrine:database:create --no-interaction
     php app/console doctrine:schema:create --no-interaction
+    php app/console doctrine:schema:update --force
 
 global_exclude_dirs:
     - vendor
