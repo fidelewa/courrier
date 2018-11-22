@@ -26,9 +26,9 @@ class MailMailsentType extends AbstractType
             ->add('dateEdition', DateTimeType::class)//apparait pour la date d'enregistrement du courrier
             ->add('nombrePiecesJointes', TextType::class)
             ->add('mailsent', MailSentType::class, array('adminCompany' => $options['adminCompany']))
-            ->add('save', SubmitType::class)
-            //->add('Enregistrer', SubmitType::class)
-            
+            //->add('save', SubmitType::class)
+            ->add('valider', SubmitType::class)
+             
         ;
         
         // On ajoute une fonction qui va écouter l'évènement PRE_SET_DATA

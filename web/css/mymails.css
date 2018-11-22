@@ -1,7 +1,10 @@
 /*Permet d'ajuster la position du contenu de l'application*/
 body { 
     padding-top: 50px; 
+    background-attachment: fixed;
+    background-repeat: no-repeat
 }
+
 
 /*Permet d'appiquer du style au pied de page*/
 .footer {
@@ -32,7 +35,7 @@ a[title]:visited{
 
 /*Permet de mettre un espace blanc entre toutes les lignes du tableau d'information sur les courriers*/
 .table-view td{
-    border:2px white solid;
+    border:1px white solid;
 }
 
 /*Permet d'ajuster la position du contenu de l'application*/
@@ -42,7 +45,43 @@ a[title]:visited{
 
 /*Permet d'ajouter une astérique de couleur rouge à droite des labels des champs obligatoires*/
 label.required::after{
-    content: '* ';
+    content: ' *';
     float : right;
     color: red;
 }
+
+.dropdown-submenu{position:relative;}
+.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+.dropdown-submenu:hover>.dropdown-menu{display:block;}/*Fait sortir le sous-menu au passage du curseur*/
+.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}/*Fait sortir le triangle*/
+/* .dropdown-submenu.pull-left{float:none;} */
+/* .dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;} #} */
+.souligne{text-decoration: underline;}
+.detail{color: gray}
+.taille_label{font-size: 1em;}
+.taille_infos{font-size: medium;}
+mark{background: #FFFF00;}
+a[title]:visited{color: white;}
+h1{font-size: 2.5em;background-color:#DBDBDB;clear:both;}
+.resize{width:60%}
+.clear{clear : both; visibility: hidden}
+.encadrer{border: 3px gray outset;border-radius: 10px;}
+/* .encadrer_subtitle{border: 3px gray intset;border-radius: 10px;} */
+.encadrer_section{border: 3px gray double;border-radius: 10px;}
+a:active /* Quand le visiteur clique sur le lien */{background-color: #FFCC66;}
+.flexbox{
+    /* border: 3px fuchsia solid; */
+    display:flex; 
+    flex-direction:column;
+    justify-content:space-between;
+    max-height:620px;
+    min-height:620px;
+    /* align-items: stretch; */
+    }
+.bordure_content{flex:1}
+/* .bordure_content{border: 3px blue solid;flex:1;} */
+/* .bordure_footer{border: 3px lime solid;}*/
+.left_space{margin-left:2px}
+.right_space{margin-right:2px}
+/* #new_table td, #new_table th{border:1px solid black;text-align:center} */
+

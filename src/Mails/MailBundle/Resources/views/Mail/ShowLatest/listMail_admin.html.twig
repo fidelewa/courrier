@@ -1,14 +1,16 @@
 {# On affiche tous les messages flash dont le nom est « success » #}
 {% for message in app.session.flashbag.get('success') %}
-    <div class="alert alert-success">Message flash : {{ message }}</div>
+    <div class="alert alert-success"> {{ message }}</div>
 {% endfor %}
 
-  <h2>Courriers envoyés non validés</h2>
+<div style="display:flex;justify-content:center;">
+<section style="flex:1;margin-right:10px;">
+  <h2 style="text-align:center">Courriers envoyés non validés</h2>
 
     {% if listMailsentNotValidated %}
     <div class="alert alert-info">Vous avez un ou plusieurs courriers envoyés à valider</div>
     
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked encadrer_section">
         {% for mailsentNotValidated in listMailsentNotValidated %}
             <p>
                 <a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mailsentNotValidated.id}) }}">
@@ -21,19 +23,21 @@
                  </mark>
             </p>
          {% endfor %}  
-         
-         <a class="souligne" href="{{ path('mails_mail_mailsent') }}">Voir plus</a>
      </ul>   
+     <p>
+        <a class="souligne" href="{{ path('mails_mail_mailsent') }}">Voir plus</a>
+     </p>
      {% else %}
         <div class="alert alert-warning">Vous n'avez aucun courrier envoyé à valider</div>
      {% endif %}
-  
-  <h2>Courriers reçus non validés</h2>
+</section>
+<section style="flex:1;">
+  <h2 style="text-align:center">Courriers reçus non validés</h2>
 
      {% if listMailreceivedNotValidated %}
      <div class="alert alert-info">Vous avez un ou plusieurs courriers reçus à valider</div>
      
-     <ul class="nav nav-pills nav-stacked">
+     <ul class="nav nav-pills nav-stacked encadrer_section">
         {% for mailreceivedNotValidated in listMailreceivedNotValidated %}
             <p>
                 <a class="souligne" href="{{ path('mails_mailreceived_detail', {'id': mailreceivedNotValidated.id}) }}">
@@ -46,8 +50,12 @@
                 </mark>
             </p>
         {% endfor %}
-        <a class="souligne" href="{{ path('mails_mail_mailreceived') }}">Voir plus</a>
-     </ul>   
+     </ul> 
+     <p>
+        <a class="souligne" href="{{ path('mails_mail_mailreceived') }}">Voir plus</a>  
+     </p>
      {% else %}
        <div class="alert alert-warning">Vous n'avez aucun courrier reçu à valider</div>
 {% endif %}
+</section>
+</div>

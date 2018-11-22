@@ -1,53 +1,69 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {#<link type="text/css" href="{{ asset('lib/bootstrap/css/bootstrap.css') }}" rel="stylesheet"></link>
-    <link type="text/css" href="{{ asset('lib/bootstrap/css/bootstrap-theme.css') }}" rel="stylesheet"></link>#}
-    <link type="text/css" href="{{ asset('css/mymails.css') }}" rel="stylesheet"></link> 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css" rel="stylesheet"> 
+    {% block stylesheets %}
+        {#<link type="text/css" href="{{ asset('lib/bootstrap/css/bootstrap.css') }}" rel="stylesheet"></link>
+        <link type="text/css" href="{{ asset('lib/bootstrap/css/bootstrap-theme.css') }}" rel="stylesheet"></link>#}
+        <link type="text/css" href="{{ asset('css/mymails.css') }}" rel="stylesheet"></link> 
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+         {# Toujours utiliser le format minifié du css bootstrap via les cdn #}
+    {% endblock %}
     <title>MyMail - {% block title %}{% endblock %}</title>
     <style>
 			.dropdown-submenu{position:relative;}
 			.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
 			.dropdown-submenu:hover>.dropdown-menu{display:block;}/*Fait sortir le sous-menu au passage du curseur*/
 			.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}/*Fait sortir le triangle*/
-			.dropdown-submenu.pull-left{float:none;}
-            .dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
-			.blue{color:#1D38FC}
-			.green{color:#0EC929}
-			.red{color:#FF0000}
-			.orange{color:#ffe100}
-
+			{# .dropdown-submenu.pull-left{float:none;} #}
+            {# .dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;} #}
+			
             .souligne{text-decoration: underline;}
             .detail{color: gray}
             .taille_label{font-size: 1em;}
             .taille_infos{font-size: medium;}
             mark{background: #FFFF00;}
             a[title]:visited{color: white;}
-            h1{font-size: 2.5em;}
-            .espace{word-spacing: 10px;}
-            
+            h1{font-size: 2.5em;background-color:#DBDBDB;clear:both;}
+            .resize{width:60%}
+            .clear{clear : both; visibility: hidden}
+            .encadrer{border: 3px gray outset;border-radius: 10px;}
+            {# .encadrer_subtitle{border: 3px gray intset;border-radius: 10px;} #}
+            {# .encadrer_section{border: 3px gray double;border-radius: 10px;} #}
+            a:active /* Quand le visiteur clique sur le lien */{background-color: #FFCC66;}
+            .flexbox{
+                {# border: 3px fuchsia solid;  #}
+                display:flex; 
+                flex-direction:column;
+                justify-content:space-between;
+                max-height:620px;
+                min-height:620px;
+                {# align-items: stretch; #}
+                }
+            .bordure_content{flex:1}
+            {# .bordure_content{border: 3px blue solid;flex:1;} #}
+            {# .bordure_footer{border: 3px lime solid;} #}
+            .left_space{margin-left:2px}
+            .right_space{margin-right:2px}
+            {# #new_table td, #new_table th{border:1px solid black;text-align:center} #}
+
 	</style>
 
 </head>
 <body>
-    <div class="container">
+    <div class="container flexbox">
         <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
-            
+             <header>
                 <div class="navbar-header">
-                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>-->
                     <a class="navbar-brand" href="{{ path('mails_core_home') }}">MyMail</a>
                 </div>
-                <div class="collapse navbar-collapse" id="navbar-collapse-target">
+             </header>
+            <div class="collapse navbar-collapse" id="navbar-collapse-target">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ path('mails_core_contact') }}"><span class="glyphicon glyphicon-envelope"></span> Nous contacter</a></li>
                         {#Si l'utilisteur est authentifié #}
@@ -131,23 +147,28 @@
                             </li>
                         {% endif %}
                     </ul>
-                </div>
+                {# <div class="menu-button" id="menu-button"><img class="icone responsive-menu" src="images/icons/responsive-menu.svg" alt="Icone menu" /> <p>Menu</p></div> #}
+            </div>
             </div><!-- /.container -->
         </nav>
-        <div id="content">
+        <div id="content" class="bordure_content">
             {#{{ include("MailsCoreBundle:Home:arborescence.html.twig") }}#}
+            {{ include("MailsCoreBundle:Home:connexion.html.twig") }}
             {% block body %}{% endblock %}
         </div>
-        <footer class="footer">
-            <strong>MyMail</strong> est construit avec PHP, Symfony, Twig, Doctrine et Bootstrap.
+        <footer class="footer bordure_footer">
+            <p><strong>MyMail</strong> est construit avec PHP, Symfony, Twig, Doctrine et Bootstrap. 
+            Copyright <em>Fiderlet</em> - Tous droits réservés</p>
         </footer>
     </div>
     
-    <!-- jQuery -->
-    {#<script type="text/javascript" src="{{ asset('lib/jquery/jquery-3.1.1.js') }}"></script>#}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- JavaScript Boostrap plugin -->
-    {#<script type="text/javascript" src="{{ asset('lib/bootstrap/js/bootstrap.js') }}"></script>#}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% block javascripts %}
+       <!-- jQuery -->
+        {#<script type="text/javascript" src="{{ asset('lib/jquery/jquery-3.1.1.js') }}"></script>#}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <!-- JavaScript Boostrap plugin -->
+        {#<script type="text/javascript" src="{{ asset('lib/bootstrap/js/bootstrap.js') }}"></script>#}
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% endblock %}
 </body>
 </html>

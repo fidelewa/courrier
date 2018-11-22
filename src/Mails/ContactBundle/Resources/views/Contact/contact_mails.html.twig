@@ -2,13 +2,13 @@
 {% block title %}Liste des courriers du contact <strong>{{ actor.name | title }}</strong>{% endblock %}
 {% block mailsmail_body %}
 
-<h2 class="text-center">Synthèse contact</h2>
+<h1 class="text-center encadrer">Synthèse contact</h1>
 <div class="well">
     <ul>
         <li>Nom : {{actor.name}}</li>
     </ul>
 </div>
-<h1 class="text-center">{{ block('title') }}</h1>
+<h1 class="text-center encadrer">{{ block('title') }}</h1>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">{{ flashMessage }}</div>
 {% endfor %}

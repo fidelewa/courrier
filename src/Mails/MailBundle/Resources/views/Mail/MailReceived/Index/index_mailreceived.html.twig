@@ -2,19 +2,21 @@
 {% block title %}Accueil{% endblock %}
 {% block mailsmail_body %}
 
-{% if app.user and is_granted('ROLE_ADMIN') %}
+ <h1 class="text-center encadrer">Liste de tous les courriers reçus</h1>
+
+ {% if app.user and is_granted('ROLE_ADMIN') %}
   {#{% if nombreTotalPages > 4 %}#}
-  <div>
-    <a class="souligne" href="{{ path('mails_mailreceived_filter') }}">Filtrer la liste</a>
-    &nbsp;|&nbsp;
-    <a class="souligne" href="{{ path('mails_all_mailreceived_filter') }}">Filtrer toute la liste</a>
-  </div>
+  <p style="float:right;">
+    <a class="souligne right_space" href="{{ path('mails_mailreceived_filter') }}">Filtrer la liste</a>
+    |
+    <a class="souligne left_space" href="{{ path('mails_all_mailreceived_filter') }}">Filtrer toute la liste</a>
+  </p>
   {#{% endif %}#}
 {% endif %}
 
- <h2>Liste de tous les courriers reçus</h2>
-
+ <div style="clear:both;">
   {{ include("@mailreceived_index_views/bl_index_mailreceived.html.twig") }}
+ </div>
 
      <ul class="pagination">
       {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
@@ -25,4 +27,3 @@
       {% endfor %}
      </ul>
 {% endblock %}
-

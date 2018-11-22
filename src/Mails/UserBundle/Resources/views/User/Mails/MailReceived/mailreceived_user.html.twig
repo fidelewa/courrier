@@ -1,9 +1,17 @@
 {% if allMailreceivedByUser %}
-   <a class="souligne" href="{{ path('mails_mailreceived_filter_user', {'id': user.id}) }}">Filtrer les courriers reçus par <em>{{ user.username }}</em></a>
+<p>
+   <a class="souligne" href="{{ path('mails_mailreceived_filter_user', {'id': user.id}) }}">
+   Filtrer les courriers reçus par <em>{{ user.username }}</em>
+   </a>
+</p>
         <div class="table-responsive">
             {{ include('@user_mailreceived_views/table_mailreceived_user.html.twig') }}
         </div>
 {% else %}
   <div class="alert alert-warning">Aucun courrier n'a été reçu par <em>{{ user.username }}</em>.</div>
 {% endif %} 
-{% if app.user and is_granted('ROLE_ADMIN') %}<a class="souligne" href="{{ path('mails_mailreceived_add') }}">Créer un nouveau courrier reçu</a>{% endif %}
+{% if app.user and is_granted('ROLE_ADMIN') %}
+<p>
+<a class="souligne" href="{{ path('mails_mailreceived_add') }}">Créer un nouveau courrier reçu</a>
+</p>
+{% endif %}

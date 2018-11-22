@@ -6,7 +6,7 @@
 
 {% block mailsmail_body %}
  
-<h1 class="text-center">Rappel critères de filtrage</h1>
+<h1 class="text-center encadrer">Rappel des critères de filtrage</h1>
 <div class="well">
     <ul>
         <li>Nom de l'expéditeur : {{ app.user.username }} </li>
@@ -21,10 +21,10 @@
     {% if allMailsentFilter %}
     <div class="alert alert-success">La liste ci-dessous correspond au résultat de la recherche !</div>
         {% for mail in allMailsentFilter %}
-            <article>
+            
                 <h2><a class="mailObjet" href="{{ path('mails_mailsent_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
                 <p>Date d'envoi : <em>le {{ mail.mailsent.dateEnvoi|date('d/m/Y à H:i:s') }}</em></p>
-            </article>
+            
          {% endfor %}   
      {% else %}
         <div class="alert alert-warning">Aucune donnée ne correspond à cette recherche !</div>

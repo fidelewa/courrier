@@ -1,8 +1,8 @@
-{% extends "MailsCoreBundle::layout.html.twig" %}
+{% extends "::layout.html.twig" %}
 {% block title %}{{title}}{% endblock %}
 
 {% block body %}
-  <h1 class="text-center">{{ block('title') }}</h1>
+  <h1 class="text-center encadrer">{{ block('title') }}</h1>
 
   {% for flashMessage in app.session.flashbag.get('success') %}
     <div class="alert alert-success">{{ flashMessage }}</div>

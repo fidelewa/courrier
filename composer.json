@@ -9,7 +9,7 @@
     },
     "require": {
         "php": ">=5.3.9",
-        "symfony/symfony": "3.3.*",
+        "symfony/symfony": "3.4",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
         "symfony/assetic-bundle": "~2.3",
@@ -25,7 +25,6 @@
         "coresphere/console-bundle": "^0.4.0",
         "sonata-project/admin-bundle": "^3.9",
         "sonata-project/doctrine-orm-admin-bundle": "^3.1",
-        "phpunit/phpunit": "4.8.*",
         "twig/twig": "^1.0||^2.0",
         "twbs/bootstrap": "^3.3"
         
@@ -55,7 +54,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.5.12"
+            "php": "7.1.9"
         }
     },
     "extra": {

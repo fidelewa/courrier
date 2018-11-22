@@ -1,9 +1,9 @@
 {% if mails %}
   {% for mail in mails %}
-        <article>
+        
             <h2><a class="souligne" href="{{ path('mails_mailsent_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
             <p>Date d'envoi : <em>le {{ mail.mailsent.dateEnvoi|date('d/m/Y à H:i:s') }}</em></p>
-        </article>
+        
     {% endfor %}   
 {% else %}
         <div class="alert alert-warning">Vous n'avez aucun courrier envoyé à enregistrer</div>

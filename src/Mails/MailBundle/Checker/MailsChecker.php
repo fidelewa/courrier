@@ -30,12 +30,12 @@ class MailsChecker extends \Twig_Extension
     }
 
     // Twig va exécuter cette méthode pour savoir quelle(s) fonction(s) ajoute notre service
-    public function getFunctions()
-    {
-        return array(
-          'checkRef' => new \Twig_Function_Method($this, 'checkReference')
-        );
-    }
+    // public function getFunctions()
+    // {
+    //     return array(
+    //       'checkRef' => new \Twig_Function_Method($this, 'checkReference')
+    //     );
+    // }
 
   // La méthode getName() identifie votre extension Twig, elle est obligatoire
     public function getName()

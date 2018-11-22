@@ -37,7 +37,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:
-        - 'bootstrap_3_layout.html.twig'
+        # - 'bootstrap_3_layout.html.twig'
         #- 'bootstrap_3_horizontal_layout.html.twig'
     paths:
         '%kernel.root_dir%/../src/Mails/UserBundle/Resources/views/User/Show': show_users_views
@@ -68,8 +68,8 @@ twig:
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
-    bundles:        [ ]
+    use_controller: "%kernel.debug%"
+    bundles:        [MailsCoreBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -122,7 +122,7 @@ fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    Mails\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
-    from_email:    
+    from_email:         
         address:        "%mailer_user%"
         sender_name:    webmaster
     registration:

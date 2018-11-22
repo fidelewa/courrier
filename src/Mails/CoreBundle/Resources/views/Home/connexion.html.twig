@@ -1,7 +1,9 @@
-<div class="navbar-right">
+<div style="float:right;">
   {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-      Connecté en tant que <strong>{{ app.user.username | title }}</strong> - <a class="souligne" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+     <p>Connecté en tant que <strong>{{ app.user.username | title }}</strong> - <a class="souligne" href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
   {% else %}
-     <a class="souligne" href="{{ path('fos_user_security_login') }}">Connexion</a>
+    <p>
+      <a class="souligne" href="{{ path('fos_user_security_login') }}">Connexion</a>
+    </p>
   {% endif %}
 </div>

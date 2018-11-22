@@ -1,19 +1,18 @@
-{% extends "MailsCoreBundle::layout.html.twig" %}
+{% extends "::layout.html.twig" %}
 {% block title %}Accueil{% endblock %}
 {% block body %}
-    {{ include("MailsCoreBundle:Home:connexion.html.twig") }}
+    {# {{ include("MailsCoreBundle:Home:connexion.html.twig") }} #}
     
     {# On affiche tous les messages flash dont le nom est « info » #}
     {% for message in app.session.flashbag.get('info') %}
-        <div class="alert alert-info">Message flash : {{ message }}</div>
+        <div class="alert alert-info"> {{ message }}</div>
     {% endfor %}
 
     {# On affiche tous les messages flash dont le nom est « warning » #}
     {% for message in app.session.flashbag.get('danger') %}
-        <div class="alert alert-danger">Message flash : {{ message }}</div>
+        <div class="alert alert-danger"> {{ message }}</div>
     {% endfor %}
     
-    <h1>Liste des derniers courriers ajoutés par votre entreprise</h1>
-    <hr>
+    <h1 class="text-center encadrer">Liste des derniers courriers ajoutés par votre entreprise</h1>
         {{ render(controller("MailsMailBundle:Mail:showLatestMail", {'idCompany': app.user.company})) }}
 {% endblock %}

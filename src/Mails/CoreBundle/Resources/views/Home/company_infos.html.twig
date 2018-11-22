@@ -1,9 +1,35 @@
-<div class="company_infos_show">
-      <p>Nom de l'entreprise: {{ company.nom }}</p>
-      <p>Secteur d'activité: {{ company.secteurActivite }}</p>
-      <p>Raison sociale: {{ company.raisonSociale }}</p>
-      <p>Siège social: {{ company.siegeSocial }}</p>
-      <p>Adresse e-mail: {{ company.email }}</p>
-      <p>Numéro de téléphone: {{ company.telephone }}</p>
-      <p>Nom du directeur: {{ company.directeur }}</p>
-</div>
+<table width=60%  class="table-view" style="margin:auto;margin-top:25px">
+	<thead align="right" bgcolor="#A9A9A9">
+		<tr> 
+			<th colspan="2">Informations concernant l'entreprise</th>
+		</tr>
+	</thead>
+		<tr>
+			<td align="right" bgcolor="#DEDEDE" width=40%><span class="right_space">Nom de l'entreprise</span></td>
+			<td align="left" bgcolor="#EBEBEB" width=60%><strong class="left_space">{{ company.nom }}</strong></td>
+		</tr>
+		<tr>
+			<td align="right" bgcolor="#DEDEDE" width=40%><span class="right_space">Secteur d'activité</span></td>
+			<td align="left" bgcolor="#EBEBEB" width=60%><strong class="left_space">{{ company.secteurActivite }}</strong></td>
+		</tr>
+		<tr>
+			<td align="right" bgcolor="#DEDEDE" width=40%><span class="right_space">Raison sociale</span></td>
+			<td align="left" bgcolor="#EBEBEB" width=60%><strong class="left_space">{{ company.raisonSociale }}</strong></td>
+		</tr>
+		<tr>
+			<td align="right" bgcolor="#DEDEDE" width=40%><span class="right_space">Siège social</span></td>
+			<td align="left" bgcolor="#EBEBEB" width=60%><strong class="left_space">{{ company.siegeSocial }}</strong></td>
+		</tr>
+		<tr>
+			<td align="right" bgcolor="#DEDEDE" width=40%><span class="right_space">Adresse e-mail</span></td>
+			<td align="left" bgcolor="#EBEBEB" width=60%><strong class="left_space">{{ company.email }}</strong></td>
+		</tr>
+		<tr>
+			<td align="right" bgcolor="#DEDEDE" width=40%><span class="right_space">Numéro de téléphone</span></td>
+			<td align="left" bgcolor="#EBEBEB" width=60%><strong class="left_space">{{ company.telephone }}</strong></td>
+		</tr>
+		<tr>
+			<td align="right" bgcolor="#DEDEDE" width=40%><span class="right_space">Nom du directeur</span></td>
+			<td align="left" bgcolor="#EBEBEB" width=60%><strong class="left_space">{{ company.directeur }}</strong></td>
+		</tr>
+</table>

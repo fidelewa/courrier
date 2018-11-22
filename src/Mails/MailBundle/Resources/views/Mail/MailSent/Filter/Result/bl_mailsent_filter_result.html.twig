@@ -9,5 +9,7 @@
 {% endif %}
        
 {% if app.user and is_granted('ROLE_ADMIN') %}
+<p>
     <a class="souligne" href="{{ path('mails_mailsent_add') }}">Créer un nouveau courrier envoyé</a>
+</p>
 {% endif %}

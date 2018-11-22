@@ -4,26 +4,26 @@
           {% if mail.registred == true and mail.validated != true %}
 
             {% if mail.mailsent.user == app.user %}
-              <a class="souligne" href="{{ path('mails_mailsent_validation', {'id': mail.id}) }}">Valider le courrier</a>&nbsp;|&nbsp;
+              <a class="souligne right_space" href="{{ path('mails_mailsent_validation', {'id': mail.id}) }}">Valider le courrier</a>|
             {% endif %}
             
           {% endif %}
-          <a class="souligne" href="{{ path('mails_mailsent_add') }}">Ajouter</a>&nbsp;|&nbsp;
+          <a class="souligne right_space" href="{{ path('mails_mailsent_add') }}">Ajouter</a>|
 
           {% if mail.mailsent.user == app.user %}
-            <a class="souligne" href="{{ path('mails_mailsent_edit', {'id': mail.id}) }}">Modifier</a>&nbsp;|&nbsp;
-            <a class="souligne" href="{{ path('mails_mailsent_delete', { 'id': mail.id }) }}">Supprimer</a>&nbsp;|&nbsp;
+            <a class="souligne right_space" href="{{ path('mails_mailsent_edit', {'id': mail.id}) }}">Modifier</a>|
+            <a class="souligne right_space" href="{{ path('mails_mailsent_delete', { 'id': mail.id }) }}">Supprimer</a>|
           {% endif %}
 
         {% endif %}
 
         {% if app.user and is_granted('ROLE_SECRETAIRE') %}
           {% if mail.registred != true %}
-            <a class="souligne" href="{{ path('mails_mailsent_registration', {'id': mail.id}) }}">Enregistrer le courrier</a>&nbsp;|&nbsp;
+            <a class="souligne" href="{{ path('mails_mailsent_registration', {'id': mail.id}) }}">Enregistrer le courrier</a>|
           {% endif %}
         {% endif %}
                           
-        {% if app.user and is_granted('ROLE_ADMIN') %}<a class="souligne" href="{{ path('mails_user_mailsent') }}">Retour</a>&nbsp;|&nbsp;{% endif %}
-        <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>&nbsp;&nbsp;
+        {% if app.user and is_granted('ROLE_ADMIN') %}<a class="souligne right_space" href="{{ path('mails_user_mailsent') }}">Retour</a>|{% endif %}
+        <a class="souligne right_space" href="{{ path('mails_core_home') }}">Accueil</a>
       </td>
 </tr>

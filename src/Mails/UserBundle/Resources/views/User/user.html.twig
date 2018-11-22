@@ -2,9 +2,9 @@
 {% block title %}Utilisateurs de l'entreprise{% endblock %}
 {% block mailsadmin_body %}
 
-<h1 class="text-center">{{ block('title') }}</h1>
+<h1 class="text-center encadrer">{{ block('title') }}</h1>
 {% for flashMessage in app.session.flashbag.get('success') %}
-<div class="alert alert-success">Message flash : {{ flashMessage }}</div>
+<div class="alert alert-success"> {{ flashMessage }}</div>
 {% endfor %}
 
 <div class="tab-pane fade in active adminTable" id="users">
@@ -13,6 +13,8 @@
         {% else %}
         <div class="alert alert-warning">No users found.</div>
     {% endif %}
+    <p>
         <a class="souligne" href="{{ path('fos_user_registration_register') }}">Créer un nouvel utilisateur</a>
+    </p>
 </div>
 {% endblock %}

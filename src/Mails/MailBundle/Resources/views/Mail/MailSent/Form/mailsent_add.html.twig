@@ -1,110 +1,116 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
 
-{% block title %}
-  Créer un nouveau courrier envoyé 
-{% endblock %}
+{% block title %}Créer un nouveau courrier envoyé {% endblock %}
 
 {% block mailsmail_body %}
 
-<h1 class="text-center">{{ block('title') }}</h1>
+<h1 class="text-center encadrer">{{ block('title') }}</h1>
 
-<div class="well">
+<div class="well" style="height:29em;">
     
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
     
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(form) }}
-   
-    
-    <div class="form-group">
-        {{ form_label(form.mailsent.actor, "Nom du destinataire :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.mailsent.actor) }}
-            {{ form_widget(form.mailsent.actor, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nom du destinataire recherché'}}
-            ) }}
-        </div>
-    </div>
-    
-    <div class="form-group">
-        {{ form_label(form.mailsent.user, "Nom de la sécrétaire :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.mailsent.user) }}
-            {{ form_widget(form.mailsent.user, {'attr': {'class': 'form-control', 'placeholder' : "Entrer le nom de la sécrétaire qui doit enregistrer le courrier"}}
-            ) }}
-        </div>
-    </div>
-    
-    <div class="form-group">
-        {{ form_label(form.mailsent.dateEnvoi, "Date d'envoi :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.mailsent.dateEnvoi) }}
-            {{ form_widget(form.mailsent.dateEnvoi, {'attr': {'class': 'form-control', 'placeholder' : "Entrer le nom de la sécrétaire qui doit enregistrer le courrier"}}
-            ) }}
-        </div>
-    </div>
+        <p>
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(form) }}
+            
+            <div class="form-group">
+                {{ form_label(form.mailsent.actor, "Nom du destinataire :", { 'label_attr':  {'class': 'col-sm-4 control-label',
+                'label': 'actor'
+                }}) }}
+            
+                <div class="col-sm-6">
+                    {{ form_errors(form.mailsent.actor) }}
+                    {{ form_widget(form.mailsent.actor, {'attr': {'class': 'form-control', 'placeholder' : 'Entrer le nom du destinataire recherché',
+                    'name': 'actor','id': 'actor'
+                    }}
+                    ) }}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                {{ form_label(form.mailsent.user, "Nom de la sécrétaire :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+            
+                <div class="col-sm-6">
+                    {{ form_errors(form.mailsent.user) }}
+                    {{ form_widget(form.mailsent.user, {'attr': {'class': 'form-control', 'placeholder' : "Entrer le nom de la sécrétaire qui doit enregistrer le courrier"}}
+                    ) }}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                {{ form_label(form.mailsent.dateEnvoi, "Date d'envoi :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+            
+                <div class="col-sm-6">
+                    {{ form_errors(form.mailsent.dateEnvoi) }}
+                    {{ form_widget(form.mailsent.dateEnvoi, {'attr': {'class': 'form-control', 'placeholder' : "Entrer le nom de la sécrétaire qui doit enregistrer le courrier"}}
+                    ) }}
+                </div>
+            </div>
 
-    <div class="form-group">
-        {{ form_label(form.reference, "Référence :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-        <div class="col-sm-6">
-            {{ form_errors(form.reference) }}
-            {{ form_widget(form.reference, {'attr': {'class': 
-            'form-control',
-            'placeholder':'Entrer la référence du courrier envoyé, par exemple : CDEP0001, CDEP0002 etc...',
-            }}
-            ) }}
-        </div>
-    </div>
+            <div class="form-group">
+                {{ form_label(form.reference, "Référence :", { 'label_attr':  {'class': 'col-sm-4 control-label','label': 'reference'}}) }}
+                <div class="col-sm-6">
+                    {{ form_errors(form.reference) }}
+                    {{ form_widget(form.reference, {'attr': 
+                    {'name':'reference',
+                    'id':'reference',
+                    'placeholder':'Entrer la référence du courrier envoyé, par exemple : CDEP0001, CDEP0002 etc...',
+                    'class': 'form-control', 'autofocus':'autofocus'
+                    }
+                    }
+                    ) }}
+                </div>
+            </div>
 
-    <div class="form-group">
-        {{ form_label(form.objet, "Objet :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.objet) }}
-            {{ form_widget(form.objet, { 'attr':  {'class': 'form-control','placeholder':'Entrer l\'objet du courrier envoyé'}}) }}
-        </div>
-    </div>
-    
+            <div class="form-group">
+                {{ form_label(form.objet, "Objet :", { 'label_attr':  {'class': 'col-sm-4 control-label','label':'objet'}}) }}
+            
+                <div class="col-sm-6">
+                    {{ form_errors(form.objet) }}
+                    {{ form_widget(form.objet, { 'attr':  {'class': 'form-control','placeholder':'Entrer l\'objet du courrier envoyé',
+                    'id':'objet','name':'objet'}}) }}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes :", { 'label_attr':  {'class': 'col-sm-4 control-label','label':'nb_pj'}}) }}
+            
+                <div class="col-sm-6">
+                    {{ form_errors(form.nombrePiecesJointes) }}
+                    {{ form_widget(form.nombrePiecesJointes, { 'attr':  {'class': 'form-control','placeholder':'Entrer le nombre de pièces jointes au courrier envoyé',
+                    'id':'nb_pj','name':'nb_pj'}}) }}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label','label':'received'}}) }}
 
-    <div class="form-group">
-        {{ form_label(form.nombrePiecesJointes, "Nombre de pièces jointes :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.nombrePiecesJointes) }}
-            {{ form_widget(form.nombrePiecesJointes, { 'attr':  {'class': 'form-control','placeholder':'Entrer le nombre de pièces jointes au courrier envoyé'}}) }}
-        </div>
-    </div>
-    
-    <div class="form-group">
-        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+                <div class="checkbox">
+                {{ form_errors(form.received) }}
+                {{ form_widget(form.received, { 'attr':  {'class': 'form-control','name':'received','id':'received'}}) }}
+                </div>
 
-        <div class="checkbox">
-          {{ form_errors(form.received) }}
-          {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
-        </div>
-
-    </div>
-    
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-3">
-            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
-        </div>
-    </div>
-    {# Génération automatique des champs pas encore écrits.
-     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-     et tous les champs cachés (type « hidden »). #}
-    {{ form_rest(form) }}
+            </div>
+            
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-3">
+                    {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+                </div>
+            </div>
+            {# Génération automatique des champs pas encore écrits.
+            Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+            et tous les champs cachés (type « hidden »). #}
+            {{ form_rest(form) }}
+        </p>
     
     {{ form_end(form) }}
+
 </div>
 
-<a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
+<p><a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a></p>
 
-  <p class="text-center">
-    Attention : ce courrier sera ajoutée directement
-    sur la page d'accueil après validation du formulaire.
-  </p>
+<p class="text-center"><strong>Attention : ce courrier sera ajoutée directement
+sur la page d'accueil après validation du formulaire.</strong></p>
 
 {% endblock %}

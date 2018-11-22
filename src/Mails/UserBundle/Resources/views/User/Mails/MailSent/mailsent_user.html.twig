@@ -1,9 +1,17 @@
 {% if allMailsentByUser %}
-    <a class="souligne" href="{{ path('mails_mailsent_filter_user', {'id': user.id}) }}">Filtrer les courriers envoyés par <strong>{{ user.username | title }}</strong></a>
+<p>
+    <a class="souligne" href="{{ path('mails_mailsent_filter_user', {'id': user.id}) }}">
+    Filtrer les courriers envoyés par <em>{{ user.username | title }}</em>
+    </a>
+</p>
        <div class="table-responsive">
             {{ include('@user_mailsent_views/table_mailsent_user.html.twig') }}
         </div>
 {% else %}
     <div class="alert alert-warning">Aucun courrier n'a été envoyé par cet utilisateur.</div>
 {% endif %}
-{% if app.user and is_granted('ROLE_ADMIN') %}<a class="souligne" href="{{ path('mails_mailsent_add') }}">Créer un nouveau courrier envoyé</a>{% endif %}
+{% if app.user and is_granted('ROLE_ADMIN') %}
+<p>
+<a class="souligne" href="{{ path('mails_mailsent_add') }}">Créer un nouveau courrier envoyé</a>
+</p>
+{% endif %}

@@ -2,31 +2,48 @@
 {% block title "Contact" %}
 {% block contact_body %}
 
-    <h1>Contactez-nous</h1>
+    <h1 class="text-center encadrer">Contactez-nous</h1>
     <div class="well">
         {{ form_start(contact, {'attr': {'class': 'form-horizontal'}}) }}
             {# Les erreurs générales du formulaire. #}
             {{ form_errors(contact) }}
-            <div class="form-group">
-                <div class="col-sm-6">
-                    {{ form_errors(contact.email) }}
-                    {{ form_widget(contact.email, { 'attr':{'placeholder': 'Email' }}) }}
+
+            <p>
+
+                <div class="form-group">
+                    {{ form_label(contact.email, "Adresse e-mail :", { 'label_attr':  {'class': 'col-sm-4 control-label','label':'email'}}) }}
+                    <div class="col-sm-6">
+                        {{ form_errors(contact.email) }}
+                        {{ form_widget(contact.email, { 'attr':{'placeholder': 'Adresse e-mail', 'class': 'form-control',
+                        'autofocus':'autofocus' }}) }}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    {{ form_errors(contact.subject) }}
-                    {{ form_widget(contact.subject, { 'attr':{'placeholder': 'Sujet' }}) }}
+
+                <div class="form-group">
+                    {{ form_label(contact.subject, "Objet :", { 'label_attr':  {'class': 'col-sm-4 control-label','label':'subject'}}) }}
+                    <div class="col-sm-6">
+                        {{ form_errors(contact.subject) }}
+                        {{ form_widget(contact.subject, { 'attr':{'placeholder': 'Objet du message', 'class': 'form-control' }}) }}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    {{ form_errors(contact.content) }}
-                    {{ form_widget(contact.content, { 'attr':{'placeholder': 'Contenu'}}) }}
+
+                <div class="form-group">
+                {{ form_label(contact.content, "Contenu :", { 'label_attr':  {'class': 'col-sm-4 control-label','label':'content'}}) }}
+                    <div class="col-sm-6">
+                        {{ form_errors(contact.content) }}
+                        {{ form_widget(contact.content, { 'attr':{'placeholder': 'Message', 'class': 'form-control', 
+                        'id':'content','name':'content', 'rows':10, 'cols':5 }}) }}
+                    </div>
                 </div>
-            </div>
-            <input type="submit" value="Envoyez"/>
-            {{ form_rest(contact) }}
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-3">
+                        {{ form_widget(contact.envoyer, {'attr': {'class': 'btn btn-primary'}}) }}
+                    </div>
+                </div>
+
+            </p>
+        {{ form_rest(contact) }}
         {{ form_end(contact) }}
     </div>
 {% endblock %}

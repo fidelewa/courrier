@@ -1,66 +1,71 @@
 {% extends "MailsMailBundle::layout.html.twig" %}
 
-{% block title %}
-  Enregistrement du courrier reçu 
-{% endblock %}
+{% block title %}Enregistrement du courrier reçu{% endblock %}
 
 {% block mailsmail_body %}
 
-<h1 class="text-center">{{ block('title') }}</h1>
+<h1 class="text-center encadrer">{{ block('title') }}</h1>
 
 <div class="well">
     
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
     
     {# Les erreurs générales du formulaire. #}
-    {{ form_errors(form) }}
+        {{ form_errors(form) }}
 
-    <div class="form-group">
-        {{ form_label(form.dateEdition, "Date d'enregistrement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.dateEdition) }}
-            {{ form_widget(form.dateEdition, { 'attr':  {'class': 'form-control'}}) }}
+    <p>
+
+        <div class="form-group">
+            {{ form_label(form.dateEdition, "Date d'enregistrement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        
+            <div class="col-sm-6">
+                {{ form_errors(form.dateEdition) }}
+                {{ form_widget(form.dateEdition, { 'attr':  {'class': 'form-control'}}) }}
+            </div>
         </div>
-    </div>
-   
-    {% if form.received is defined %}
-    <div class="form-group">
-        {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-1">
-            {{ form_errors(form.received) }}
-            {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
-        </div>
-    </div>
-    {% endif %}
     
-    {% if form.treated is defined %}
-    <div class="form-group">
-        {{ form_label(form.treated, "Traitement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-1">
-            {{ form_errors(form.treated) }}
-            {{ form_widget(form.treated, { 'attr':  {'class': 'form-control'}}) }}
+        {% if form.received is defined %}
+        <div class="form-group">
+            {{ form_label(form.received, "Réception :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        
+            <div class="col-sm-1">
+                {{ form_errors(form.received) }}
+                {{ form_widget(form.received, { 'attr':  {'class': 'form-control'}}) }}
+            </div>
         </div>
-    </div>
-    {% endif %}
-    
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-3">
-            {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+        {% endif %}
+        
+        {% if form.treated is defined %}
+        <div class="form-group">
+            {{ form_label(form.treated, "Traitement :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        
+            <div class="col-sm-1">
+                {{ form_errors(form.treated) }}
+                {{ form_widget(form.treated, { 'attr':  {'class': 'form-control'}}) }}
+            </div>
         </div>
-    </div>
-    {# Génération automatique des champs pas encore écrits.
-     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-     et tous les champs cachés (type « hidden »). #}
-    {{ form_rest(form) }}
+        {% endif %}
+        
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-3">
+                {{ form_widget(form.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+        </div>
+        {# Génération automatique des champs pas encore écrits.
+        Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+        et tous les champs cachés (type « hidden »). #}
+
+    </p>
+
+        {{ form_rest(form) }}
     
     {{ form_end(form) }}
     
 </div>
 
+<p>
 <a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
+</p>
 
 <p class="text-center">
     <strong>Attention : ce courrier reçu sera directement enregistré 

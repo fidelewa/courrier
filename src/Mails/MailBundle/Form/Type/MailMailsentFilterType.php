@@ -19,7 +19,7 @@ class MailMailsentFilterType extends AbstractType
         ->remove('mailsent', MailSentType::class, array('adminCompany' => $options['adminCompany']))
         ->remove('dateEdition', 'datetime')
         ->add('nbDaysBefore', IntegerType::class)
-        ->remove('save', 'submit')
+        ->remove('valider', 'submit')
         ->add('rechercher', SubmitType::class)
         ;
     }

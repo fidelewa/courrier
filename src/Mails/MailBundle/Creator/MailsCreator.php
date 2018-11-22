@@ -22,8 +22,10 @@ class MailsCreator
     
     public function processCreateMailReceived(Form $form, MailReceived $mailreceived, User $user)
     {
-        //On défini notre courrier et on récupère la sécrétaire qui a enregistré le courrier reçu
+        //On récupère les données saisies via le formulaire concernant notre courrier
         $this->courier = $form->getData();
+        
+        //On récupère la sécrétaire qui a enregistré le courrier reçu
         $secretary = $this->courier->getMailreceived()->getUser();
             
        //On récupère l'expéditeur du courrier reçu

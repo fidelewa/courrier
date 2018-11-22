@@ -1,6 +1,6 @@
 {% if mails %}
     {% for mail in mails %}
-      <article>
+      
             <h2><a class="souligne" href="{{ path('mails_mailreceived_detail', {'id': mail.id}) }}">{{ mail.objet }}</a></h2>
             <p>Date de reception : <em>le {{ mail.mailreceived.dateReception|date('d/m/Y à H:i:s') }}</em></p>
                 {% if app.user and is_granted('ROLE_ADMIN') %}
@@ -17,7 +17,7 @@
                     </a>
                 </mark>
                 {% endif %}
-        </article>
+        
       {% endfor %}   
 {% else %}
     <div class="alert alert-warning">Vous n'avez aucun courrier reçu à enregistrer</div>

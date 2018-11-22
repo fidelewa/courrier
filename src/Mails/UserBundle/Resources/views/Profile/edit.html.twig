@@ -2,12 +2,10 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block title %}
-  Modifier le profil
-{% endblock %}
+{% block title %}Modifier le profil{% endblock %}
 
 {% block fos_user_content %}
-<h1 class="text-center">{{ block('title') }}</h1>
+<h1 class="text-center encadrer">{{ block('title') }}</h1>
 <div class="well">
 
 {#<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">#}
@@ -15,60 +13,66 @@
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_profile_edit'), 'attr': {'class': 'form-horizontal'}}) }}
     
     {{ form_errors(form) }}
-    
-    <div class="form-group">
-        {{ form_label(form.username, "Nom d'utilisateur :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.username) }}
-            {{ form_widget(form.username, { 'attr':  {
-            'class': 'form-control',
-            'placeholder' : 'Entrer un nom d\'utilisateur'
-            }}) }}
-        </div>
-    </div>
 
-    <div class="form-group">
-        {{ form_label(form.email, "Adresse e-mail :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.email) }}
-            {{ form_widget(form.email, { 'attr':  {
-            'class': 'form-control',
-            'placeholder' : 'Entrer une adresse e-mail'
-            }}) }}
-        </div>
-    </div>
+    <p>
     
-    <div class="form-group">
-        {{ form_label(form.current_password, "Mot de passe actuel :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
-      
-        <div class="col-sm-6">
-            {{ form_errors(form.current_password) }}
-            {{ form_widget(form.current_password, { 'attr':  {
-            'class': 'form-control',
-            'placeholder' : 'Entrer le mot de passe actuel pour valider les modifications'
-            }}) }}
+        <div class="form-group">
+            {{ form_label(form.username, "Nom d'utilisateur :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        
+            <div class="col-sm-6">
+                {{ form_errors(form.username) }}
+                {{ form_widget(form.username, { 'attr':  {
+                'class': 'form-control',
+                'placeholder' : 'Entrer un nom d\'utilisateur',
+                'autofocus':'autofocus'
+                }}) }}
+            </div>
         </div>
-    </div>
-    
-    
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-3">
-            <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+
+        <div class="form-group">
+            {{ form_label(form.email, "Adresse e-mail :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        
+            <div class="col-sm-6">
+                {{ form_errors(form.email) }}
+                {{ form_widget(form.email, { 'attr':  {
+                'class': 'form-control',
+                'placeholder' : 'Entrer une adresse e-mail'
+                }}) }}
+            </div>
         </div>
-    </div>
+        
+        <div class="form-group">
+            {{ form_label(form.current_password, "Mot de passe actuel :", { 'label_attr':  {'class': 'col-sm-4 control-label'}}) }}
+        
+            <div class="col-sm-6">
+                {{ form_errors(form.current_password) }}
+                {{ form_widget(form.current_password, { 'attr':  {
+                'class': 'form-control',
+                'placeholder' : 'Entrer le mot de passe actuel pour valider les modifications'
+                }}) }}
+            </div>
+        </div>
+        
+        
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-3">
+                <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+            </div>
+        </div>
+
+    </p>
 
     {{ form_rest(form) }}
-    </form>
+{{ form_end(form) }}
+{# </form> #}
+
 </div>
 
 {% if is_granted('ROLE_ADMIN') %}
-<a class="souligne" href="{{ path('mails_user_show_all') }}">Retour au tableau de bord</a>
-&nbsp;|&nbsp;
+    <a class="souligne right_space" href="{{ path('mails_user_show_all') }}">Retour au tableau de bord</a>|
 {% endif %}
 {% if is_granted('ROLE_USER') %}
-<a class="souligne" href="{{ path('mails_core_home') }}">Accueil</a>
+    <a class="souligne left_space" href="{{ path('mails_core_home') }}">Accueil</a>
 {% endif %}
 
 {% endblock fos_user_content %}

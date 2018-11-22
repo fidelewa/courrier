@@ -2,14 +2,14 @@
 {% block title %}Liste des courriers de l'utilisateur <strong>{{ user.username | title }}</strong> {% endblock %}
 {% block mailsmail_body %}
 
-<h2 class="text-center">Synthèse utilisateur</h2>
+<h1 class="text-center encadrer">Synthèse utilisateur</h1>
 <div class="well">
     <ul>
         <li>Nom : {{user.username}}</li>
         <li>Adresse e-mail : {{user.email}}</li>
     </ul>
 </div>
-<h1 class="text-center">{{ block('title') }}</h1>
+<h1 class="text-center encadrer">{{ block('title') }}</h1>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">{{ flashMessage }}</div>
 {% endfor %}

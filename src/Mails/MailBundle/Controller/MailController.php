@@ -13,7 +13,7 @@ class MailController extends Controller
 {
 
     /**
-     * Displays the list of index of mails sent by user profil
+     * Displays the list of index of mails sent by user profil/Affiche la liste des index des mails envoyés par profil d'utilisateur
      *
      * @param Integer $page page number
      * @param Request $request
@@ -32,11 +32,11 @@ class MailController extends Controller
         // On récupère notre service index user role manager
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
-        // Process
+        // Traitement
         $listMailsentUserManager = $listMailUserManager
                                 ->manageListMailsent($page, $request, $this->getUser()->getCompany());
 
-        // result
+        // Résultat
         return $listMailsentUserManager;
     }
 
@@ -61,10 +61,10 @@ class MailController extends Controller
         // On récupère notre service index user role manager
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
-        // Process
+        // Traitement
         $listMailreceivedUserManager = $listMailUserManager
                                     ->manageListMailreceived($page, $request, $this->getUser()->getCompany());
-        // result
+        // Résultat
         return $listMailreceivedUserManager;
     }
 
@@ -89,11 +89,11 @@ class MailController extends Controller
         // On récupère notre service index user role manager
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
-        // Process
+        // Traitement
         $listMailsentUserManager = $listMailUserManager
         ->manageListMailsentByUserRole($page, $this->getUser(), $request);
 
-        // result
+        // Résultat
         return $listMailsentUserManager;
     }
 
@@ -117,11 +117,11 @@ class MailController extends Controller
         // On récupère notre service index user role manager
         $listMailUserManager = $this->get('mails_mail.list_mail_user_manager');
 
-        // Process
+        // Traitement
         $listMailreceivedUserManager = $listMailUserManager
         ->manageListMailreceivedByUserRole($page, $this->getUser(), $request);
 
-        // result
+        // Résultat
         return $listMailreceivedUserManager;
     }
 
