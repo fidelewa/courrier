@@ -1,10 +1,17 @@
+php_version: 5
+
+php_ini: |
+    extension=mysql.so
+    extension=pdo_mysql.so
+
 pre_composer_script: |
     #!/bin/bash
 
     # Do what you need to setup your project
     cp app/config/parameters.yml.dist app/config/parameters.yml
     sed -i -e "s/database_user:.*/database_user: fiderlet/" app/config/parameters.yml
-    sed -i -e "s/database_password:.*/database_password: kingston/" app/config/parameters.yml  
+    sed -i -e "s/database_password:.*/database_password: kingston/" app/config/parameters.yml
+    sed -i -e "s/mailer_user:.*/mailer_user: fiderlet07@gmail.com/" app/config/parameters.yml
 
 post_composer_script: |
     #!/bin/bash
@@ -12,6 +19,7 @@ post_composer_script: |
     # Do what you need to configure your project
     php app/console doctrine:database:create --no-interaction
     php app/console doctrine:schema:create --no-interaction
+    php app/console doctrine:schema:update --force
 
 global_exclude_dirs:
     - vendor
