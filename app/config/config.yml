@@ -123,7 +123,7 @@ fos_user:
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    Mails\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
     from_email:         
-        address: "%mailer_user%"
+        address: fiderlet07@gmail.com
         sender_name: webmaster
     registration:
         form:
