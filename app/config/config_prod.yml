@@ -1,4 +1,5 @@
 imports:
+    - { resource: parameters.yml }
     - { resource: config.yml }
 
 #framework:
@@ -7,11 +8,26 @@ imports:
 #    serializer:
 #        cache: serializer.mapping.cache.apc
 
-#doctrine:
-#    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+doctrine:
+    orm:
+        metadata_cache_driver: memcache
+        result_cache_driver: memcache
+        query_cache_driver: memcache
+
+    dbal:
+        default_connection:   default
+
+        connections:
+            # A collection of different named connections (e.g. default, conn2, etc)
+            default:
+                dbname:               "%database_name%"
+                host:                 "%database_host%"
+                port:                 "%database_port%"
+                user:                 "%database_user%"
+                password:             "%database_password%"
+                charset:              UTF8
+                driver:               pdo_mysql
+                server_version:       5.6
 
 monolog:
     handlers:
