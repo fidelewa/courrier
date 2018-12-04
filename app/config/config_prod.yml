@@ -10,9 +10,9 @@ imports:
 
 doctrine:
     orm:
-        metadata_cache_driver: memcache
-        result_cache_driver: memcache
-        query_cache_driver: memcache
+        metadata_cache_driver: apcu
+        result_cache_driver: apcu
+        query_cache_driver: apcu
 
     dbal:
         default_connection:   default
