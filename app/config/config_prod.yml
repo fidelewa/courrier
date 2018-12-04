@@ -1,6 +1,8 @@
 imports:
-    - { resource: parameters.yml }
     - { resource: config.yml }
+
+parameters:
+    env(DATABASE_URL): 'pdo-mysql://root@127.0.0.1:3306/courriersf3'
 
 #framework:
 #    validation:
@@ -15,19 +17,13 @@ doctrine:
         query_cache_driver: apcu
 
     dbal:
-        default_connection:   default
+        # configure these for your database server
+        driver: 'pdo_mysql'
+        server_version: '5.7'
+        charset: utf8mb4
 
-        connections:
-            # A collection of different named connections (e.g. default, conn2, etc)
-            default:
-                dbname:               "%database_name%"
-                host:                 "%database_host%"
-                port:                 "%database_port%"
-                user:                 "%database_user%"
-                password:             "%database_password%"
-                charset:              UTF8
-                driver:               pdo_mysql
-                server_version:       5.6
+        # With Symfony 3.3, remove the `resolve:` prefix
+        url: '%env(DATABASE_URL)%'
 
 monolog:
     handlers:
