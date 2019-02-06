@@ -1,2 +1,2 @@
 # courrier
-MyMails est une application web de gestion des courriers envoyés et reçus.
+MyMails est une application web de gestion des courriers physiques envoyés et reçus.
